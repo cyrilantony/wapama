@@ -1,0 +1,6 @@
+=Wapama website
+Wapama is a graphical HTML5 web editor specialized in BPMN 2.0 and flow charts.
+
+This is the website of Wapama.
+
+Feedback and forking is welcome.

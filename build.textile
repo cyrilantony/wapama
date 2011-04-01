@@ -1,0 +1,8 @@
+---
+layout: index
+title: Wapama - Build
+---
+
+h3. "CI builds":http://hudson.intalio.org/job/Process_Designer_Release_Build/
+
+h3. "Release builds":http://hudson.intalio.org/job/Process_Designer_Release_Build/

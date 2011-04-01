@@ -1,0 +1,260 @@
+/*************************************
+ +Containers
+ *************************************/
+body {
+        border-top:5px solid white;
+        color:#555;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: x-small;
+        font-weight:normal;
+        line-height:1.5;
+        margin:0;
+        padding:0;
+        text-align:center;
+}
+#wrap {
+        margin:0;
+        text-align:left;
+        width:1024px;
+        font-size: 120%;
+        margin-left: -25%;
+        padding-left: 50%;
+}
+#top {
+    margin: 0;
+    padding: 0;
+}
+#bottom {
+    width:100%;
+    padding-top: 450px;
+    margin: 0;
+}
+#image {
+        background-color:#fff;
+        font-size:1.2em;
+        float:left;
+        padding:1em 25px 1em 25px;
+}
+#menu{
+        font-size:1.1em;
+        float:left;
+        padding: 1em 25px 1em 25px;
+}
+
+#header{
+        clear: both;
+        background-color:#fff;
+        padding: 25px;
+        text-align: center;
+        font-size: 120%;
+}
+#footer{
+        background-color:#fff;
+        color:#888;
+        clear:both;
+        font-size:0.9em;
+        padding:1em 2em 1em 2em;
+        text-align: center;
+}
+/*************************************
+ +Hn and p
+ *************************************/
+h1, h2, h3{
+        font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+        font-weight:normal;
+        letter-spacing: -1px;
+        margin:0;
+}
+#header h1{
+        font-family: Helvetica, Arial, sans-serif;
+        font-size:3em;
+        font-weight:normal;
+        margin:0;
+        margin-right:1em;
+}
+#header h1 a{
+        font-weight:normal;
+}
+#header h1 a:hover{
+        font-weight:normal;
+        outline: none;
+}
+
+#header p{
+        color:#aaa;
+        font-size:1.1em;
+        margin:0;
+        margin-top:-0.5em;
+}
+
+#about {
+       font-size:0.8em;
+}
+#about a:hover {
+       outline: none;
+}
+#about h3 {
+       font-weight: bold;
+}
+
+h2.entrytitle {
+        font-size:2.2em;
+        color:#764E43;
+}
+h2.entrytitle a, h2.entrytitle
+{
+        font-weight:normal;
+        color:#764E43;
+}
+h2.entrytitle a:hover {
+        font-weight:normal;
+        text-decoration: underline;
+}
+h3.entrytitle {
+        font-size:1.8em;
+        color:#6F6F6F;
+}
+
+
+
+/*************************************
+ +Lists
+ *************************************/
+ul {
+        margin:0;
+        padding:0 0 0 15px;
+}
+#sidebar ul li{
+        margin-bottom:0.1em;
+        padding:0.2em;
+}
+
+
+/*************************************
+ +Misc
+ *************************************/
+a{
+    color:#5f7faf;
+    text-decoration:none;
+    font-weight: normal;
+}
+a:hover:link {
+    text-decoration:none;
+    border-bottom:1px dotted #255c93; 
+}
+h1 a:hover:link {
+    text-decoration:none;
+    border-bottom:none; 
+}
+a:hover {
+    text-decoration:dotted;
+    color:#255c93;
+}
+a:visited {
+    color:#255c93;
+}
+
+.floatright {
+        float: right;
+        margin:-2px 0 0 5px;
+}
+
+pre {
+        font-size: 0.9em;
+}
+
+.CodeRay {
+  font-family: 'Courier New', 'Terminal', monospace;
+  font-size: 0.9em;
+}
+.CodeRay pre { margin: 0px; }
+
+div.CodeRay { }
+
+span.CodeRay { white-space: pre; border: 0px; padding: 2px; }
+
+table.CodeRay { border-collapse: collapse; width: 100%; padding: 2px; background-color:#C6D1C3; }
+table.CodeRay td { padding: 2px 4px; vertical-align: top; }
+
+.CodeRay .line_numbers, .CodeRay .no {
+  color: gray;
+  text-align: right;
+  background-color:#4E514B;
+}
+.CodeRay .line_numbers tt { font-weight: bold; }
+.CodeRay .no { padding: 0px 4px; }
+.CodeRay .code { width: 100%; }
+
+ol.CodeRay { font-size: 10pt; }
+ol.CodeRay li { white-space: pre; }
+
+.CodeRay .code pre { overflow: auto; }
+
+
+.af { color:#00C; }
+.an { color:#007; }
+.av { color:#700; }
+.aw { color:#C00; }
+.bi { color:#509; font-weight:bold; }
+.c  { color:#666; }
+
+.ch { color:#88F; }
+.ch .k { color:#04D; }
+.ch .dl { color:#039; }
+
+.cl { color:#c7c; font-weight:bold; }
+.co { color:#4BA; font-weight:bold; }
+.cr { color:#0A0; }
+.cv { color:#ccf; }
+.df { color:#099; font-weight:bold; }
+.di { color:#088; font-weight:bold; }
+.dl { color:black; }
+.do { color:#970; }
+.ds { color:#D42; font-weight:bold; }
+.e  { color:#666; font-weight:bold; }
+.er { color:#F00; background-color:#FAA; }
+.ex { color:#F00; font-weight:bold; }
+.fl { color:#60E; font-weight:bold; }
+.fu { color:#4BA; font-weight:bold; }
+.gv { color:#f84; }
+.hx { color:#058; font-weight:bold; }
+.i  { color:#66f; font-weight:bold; }
+.ic { color:#B44; font-weight:bold; }
+.il { }
+.in { color:#B2B; font-weight:bold; }
+.iv { color:#aaf; }
+.la { color:#970; font-weight:bold; }
+.lv { color:#963; }
+.oc { color:#40E; font-weight:bold; }
+.on { color:#000; font-weight:bold; }
+.op { }
+.pc { color:#08f; font-weight:bold; }
+.pd { color:#369; font-weight:bold; }
+.pp { color:#579; }
+.pt { color:#66f; font-weight:bold; }
+.r  { color:#666; font-weight:bold; }
+
+.rx { background-color:#221133; }
+.rx .k { color:#f8f; }
+.rx .dl { color:#f0f; }
+.rx .mod { color:#f0b; }
+.rx .fu  { color:#404; font-weight: bold; }
+
+
+.s  .k { color:#F88; }
+.s  .dl { color:#f55; }
+
+.sh { background-color:#f0fff0; }
+.sh .k { color:#2B2; }
+.sh .dl { color:#161; }
+
+.sy { color:#C19A67; }
+.sy .k { color:#C19A67; }
+.sy .dl { color:#C19A67; }
+
+.ta { color:#070; }
+.tf { color:#070; font-weight:bold; }
+.ts { color:#D70; font-weight:bold; }
+.ty { color:#339; font-weight:bold; }
+.v  { color:#036; }
+.xt { color:#444; }

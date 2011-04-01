@@ -1,0 +1,7 @@
+---
+layout: index
+title: Wapama - Downloads
+---
+
+Maven 2 repository:
+http://www.intalio.org/public/maven2/com/intalio/bpms/web/designer/
