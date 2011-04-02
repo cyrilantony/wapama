@@ -13,20 +13,22 @@ body {
         text-align:center;
 }
 #wrap {
+    display:block;
+    height: 100%;
         margin:0;
         text-align:left;
         width:1024px;
         font-size: 120%;
         margin-left: -25%;
         padding-left: 50%;
+        margin-bottom: 60px;
 }
 #top {
     margin: 0;
-    padding: 0;
+    padding-bottom: 450px;
 }
 #bottom {
     width:100%;
-    padding-top: 450px;
     margin: 0;
 }
 #image {
@@ -44,17 +46,20 @@ body {
 #header{
         clear: both;
         background-color:#fff;
-        padding: 25px;
+        padding-top: 5px;
         text-align: center;
-        font-size: 120%;
+        font-size: 100%;
 }
+
 #footer{
+        clear: both;
         background-color:#fff;
-        color:#888;
-        clear:both;
-        font-size:0.9em;
-        padding:1em 2em 1em 2em;
         text-align: center;
+        font-size:0.9em;
+        width: 100%;
+        
+        bottom: 0;
+        display: block;
 }
 /*************************************
  +Hn and p
@@ -85,6 +90,27 @@ h1, h2, h3{
         font-size:1.1em;
         margin:0;
         margin-top:-0.5em;
+}
+
+.notice {
+    font-weight: bold; 
+    font-size: 120% ; 
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+    color: #252;
+}
+
+.announce {
+    font-size: 80% ; 
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+    color: #282;
+    float: right;
+}
+
+.announce a {
+    font-weight: bold; 
+    font-size: 80% ; 
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+    color: #282;
 }
 
 #about {
@@ -138,6 +164,23 @@ ul {
       -moz-box-shadow: 0 0 1em #888;
       -webkit-box-shadow: 0 0 1em #888;
 }
+.nicetable {
+    border-collapse:collapse;
+    /* shadow */
+      -moz-box-shadow: 0 0 1em #888;
+      -webkit-box-shadow: 0 0 1em #888;
+}
+.nicetable td {
+    padding: 5px;
+    padding-right: 20px;
+    border: 1px solid black;
+}
+.nicetable th {
+    background-color: #aaa;
+    padding: 5px;
+    padding-right: 20px;
+    border: 1px solid black;
+}
 a{
     color:#5f7faf;
     text-decoration:none;
@@ -157,6 +200,12 @@ a:hover {
 }
 a:visited {
     color:#255c93;
+}
+.announce a {
+    font-weight: normal; 
+    font-size: 100% ; 
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+    color: #282;
 }
 
 .floatright {

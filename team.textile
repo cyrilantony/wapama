@@ -2,3 +2,20 @@
 layout: index
 title: Wapama - Team
 ---
+
+h1. Committers
+
+table(nicetable).
+|_. Name|_. Company|_. Handle|
+|Antoine Toulme|Intalio|toulmean|
+|Johnny Song|Intalio|JohnnySong|
+|Ludwig Xu|Intalio|LudwigXu|
+|Ark Xu|Intalio|arkxu|
+|Tihomir Surdilovic|Red Hat|tsurdilo|
+
+<br/>
+
+h1. Contributors
+
+table(nicetable).
+|_. Name|_. Company|_. Handle|

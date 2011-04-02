@@ -5,4 +5,8 @@ title: Wapama - Build
 
 h3. "CI builds":http://hudson.intalio.org/job/Process_Designer_Release_Build/
 
+Our continuous build is triggered every 60 minutes and runs if changes are detected.
+
 h3. "Release builds":http://hudson.intalio.org/job/Process_Designer_Release_Build/
+
+Our release build runs on demand and creates the artifacts you can see in the "Build":build.html page.
