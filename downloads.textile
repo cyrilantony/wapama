@@ -3,5 +3,33 @@ layout: index
 title: Wapama - Downloads
 ---
 
-Maven 2 repository:
-http://www.intalio.org/public/maven2/com/intalio/bpms/web/designer/
+h1. Latest build
+
+The latest build contains our latest changes. It may be more unstable than our releases.
+
+"Latest build":http://www.wapama.net/latest.html
+
+h1. Releases
+
+No official releases yet!
+
+h1. Maven 2 repository:
+
+All releases are available on our Maven repository:
+http://www.intalio.org/public/maven2/
+
+* For poms:
+
+<pre>
+<dependency>
+  <groupId>com.intalio.bpms.web.designer</groupId>
+  <artifactId>designer</artifactId>
+  <version>1.0.0.088</version>
+</dependency>
+</pre>
+
+* Buildr:
+
+<code>
+com.intalio.bpms.web.designer:designer:jar:1.0.0.088
+</code>
