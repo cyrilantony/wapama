@@ -12,24 +12,12 @@ body {
         padding:0;
         text-align:center;
 }
-#wapama {
-    position: absolute;
-    top:30%;
-    width: 50%;
-    margin-left: 50%;
-    text-align: center;
-    font-size: 1000%;
-    z-index:-1;
-    /* for IE */
-    filter:alpha(opacity=40);
-    /* CSS3 standard */
-    opacity:0.4;
-}
+
 #wrap {
     height: 100%;
         margin:0;
         text-align:left;
-        width:1024px;
+        width:70%;
         font-size: 120%;
         margin-left: -25%;
         padding-left: 50%;
@@ -38,6 +26,18 @@ body {
 #top {
     margin: 0;
     padding-bottom: 450px;
+}
+#wapama {
+    font-weight:normal;
+    float: left;
+    alpha(opacity=40);
+    opacity: 0.4;
+    font-family: Georgia, "Times New Roman", Times, serif; 
+    font-size: 600%;
+    letter-spacing: -1px;
+    color:#5f7faf;
+    padding: 10px;
+    margin-left: 20px;
 }
 #bottom {
     width:100%;
