@@ -7,7 +7,7 @@ h1. Latest build
 
 The latest build contains our latest changes. It may be more unstable than our releases.
 
-"Latest build":http://www.wapama.net/latest.html
+"Latest build":http://www.wapama.net/latest.cgi
 
 h1. Releases
 
