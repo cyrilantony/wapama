@@ -2,34 +2,38 @@
  +Containers
  *************************************/
 body {
-        border-top:5px solid white;
         color:#555;
         font-family: Georgia, "Times New Roman", Times, serif;
         font-size: x-small;
         font-weight:normal;
         line-height:1.5;
-        margin:0;
+        margin:0 auto;
         padding:0;
-        text-align:center;
+        text-align:left;
+        width: 800px;
+        border-left: thin solid #eee;
+        border-right: thin solid #eee;
+        background-color: #eff0fe;
 }
 
 #wrap {
-    height: 100%;
-        margin:0;
-        text-align:left;
-        width:70%;
-        font-size: 120%;
-        margin-left: -25%;
-        padding-left: 50%;
-        margin-bottom: 60px;
+	height: 100%;
+	text-align:left;
+	font-size: 120%;
+      -moz-box-shadow: 0 0 1em #888;
+      -webkit-box-shadow: 0 0 1em #888;
+      background-color: white;
 }
 #top {
     margin: 0;
-    padding-bottom: 450px;
 }
+
+#content {
+	white-space: no-wrap;
+}
+
 #wapama {
     font-weight:normal;
-    float: left;
     alpha(opacity=40);
     opacity: 0.4;
     font-family: Georgia, "Times New Roman", Times, serif; 
@@ -41,17 +45,16 @@ body {
 }
 #bottom {
     width:100%;
-    margin: 0;
+    margin: 1em;
 }
 #image {
         background-color:#fff;
         font-size:1.2em;
-        float:left;
         padding:1em 25px 1em 25px;
 }
 #menu{
         font-size:1.1em;
-        float:left;
+        float:right;
         padding: 1em 25px 1em 25px;
 }
 
@@ -63,13 +66,14 @@ body {
 }
 
 #footer{
-        background-color:#fff;
-        text-align: center;
-        font-size:0.9em;
-        width: 100%;
-        
-        bottom: 0;
-        display: block;
+	position: relative;
+	background-color: white;
+	border-top: thin dashed #ddd;
+	text-align: center;
+	font-size:0.9em;
+	margin: 0 auto;        
+	bottom: 0;
+	display: block;
 }
 /*************************************
  +Hn and p
