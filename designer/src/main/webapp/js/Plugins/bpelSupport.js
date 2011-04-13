@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 	
-ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.BPELSupport = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	facade: undefined,
 
@@ -38,25 +38,25 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 		
 		this.facade = facade;
 
-		this.dialogSupport = new ORYX.Plugins.TransformationDownloadDialog();
+		this.dialogSupport = new WAPAMA.Plugins.TransformationDownloadDialog();
 
 	    this.facade.offer({
-			'name':ORYX.I18N.BPELSupport.exp,
+			'name':WAPAMA.I18N.BPELSupport.exp,
 			'functionality': this.exportProcess.bind(this),
-			'group': ORYX.I18N.BPELSupport.group,
-			'icon': ORYX.PATH + "images/bpel_export_icon.png",
-			'description': ORYX.I18N.BPELSupport.expDesc,
+			'group': WAPAMA.I18N.BPELSupport.group,
+			'icon': WAPAMA.PATH + "images/bpel_export_icon.png",
+			'description': WAPAMA.I18N.BPELSupport.expDesc,
 			'index': 0,
 			'minShape': 0,
 			'maxShape': 0
 		});
 			
         this.facade.offer({
-			'name':ORYX.I18N.BPELSupport.imp,
+			'name':WAPAMA.I18N.BPELSupport.imp,
 			'functionality': this.importProcess.bind(this),
-			'group': ORYX.I18N.BPELSupport.group,
-			'icon': ORYX.PATH + "images/bpel_import_icon.png",
-			'description': ORYX.I18N.BPELSupport.impDesc,
+			'group': WAPAMA.I18N.BPELSupport.group,
+			'icon': WAPAMA.PATH + "images/bpel_import_icon.png",
+			'description': WAPAMA.I18N.BPELSupport.impDesc,
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0
@@ -69,7 +69,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 	
 		// raise loading enable event
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE
         });
             
 		// asynchronously ...
@@ -80,7 +80,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 			
 			// raise loading disable event.
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
             });
 			
         }).bind(this), 10);
@@ -101,7 +101,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 			}
 			  
 			// Send the request to the server.
-			new Ajax.Request(ORYX.CONFIG.BPEL_EXPORT_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.BPEL_EXPORT_URL, {
 				method: 'POST',
 				asynchronous: false,
 				parameters: {
@@ -115,8 +115,8 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
                 	
 			
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 	 	}
     
 	},
@@ -134,7 +134,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 	 * @param {Object} result - the result of the transformation servlet (JSON)
 	 */
 	displayResult: function(result) {
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 
 		var resultString = '(' + result + ')';
 		
@@ -147,7 +147,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 		}
 		
 		if ((!resultObject.res) || (resultObject.res.length == 0)) {
-			this.dialogSupport.openMessageDialog(ORYX.I18N.TransformationDownloadDialog.error,ORYX.I18N.TransformationDownloadDialog.noResult);
+			this.dialogSupport.openMessageDialog(WAPAMA.I18N.TransformationDownloadDialog.error,WAPAMA.I18N.TransformationDownloadDialog.noResult);
 		} else if (resultObject.res[0].success == "false") {
 			this.dialogSupport.openErrorDialog(resultObject.res[0].content);
 		} else {
@@ -205,11 +205,11 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 		  	enctype : 		'multipart/form-data',
 		  	items : [
 		  	{
-		    	text : 		ORYX.I18N.BPELSupport.selectFile, 
+		    	text : 		WAPAMA.I18N.BPELSupport.selectFile, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 				xtype : 	'label'
 		  	},{
-		    	fieldLabel : 	ORYX.I18N.BPELSupport.file,
+		    	fieldLabel : 	WAPAMA.I18N.BPELSupport.file,
 		    	inputType : 	'file',
 				labelStyle :	'width:50px;',
 				itemCls :		'ext_specific_window_overflow'
@@ -227,7 +227,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 		  	enctype : 		'multipart/form-data',
 		  	items : [
 		  	{
-		    	text : 		ORYX.I18N.BPELSupport.content, 
+		    	text : 		WAPAMA.I18N.BPELSupport.content, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 				xtype : 	'label'
 		  	}, {
@@ -241,7 +241,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 		
 		var dialog = new Ext.Window({ 
 			autoCreate:     true, 
-			title: 		ORYX.I18N.BPELSupport.impPanel, 
+			title: 		WAPAMA.I18N.BPELSupport.impPanel, 
 			height: 	'auto', 
 			width: 		'auto', 
 			modal:		true,
@@ -253,11 +253,11 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 			items: [form, displayPanel],
 			buttons:[
 				{
-					text:ORYX.I18N.BPELSupport.impBtn,
+					text:WAPAMA.I18N.BPELSupport.impBtn,
 					handler: function(){
 						
 							
-						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.BPELSupport.progressImp});
+						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.BPELSupport.progressImp});
 						loadMask.show();
 												
 						form.form.submit({
@@ -266,7 +266,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 							headers: {
 								accept: "application/json, text/plain, text/html"
 							},
-				      		url: ORYX.PATH + '/bpelimporter',
+				      		url: WAPAMA.PATH + '/bpelimporter',
 				      		timeout: 6,
 				      		success: function(f,a){
 								
@@ -290,8 +290,8 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 								dialog.hide();
 								loadMask.hide();
 								Ext.MessageBox.show({
-		           					title: ORYX.I18N.BPELSupport.error,
-		          	 				msg: ORYX.I18N.BPELSupport.impFailed + a.response.responseText.substring(a.response.responseText.indexOf("content:'")+9, a.response.responseText.indexOf("'}")),
+		           					title: WAPAMA.I18N.BPELSupport.error,
+		          	 				msg: WAPAMA.I18N.BPELSupport.impFailed + a.response.responseText.substring(a.response.responseText.indexOf("content:'")+9, a.response.responseText.indexOf("'}")),
 		           					buttons: Ext.MessageBox.OK,
 		           					icon: Ext.MessageBox.ERROR
 		       					});
@@ -299,7 +299,7 @@ ORYX.Plugins.BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 				  		});
 					}.bind(this)
 				},{
-					text:ORYX.I18N.BPELSupport.close,
+					text:WAPAMA.I18N.BPELSupport.close,
 					handler:function(){
 						dialog.hide();
 					}.bind(this)

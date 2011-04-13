@@ -3520,7 +3520,7 @@
 				"fromtoall",
 				"canContainArtifacts"				
 			],
-			/*"layout": [ORYX.CONFIG.EVENT_LAYOUT_BPMN11_POOL],*/
+			/*"layout": [WAPAMA.CONFIG.EVENT_LAYOUT_BPMN11_POOL],*/
 				
 			
 			
@@ -3540,12 +3540,12 @@
 							return (node.getStencil().id() === "http://b3mn.org/stencilset/bpmn1.1#Lane");
 						});
 						if(childLanes.length > 0) {
-							lanes.first().setProperty("oryx-showcaption", true);
+							lanes.first().setProperty("wapama-showcaption", true);
 						} else {
-							if(lanes.first().properties["oryx-name"].trim().length > 0) {
-								lanes.first().setProperty("oryx-showcaption", true);
+							if(lanes.first().properties["wapama-name"].trim().length > 0) {
+								lanes.first().setProperty("wapama-showcaption", true);
 							} else {
-								lanes.first().setProperty("oryx-showcaption", false);
+								lanes.first().setProperty("wapama-showcaption", false);
 							}
 							// adapt height and width of the lane by size of the pool
 							// the lowerRight bound is equal to that of the containing pool
@@ -3562,7 +3562,7 @@
 						}
 					} else {
 						lanes.each(function(lane) {
-							lane.setProperty("oryx-showcaption", true);
+							lane.setProperty("wapama-showcaption", true);
 						});
 					}
 					
@@ -4302,7 +4302,7 @@
 				"fromtoall",
 				"canContainArtifacts"				
 			],	
-			//"layout": [ORYX.CONFIG.EVENT_LAYOUT_BPMN11_LANE],
+			//"layout": [WAPAMA.CONFIG.EVENT_LAYOUT_BPMN11_LANE],
 			
 			/*"layout": function(shape) {		
 				console.log("lane layout: %o", shape);

@@ -19,7 +19,7 @@
         "id": "BPMNDiagram"
     },
     "childShapes": [{
-        "resourceId": "oryx_5770641A-7585-4205-8E55-522B97E77D31",
+        "resourceId": "wapama_5770641A-7585-4205-8E55-522B97E77D31",
         "properties": {
             "name": "ask user",
             "documentation": "",
@@ -90,5 +90,5 @@
         "url": "/designer/stencilsets/bpmn2.0/bpmn2.0.json",
         "namespace": "http://b3mn.org/stencilset/bpmn2.0#"
     },
-    "ssextensions": ["http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#"]
+    "ssextensions": ["http://www.wapama.net/stencilsets/extensions/bpmncosts-2.0#"]
 }

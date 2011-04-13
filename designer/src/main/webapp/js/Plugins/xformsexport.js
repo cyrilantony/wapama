@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.XFormsExport = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	facade: undefined,
 
@@ -32,11 +32,11 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade = facade;
 
 		this.facade.offer({
-			'name':ORYX.I18N.XFormsSerialization.exportXForms,
+			'name':WAPAMA.I18N.XFormsSerialization.exportXForms,
 			'functionality': this.exportXForms.bind(this),
-			'group': ORYX.I18N.XFormsSerialization.group,
-			'icon': ORYX.PATH + "images/xforms_export.png",
-			'description': ORYX.I18N.XFormsSerialization.exportXFormsDesc,
+			'group': WAPAMA.I18N.XFormsSerialization.group,
+			'icon': WAPAMA.PATH + "images/xforms_export.png",
+			'description': WAPAMA.I18N.XFormsSerialization.exportXFormsDesc,
 			'index': 2,
 			'minShape': 0,
 			'maxShape': 0});
@@ -50,7 +50,7 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 
 		// raise loading enable event
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE
         });
 		
 		//this.checkClientXFormsSupport();
@@ -63,7 +63,7 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 			
 			// raise loading disable event.
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
             });
 			
         }).bind(this), 10);
@@ -78,7 +78,7 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 			serialized_rdf 		= serialized_rdf.startsWith("<?xml") ? serialized_rdf : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized_rdf;
 
 			// Send the request to the server.
-			new Ajax.Request(ORYX.CONFIG.XFORMS_EXPORT_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.XFORMS_EXPORT_URL, {
 				method: 'POST',
 				asynchronous: false,
 				parameters: {
@@ -97,15 +97,15 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 			});
 			
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 	 	}
 	},
 	
 	checkClientXFormsSupport: function() {
 		if(!clientSupportsXForms) {
 			
-			var output = ORYX.I18N.XFormsSerialization.noClientXFormsSupportDesc;
+			var output = WAPAMA.I18N.XFormsSerialization.noClientXFormsSupportDesc;
 
 			var win = new Ext.Window({
                             width: 320,
@@ -114,10 +114,10 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
                             minimizable: false,
                             modal: true,
                             autoScroll: true,
-                            title: ORYX.I18N.XFormsSerialization.noClientXFormsSupport,
+                            title: WAPAMA.I18N.XFormsSerialization.noClientXFormsSupport,
                             html: output,
                             buttons: [{
-                                text: ORYX.I18N.XFormsSerialization.ok,
+                                text: WAPAMA.I18N.XFormsSerialization.ok,
                                 handler: function(){
                                     win.hide();
                                 }
@@ -139,7 +139,7 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 	        labelWidth: 	50,
 	        defaultType: 	'textfield',
 	        items: [{
-	            text : 		ORYX.I18N.XFormsSerialization.selectCss, 
+	            text : 		WAPAMA.I18N.XFormsSerialization.selectCss, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 	            anchor:		'100%',
 				xtype : 	'label' 
@@ -159,7 +159,7 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 			layout: 	'fit',
 			plain:		true,
 			bodyStyle: 	'padding:5px;',
-			title: 		ORYX.I18N.XFormsSerialization.expTitle, 
+			title: 		WAPAMA.I18N.XFormsSerialization.expTitle, 
 			height: 	150, 
 			width:		500,
 			modal:		true,
@@ -170,13 +170,13 @@ ORYX.Plugins.XFormsExport = ORYX.Plugins.AbstractPlugin.extend({
 			items: 		[form],
 			buttons:[
 				{
-					text:ORYX.I18N.XFormsSerialization.ok,
+					text:WAPAMA.I18N.XFormsSerialization.ok,
 					handler:function(){		
 						this.exportIt(form.items.items[1].getValue());
 						dialog.hide();
 					}.bind(this)
 				},{
-					text:ORYX.I18N.XFormsSerialization.close,
+					text:WAPAMA.I18N.XFormsSerialization.close,
 					handler:function(){
 						dialog.hide();
 					}.bind(this)

@@ -29,24 +29,24 @@ function printf() {
 	return result;
 }
 
-// oryx constants.
-var ORYX_LOGLEVEL_TRACE = 5;
-var ORYX_LOGLEVEL_DEBUG = 4;
-var ORYX_LOGLEVEL_INFO = 3;
-var ORYX_LOGLEVEL_WARN = 2;
-var ORYX_LOGLEVEL_ERROR = 1;
-var ORYX_LOGLEVEL_FATAL = 0;
-if (!ORYX_LOGLEVEL) {
-  var ORYX_LOGLEVEL = 1;
+// wapam constants.
+var WAPAMA_LOGLEVEL_TRACE = 5;
+var WAPAMA_LOGLEVEL_DEBUG = 4;
+var WAPAMA_LOGLEVEL_INFO = 3;
+var WAPAMA_LOGLEVEL_WARN = 2;
+var WAPAMA_LOGLEVEL_ERROR = 1;
+var WAPAMA_LOGLEVEL_FATAL = 0;
+if (!WAPAMA_LOGLEVEL) {
+  var WAPAMA_LOGLEVEL = 1;
 }
-var ORYX_CONFIGURATION_DELAY = 100;
-var ORYX_CONFIGURATION_WAIT_ATTEMPTS = 10;
+var WAPAMA_CONFIGURATION_DELAY = 100;
+var WAPAMA_CONFIGURATION_WAIT_ATTEMPTS = 10;
 
-if(!ORYX) var ORYX = {};
+if(!WAPAMA) var WAPAMA = {};
 
-ORYX = Object.extend(ORYX, {
+WAPAMA = Object.extend(WAPAMA, {
 
-	PATH: ORYX.CONFIG.ROOT_PATH,
+	PATH: WAPAMA.CONFIG.ROOT_PATH,
 
 	alreadyLoaded: [],
 
@@ -55,7 +55,7 @@ ORYX = Object.extend(ORYX, {
 	availablePlugins: [],
 
 	/**
-	 * The ORYX.Log logger.
+	 * The WAPAMA.Log logger.
 	 */
 	Log: {
 	
@@ -65,18 +65,18 @@ ORYX = Object.extend(ORYX, {
 				console.log(message); }}
 		],
 	
-		trace: function() {	if(ORYX_LOGLEVEL >= ORYX_LOGLEVEL_TRACE)
-			ORYX.Log.__log('TRACE', arguments); },
-		debug: function() { if(ORYX_LOGLEVEL >= ORYX_LOGLEVEL_DEBUG)
-			ORYX.Log.__log('DEBUG', arguments); },
-		info: function() { if(ORYX_LOGLEVEL >= ORYX_LOGLEVEL_INFO)
-			ORYX.Log.__log('INFO', arguments); },
-		warn: function() { if(ORYX_LOGLEVEL >= ORYX_LOGLEVEL_WARN)
-			ORYX.Log.__log('WARN', arguments); },
-		error: function() { if(ORYX_LOGLEVEL >= ORYX_LOGLEVEL_ERROR)
-			ORYX.Log.__log('ERROR', arguments); },
-		fatal: function() { if(ORYX_LOGLEVEL >= ORYX_LOGLEVEL_FATAL)
-			ORYX.Log.__log('FATAL', arguments); },
+		trace: function() {	if(WAPAMA_LOGLEVEL >= WAPAMA_LOGLEVEL_TRACE)
+			WAPAMA.Log.__log('TRACE', arguments); },
+		debug: function() { if(WAPAMA_LOGLEVEL >= WAPAMA_LOGLEVEL_DEBUG)
+			WAPAMA.Log.__log('DEBUG', arguments); },
+		info: function() { if(WAPAMA_LOGLEVEL >= WAPAMA_LOGLEVEL_INFO)
+			WAPAMA.Log.__log('INFO', arguments); },
+		warn: function() { if(WAPAMA_LOGLEVEL >= WAPAMA_LOGLEVEL_WARN)
+			WAPAMA.Log.__log('WARN', arguments); },
+		error: function() { if(WAPAMA_LOGLEVEL >= WAPAMA_LOGLEVEL_ERROR)
+			WAPAMA.Log.__log('ERROR', arguments); },
+		fatal: function() { if(WAPAMA_LOGLEVEL >= WAPAMA_LOGLEVEL_FATAL)
+			WAPAMA.Log.__log('FATAL', arguments); },
 		
 		__log: function(prefix, messageParts) {
 			
@@ -84,28 +84,28 @@ ORYX = Object.extend(ORYX, {
 				+ prefix + " " + messageParts[0];
 			var message = printf.apply(null, messageParts);
 			
-			ORYX.Log.__appenders.each(function(appender) {
+			WAPAMA.Log.__appenders.each(function(appender) {
 				appender.append(message);
 			});
 		},
 		
 		addAppender: function(appender) {
-			ORYX.Log.__appenders.push(appender);
+			WAPAMA.Log.__appenders.push(appender);
 		}
 	},
 
 	/**
-	 * First bootstrapping layer. The Oryx loading procedure begins. In this
-	 * step, all preliminaries that are not in the responsibility of Oryx to be
+	 * First bootstrapping layer. The Wapama loading procedure begins. In this
+	 * step, all preliminaries that are not in the responsibility of Wapama to be
 	 * met have to be checked here, such as the existance of the prototpe
 	 * library in the current execution environment. Failing to ensure that any
 	 * preliminary condition is not met has to fail with an error.
 	 */
 	load: function() {
-		var waitingpanel = new Ext.Window({renderTo:Ext.getBody(),id:'oryx-loading-panel',bodyStyle:'padding: 8px;background:white',title:ORYX.I18N.Oryx.title,width:'auto',height:'auto',modal:true,resizable:false,closable:false,html:'<span style="font-size:11px;">' + ORYX.I18N.Oryx.pleaseWait + '</span>'})
+		var waitingpanel = new Ext.Window({renderTo:Ext.getBody(),id:'wapama-loading-panel',bodyStyle:'padding: 8px;background:white',title:WAPAMA.I18N.Wapama.title,width:'auto',height:'auto',modal:true,resizable:false,closable:false,html:'<span style="font-size:11px;">' + WAPAMA.I18N.Wapama.pleaseWait + '</span>'})
 		waitingpanel.show()
 				
-		ORYX.Log.debug("Oryx begins loading procedure.");
+		WAPAMA.Log.debug("Wapama begins loading procedure.");
 		
 		// check for prototype
 		if( (typeof Prototype=='undefined') ||
@@ -116,13 +116,13 @@ ORYX = Object.extend(ORYX, {
 
 			throw("Application requires the Prototype JavaScript framework >= 1.5.3");
 		
-		ORYX.Log.debug("Prototype > 1.5 found.");
+		WAPAMA.Log.debug("Prototype > 1.5 found.");
 
 		init();
 	}
 
 });
 
-ORYX.Log.debug('Registering Oryx with Kickstart');
-Kickstart.register(ORYX.load);
+WAPAMA.Log.debug('Registering Wapama with Kickstart');
+Kickstart.register(WAPAMA.load);
 

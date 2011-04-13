@@ -4,10 +4,10 @@
  * 
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.LabelLayout = Clazz.extend({
+WAPAMA.Plugins.LabelLayout = Clazz.extend({
 		
 	construct: function( facade ){
 		this.facade = facade;	
@@ -25,36 +25,36 @@ ORYX.Plugins.LabelLayout = Clazz.extend({
 		this.canvas = false; //true if Reference to Canvas was saved
 		
 		//Register Events
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEOVER, this.handleMouseOver.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEMOVE, this.handleMouseMove.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEOVER, this.handleMouseOver.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEMOVE, this.handleMouseMove.bind(this));
 		
 		//Visual representaion of the default RotationPoint		
-		this.rotationPoint = ORYX.Editor.graft("http://www.w3.org/2000/svg", null,
+		this.rotationPoint = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null,
 				['path', {
 					"stroke-width": 2.0, "stroke":"black", "d":  "M4,4 L0,6 M0,6 L-4,4 M-4,4 L-6,0 M-6,0 L-4,-4 M-4,-4 L0,-6 M0,-6 L4,-4 M4,-4 L6,2 M6,2 L2,0 M6,2 L8,0", "line-captions": "round"
 					}]);		
 		
 		//Visual representation of the association line
-		this.line = ORYX.Editor.graft("http://www.w3.org/2000/svg", null,
+		this.line = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null,
 				['path', {
 					'stroke-width': 1, stroke: 'silver', fill: 'none',
 					'pointer-events': 'none'}]);
 		
 		//Visual representation of the moving arrows
-		this.startMovingCross = ORYX.Editor.graft("http://www.w3.org/2000/svg", null,
+		this.startMovingCross = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null,
 				['path', {
 					"stroke-width": 1.0, "stroke":"black", "d":  "M0,0 L-10,0 M-10,0 L-6,-4 M-10,0 L-6,4 M0,0 L10,0 M10,0 L6,4 M10,0 L6,-4 M0,0 L0,10 M0,10 L4,6 M0,10 L-4,6 M0,0 L0,-10 M0,-10 L4,-6 M0,-10 L-4,-6", "line-captions": "round"
 					}]);
 		
 		//visual represetation to the set the position of a label
-		this.endMovingCross = ORYX.Editor.graft("http://www.w3.org/2000/svg", null,
+		this.endMovingCross = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null,
 				['path', {
 					"stroke-width": 1.0, "stroke":"black", "d":  "M-2,0 L-10,0 M2,0 L10,0 M0,2 L0,10 M0,-2 L0,-10 M-2,0 L-6,4 M-2,0 L-6,-4 M2,0 L6,4 M2,0 L6,-4 M0,-2 L4,-6 M0,-2 L-4,-6 M0,2 L4,6 M0,2 L-4,6", "line-captions": "round"
 					}]);
 		
 		//Visual representation to move the mouse left/right to rotate the label
-		this.moveLeftRight = ORYX.Editor.graft("http://www.w3.org/2000/svg", null,
+		this.moveLeftRight = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null,
 				['path', {
 					"stroke-width": 2.0, "stroke":"black", "d":  "M0,0 L-15,0 M-15,0 L-11,-4 M-15,0 L-11,4 M0,0 L15,0 M15,0 L11,4 M15,0 L11,-4", "line-captions": "round"
 					}]);
@@ -64,7 +64,7 @@ ORYX.Plugins.LabelLayout = Clazz.extend({
 	            'name': "Label rotate left",
 	            'functionality': this.rotate_left.bind(this),
 	            'group': "Rotation",
-	            'icon': ORYX.PATH + "images/rotate_left.png",
+	            'icon': WAPAMA.PATH + "images/rotate_left.png",
 	            'description': "rotate a label left",
 	            'index': 1,
 	            'minShape': 0,
@@ -75,7 +75,7 @@ ORYX.Plugins.LabelLayout = Clazz.extend({
 	            'name': "Label rotate right",
 	            'functionality': this.rotate_right.bind(this),
 	            'group': "Rotation",
-	            'icon': ORYX.PATH + "images/rotate_right.png",
+	            'icon': WAPAMA.PATH + "images/rotate_right.png",
 	            'description': "rotate a label right",
 	            'index': 1,
 	            'minShape': 0,
@@ -90,7 +90,7 @@ handleMouseOver: function(event, uiObj) {
 
 	//Save Canvas for Reference(used for showing Line between edge and label)
 	if(this.canvas == false){
-		if(uiObj instanceof ORYX.Core.Canvas){
+		if(uiObj instanceof WAPAMA.Core.Canvas){
 			this.canvasLabel = uiObj;
 			canvas = true;
 		}
@@ -200,7 +200,7 @@ handleMouseDown: function(event, uiObj) {
 	}
 	
 	//clicking on an Edge saves the label and show the line
-	if( uiObj instanceof ORYX.Core.Edge){  		
+	if( uiObj instanceof WAPAMA.Core.Edge){  		
 		//Identify and set the label of the current Edge	
 		if(uiObj._labels[uiObj.id+"condition"]){
 			this.myLabel = uiObj._labels[uiObj.id+"condition"]; //for BPMN
@@ -489,7 +489,7 @@ calculateLabelCoordinates: function(){
  */
 showOverlay: function(id, shape, position, visualObject) {
 	this.facade.raiseEvent({
-		type: 			ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+		type: 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
 		id: 			id,
 		shapes: 		[shape],
 		node:			visualObject,
@@ -505,7 +505,7 @@ showOverlay: function(id, shape, position, visualObject) {
  */
 hideOverlay: function(id) {
 	this.facade.raiseEvent({
-		type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+		type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 		id: id
 	});	
 },
@@ -523,7 +523,7 @@ showLine: function() {
 	this.line.setAttributeNS(null, 'd', 'M'+x+' '+y+' L '+this.labelCoordinates.x+' '+this.labelCoordinates.y);
 
 	this.facade.raiseEvent({
-		type: 			ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+		type: 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
 		id: 			"line",
 		shapes: 		[this.canvasLabel],
 		node:			this.line,
@@ -539,7 +539,7 @@ showLine: function() {
  */
 hideLine: function() {
 	this.facade.raiseEvent({
-		type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+		type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 		id: "line"
 	});
 }

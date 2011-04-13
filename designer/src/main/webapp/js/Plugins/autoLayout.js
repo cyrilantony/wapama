@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.AutoLayout = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.AutoLayout = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	facade: undefined,
 
@@ -36,14 +36,14 @@ ORYX.Plugins.AutoLayout = ORYX.Plugins.AbstractPlugin.extend({
 			'name':"AutoLayout",
 			'functionality': this.automatic_layout.bind(this),
 			'group': "Alignment",
-			'icon': ORYX.PATH + "images/auto_layout.png",
+			'icon': WAPAMA.PATH + "images/auto_layout.png",
 			'description': "automatic layouting",
 			'index': 0,
 			'minShape': 0,
 			'maxShape': 0});
 
 
-		facade.registerOnEvent(ORYX.CONFIG.EVENT_AUTOLAYOUT_LAYOUT, this.force_automatic_layout.bind(this));
+		facade.registerOnEvent(WAPAMA.CONFIG.EVENT_AUTOLAYOUT_LAYOUT, this.force_automatic_layout.bind(this));
 		
 	},
 
@@ -76,7 +76,7 @@ ORYX.Plugins.AutoLayout = ORYX.Plugins.AbstractPlugin.extend({
 	},
 	
 	automatic_layout: function() {
-		Ext.Msg.confirm(ORYX.I18N.Oryx.title, "It is recommended to save the current model before running the automatic layouting, since it may produce unwanted results!\nStart layouting?",
+		Ext.Msg.confirm(WAPAMA.I18N.Wapama.title, "It is recommended to save the current model before running the automatic layouting, since it may produce unwanted results!\nStart layouting?",
 						this._automatic_layout, this);	
 	},
 
@@ -89,7 +89,7 @@ ORYX.Plugins.AutoLayout = ORYX.Plugins.AbstractPlugin.extend({
 		{
 			return;
 		}
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_ENABLE,text: 'Auto Layouting'});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_ENABLE,text: 'Auto Layouting'});
 		
 
 		try {
@@ -97,7 +97,7 @@ ORYX.Plugins.AutoLayout = ORYX.Plugins.AbstractPlugin.extend({
 			serialized_rdf = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized_rdf;
 			
 			//call server layout function
-			new Ajax.Request(ORYX.CONFIG.AUTO_LAYOUTER_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.AUTO_LAYOUTER_URL, {
 	            method: 'POST',
 	            parameters: {
 	                "rdf": serialized_rdf
@@ -109,18 +109,18 @@ ORYX.Plugins.AutoLayout = ORYX.Plugins.AbstractPlugin.extend({
 						this.set_new_bounds();
 					}
 					else {
-						Ext.Msg.alert(ORYX.I18N.Oryx.title, "An error occurred in the server:\n" + this.returned_layout.error);
+						Ext.Msg.alert(WAPAMA.I18N.Wapama.title, "An error occurred in the server:\n" + this.returned_layout.error);
 					}
-					this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+					this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 				}.bind(this),
 				onFailure: function(request){
-					this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-					Ext.Msg.alert(ORYX.I18N.Oryx.title, "Request to server failed!");
+					this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+					Ext.Msg.alert(WAPAMA.I18N.Wapama.title, "Request to server failed!");
 				}.bind(this)
 	        });
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, "Layouting failed.", error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, "Layouting failed.", error);
 	 	}
 	},
 	

@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="292"
    height="252"
@@ -10,35 +10,35 @@
 	
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="0" 
-  		oryx:cy="125" 
-  		oryx:anchors="left" />
-  	<oryx:magnet 
-  		oryx:cx="145" 
-  		oryx:cy="250" 
-  		oryx:anchors="bottom" />
-  	<oryx:magnet 
-  		oryx:cx="290" 
-  		oryx:cy="125" 
-  		oryx:anchors="right" />
-  	<oryx:magnet 
-  		oryx:cx="145" 
-  		oryx:cy="0" 
-  		oryx:anchors="top" />
-  	<oryx:magnet 
-  		oryx:cx="145" 
-  		oryx:cy="125" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="0" 
+  		wapama:cy="125" 
+  		wapama:anchors="left" />
+  	<wapama:magnet 
+  		wapama:cx="145" 
+  		wapama:cy="250" 
+  		wapama:anchors="bottom" />
+  	<wapama:magnet 
+  		wapama:cx="290" 
+  		wapama:cy="125" 
+  		wapama:anchors="right" />
+  	<wapama:magnet 
+  		wapama:cx="145" 
+  		wapama:cy="0" 
+  		wapama:anchors="top" />
+  	<wapama:magnet 
+  		wapama:cx="145" 
+  		wapama:cy="125" 
+  		wapama:default="yes" />
+  </wapama:magnets>
   
   <g 
   	pointer-events="fill" 
-    oryx:minimumSize="50 40">
+    wapama:minimumSize="50 40">
     <rect 
     	id="mainBody" 
-    	oryx:resize="vertical horizontal" 
+    	wapama:resize="vertical horizontal" 
     	x="0" 
     	y="0" 
     	width="290" 
@@ -59,7 +59,7 @@
     		height="16" 
     		stroke="black" 
     		stroke-width="1"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		fill="none" />
     	<path 
     		d="	M 268 228 L 280 228
@@ -67,7 +67,7 @@
     			M 268 236 L 280 236
     			M 268 240 L 280 240" 
     		fill="none"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		stroke="black" />
   	</g>
   		
@@ -75,10 +75,10 @@
        id="label"
 	   x="45" 
 	   y="20" 
-	   oryx:anchors="top left"
+	   wapama:anchors="top left"
 	   style="font-family:Arial; font-size: 12pt; fill:black;"></text>
     <path  
-    	oryx:anchors="top left" 
+    	wapama:anchors="top left" 
     	fill="none" 
     	stroke="black" 
     	stroke-width="1" 

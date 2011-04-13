@@ -2,24 +2,24 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    width="41"
    height="61"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="0" oryx:cy="30" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="20" oryx:cy="60" oryx:anchors="bottom" />
-  	<oryx:magnet oryx:cx="40" oryx:cy="30" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="20" oryx:cy="0" oryx:anchors="top" />
-  	<oryx:magnet oryx:cx="20" oryx:cy="30" oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="0" wapama:cy="30" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="20" wapama:cy="60" wapama:anchors="bottom" />
+  	<wapama:magnet wapama:cx="40" wapama:cy="30" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="20" wapama:cy="0" wapama:anchors="top" />
+  	<wapama:magnet wapama:cx="20" wapama:cy="30" wapama:default="yes" />
+  </wapama:magnets>
   <g pointer-events="fill">
-    <polygon oryx:resize="vertical horizontal" id="frame" stroke="black" fill="white" stroke-width="1" points="0,0 0,60 40,60 40,10 30,0 30,10 40,10 30,0" />
-    <text font-size="14" id="text" x="20" y="30" oryx:align="middle center" stroke="black"></text>
+    <polygon wapama:resize="vertical horizontal" id="frame" stroke="black" fill="white" stroke-width="1" points="0,0 0,60 40,60 40,10 30,0 30,10 40,10 30,0" />
+    <text font-size="14" id="text" x="20" y="30" wapama:align="middle center" stroke="black"></text>
     
     <g id="Counter">
-		<path oryx:anchors="top left" oryx:resize="vertical horizontal" fill="none" stroke="black" d="m5 3 v10 M9 3 v10" stroke-width="2" />
+		<path wapama:anchors="top left" wapama:resize="vertical horizontal" fill="none" stroke="black" d="m5 3 v10 M9 3 v10" stroke-width="2" />
     </g>
   </g>
 </svg>

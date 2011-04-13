@@ -21,15 +21,15 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * Supports EPCs by offering a syntax check and export and import ability..
  * 
  * 
  */
-ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
+WAPAMA.Plugins.IBPMN2BPMN = Clazz.extend({
 
 	facade: undefined,
 	
@@ -48,7 +48,7 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 			'name':				"Transform from iBPMN to BPMN",
 			'functionality': 	this.transform.bind(this),
 			'group': 			"Transform",
-			'icon': 			ORYX.PATH + "images/erdf_export_icon.png",
+			'icon': 			WAPAMA.PATH + "images/erdf_export_icon.png",
 			'description': 		"Transformation from iBPMN to BPMN",
 			'index': 			0,
 			'minShape': 		0,
@@ -101,8 +101,8 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 					failedcallback( );
 					
 				} else {
-					Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.ERDFSupport.impFailed);
-					ORYX.log.warn("Transform failed: " + transport.responseText);	
+					Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.ERDFSupport.impFailed);
+					WAPAMA.log.warn("Transform failed: " + transport.responseText);	
 				}
 				
 			}.bind(this)		
@@ -152,7 +152,7 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 			}.bind(this);
 			
 			var xsl = "";
-			source=ORYX.PATH + "lib/extract-rdf.xsl";
+			source=WAPAMA.PATH + "lib/extract-rdf.xsl";
 			new Ajax.Request(source, {
 				asynchronous: false,
 				method: 'get',
@@ -160,7 +160,7 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 					xsl = transport.responseText
 				}.bind(this),
 				onFailure: (function(transport){
-					ORYX.Log.error("XSL load failed" + transport);
+					WAPAMA.Log.error("XSL load failed" + transport);
 				}).bind(this)
 			});
 			
@@ -200,12 +200,12 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 	        labelWidth: 	50,
 	        defaultType: 	'textfield',
 	        items: [{
-	            text : 		ORYX.I18N.ERDFSupport.selectFile, 
+	            text : 		WAPAMA.I18N.ERDFSupport.selectFile, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 	            anchor:		'100%',
 				xtype : 	'label' 
 	        },{
-	            fieldLabel: ORYX.I18N.ERDFSupport.file,
+	            fieldLabel: WAPAMA.I18N.ERDFSupport.file,
 	            name: 		'subject',
 				inputType : 'file',
 				style : 	'margin-bottom:10px;display:block;',
@@ -226,7 +226,7 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 			layout: 	'fit',
 			plain:		true,
 			bodyStyle: 	'padding:5px;',
-			title: 		ORYX.I18N.ERDFSupport.impERDF, 
+			title: 		WAPAMA.I18N.ERDFSupport.impERDF, 
 			height: 	350, 
 			width:		500,
 			modal:		true,
@@ -237,10 +237,10 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 			items: 		[form],
 			buttons:[
 				{
-					text:ORYX.I18N.ERDFSupport.impBtn,
+					text:WAPAMA.I18N.ERDFSupport.impBtn,
 					handler:function(){
 						
-						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.ERDFSupport.impProgress});
+						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.ERDFSupport.impProgress});
 						loadMask.show();
 						
 						window.setTimeout(function(){
@@ -255,7 +255,7 @@ ORYX.Plugins.IBPMN2BPMN = Clazz.extend({
 			
 					}.bind(this)
 				},{
-					text:ORYX.I18N.ERDFSupport.close,
+					text:WAPAMA.I18N.ERDFSupport.close,
 					handler:function(){
 						
 						dialog.hide();

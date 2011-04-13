@@ -21,8 +21,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
 function gup(name){
     name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -35,7 +35,7 @@ function gup(name){
         return results[1];
 }
 
-ORYX.Plugins.Pnmlexport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.Pnmlexport = WAPAMA.Plugins.AbstractPlugin.extend({
 
     facade: undefined,
     
@@ -43,11 +43,11 @@ ORYX.Plugins.Pnmlexport = ORYX.Plugins.AbstractPlugin.extend({
         this.facade = facade;
         
         this.facade.offer({
-            'name': ORYX.I18N.Pnmlexport.name,
+            'name': WAPAMA.I18N.Pnmlexport.name,
             'functionality': this.exportIt.bind(this),
-            'group': ORYX.I18N.Pnmlexport.group,
-            'icon': ORYX.PATH + "images/bpmn2pn_deploy.png",
-            'description': ORYX.I18N.Pnmlexport.desc,
+            'group': WAPAMA.I18N.Pnmlexport.group,
+            'icon': WAPAMA.PATH + "images/bpmn2pn_deploy.png",
+            'description': WAPAMA.I18N.Pnmlexport.desc,
             'index': 2,
             'minShape': 0,
             'maxShape': 0
@@ -59,7 +59,7 @@ ORYX.Plugins.Pnmlexport = ORYX.Plugins.AbstractPlugin.extend({
     
         // raise loading enable event
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE
         });
         
         // asynchronously ...
@@ -70,7 +70,7 @@ ORYX.Plugins.Pnmlexport = ORYX.Plugins.AbstractPlugin.extend({
             
             // raise loading disable event.
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
             });
             
         }).bind(this), 10);
@@ -90,7 +90,7 @@ ORYX.Plugins.Pnmlexport = ORYX.Plugins.AbstractPlugin.extend({
             var diagramTitle = gup('resource');
             
             // Send the request to the server.
-            new Ajax.Request(ORYX.CONFIG.PNML_EXPORT_URL, {
+            new Ajax.Request(WAPAMA.CONFIG.PNML_EXPORT_URL, {
                 method: 'POST',
                 asynchronous: false,
                 parameters: {
@@ -105,7 +105,7 @@ ORYX.Plugins.Pnmlexport = ORYX.Plugins.AbstractPlugin.extend({
                         alert(pnmlfile); //errormessage
                     }
                     else {
-                        var absolutepath = "http://" + location.host + ORYX.CONFIG.ROOT_PATH + pnmlfile;
+                        var absolutepath = "http://" + location.host + WAPAMA.CONFIG.ROOT_PATH + pnmlfile;
                         var output = "<h2>Process: " +
                         self.document.title +
                         "</h2><a target=\"_blank\" href=\"" +
@@ -136,7 +136,7 @@ ORYX.Plugins.Pnmlexport = ORYX.Plugins.AbstractPlugin.extend({
         } 
         catch (error) {
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
             });
             alert(error);
         }

@@ -21,15 +21,15 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
 /**
  * Supports EPCs by offering a syntax check and export and import ability..
  *
  *
  */
-ORYX.Plugins.AMLSupport = Clazz.extend({
+WAPAMA.Plugins.AMLSupport = Clazz.extend({
 
     facade: undefined,
     
@@ -41,11 +41,11 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
         this.facade = facade;
         
         this.facade.offer({
-            'name': ORYX.I18N.AMLSupport.imp,
+            'name': WAPAMA.I18N.AMLSupport.imp,
             'functionality': this.importAML.bind(this),
-            'group': ORYX.I18N.AMLSupport.group,
-            'icon': ORYX.PATH + "images/aris_import_icon.png",
-            'description': ORYX.I18N.AMLSupport.impDesc,
+            'group': WAPAMA.I18N.AMLSupport.group,
+            'icon': WAPAMA.PATH + "images/aris_import_icon.png",
+            'description': WAPAMA.I18N.AMLSupport.impDesc,
             'index': 3,
             'minShape': 0,
             'maxShape': 0
@@ -73,8 +73,8 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
 		
 		//if parameter does not start with <, it is an error message.
 		if(!erdf.startsWith("<")) {
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.AMLSupport.failed + erdf);
-            ORYX.Log.warn("Import AML failed: " + erdf);
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.AMLSupport.failed + erdf);
+            WAPAMA.Log.warn("Import AML failed: " + erdf);
 			return;
 		}
 		
@@ -87,7 +87,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
             // Get the several process diagrams
             var values = $A(doc.firstChild.childNodes).collect(function(node){
                 return {
-                    title: this.getChildNodesByClassName(node.firstChild, 'oryx-title')[0].textContent,
+                    title: this.getChildNodesByClassName(node.firstChild, 'wapama-title')[0].textContent,
                     data: node
                 }
             }.bind(this))
@@ -109,8 +109,8 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                     result.each(function(item){
                     
                         // Set url, dummy data, and params for the request, to get a new url
-                        var url = '/backend/poem' + ORYX.CONFIG.ORYX_NEW_URL + "?stencilset=/stencilsets/epc/epc.json";
-                        var dummyData = '<div class="processdata"><div class="-oryx-canvas" id="oryx-canvas123" style="display: none; width:1200px; height:600px;"><a href="/stencilsets/epc/epc.json" rel="oryx-stencilset"></a><span class="oryx-mode">writeable</span><span class="oryx-mode">fullscreen</span></div></div>';
+                        var url = '/backend/poem' + WAPAMA.CONFIG.WAPAMA_NEW_URL + "?stencilset=/stencilsets/epc/epc.json";
+                        var dummyData = '<div class="processdata"><div class="-wapama-canvas" id="wapama-canvas123" style="display: none; width:1200px; height:600px;"><a href="/stencilsets/epc/epc.json" rel="wapama-stencilset"></a><span class="wapama-mode">writeable</span><span class="wapama-mode">fullscreen</span></div></div>';
                         var dummySVG = '<svg/>';
                         var params = {
                             data: dummyData,
@@ -124,7 +124,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                         requestsSuccessfull = this.sendRequest(url, params, function(transport){
                         
                             var loc = transport.getResponseHeader('location');
-                            var id = this.getNodesByClassName(item.data, "div", "-oryx-canvas")[0].getAttribute("id");
+                            var id = this.getNodesByClassName(item.data, "div", "-wapama-canvas")[0].getAttribute("id");
                             
                             loadedDiagrams.push({
                                 name: item.name,
@@ -149,9 +149,9 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                     
                     
                     // Replace all IDs within every process diagrams with the new url
-                    // First, find all 'oryx-uriref' spans
+                    // First, find all 'wapama-uriref' spans
                     var allURIRefs = loadedDiagrams.collect(function(item){
-                        return $A(this.getNodesByClassName(item.data, "span", "oryx-refuri"))
+                        return $A(this.getNodesByClassName(item.data, "span", "wapama-refuri"))
                     }.bind(this)).flatten()
 					
                     // Second, replace it, if there is a url for it, otherwise, delete the link
@@ -217,7 +217,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                     var erdfDOM = result[0].data;
                     
 					// Delete all uri-refs
-                    $A(this.getNodesByClassName(erdfDOM, "span", "oryx-refuri")).each(function(node){
+                    $A(this.getNodesByClassName(erdfDOM, "span", "wapama-refuri")).each(function(node){
                         node.textContent = ""
                     });
 					
@@ -230,8 +230,8 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
             
         } 
         catch (e) {
-            Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.AMLSupport.failed2 + e);
-            ORYX.Log.warn("Import AML failed: " + e);
+            Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.AMLSupport.failed2 + e);
+            WAPAMA.Log.warn("Import AML failed: " + e);
         }
         
     },
@@ -265,16 +265,16 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
             
             onFailure: function(transport){
             
-                Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.AMLSupport.failed2);
-                ORYX.Log.warn("Import AML failed: " + transport.responseText);
+                Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.AMLSupport.failed2);
+                WAPAMA.Log.warn("Import AML failed: " + transport.responseText);
                 
             }
 .bind(this)            ,
             
             on403: function(transport){
             
-                Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.AMLSupport.noRights);
-                ORYX.Log.warn("Import AML failed: " + transport.responseText);
+                Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.AMLSupport.noRights);
+                WAPAMA.Log.warn("Import AML failed: " + transport.responseText);
                 
             }
 .bind(this)
@@ -349,11 +349,11 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
             fileUpload: true,
             enctype: 'multipart/form-data',
             items: [{
-                text: ORYX.I18N.AMLSupport.panelText,
+                text: WAPAMA.I18N.AMLSupport.panelText,
                 style: 'font-size:12px;margin-bottom:10px;display:block;',
                 xtype: 'label'
             }, {
-                fieldLabel: ORYX.I18N.AMLSupport.file,
+                fieldLabel: WAPAMA.I18N.AMLSupport.file,
                 inputType: 'file',
                 labelStyle: 'width:50px;',
                 itemCls: 'ext_specific_window_overflow'
@@ -362,7 +362,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
         
         var dialog = new Ext.Window({
             autoCreate: true,
-            title: ORYX.I18N.AMLSupport.importBtn,
+            title: WAPAMA.I18N.AMLSupport.importBtn,
             height: 'auto',
             width: 420,
             modal: true,
@@ -373,16 +373,16 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
             resizable: false,
             items: [form],
             buttons: [{
-                text: ORYX.I18N.AMLSupport.impText,
+                text: WAPAMA.I18N.AMLSupport.impText,
                 handler: function(){
                 
                     var loadMask = new Ext.LoadMask(Ext.getBody(), {
-                        msg: ORYX.I18N.AMLSupport.get
+                        msg: WAPAMA.I18N.AMLSupport.get
                     });
                     loadMask.show();
                     
                     form.form.submit({
-                        url: ORYX.PATH + this.AMLServletURL,
+                        url: WAPAMA.PATH + this.AMLServletURL,
                         success: function(f, a){
                         
                             loadMask.hide();
@@ -407,7 +407,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                 }
 .bind(this)
             }, {
-                text: ORYX.I18N.AMLSupport.close,
+                text: WAPAMA.I18N.AMLSupport.close,
                 handler: function(){
                     dialog.hide();
                 }
@@ -446,7 +446,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                 fields: ['title']
             }),
             cm: new Ext.grid.ColumnModel([sm, {
-                header: ORYX.I18N.AMLSupport.title,
+                header: WAPAMA.I18N.AMLSupport.title,
                 width: 260,
                 sortable: true,
                 dataIndex: 'title'
@@ -463,7 +463,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
         var panel = new Ext.Panel({
             items: [{
                 xtype: 'label',
-                html: ORYX.I18N.AMLSupport.selectDiagrams,
+                html: WAPAMA.I18N.AMLSupport.selectDiagrams,
                 style: 'margin:5px;display:block'
             }, grid],
             height: 'auto',
@@ -474,7 +474,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
         var extWindow = new Ext.Window({
             width: 327,
             height: 'auto',
-            title: ORYX.I18N.Oryx.title,
+            title: WAPAMA.I18N.Wapama.title,
             floating: true,
             shim: true,
             modal: true,
@@ -482,11 +482,11 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
             autoHeight: true,
             items: [panel],
             buttons: [{
-                text: ORYX.I18N.AMLSupport.impText,
+                text: WAPAMA.I18N.AMLSupport.impText,
                 handler: function(){
                 
                     var loadMask = new Ext.LoadMask(Ext.getBody(), {
-                        msg: ORYX.I18N.AMLSupport.impProgress
+                        msg: WAPAMA.I18N.AMLSupport.impProgress
                     });
                     loadMask.show();
                     
@@ -511,7 +511,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                 }
 .bind(this)
             }, {
-                text: ORYX.I18N.AMLSupport.cancel,
+                text: WAPAMA.I18N.AMLSupport.cancel,
                 handler: function(){
                     extWindow.close();
                 }
@@ -541,7 +541,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
                 fields: ['name', 'url']
             }),
             cm: new Ext.grid.ColumnModel([{
-                header: ORYX.I18N.AMLSupport.name,
+                header: WAPAMA.I18N.AMLSupport.name,
                 width: 260,
                 sortable: true,
                 dataIndex: 'name'
@@ -561,7 +561,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
         var panel = new Ext.Panel({
             items: [{
                 xtype: 'label',
-                text: ORYX.I18N.AMLSupport.allImported,
+                text: WAPAMA.I18N.AMLSupport.allImported,
                 style: 'margin:5px;display:block'
             }, grid],
             height: 'auto',
@@ -571,7 +571,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
         // Create a new Window
         var extWindow2 = new Ext.Window({
             width: 'auto',
-            title: ORYX.I18N.Oryx.title,
+            title: WAPAMA.I18N.Wapama.title,
             floating: true,
             shim: true,
             modal: true,
@@ -579,7 +579,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
             autoHeight: true,
             items: [panel],
             buttons: [{
-                text: ORYX.I18N.AMLSupport.ok,
+                text: WAPAMA.I18N.AMLSupport.ok,
                 handler: function(){
                 
                     extWindow2.close()
@@ -598,7 +598,7 @@ ORYX.Plugins.AMLSupport = Clazz.extend({
      * @param {Object} message
      */
     throwErrorMessage: function(message){
-        Ext.Msg.alert(ORYX.I18N.Oryx.title, message)
+        Ext.Msg.alert(WAPAMA.I18N.Wapama.title, message)
     },
 
 });

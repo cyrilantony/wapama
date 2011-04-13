@@ -16,10 +16,10 @@
 		<xsl:if test="$number-of-epc=1">
 		        <root>
 				<xsl:apply-templates />
-					<div id="oryxcanvas" class="-oryx-canvas">
-						<span class="oryx-mode">writeable</span>
-						<span class="oryx-mode">fullscreen</span>
-	  					<a rel="oryx-stencilset" href="./stencilsets/epc/epc.json"/>
+					<div id="wapamacanvas" class="-wapama-canvas">
+						<span class="wapama-mode">writeable</span>
+						<span class="wapama-mode">fullscreen</span>
+	  					<a rel="wapama-stencilset" href="./stencilsets/epc/epc.json"/>
 						<xsl:call-template name="add-render" />
 	 				</div>
 		         </root>
@@ -30,7 +30,7 @@
 	<xsl:template match="event">
 		<xsl:call-template name="add-standard-node-properties">
 			<xsl:with-param name="type">http://b3mn.org/stencilset/epc#Event</xsl:with-param>
-			<xsl:with-param name="additional-property-name">oryx-frequency</xsl:with-param>
+			<xsl:with-param name="additional-property-name">wapama-frequency</xsl:with-param>
 			<xsl:with-param name="additional-property-value">
 				<xsl:value-of select="./attribute[@typeRef='AT_FRQ_DAY']/attribute::value" />
 			</xsl:with-param>			
@@ -55,7 +55,7 @@
 		</xsl:variable>
 		<xsl:call-template name="add-standard-node-properties">
 			<xsl:with-param name="type">http://b3mn.org/stencilset/epc#Function</xsl:with-param>
-			<xsl:with-param name="additional-property-name">oryx-time</xsl:with-param>
+			<xsl:with-param name="additional-property-name">wapama-time</xsl:with-param>
 			<xsl:with-param name="additional-property-value">
 				<xsl:value-of select="$time" />
 			</xsl:with-param>
@@ -85,7 +85,7 @@
 	<xsl:template match="processInterface">
 		<xsl:call-template name="add-standard-node-properties">
 			<xsl:with-param name="type">http://b3mn.org/stencilset/epc#ProcessInterface</xsl:with-param>
-			<xsl:with-param name="additional-property-name">oryx-refuri</xsl:with-param>
+			<xsl:with-param name="additional-property-name">wapama-refuri</xsl:with-param>
 			<xsl:with-param name="additional-property-value">
 				<xsl:value-of select="./toProcess/attribute::linkToEpcId" />
 			</xsl:with-param>
@@ -108,7 +108,7 @@
 
 	<!-- participant -->
 	<xsl:template match="participant">
-		<xsl:variable name="type" select="./attribute[@typeRef='AT_ORYX_ParticipantType']/attribute::value" />
+		<xsl:variable name="type" select="./attribute[@typeRef='AT_WAPAMA_ParticipantType']/attribute::value" />
 		<xsl:if test="$type='Position'">
 			<xsl:call-template name="add-standard-node-properties">
 				<xsl:with-param name="type">http://b3mn.org/stencilset/epc#Position</xsl:with-param>
@@ -126,10 +126,10 @@
 		<div>
 			<!-- standard attributes -->
 			<xsl:attribute name="id"><xsl:value-of select="concat('resource', @id)" /></xsl:attribute>
-			<span class="oryx-type">http://b3mn.org/stencilset/epc#ControlFlow</span>
-			<span class="oryx-probability"><xsl:value-of select="./attribute[@typeRef='AT_PROB']/attribute::value" /></span>
+			<span class="wapama-type">http://b3mn.org/stencilset/epc#ControlFlow</span>
+			<span class="wapama-probability"><xsl:value-of select="./attribute[@typeRef='AT_PROB']/attribute::value" /></span>
 			<!-- bounds -->
-			<span class="oryx-bounds">
+			<span class="wapama-bounds">
 				<xsl:call-template name="edge-bounds" />
 			</span>
 			<!-- outgoing -->
@@ -140,7 +140,7 @@
 				<xsl:attribute name="href"><xsl:value-of select="concat('#', ./flow/@target)" /></xsl:attribute>
 			</a>
 			<!-- dockers -->
-			<span class="oryx-dockers">
+			<span class="wapama-dockers">
 				<xsl:call-template  name="coordinates-of-node">
 					<xsl:with-param name="node-id" select="./flow/@source" />
 				</xsl:call-template>
@@ -165,17 +165,17 @@
 		<div>
 			<!-- standard attributes -->
 			<xsl:attribute name="id"><xsl:value-of select="concat('resource', @id)" /></xsl:attribute>
-			<span class="oryx-type">http://b3mn.org/stencilset/epc#Relation</span>
-			<span class="oryx-description"><xsl:value-of select="./attribute[@typeRef='AT_ORYX_Description']/attribute::value" /></span>
-			<xsl:variable name="iFlow" select="./attribute[@typeRef='AT_ORYX_InformationFlow']/attribute::value" />
+			<span class="wapama-type">http://b3mn.org/stencilset/epc#Relation</span>
+			<span class="wapama-description"><xsl:value-of select="./attribute[@typeRef='AT_WAPAMA_Description']/attribute::value" /></span>
+			<xsl:variable name="iFlow" select="./attribute[@typeRef='AT_WAPAMA_InformationFlow']/attribute::value" />
 			<xsl:if test="$iFlow='True'">
-				<span class="oryx-informationflow">True</span>
+				<span class="wapama-informationflow">True</span>
 			</xsl:if>
 			<xsl:if test="not($iFlow='True')">
-				<span class="oryx-informationflow">False</span>
+				<span class="wapama-informationflow">False</span>
 			</xsl:if>
 			<!-- bounds -->
-			<span class="oryx-bounds">
+			<span class="wapama-bounds">
 				<xsl:call-template name="edge-bounds" />
 			</span>
 			<!-- outgoing -->
@@ -183,7 +183,7 @@
 				<xsl:attribute name="href"><xsl:value-of select="concat('#', @to)" /></xsl:attribute>
 			</a>
 			<!-- dockers -->
-			<span class="oryx-dockers">
+			<span class="wapama-dockers">
 				<xsl:call-template  name="coordinates-of-node">
 					<xsl:with-param name="node-id" select="@from" />
 				</xsl:call-template>
@@ -206,37 +206,37 @@
 	<!-- Adds renderer informations --> 
 	<xsl:template name="add-render">
 		<xsl:for-each select="./directory/epc/event">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/function">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/and">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/xor">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/or">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/processInterface">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/application">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/participant">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/dataField">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/arc">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 		<xsl:for-each select="./directory/epc/relation">
-			<a rel="oryx-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
+			<a rel="wapama-render"><xsl:attribute name="href"><xsl:value-of select="concat('#', @id)" /></xsl:attribute></a>
 		</xsl:for-each>
 	</xsl:template>
 
@@ -254,9 +254,9 @@
 	 	<div>
 			<!-- standard attributes -->
 			<xsl:attribute name="id"><xsl:value-of select="concat('resource', $id)" /></xsl:attribute>
-			<span class="oryx-type"><xsl:value-of select="$type" /></span>
-			<span class="oryx-title"><xsl:value-of select="./name" /></span>
-			<span class="oryx-description">
+			<span class="wapama-type"><xsl:value-of select="$type" /></span>
+			<span class="wapama-title"><xsl:value-of select="./name" /></span>
+			<span class="wapama-description">
 				<xsl:value-of select="./description" />
 				<xsl:if test="not($at_desc='')"><xsl:value-of select="$at_desc" /></xsl:if>
 			</span>
@@ -283,12 +283,12 @@
 						<xsl:with-param name="value" select="./graphics/position/@height div 3" />
 					</xsl:call-template>
 				</xsl:variable>
-				<span class="oryx-bounds">
+				<span class="wapama-bounds">
 					<xsl:value-of select="concat($x, ',', $y, ',', $x+$w, ',', $y+$h)" />
 				</span>
 			</xsl:if>
 			<xsl:if test="not(count(./graphics/position) > 0)" >
-				<span class="oryx-bounds">
+				<span class="wapama-bounds">
 					<xsl:value-of select="'200, 200, 300, 260'" />
 				</span>
 			</xsl:if>
@@ -315,17 +315,17 @@
 	 	<div>
 			<!-- standard attributes -->
 			<xsl:attribute name="id"><xsl:value-of select="concat('resource', $id)" /></xsl:attribute>
-			<span class="oryx-type"><xsl:value-of select="$type" /></span>
+			<span class="wapama-type"><xsl:value-of select="$type" /></span>
 			<!-- bounds -->
 			<xsl:if test="count(./graphics/position) > 0" >
 				<xsl:variable name="x" select="./graphics/position/@x div 3" />
 				<xsl:variable name="y" select="./graphics/position/@y div 3" />
-				<span class="oryx-bounds">
+				<span class="wapama-bounds">
 					<xsl:value-of select="concat($x, ',', $y, ',', $x+30, ',', $y+30)" />
 				</span>
 			</xsl:if>
 			<xsl:if test="not(count(./graphics/position) > 0)" >
-				<span class="oryx-bounds">
+				<span class="wapama-bounds">
 					<xsl:value-of select="'100, 100, 130, 130'" />
 				</span>
 			</xsl:if>

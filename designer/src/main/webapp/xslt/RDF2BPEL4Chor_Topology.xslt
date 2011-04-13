@@ -2,13 +2,13 @@
 <xsl:stylesheet version="1.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:oryx="http://oryx-editor.org/"
+	xmlns:wapama="http://www.wapama.net/diagram/"
 	xmlns:raziel="http://raziel.org/">
 
 	<xsl:output method="xml" />
 	
 	<xsl:template match="rdf:Description">	
-		<xsl:variable name="typeString" select="./oryx:type" />	
+		<xsl:variable name="typeString" select="./wapama:type" />	
 		<xsl:variable name="nodeType">
 			<xsl:call-template name="get-exact-type">
 				<xsl:with-param name="typeString" select="$typeString" />
@@ -18,14 +18,14 @@
 		<xsl:if test="$nodeType='worksheet'">
 			<!-- root element -->
 			<topology xmlns="urn:HPI_IAAS:choreography:schemas:choreography:topology:2006/12">
-				<xsl:variable name="name" select="./oryx:name" />
+				<xsl:variable name="name" select="./wapama:name" />
 				<xsl:if test="$name!=''">
 					<xsl:attribute name="name">
 						<xsl:value-of select="concat($name,'topology') " />
 					</xsl:attribute>
 				</xsl:if>
 				
-				<xsl:variable name="targetNamespace" select="./oryx:targetnamespace" />
+				<xsl:variable name="targetNamespace" select="./wapama:targetnamespace" />
 				<xsl:if test="$targetNamespace!=''">
 					<xsl:attribute name="targetNamespace">
 						<xsl:value-of select="$targetNamespace" />
@@ -64,7 +64,7 @@
 	
 	
 	<xsl:template name="add-otherxmlns-attribute">
-		<xsl:variable name="otherxmlns" select="./oryx:otherxmlns" />
+		<xsl:variable name="otherxmlns" select="./wapama:otherxmlns" />
 		<xsl:if test="$otherxmlns!=''">
 			<xsl:variable name="count">
 				<xsl:call-template name="get-number-of-elements-in-complex-type">
@@ -98,7 +98,7 @@
 	
 	<xsl:template name="find-all-messageLinks">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="nodeType">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -115,49 +115,49 @@
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="name" select="./oryx:name" />
+					<xsl:variable name="name" select="./wapama:name" />
 					<xsl:if test="$name!=''">
 						<xsl:attribute name="name">
 							<xsl:value-of select="$name" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="sender" select="./oryx:sender" />
+					<xsl:variable name="sender" select="./wapama:sender" />
 					<xsl:if test="$sender!=''">
 						<xsl:attribute name="senders">
 							<xsl:value-of select="$sender" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="receiver" select="./oryx:receiver" />
+					<xsl:variable name="receiver" select="./wapama:receiver" />
 					<xsl:if test="$receiver!=''">
 						<xsl:attribute name="receivers">
 							<xsl:value-of select="$receiver" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="bindSenderTo" select="./oryx:bindsenderto" />
+					<xsl:variable name="bindSenderTo" select="./wapama:bindsenderto" />
 					<xsl:if test="$bindSenderTo!=''">
 						<xsl:attribute name="bindSenderTo">
 							<xsl:value-of select="$bindSenderTo" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="messageName" select="./oryx:messagename" />
+					<xsl:variable name="messageName" select="./wapama:messagename" />
 					<xsl:if test="$messageName!=''">
 						<xsl:attribute name="messageName">
 							<xsl:value-of select="$messageName" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="participantRefs" select="./oryx:participantrefs" />
+					<xsl:variable name="participantRefs" select="./wapama:participantrefs" />
 					<xsl:if test="$participantRefs!=''">
 						<xsl:attribute name="participantRefs">
 							<xsl:value-of select="$participantRefs" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="copyParticipantRefsTo" select="./oryx:copyparticipantrefsto" />
+					<xsl:variable name="copyParticipantRefsTo" select="./wapama:copyparticipantrefsto" />
 					<xsl:if test="$copyParticipantRefsTo!=''">
 						<xsl:attribute name="copyParticipantRefsTo">
 							<xsl:value-of select="$copyParticipantRefsTo" />
@@ -176,7 +176,7 @@
 
 	<xsl:template name="find-all-participants">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="nodeType">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -186,42 +186,42 @@
 			<!--record all participant information-->
 			<xsl:if test="$nodeType='participant'">
 				<participant>
-					<xsl:variable name="name" select="./oryx:name" />
+					<xsl:variable name="name" select="./wapama:name" />
 					<xsl:if test="$name!=''">
 						<xsl:attribute name="name">
 							<xsl:value-of select="$name" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="type" select="./oryx:participanttype" />
+					<xsl:variable name="type" select="./wapama:participanttype" />
 					<xsl:if test="$type!=''">
 						<xsl:attribute name="type">
 							<xsl:value-of select="$type" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="selects" select="./oryx:selects" />
+					<xsl:variable name="selects" select="./wapama:selects" />
 					<xsl:if test="$selects!=''">
 						<xsl:attribute name="selects">
 							<xsl:value-of select="$selects" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="scope" select="./oryx:scope" />
+					<xsl:variable name="scope" select="./wapama:scope" />
 					<xsl:if test="$scope!=''">
 						<xsl:attribute name="scope">
 							<xsl:value-of select="$scope" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="copyTo" select="./oryx:copyto" />
+					<xsl:variable name="copyTo" select="./wapama:copyto" />
 					<xsl:if test="$copyTo!=''">
 						<xsl:attribute name="copyTo">
 							<xsl:value-of select="$copyTo" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="forEach" select="./oryx:foreach" />
+					<xsl:variable name="forEach" select="./wapama:foreach" />
 					<xsl:if test="$forEach!=''">
 						<xsl:attribute name="forEach">
 							<xsl:value-of select="$forEach" />
@@ -244,21 +244,21 @@
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="name" select="./oryx:name" />
+					<xsl:variable name="name" select="./wapama:name" />
 					<xsl:if test="$name!=''">
 						<xsl:attribute name="name">
 							<xsl:value-of select="$name" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="type" select="./oryx:participanttype" />
+					<xsl:variable name="type" select="./wapama:participanttype" />
 					<xsl:if test="$type!=''">
 						<xsl:attribute name="type">
 							<xsl:value-of select="$type" />
 						</xsl:attribute>
 					</xsl:if>
 					<xsl:if test="$type=''">
-						<xsl:attribute name="type" select="./oryx:name" />
+						<xsl:attribute name="type" select="./wapama:name" />
 					</xsl:if>
 					
 				</participant>
@@ -269,7 +269,7 @@
 	
 	<xsl:template name="find-all-participantSets">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="nodeType">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -286,35 +286,35 @@
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="name" select="./oryx:name" />
+					<xsl:variable name="name" select="./wapama:name" />
 					<xsl:if test="$name!=''">
 						<xsl:attribute name="name">
 							<xsl:value-of select="$name" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="type" select="./oryx:participanttype" />
+					<xsl:variable name="type" select="./wapama:participanttype" />
 					<xsl:if test="$type!=''">
 						<xsl:attribute name="type">
 							<xsl:value-of select="$type" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="scope" select="./oryx:scope" />
+					<xsl:variable name="scope" select="./wapama:scope" />
 					<xsl:if test="$scope!=''">
 						<xsl:attribute name="scope">
 							<xsl:value-of select="$scope" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="copyTo" select="./oryx:copyto" />
+					<xsl:variable name="copyTo" select="./wapama:copyto" />
 					<xsl:if test="$copyTo!=''">
 						<xsl:attribute name="copyTo">
 							<xsl:value-of select="$copyTo" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="forEach" select="./oryx:foreach" />
+					<xsl:variable name="forEach" select="./wapama:foreach" />
 					<xsl:if test="$forEach!=''">
 						<xsl:attribute name="forEach">
 							<xsl:value-of select="$forEach" />
@@ -332,7 +332,7 @@
 	
 	<xsl:template name="find-all-participantTypes">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="nodeType">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -341,7 +341,7 @@
 			
 			<!--participantTypes saved in processes-->
 			<xsl:if test="$nodeType='process'">
-				<xsl:variable name="typeName" select="./oryx:participanttype" />
+				<xsl:variable name="typeName" select="./wapama:participanttype" />
 					
 				<xsl:if test="$typeName!=''">
 					<participantType>
@@ -349,8 +349,8 @@
 							<xsl:value-of select="$typeName" />
 						</xsl:attribute>
 					
-						<xsl:variable name="processName" select="./oryx:name" />
-						<xsl:variable name="processNamespace" select="./oryx:targetnamespace" />
+						<xsl:variable name="processName" select="./wapama:name" />
+						<xsl:variable name="processNamespace" select="./wapama:targetnamespace" />
 						<xsl:if test="$processName!=''">
 							<xsl:attribute name="participantBehaviorDescription">
 								<xsl:value-of select="$processName" />
@@ -365,10 +365,10 @@
 				
 				<xsl:if test="$typeName=''">
 					<participantType>
-						<xsl:attribute name="name" select="./oryx:name" />
+						<xsl:attribute name="name" select="./wapama:name" />
 						
-						<xsl:variable name="processName" select="./oryx:name" />
-						<xsl:variable name="processNamespace" select="./oryx:targetnamespace" />
+						<xsl:variable name="processName" select="./wapama:name" />
+						<xsl:variable name="processNamespace" select="./wapama:targetnamespace" />
 						<xsl:if test="$processName!=''">
 							<xsl:attribute name="participantBehaviorDescription">
 								<xsl:value-of select="$processName" />
@@ -384,7 +384,7 @@
 			
 			<!--participantTypes saved in participantSet-->
 			<xsl:if test="$nodeType='participantSet'">
-				<xsl:variable name="typeName" select="./oryx:participanttype" />
+				<xsl:variable name="typeName" select="./wapama:participanttype" />
 				
 				<xsl:if test="$typeName!=''">
 					<participantType>
@@ -397,7 +397,7 @@
 			
 			<!--participantTypes saved in participantRef-->
 			<xsl:if test="$nodeType='participant'">
-				<xsl:variable name="typeName" select="./oryx:participanttype" />
+				<xsl:variable name="typeName" select="./wapama:participanttype" />
 				
 				<xsl:if test="$typeName!=''">
 					<participantType>
@@ -414,7 +414,7 @@
 
 	<xsl:template name="find-all-crossPartnerScopes">
 		<xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="nodeType">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -423,9 +423,9 @@
 			
 			<!--crossPartnerScopes saved in process or scope-->
 			<xsl:if test="$nodeType='process' or 'scope'">
-				<xsl:variable name="typeName" select="./oryx:crosspartnerscopes" />
-				<xsl:variable name="elementName" select="./oryx:name" />
-				<xsl:variable name="elementType" select="./oryx:type" />
+				<xsl:variable name="typeName" select="./wapama:crosspartnerscopes" />
+				<xsl:variable name="elementName" select="./wapama:name" />
+				<xsl:variable name="elementType" select="./wapama:type" />
 				<xsl:variable name="elementId" select="(./@rdf:about)" />
 			    <xsl:variable name="elementParent" select="(./raziel:parent/@rdf:resource)" />
 			    		
@@ -537,8 +537,8 @@
 			<xsl:variable name="currentParentID"><xsl:value-of select="(./raziel:parent/@rdf:resource)" /></xsl:variable>         
 			<xsl:if test="$currentParentID = $searchedParentID">
       		  	<xsl:variable name="currentID" select="@rdf:about" />
-      		  	<xsl:variable name="currentName" select="./oryx:name" />
-				<xsl:variable name="typeString" select="./oryx:type" />	
+      		  	<xsl:variable name="currentName" select="./wapama:name" />
+				<xsl:variable name="typeString" select="./wapama:type" />	
 				<xsl:variable name="nodeType">
 					<xsl:call-template name="get-exact-type">
 						<xsl:with-param name="typeString" select="$typeString" />
@@ -582,7 +582,7 @@
 			<xsl:variable name="currentParentID"><xsl:value-of select="(./raziel:parent/@rdf:resource)" /></xsl:variable>         
 			<xsl:if test="$currentParentID = $searchedParentID">
       		  	<xsl:variable name="currentID" select="@rdf:about" />
-				<xsl:variable name="typeString" select="./oryx:type" />	
+				<xsl:variable name="typeString" select="./wapama:type" />	
 				<xsl:variable name="nodeType">
 					<xsl:call-template name="get-exact-type">
 						<xsl:with-param name="typeString" select="$typeString" />
@@ -592,7 +592,7 @@
 				<xsl:if test="$nodeType='invoke' or 'reply' or 'onMessage' or 'receive' or 'onEvent'">
 					<sendOrReceiveActivity> 
 						
-						<xsl:variable name="name"><xsl:value-of select="./oryx:name" /></xsl:variable>
+						<xsl:variable name="name"><xsl:value-of select="./wapama:name" /></xsl:variable>
 
 						<!-- extended by changhua Li (to ensure that the activityName is not empty, but onMessage or onEvent)-->						
 						<xsl:if test="$name!=''">
@@ -674,7 +674,7 @@
 			<xsl:for-each select="//rdf:Description">
 				<xsl:variable name="currentID"><xsl:value-of select="@rdf:about" /></xsl:variable>         
 				<xsl:if test="$currentID = $targetID">
-      		  		<xsl:variable name="typeString" select="./oryx:type" />	
+      		  		<xsl:variable name="typeString" select="./wapama:type" />	
 					<xsl:variable name="type">
 						<xsl:call-template name="get-exact-type">
 							<xsl:with-param name="typeString" select="$typeString" />
@@ -711,7 +711,7 @@
 
 	<xsl:template name="record-association-edge-infos">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="type">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -739,7 +739,7 @@
 	
 	<xsl:template name="record-process-infos">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="type">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -748,8 +748,8 @@
 			
 			<xsl:if test="$type='process'">
 				<xsl:variable name="processID"><xsl:value-of select="@rdf:about" /></xsl:variable>
-				<xsl:variable name="participantType" select="./oryx:participanttype" />
-				<xsl:variable name="processName" select="./oryx:name" />
+				<xsl:variable name="participantType" select="./wapama:participanttype" />
+				<xsl:variable name="processName" select="./wapama:name" />
 					
 				<process>
 					<xsl:if test="$processID!=''">

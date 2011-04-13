@@ -24,15 +24,15 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.Controls) {ORYX.Core.Controls = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.Controls) {WAPAMA.Core.Controls = {};}
 
 
 /**
  * @classDescription Abstract base class for all Controls.
  */
-ORYX.Core.Controls.Control = ORYX.Core.UIObject.extend({
+WAPAMA.Core.Controls.Control = WAPAMA.Core.UIObject.extend({
 	
 	toString: function() { return "Control " + this.id; }
  });

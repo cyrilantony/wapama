@@ -34,7 +34,7 @@
 				var numOfOutgoings = shape.getOutgoingShapes().length;
 				data.push({
 						  name:"numOfOutgoings",
-						  prefix:"oryx",
+						  prefix:"wapama",
 						  value:numOfOutgoings,
 						  type:"literal"
 						  });

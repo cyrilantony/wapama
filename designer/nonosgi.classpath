@@ -23,7 +23,7 @@
 	<classpathentry kind="var" path="M2_REPO/fop/fop/0.93/fop-0.93-jdk15.jar" sourcepath="M2_REPO/fop/fop/0.93/fop-0.93-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-api/2.2/jaxb-api-2.2.jar" sourcepath="M2_REPO/sun-jaxb/jaxb-api/2.2/jaxb-api-2.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/sun-jaxb/jaxb-impl/2.2/jaxb-impl-2.2.jar" sourcepath="M2_REPO/sun-jaxb/jaxb-impl/2.2/jaxb-impl-2.2-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/oryx/atlas/0.1/atlas-0.1.jar" sourcepath="M2_REPO/oryx/atlas/0.1/atlas-0.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/wapama/atlas/0.1/atlas-0.1.jar" sourcepath="M2_REPO/wapama/atlas/0.1/atlas-0.1-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

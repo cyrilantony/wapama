@@ -5,7 +5,7 @@
  * Changing the x-Attribute, should result in a adjusted x-value of the DOM-Element.
  */
 function testRectChangedXValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement);
 	testSVGShape.x = 99
 	testSVGShape.update()
 	var xAttr = testSVGRectElement.getAttributeNS(null, 'x')
@@ -19,7 +19,7 @@ function testRectChangedXValue() {
  * Changing the y-Attribute, should result in a adjusted y-value of the DOM-Element.
  */
 function testRectChangedYValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement);
 	testSVGShape.y = 99
 	testSVGShape.update()
 	var yAttr = testSVGRectElement.getAttributeNS(null, 'y')
@@ -33,7 +33,7 @@ function testRectChangedYValue() {
  * Changing the width-Attribute, should result in a adjusted width-value of the DOM-Element.
  */
 function testRectChangedWidthValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement);
 	testSVGShape.width = 99
 	testSVGShape.update()
 	var widthAttr = testSVGRectElement.getAttributeNS(null, 'width')
@@ -46,7 +46,7 @@ function testRectChangedWidthValue() {
  * Changing the height-Attribute, should result in a adjusted height-value of the DOM-Element.
  */
 function testRectChangedHeightValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement);
 	testSVGShape.height = 99
 	testSVGShape.update()
 	var heightAttr = testSVGRectElement.getAttributeNS(null, 'height')
@@ -59,7 +59,7 @@ function testRectChangedHeightValue() {
  * Tests if multiple changes at the same time handled.
  */
 function testRectChangedMultipleValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement);
 	testSVGShape.height = 99
 	testSVGShape.width = 98
 	testSVGShape.x = 97
@@ -90,7 +90,7 @@ function testRectChangedMultipleValue() {
  * It is expected, that the initial radius is lower than 1000/2.
  */
 function testCircleChangedHeightValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement);
 	var oldX = testSVGShape.x
 	var oldY = testSVGShape.y
 	
@@ -115,7 +115,7 @@ function testCircleChangedHeightValue() {
  * It is expected, that the initial radius is lower than 1000/2.
  */
 function testCircleChangedWidthValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement);
 	var oldX = testSVGShape.x
 	var oldY = testSVGShape.y
 	
@@ -140,7 +140,7 @@ function testCircleChangedWidthValue() {
  */
 function testFailForNaNHeightValue() {
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement);
 		testSVGShape.height = "NaN"
 		testSVGShape.update()
 		fail("Test should fail yet, with NaNException.")
@@ -156,7 +156,7 @@ function testFailForNaNHeightValue() {
  */
 function testFailForNaNWidthValue() {
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement);
 		testSVGShape.width = "NaN"
 		testSVGShape.update()
 		fail("Test should fail yet, with NaNException.")
@@ -173,7 +173,7 @@ function testFailForNaNWidthValue() {
  * A changed height value should result in a adjusted y-radius and cy value.
  */
 function testNewHeightEllipse() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement);
 	testSVGShape.height = 1000
 	var y = testSVGShape.y
 	testSVGShape.update()
@@ -190,7 +190,7 @@ function testNewHeightEllipse() {
  * A changed width value should result in a adjusted x-radius and cx value.
  */
 function testNewWidthEllipse() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement);
 	testSVGShape.width = 1000
 	var x = testSVGShape.x
 	testSVGShape.update()
@@ -207,7 +207,7 @@ function testNewWidthEllipse() {
  * If only the height value changes, the width value should be unchanged.
  */
 function testEllipseUnchangedWidth() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement);
 	var width = testSVGShape.width;
 	
 	testSVGShape.height = 1000
@@ -220,7 +220,7 @@ function testEllipseUnchangedWidth() {
  * If only the width value changes, the height value should be unchanged.
  */
 function testEllipseUnchangedHeight() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement);
 	var height = testSVGShape.height;
 	
 	testSVGShape.width = 1000
@@ -235,7 +235,7 @@ function testEllipseUnchangedHeight() {
  * A changed x value should result in changed x1 and x2 values.
  */
 function testLineNewXValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 	testSVGShape.x = 1000
 	testSVGShape.update()
 	
@@ -251,7 +251,7 @@ function testLineNewXValue() {
  */
 function testNaNXValue() {
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 		testSVGShape.x = "NaN"
 		testSVGShape.update()
 		fail('Test should fail yet with a NaNException.')
@@ -267,7 +267,7 @@ function testNaNXValue() {
  */
 function testNaNYValue() {
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 		testSVGShape.y = "NaN"
 		testSVGShape.update()
 		fail('Test should fail yet with a NaNException.')
@@ -282,7 +282,7 @@ function testNaNYValue() {
  * A changed y value should result in changed y1 and y2 values.
  */
 function testLineNewYValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 	testSVGShape.y = 1000
 	testSVGShape.update()
 	
@@ -297,7 +297,7 @@ function testLineNewYValue() {
  * A changed width value should result in changed x2 value.
  */
 function testLineNewWidthValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 	var x = testSVGShape.x
 	var y = testSVGShape.y
 	var height = testSVGShape.height
@@ -321,7 +321,7 @@ function testLineNewWidthValue() {
  */
 function testNegativeWidth() {
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 		testSVGShape.width = -1
 		testSVGShape.update()
 		fail("Test should fail yet for negative width value")
@@ -337,7 +337,7 @@ function testNegativeWidth() {
  */
 function testNegativeHeight() {
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 		testSVGShape.height = -1
 		testSVGShape.update()
 		fail("Test should fail yet for negative height value")
@@ -353,7 +353,7 @@ function testNegativeHeight() {
  * A changed height value should result in changed y2 value.
  */
 function testLineNewHeightValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 	var x = testSVGShape.x
 	var y = testSVGShape.y
 	var width = testSVGShape.width
@@ -379,7 +379,7 @@ function testLineNewHeightValue() {
  * A new height value should scale in vertical direction.
  */
 function testPolylineNewHeightValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	
 	testSVGShape.height = 9
 	testSVGShape.update()
@@ -401,7 +401,7 @@ function testPolylineNewHeightValue() {
  * A new width value should scale in horizontal direction.
  */
 function testPolylineNewWidthValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	
 	testSVGShape.width = 10
 	testSVGShape.update()
@@ -424,7 +424,7 @@ function testPolylineNewWidthValue() {
  * A new y value should translate in vertical direction.
  */
 function testPolylineNewYValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	
 	testSVGShape.y = 10
 	testSVGShape.update()
@@ -446,7 +446,7 @@ function testPolylineNewYValue() {
  * A new x value should result in a translation in horizontal direction.
  */
 function testPolylineNewXValue() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	testSVGShape.x = 10
 	testSVGShape.update()
 	
@@ -467,7 +467,7 @@ function testPolylineNewXValue() {
  * A corrupt points attribute should result in an exception.
  */
 function testFailForCorruptPointsAttribute() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	testSVGPolylineElement.setAttributeNS(null, 'points', "1,4 2,5 3,6 5,")
 	testSVGShape.widht = 1000
 	try {
@@ -484,7 +484,7 @@ function testFailForCorruptPointsAttribute() {
  * Update methode should not fail if width oer oldWidth == 0
  */
 function testPolylineZeroValueInWidth() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	testSVGShape.widht = 0
 	// test for width == 0
 	try {
@@ -511,7 +511,7 @@ function testPolylineZeroValueInWidth() {
 /**
  */
 function testPolylineZeroValueInHeight() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	testSVGShape.heigth = 0
 	// test for heigth == 0
 	try {
@@ -541,7 +541,7 @@ function testPolylineZeroValueInHeight() {
 // * Update methode should not fail if width oer oldWidth == 0
 // */
 //function testPathZeroValueInWidth() {
-//	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+//	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 //	testSVGShape.widht = 0
 //	// test for width == 0
 //	try {
@@ -569,7 +569,7 @@ function testPolylineZeroValueInHeight() {
 // * Update methode should not fail if height oer oldHeight == 0
 // */
 //function testPathZeroValueInHeight() {
-//	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+//	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 //	testSVGShape.heigth = 0
 //	// test for heigth == 0
 //	try {
@@ -599,7 +599,7 @@ function testPolylineZeroValueInHeight() {
  * Should fail, if passed values are NaN.
  */
 function testIsPointIncludedFailForNaNValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement)
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement)
 	try {
 		testSVGShape.isPointIncluded("NaN","Nan")
 		fail("Test should fail yet for NaN-Values.")
@@ -614,7 +614,7 @@ function testIsPointIncludedFailForNaNValues() {
  * Test for a point, that is outside the rectagle
  */
 function testIsPointIncludedPointOutside() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement)
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement)
 	assertFalse(testSVGShape.isPointIncluded(1000,5000))
 }
 
@@ -622,7 +622,7 @@ function testIsPointIncludedPointOutside() {
  * Test for a point, that is outside the rectagle
  */
 function testIsPointIncludedPointOutside() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement)
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement)
 	assertTrue(testSVGShape.isPointIncluded(50,60))
 }
 
@@ -630,7 +630,7 @@ function testIsPointIncludedPointOutside() {
  * Test for a point, that is on the line.
  */
 function testIsPointIncludedPointOnLine() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement)
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement)
 	assertTrue(testSVGShape.isPointIncluded(testSVGShape.x,testSVGShape.y))
 }
 

@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.XFormsImport = Clazz.extend({
+WAPAMA.Plugins.XFormsImport = Clazz.extend({
 
 	facade: undefined,
 
@@ -32,11 +32,11 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 		this.facade = facade;
 
 		this.facade.offer({
-			'name':ORYX.I18N.XFormsSerialization.importXForms,
+			'name':WAPAMA.I18N.XFormsSerialization.importXForms,
 			'functionality': this.importXForms.bind(this),
-			'group': ORYX.I18N.XFormsSerialization.group,
-			'icon': ORYX.PATH + "images/xforms_import.png",
-			'description': ORYX.I18N.XFormsSerialization.importXFormsDesc,
+			'group': WAPAMA.I18N.XFormsSerialization.group,
+			'icon': WAPAMA.PATH + "images/xforms_import.png",
+			'description': WAPAMA.I18N.XFormsSerialization.importXFormsDesc,
 			'index': 3,
 			'minShape': 0,
 			'maxShape': 0});
@@ -84,8 +84,8 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 					failedcallback();
 					
 				} else {
-					Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.XFormsSerialization.impFailed);
-					ORYX.log.warn("Import XForms failed: " + transport.responseText);	
+					Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.XFormsSerialization.impFailed);
+					WAPAMA.log.warn("Import XForms failed: " + transport.responseText);	
 				}
 				
 			}.bind(this)		
@@ -99,7 +99,7 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 	
 	throwWarning: function( text ){
 		Ext.MessageBox.show({
-					title: 		ORYX.I18N.Oryx.title,
+					title: 		WAPAMA.I18N.Wapama.title,
  					msg: 		text,
 					buttons: 	Ext.MessageBox.OK,
 					icon: 		Ext.MessageBox.WARNING
@@ -118,12 +118,12 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 	        labelWidth: 	50,
 	        defaultType: 	'textfield',
 	        items: [{
-	            text : 		ORYX.I18N.XFormsSerialization.selectFile, 
+	            text : 		WAPAMA.I18N.XFormsSerialization.selectFile, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 	            anchor:		'100%',
 				xtype : 	'label' 
 	        },{
-	            fieldLabel: ORYX.I18N.XFormsSerialization.file,
+	            fieldLabel: WAPAMA.I18N.XFormsSerialization.file,
 	            name: 		'subject',
 				inputType : 'file',
 				style : 	'margin-bottom:10px;display:block;',
@@ -144,7 +144,7 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 			layout: 	'fit',
 			plain:		true,
 			bodyStyle: 	'padding:5px;',
-			title: 		ORYX.I18N.XFormsSerialization.impTitle, 
+			title: 		WAPAMA.I18N.XFormsSerialization.impTitle, 
 			height: 	350, 
 			width:		500,
 			modal:		true,
@@ -155,10 +155,10 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 			items: 		[form],
 			buttons:[
 				{
-					text:ORYX.I18N.XFormsSerialization.impButton,
+					text:WAPAMA.I18N.XFormsSerialization.impButton,
 					handler:function(){
 						
-						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.XFormsSerialization.impProgress});
+						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.XFormsSerialization.impProgress});
 						loadMask.show();
 						
 						window.setTimeout(function(){
@@ -167,7 +167,7 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 							
 							var params = { resource: location.href, data: xhtmlString };
 							this.sendRequest(
-								ORYX.CONFIG.XFORMS_IMPORT_URL, 
+								WAPAMA.CONFIG.XFORMS_IMPORT_URL, 
 								params, 
 								function(request) {
 									this.facade.importJSON(request.responseText);
@@ -181,7 +181,7 @@ ORYX.Plugins.XFormsImport = Clazz.extend({
 			
 					}.bind(this)
 				},{
-					text:ORYX.I18N.XFormsSerialization.close,
+					text:WAPAMA.I18N.XFormsSerialization.close,
 					handler:function(){
 						
 						dialog.hide();

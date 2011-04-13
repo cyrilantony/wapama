@@ -19,10 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.ResourceAssignment = Clazz.extend({
+WAPAMA.Plugins.ResourceAssignment = Clazz.extend({
 
     facade: undefined,
     
@@ -34,12 +34,12 @@ ORYX.Plugins.ResourceAssignment = Clazz.extend({
 		this.raisedEventIds = [];
 		
         this.facade.offer({
-            'name': ORYX.I18N.ResourceAssignment.name,
+            'name': WAPAMA.I18N.ResourceAssignment.name,
             'functionality': this.assignResource.bind(this),
-            'group': ORYX.I18N.ResourceAssignment.group,
-           // 'dropDownGroupIcon': ORYX.PATH + "images/hr.png",
-            'icon': ORYX.PATH + "images/hr.png",
-            'description': ORYX.I18N.ResourceAssignment.desc,
+            'group': WAPAMA.I18N.ResourceAssignment.group,
+           // 'dropDownGroupIcon': WAPAMA.PATH + "images/hr.png",
+            'icon': WAPAMA.PATH + "images/hr.png",
+            'description': WAPAMA.I18N.ResourceAssignment.desc,
             'index': 0,
             'toggle': false,
             'minShape': 1,
@@ -59,17 +59,17 @@ ORYX.Plugins.ResourceAssignment = Clazz.extend({
     	//get only selected tasks
     	for (var index = 0; index < len; index++) {
     		var item = selectedElements[index];
-    		if(item.properties["oryx-activitytype"] == "Task") {
+    		if(item.properties["wapama-activitytype"] == "Task") {
     			taskElements[i] = item;
-				if(taskElements[i].properties["oryx-id"] == "") {
-					taskElements[i].setProperty("oryx-id", taskElements[i].id);
+				if(taskElements[i].properties["wapama-id"] == "") {
+					taskElements[i].setProperty("wapama-id", taskElements[i].id);
 				}
     			i++;
     		}
     	}
 
     	//get allocation type and resources to be possibly assigned to the current task
-		var allocationTypeData = this.handleAllocationTypeData(taskElements[0].properties["oryx-id"]);
+		var allocationTypeData = this.handleAllocationTypeData(taskElements[0].properties["wapama-id"]);
 		if(allocationTypeData[0] != null) { //skip following if no resource/ role is selected
 			var resourceData = allocationTypeData[0];
 			var allocationType = allocationTypeData[1];
@@ -124,7 +124,7 @@ ORYX.Plugins.ResourceAssignment = Clazz.extend({
 	getResourceData: function(allocationType) { //Ajax request to get resource/ role information from servlet
 		var resp;
 		//get Resource List
-		new Ajax.Request(ORYX.CONFIG.ROOT_PATH + 'resourceList', {
+		new Ajax.Request(WAPAMA.CONFIG.ROOT_PATH + 'resourceList', {
 			method: 'POST',
 			asynchronous: false,
 			parameters: {
@@ -154,8 +154,8 @@ ORYX.Plugins.ResourceAssignment = Clazz.extend({
 		for (var taskCounter = 0; taskCounter < taskElements.length; taskCounter++) {
 			var jsonObjectString;
 			var currentTask = taskElements[taskCounter];
-			if (currentTask.properties["oryx-resourceassignments"] != "") { //assignments existing?
-				var jsonObject = currentTask.properties["oryx-resourceassignments"].evalJSON();
+			if (currentTask.properties["wapama-resourceassignments"] != "") { //assignments existing?
+				var jsonObject = currentTask.properties["wapama-resourceassignments"].evalJSON();
 				var totalCount = parseInt(jsonObject.totalCount) + newResources.length;
 				var items = jsonObject.items.toArray();
 				//eliminate duplicates
@@ -193,7 +193,7 @@ ORYX.Plugins.ResourceAssignment = Clazz.extend({
 				jsonObjectString = jsonObjectString + "]}";
 			}
 			//complete allocation by writing final entry
-			currentTask.setProperty("oryx-resourceassignments", jsonObjectString);
+			currentTask.setProperty("wapama-resourceassignments", jsonObjectString);
 			
 		}
 	},
@@ -239,7 +239,7 @@ ORYX.Plugins.ResourceAssignment = Clazz.extend({
     	var highestId = 1; //next element id for separations of a specific task
     	var j = 0; //counter
     	var m = 0; //counter
-		var assignments = taskElement.properties["oryx-resourceassignments"]; //get saved assignments
+		var assignments = taskElement.properties["wapama-resourceassignments"]; //get saved assignments
 		assignments = assignments.toString();
     	//store saved assignments including task ids
     	var savedAssignmentsString = assignments.substring(0,assignments.indexOf(']'));

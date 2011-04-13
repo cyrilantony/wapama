@@ -25,12 +25,12 @@
  *
  * Config variables
  */
-NAMESPACE_ORYX = "http://www.b3mn.org/oryx";
+NAMESPACE_WAPAMA = "http://www.wapama.net/diagram";
 NAMESPACE_SVG = "http://www.w3.org/2000/svg/";
 
 /**
  * @classDescription This class wraps the manipulation of a SVG basic shape or a path.
- * @namespace ORYX.Core.SVG
+ * @namespace WAPAMA.Core.SVG
  * uses Inheritance (Clazz)
  * uses Prototype 1.5.0
  * uses PathParser by Kevin Lindsey (http://kevlindev.com/)
@@ -40,11 +40,11 @@ NAMESPACE_SVG = "http://www.w3.org/2000/svg/";
  */
 
 //init package
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.SVG) {WAPAMA.Core.SVG = {};}
 
-ORYX.Core.SVG.SVGShape = Clazz.extend({
+WAPAMA.Core.SVG.SVGShape = Clazz.extend({
 
 	/**
 	 * Constructor
@@ -89,7 +89,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 	init: function() {
 
 		/**initialize position and size*/
-		if(ORYX.Editor.checkClassType(this.element, SVGRectElement) || ORYX.Editor.checkClassType(this.element, SVGImageElement)) {
+		if(WAPAMA.Editor.checkClassType(this.element, SVGRectElement) || WAPAMA.Editor.checkClassType(this.element, SVGImageElement)) {
 			this.type = "Rect";
 			
 			var xAttr = this.element.getAttributeNS(null, "x");
@@ -117,7 +117,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 				throw "Missing attribute in element " + this.element;
 			}
 
-		} else if(ORYX.Editor.checkClassType(this.element, SVGCircleElement)) {
+		} else if(WAPAMA.Editor.checkClassType(this.element, SVGCircleElement)) {
 			this.type = "Circle";
 			
 			var cx = undefined;
@@ -148,7 +148,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 			this.oldWidth = 2*this.radiusX;
 			this.oldHeight = 2*this.radiusX;
 
-		} else if(ORYX.Editor.checkClassType(this.element, SVGEllipseElement)) {
+		} else if(WAPAMA.Editor.checkClassType(this.element, SVGEllipseElement)) {
 			this.type = "Ellipse";
 			
 			var cx = undefined;
@@ -184,7 +184,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 			this.oldWidth = 2*this.radiusX;
 			this.oldHeight = 2*this.radiusY;
 
-		} else if(ORYX.Editor.checkClassType(this.element, SVGLineElement)) {
+		} else if(WAPAMA.Editor.checkClassType(this.element, SVGLineElement)) {
 			this.type = "Line";
 			
 			var x1 = undefined;
@@ -220,7 +220,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 			this.oldWidth = Math.abs(x1-x2);
 			this.oldHeight = Math.abs(y1-y2);
 
-		} else if(ORYX.Editor.checkClassType(this.element, SVGPolylineElement) || ORYX.Editor.checkClassType(this.element, SVGPolygonElement)) {
+		} else if(WAPAMA.Editor.checkClassType(this.element, SVGPolylineElement) || WAPAMA.Editor.checkClassType(this.element, SVGPolygonElement)) {
 			this.type = "Polyline";
 			
 			var points = this.element.getAttributeNS(null, "points");
@@ -255,15 +255,15 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 				throw "Missing attribute in element " + this.element;
 			}
 
-		} else if(ORYX.Editor.checkClassType(this.element, SVGPathElement)) {
+		} else if(WAPAMA.Editor.checkClassType(this.element, SVGPathElement)) {
 			this.type = "Path";
 			
 			this.editPathParser = new PathParser();
-			this.editPathHandler = new ORYX.Core.SVG.EditPathHandler();
+			this.editPathHandler = new WAPAMA.Core.SVG.EditPathHandler();
 			this.editPathParser.setHandler(this.editPathHandler);
 		
 			var parser = new PathParser();
-			var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+			var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 			parser.setHandler(handler);
 			parser.parsePath(this.element);
 
@@ -278,9 +278,9 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 			throw "Element is not a shape.";
 		}
 
-		/** initialize attributes of oryx namespace */
+		/** initialize attributes of wapama namespace */
 		//resize
-		var resizeAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "resize");
+		var resizeAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "resize");
 		if(resizeAttr) {
 			resizeAttr = resizeAttr.toLowerCase();
 			if(resizeAttr.match(/horizontal/)) {
@@ -299,7 +299,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 		}
 
 		//anchors
-		var anchorAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "anchors");
+		var anchorAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "anchors");
 		if(anchorAttr) {
 			anchorAttr = anchorAttr.replace("/,/g", " ");
 			var anchors = anchorAttr.split(" ").without("");
@@ -323,8 +323,8 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 		}
 		
 		//allowDockers and resizeMarkerMid
-		if(ORYX.Editor.checkClassType(this.element, SVGPathElement)) {
-			var allowDockersAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "allowDockers"); 
+		if(WAPAMA.Editor.checkClassType(this.element, SVGPathElement)) {
+			var allowDockersAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "allowDockers"); 
 			if(allowDockersAttr) {
 				if(allowDockersAttr.toLowerCase() === "no") {
 					this.allowDockers = false; 
@@ -333,7 +333,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 				}
 			}
 			
-			var resizeMarkerMidAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "resizeMarker-mid"); 
+			var resizeMarkerMidAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "resizeMarker-mid"); 
 			if(resizeMarkerMidAttr) {
 				if(resizeMarkerMidAttr.toLowerCase() === "yes") {
 					this.resizeMarkerMid = true; 
@@ -465,13 +465,13 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 //				} else {
 //				 	r = ((this.width < this.height) ? this.width : this.height)/2.0;
 //				}
-				return ORYX.Core.Math.isPointInEllipse(pointX, pointY, this.x + this.width/2.0, this.y + this.height/2.0, this.radiusX, this.radiusX);
+				return WAPAMA.Core.Math.isPointInEllipse(pointX, pointY, this.x + this.width/2.0, this.y + this.height/2.0, this.radiusX, this.radiusX);
 				break;
 			case "Ellipse":
-				return ORYX.Core.Math.isPointInEllipse(pointX, pointY, this.x + this.radiusX, this.y + this.radiusY, this.radiusX, this.radiusY);			
+				return WAPAMA.Core.Math.isPointInEllipse(pointX, pointY, this.x + this.radiusX, this.y + this.radiusY, this.radiusX, this.radiusY);			
 				break;
 			case "Line":
-				return ORYX.Core.Math.isPointInLine(pointX, pointY, this.x, this.y, this.x + this.width, this.y + this.height);
+				return WAPAMA.Core.Math.isPointInLine(pointX, pointY, this.x, this.y, this.x + this.width, this.y + this.height);
 				break;
 			case "Polyline":
 				var points = this.element.getAttributeNS(null, "points");
@@ -483,18 +483,18 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 						return parseFloat(n);
 					});
 					
-					return ORYX.Core.Math.isPointInPolygone(pointX, pointY, points);
+					return WAPAMA.Core.Math.isPointInPolygone(pointX, pointY, points);
 				} else {
 					return false;
 				}
 				break;
 			case "Path":
 				var parser = new PathParser();
-				var handler = new ORYX.Core.SVG.PointsPathHandler();
+				var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 				parser.setHandler(handler);
 				parser.parsePath(this.element);
 	
-				return ORYX.Core.Math.isPointInPolygone(pointX, pointY, handler.points);
+				return WAPAMA.Core.Math.isPointInPolygone(pointX, pointY, handler.points);
 
 				break;
 			default:
@@ -519,7 +519,7 @@ ORYX.Core.SVG.SVGShape = Clazz.extend({
 		} catch(e){}
 		
 		if ( hasOwnerSVG ) {
-			if (ORYX.Editor.checkClassType(elem, SVGGElement)) {
+			if (WAPAMA.Editor.checkClassType(elem, SVGGElement)) {
 				if (elem.className && elem.className.baseVal == "me") 
 					return true;
 			}

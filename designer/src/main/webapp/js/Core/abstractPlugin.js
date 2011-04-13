@@ -4,14 +4,14 @@
  * 
  **/
 
-if(!ORYX){ var ORYX = {} }
-if(!ORYX.Plugins){ ORYX.Plugins = {} }
+if(!WAPAMA){ var WAPAMA = {} }
+if(!WAPAMA.Plugins){ WAPAMA.Plugins = {} }
 
 /**
    This abstract plugin class can be used to build plugins on.
    It provides some more basic functionality like registering events (on*-handlers)...
    @example
-    ORYX.Plugins.MyPlugin = ORYX.Plugins.AbstractPlugin.extend({
+    WAPAMA.Plugins.MyPlugin = WAPAMA.Plugins.AbstractPlugin.extend({
         construct: function() {
             // Call super class constructor
             arguments.callee.$.construct.apply(this, arguments);
@@ -21,44 +21,44 @@ if(!ORYX.Plugins){ ORYX.Plugins = {} }
         [...]
     });
    
-   @class ORYX.Plugins.AbstractPlugin
+   @class WAPAMA.Plugins.AbstractPlugin
    @constructor Creates a new instance
    @author Willi Tscheschner
 */
-ORYX.Plugins.AbstractPlugin = Clazz.extend({
+WAPAMA.Plugins.AbstractPlugin = Clazz.extend({
     /** 
      * The facade which offer editor-specific functionality
      * @type Facade
-     * @memberOf ORYX.Plugins.AbstractPlugin.prototype
+     * @memberOf WAPAMA.Plugins.AbstractPlugin.prototype
      */
 	facade: null,
 	
 	construct: function( facade ){
 		this.facade = facade;
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, this.onLoaded.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LOADED, this.onLoaded.bind(this));
 	},
         
     /**
        Overwrite to handle load event. TODO: Document params!!!
-       @methodOf ORYX.Plugins.AbstractPlugin.prototype
+       @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
     */
 	onLoaded: function(){},
 	
     /**
        Overwrite to handle selection changed event. TODO: Document params!!!
-       @methodOf ORYX.Plugins.AbstractPlugin.prototype
+       @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
     */
 	onSelectionChanged: function(){},
 	
     /**
        Show overlay on given shape.
-       @methodOf ORYX.Plugins.AbstractPlugin.prototype
+       @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
        @example
        showOverlay(
            myShape,
            { stroke: "green" },
-           ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
+           WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
                "title": "Click the element to execute it!",
                "stroke-width": 2.0,
                "stroke": "black",
@@ -66,9 +66,9 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
                "line-captions": "round"
            }])
        )
-       @param {Oryx.XXX.Shape[]} shapes One shape or array of shapes the overlay should be put on
-       @param {Oryx.XXX.Attributes} attributes some attributes...
-       @param {Oryx.svg.node} svgNode The svg node which should be used as overlay
+       @param {Wapama.XXX.Shape[]} shapes One shape or array of shapes the overlay should be put on
+       @param {Wapama.XXX.Attributes} attributes some attributes...
+       @param {Wapama.svg.node} svgNode The svg node which should be used as overlay
        @param {String} [svgNode="NW"] The svg node position where the overlay should be placed
     */
 	showOverlay: function(shapes, attributes, svgNode, svgNodePosition ){
@@ -89,11 +89,11 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 		
 		// Define unified id
 		if( !this.overlayID ){
-			this.overlayID = this.type + ORYX.Editor.provideId();
+			this.overlayID = this.type + WAPAMA.Editor.provideId();
 		}
 		
 		this.facade.raiseEvent({
-			type		: ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+			type		: WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
 			id			: this.overlayID,
 			shapes		: shapes,
 			attributes 	: attributes,
@@ -105,18 +105,18 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 	
     /**
        Hide current overlay.
-       @methodOf ORYX.Plugins.AbstractPlugin.prototype
+       @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
     */
 	hideOverlay: function(){
 		this.facade.raiseEvent({
-			type	: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+			type	: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 			id		: this.overlayID
 		});		
 	},
 	
     /**
        Does a transformation with the given xslt stylesheet.
-       @methodOf ORYX.Plugins.AbstractPlugin.prototype
+       @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
        @param {String} data The data (e.g. eRDF) which should be transformed
        @param {String} stylesheet URL of a stylesheet which should be used for transforming data.
     */
@@ -136,7 +136,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 				xsl = transport.responseText
 			}.bind(this),
 			onFailure: (function(transport){
-				ORYX.Log.error("XSL load failed" + transport);
+				WAPAMA.Log.error("XSL load failed" + transport);
 			}).bind(this)
 		});
         var xsltProcessor = new XSLTProcessor();
@@ -162,7 +162,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 	
 	/**
 	 * Opens a new window that shows the given XML content.
-	 * @methodOf ORYX.Plugins.AbstractPlugin.prototype
+	 * @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
 	 * @param {Object} content The XML content to be shown.
 	 * @example
 	 * openDownloadWindow( "my.xml", "<exampleXML />" );
@@ -178,7 +178,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 	
     /**
      * Opens a download window for downloading the given content.
-     * @methodOf ORYX.Plugins.AbstractPlugin.prototype
+     * @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
      * @param {String} filename The content's file name
      * @param {String} content The content to download
      */
@@ -205,14 +205,14 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 			submitForm.method = "POST";
 			win.document.write("</body></html>");
 			win.document.close();
-			submitForm.action= ORYX.PATH + "/download";
+			submitForm.action= WAPAMA.PATH + "/download";
 			submitForm.submit();
 		}		
 	},
     
     /**
      * Serializes DOM.
-     * @methodOf ORYX.Plugins.AbstractPlugin.prototype
+     * @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
      * @type {String} Serialized DOM
      */
     getSerializedDOM: function(){
@@ -230,7 +230,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
         '<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />' +
         '<link rel="schema.dcTerms" href="http://purl.org/dc/terms/ " />' +
         '<link rel="schema.b3mn" href="http://b3mn.org" />' +
-        '<link rel="schema.oryx" href="http://oryx-editor.org/" />' +
+        '<link rel="schema.wapama" href="http://www.wapama.net/" />' +
         '<link rel="schema.raziel" href="http://raziel.org/" />' +
         '<base href="' +
         location.href.split("?")[0] +
@@ -245,11 +245,11 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
     /**
      * Sets the editor in read only mode: Edges/ dockers cannot be moved anymore,
      * shapes cannot be selected anymore.
-     * @methodOf ORYX.Plugins.AbstractPlugin.prototype
+     * @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
      */
     enableReadOnlyMode: function(){
         //Edges cannot be moved anymore
-        this.facade.disableEvent(ORYX.CONFIG.EVENT_MOUSEDOWN);
+        this.facade.disableEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN);
         
         // Stop the user from editing the diagram while the plugin is active
         this._stopSelectionChange = function(){
@@ -257,33 +257,33 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
                 this.facade.setSelection([]);
             }
         };
-        this.facade.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, this._stopSelectionChange.bind(this));
+        this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_SELECTION_CHANGED, this._stopSelectionChange.bind(this));
     },
     /**
      * Disables read only mode, see @see
-     * @methodOf ORYX.Plugins.AbstractPlugin.prototype
-     * @see ORYX.Plugins.AbstractPlugin.prototype.enableReadOnlyMode
+     * @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
+     * @see WAPAMA.Plugins.AbstractPlugin.prototype.enableReadOnlyMode
      */
     disableReadOnlyMode: function(){
         // Edges can be moved now again
-        this.facade.enableEvent(ORYX.CONFIG.EVENT_MOUSEDOWN);
+        this.facade.enableEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN);
         
         if (this._stopSelectionChange) {
-            this.facade.unregisterOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, this._stopSelectionChange.bind(this));
+            this.facade.unregisterOnEvent(WAPAMA.CONFIG.EVENT_SELECTION_CHANGED, this._stopSelectionChange.bind(this));
             this._stopSelectionChange = undefined;
         }
     },
     
     /**
      * Extracts RDF from DOM.
-     * @methodOf ORYX.Plugins.AbstractPlugin.prototype
+     * @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
      * @type {String} Extracted RFD. Null if there are transformation errors.
      */
     getRDFFromDOM: function(){
         //convert to RDF
 		try {
 			var xsl = "";
-			source=ORYX.PATH + "lib/extract-rdf.xsl";
+			source=WAPAMA.PATH + "lib/extract-rdf.xsl";
 			new Ajax.Request(source, {
 				asynchronous: false,
 				method: 'get',
@@ -291,13 +291,13 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 					xsl = transport.responseText
 				}.bind(this),
 				onFailure: (function(transport){
-					ORYX.Log.error("XSL load failed" + transport);
+					WAPAMA.Log.error("XSL load failed" + transport);
 				}).bind(this)
 			});
 			/*
 			 var parser = new DOMParser();
 			 var parsedDOM = parser.parseFromString(this.getSerializedDOM(), "text/xml");
-			 var xsltPath = ORYX.PATH + "lib/extract-rdf.xsl";
+			 var xsltPath = WAPAMA.PATH + "lib/extract-rdf.xsl";
 			 var xsltProcessor = new XSLTProcessor();
 			 var xslRef = document.implementation.createDocument("", "", null);
 			 xslRef.async = false;
@@ -307,7 +307,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 			 var rdf = xsltProcessor.transformToDocument(parsedDOM);
 			 return (new XMLSerializer()).serializeToString(rdf);
 			 } catch (error) {
-			 Ext.Msg.alert("Oryx", error);
+			 Ext.Msg.alert("Wapama", error);
 			 return null;
 			 }*/
 			var domParser = new DOMParser();
@@ -321,7 +321,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 			
 			return serializer.serializeToString(result);
 		}catch(e){
-			Ext.Msg.alert("Oryx", error);
+			Ext.Msg.alert("Wapama", error);
 			return "";
 		}
 
@@ -354,7 +354,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 	doLayout: function(shapes){
 		// Raises a do layout event
 		this.facade.raiseEvent({
-			type		: ORYX.CONFIG.EVENT_LAYOUT,
+			type		: WAPAMA.CONFIG.EVENT_LAYOUT,
 			shapes		: shapes
 		});
 	},
@@ -364,7 +364,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 	 * Does a primitive layouting with the incoming/outgoing 
 	 * edges (set the dockers to the right position) and if 
 	 * necessary, it will be called the real layouting 
-	 * @param {ORYX.Core.Node} node
+	 * @param {WAPAMA.Core.Node} node
 	 * @param {Array} edges
 	 */
 	layoutEdges : function(node, allEdges, offset){		

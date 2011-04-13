@@ -21,18 +21,18 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * This plugin offers the serialize callbacks used in the BPMNplus stencil set.
  * 
- * @class ORYX.Plugins.BPMNPlus
+ * @class WAPAMA.Plugins.BPMNPlus
  * @extends Clazz
  * @param {Object} facade The editor facade for plugins.
  */
-ORYX.Plugins.BPMNPlusSerialization = {
-	/** @lends ORYX.Plugins.BPMNPlusLayout.prototype */
+WAPAMA.Plugins.BPMNPlusSerialization = {
+	/** @lends WAPAMA.Plugins.BPMNPlusLayout.prototype */
 	
 	/**
 	 *	Constructor
@@ -68,7 +68,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 		var data = event.data;
 		
 		var poolId = shape.resourceId;
-		var processId = shape.properties["oryx-processid"];
+		var processId = shape.properties["wapama-processid"];
 		if (processId == "") {
 			processId = poolId + "_process";
 			var processRec;
@@ -104,7 +104,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 				(parent.getStencil().id() == "http://b3mn.org/stencilset/bpmnplus#TerminationHandler") ||
 				(parent.getStencil().id() == "http://b3mn.org/stencilset/bpmnplus#MessageHandler") ||
 				(parent.getStencil().id() == "http://b3mn.org/stencilset/bpmnplus#TimerHandler")) {
-				// determine oryx-subprocess
+				// determine wapama-subprocess
 				var id = parent.resourceId;
 				if (id == "") {
 					id = parent.resourceId;
@@ -115,7 +115,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 				if (!subProcess) {
 					data.push({
 						name:"subprocess",
-					 	prefix:"oryx",				 
+					 	prefix:"wapama",				 
 					 	value:id,
 						type:"literal"
 					});										
@@ -142,19 +142,19 @@ ORYX.Plugins.BPMNPlusSerialization = {
 				
 				data.push({
 					name:name,
-				 	prefix:"oryx",				 
+				 	prefix:"wapama",				 
 				 	value:poolId,
 					type:"literal"
 				});
 						
 				if (!subProcess) {
-					var processId = parent.properties["oryx-processid"];
+					var processId = parent.properties["wapama-processid"];
 					if (processId == "") {
 						processId = poolId + "_process";
 					}
 					data.push({
 						name:"process",
-					 	prefix:"oryx",				 
+					 	prefix:"wapama",				 
 					 	value:processId,
 						type:"literal"
 					});
@@ -203,7 +203,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 				
 				data.push({
 					name:name,
-				 	prefix:"oryx",				 
+				 	prefix:"wapama",				 
 				 	value:poolId,
 					type:"literal"
 				});													
@@ -247,7 +247,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			if (attachedId != undefined) {
 				data.push({
 					name:"target",
-				 	prefix:"oryx",				 
+				 	prefix:"wapama",				 
 				 	value:attachedId,
 			 		type:"literal"
 				});
@@ -271,7 +271,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 		var switched = false;
 		if (sources.length > 0) {
 			var source = sources[0];
-			// determine oryx-source
+			// determine wapama-source
 			var type = source.getStencil().id();
 			var id = source.resourceId;
 			var name;
@@ -288,7 +288,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			}
 			data.push({
 					name:"direction",
-				 	prefix:"oryx",
+				 	prefix:"wapama",
 				 	value:"None",
 				 	type:"literal",
 				});
@@ -296,14 +296,14 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			if (id != undefined) {
 				data.push({
 						name:name,
-					 	prefix:"oryx",
+					 	prefix:"wapama",
 					 	value:id,
 					 	type:"literal"
 				});
 			}
 		}
 
-		// determine oryx-target
+		// determine wapama-target
 		var targets = shape.getOutgoingShapes();
 		if (targets.length > 0) {
 			var target = targets[0];
@@ -318,7 +318,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			if (id != undefined) {
 				data.push({
 					name:name,
-				 	prefix:"oryx",
+				 	prefix:"wapama",
 				 	value:id,
 				 	type:"literal"
 				});
@@ -337,7 +337,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 		var switched = false;
 		if (sources.length > 0) {
 			var source = sources[0];
-			// determine oryx-direction and oryx-source
+			// determine wapama-direction and wapama-source
 			var type= source.getStencil().id();
 			var id = source.resourceId;
 			var name;
@@ -349,7 +349,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 				type == "http://b3mn.org/stencilset/bpmnplus#ParticipantSetDataObject") {
 				data.push({
 					name:"direction",
-				 	prefix:"oryx",
+				 	prefix:"wapama",
 				 	value:"To",
 				 	type:"literal"
 				});
@@ -358,7 +358,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			} else {
 				data.push({
 					name:"direction",
-				 	prefix:"oryx",
+				 	prefix:"wapama",
 				 	value:"From",
 				 	type:"literal"
 				});
@@ -367,14 +367,14 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			if (id != undefined) {
 				data.push({
 						name:name,
-					 	prefix:"oryx",
+					 	prefix:"wapama",
 					 	value:id,
 					 	type:"literal"
 				});
 			}
 		}											
 		
-		// determine oryx-target
+		// determine wapama-target
 		var targets = shape.getOutgoingShapes();
 		if (targets.length > 0) {
 			var target = targets[0];
@@ -391,7 +391,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			if (id != undefined) {
 				data.push({
 					name:name,
-				 	prefix:"oryx",
+				 	prefix:"wapama",
 				 	value:id,
 				 	type:"literal"
 				});
@@ -418,7 +418,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			if (id != undefined) {
 				data.push({
 					name:"source",
-				 	prefix:"oryx",
+				 	prefix:"wapama",
 				 	value:id,
 				 	type:"literal"
 				});
@@ -432,7 +432,7 @@ ORYX.Plugins.BPMNPlusSerialization = {
 			if (id != undefined) {
 				data.push({
 					name:"target",
-				 	prefix:"oryx",
+				 	prefix:"wapama",
 				 	value:id,
 				 	type:"literal"
 				});
@@ -443,4 +443,4 @@ ORYX.Plugins.BPMNPlusSerialization = {
 	}
 };
 
-ORYX.Plugins.BPMNPlusSerialization = Clazz.extend(ORYX.Plugins.BPMNPlusSerialization);
+WAPAMA.Plugins.BPMNPlusSerialization = Clazz.extend(WAPAMA.Plugins.BPMNPlusSerialization);

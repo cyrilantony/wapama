@@ -21,10 +21,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-Ext.ns("Oryx.Plugins");
+Ext.ns("Wapama.Plugins");
 
-ORYX.Plugins.BPMNImport = Clazz.extend({
-    converterUrl: ORYX.CONFIG.ROOT_PATH + "bpmn2pn",
+WAPAMA.Plugins.BPMNImport = Clazz.extend({
+    converterUrl: WAPAMA.CONFIG.ROOT_PATH + "bpmn2pn",
     
     // Offers the plugin functionality
     construct: function(facade){
@@ -36,7 +36,7 @@ ORYX.Plugins.BPMNImport = Clazz.extend({
     
     /**
      * General helper method for parsing a param out of current location url
-     * E.g. "http://oryx.org?param=value", getParamFromUrl("param") => "value"
+     * E.g. "http://wapama.org?param=value", getParamFromUrl("param") => "value"
      * @param {Object} name
      */
     getParamFromUrl: function(name){
@@ -57,7 +57,7 @@ ORYX.Plugins.BPMNImport = Clazz.extend({
      * @param {Object} bpmnRdf
      */
     bpmnToPn: function(bpmnRdf){
-        Ext.Msg.updateProgress(0.66, ORYX.I18N.BPMN2PNConverter.progress.convertingModel);
+        Ext.Msg.updateProgress(0.66, WAPAMA.I18N.BPMN2PNConverter.progress.convertingModel);
         
        Ext.Ajax.request({
             url: this.converterUrl,
@@ -65,7 +65,7 @@ ORYX.Plugins.BPMNImport = Clazz.extend({
             success: function(request){
     	   		try{
 	                var parser = new DOMParser();
-	                Ext.Msg.updateProgress(1.0, ORYX.I18N.BPMN2PNConverter.progress.renderingModel);
+	                Ext.Msg.updateProgress(1.0, WAPAMA.I18N.BPMN2PNConverter.progress.renderingModel);
 	                var doc = parser.parseFromString(request.responseText, "text/xml");
 	                this.facade.importERDF(doc);
     	   		}catch(e){
@@ -74,7 +74,7 @@ ORYX.Plugins.BPMNImport = Clazz.extend({
                 Ext.Msg.hide();
             }.createDelegate(this),
             failure: function(){
-                Ext.Msg.alert(ORYX.I18N.BPMN2PNConverter.error, ORYX.I18N.BPMN2PNConverter.errors.server);
+                Ext.Msg.alert(WAPAMA.I18N.BPMN2PNConverter.error, WAPAMA.I18N.BPMN2PNConverter.errors.server);
             },
             params: {
                 rdf: bpmnRdf
@@ -91,10 +91,10 @@ ORYX.Plugins.BPMNImport = Clazz.extend({
         
         if(!importBPMNUrl) return; //return if no model to import is given
         
-        Ext.Msg.progress(ORYX.I18N.BPMN2PNConverter.progress.status, 
-                         ORYX.I18N.BPMN2PNConverter.progress.importingModel
+        Ext.Msg.progress(WAPAMA.I18N.BPMN2PNConverter.progress.status, 
+                         WAPAMA.I18N.BPMN2PNConverter.progress.importingModel
         );
-        Ext.Msg.updateProgress(0.33, ORYX.I18N.BPMN2PNConverter.progress.fetchingModel);
+        Ext.Msg.updateProgress(0.33, WAPAMA.I18N.BPMN2PNConverter.progress.fetchingModel);
         
         Ext.Ajax.request({
             url: this.getRdfUrl(importBPMNUrl),
@@ -103,7 +103,7 @@ ORYX.Plugins.BPMNImport = Clazz.extend({
                 this.bpmnToPn(bpmnRdf);
             }.createDelegate(this),
             failure: function(request){
-                Ext.Msg.alert(ORYX.I18N.BPMN2PNConverter.error, ORYX.I18N.BPMN2PNConverter.errors.noRights)
+                Ext.Msg.alert(WAPAMA.I18N.BPMN2PNConverter.error, WAPAMA.I18N.BPMN2PNConverter.errors.noRights)
             },
             method: "GET"
         })
@@ -120,19 +120,19 @@ ORYX.Plugins.BPMNImport = Clazz.extend({
     }
 });
 
-ORYX.Plugins.PNExport = Clazz.extend({
+WAPAMA.Plugins.PNExport = Clazz.extend({
     // Offers the plugin functionality
     construct: function(facade){
     
         this.facade = facade;
        
         this.facade.offer({
-            'name': ORYX.I18N.BPMN2PNConverter.name,
+            'name': WAPAMA.I18N.BPMN2PNConverter.name,
             'functionality': this.exportIt.bind(this),
-            'group': ORYX.I18N.BPMN2PNConverter.group,
-            dropDownGroupIcon: ORYX.PATH + "images/export2.png",
-			'icon': ORYX.PATH + "images/page_white_convert.png",
-            'description': ORYX.I18N.BPMN2PNConverter.desc,
+            'group': WAPAMA.I18N.BPMN2PNConverter.group,
+            dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
+			'icon': WAPAMA.PATH + "images/page_white_convert.png",
+            'description': WAPAMA.I18N.BPMN2PNConverter.desc,
             'index': 3,
             'minShape': 0,
             'maxShape': 0
@@ -143,16 +143,16 @@ ORYX.Plugins.PNExport = Clazz.extend({
         //Throw error if model hasn't been saved before
     	var reqURI='';
 		if(!location.hash.slice(1)){
-            Ext.Msg.alert(ORYX.I18N.BPMN2PNConverter.error, ORYX.I18N.BPMN2PNConverter.errors.notSaved);
+            Ext.Msg.alert(WAPAMA.I18N.BPMN2PNConverter.error, WAPAMA.I18N.BPMN2PNConverter.errors.notSaved);
             return;
 		}
 		else{
 			reqURI = '/backend/poem/'+(location.hash.slice(1).replace(/^\/?/,"").replace(/\/?$/,""))+"/rdf";
 		}
         
-        this.facade.raiseEvent({type: ORYX.Plugins.SyntaxChecker.RESET_ERRORS_EVENT});
+        this.facade.raiseEvent({type: WAPAMA.Plugins.SyntaxChecker.RESET_ERRORS_EVENT});
         this.facade.raiseEvent({
-            type: ORYX.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT,
+            type: WAPAMA.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT,
             context: "bpmn2pn",
             onNoErrors: function(){
                 this.openPetriNetEditor(reqURI);
@@ -162,7 +162,7 @@ ORYX.Plugins.PNExport = Clazz.extend({
     
     /**
      * Opens petri net editor with bpmn model import
-     * @methodOf: ORYX.Plugins.BPMNImport.prototype
+     * @methodOf: WAPAMA.Plugins.BPMNImport.prototype
      */
     openPetriNetEditor: function(importUrl){
         window.open("/backend/poem/new?stencilset=/stencilsets/petrinets/petrinet.json&importBPMN=" + importUrl);

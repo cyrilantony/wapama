@@ -21,15 +21,15 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * Supports EPCs by offering a syntax check and export and import ability..
  * 
  * 
  */
-ORYX.Plugins.ProcessLink = Clazz.extend({
+WAPAMA.Plugins.ProcessLink = Clazz.extend({
 
 	facade: undefined,
 
@@ -41,7 +41,7 @@ ORYX.Plugins.ProcessLink = Clazz.extend({
 
 		this.facade = facade;
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_PROPERTY_CHANGED, this.propertyChanged.bind(this) );
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_PROPERTY_CHANGED, this.propertyChanged.bind(this) );
 		
 	},
 
@@ -52,7 +52,7 @@ ORYX.Plugins.ProcessLink = Clazz.extend({
 	 */
 	propertyChanged: function( option, node){
 
-		if( option.name !== "oryx-refuri" || !node instanceof ORYX.Core.Node ){ return }
+		if( option.name !== "wapama-refuri" || !node instanceof WAPAMA.Core.Node ){ return }
 		
 		
 		if( option.value && option.value.length > 0 && option.value != "undefined"){
@@ -77,7 +77,7 @@ ORYX.Plugins.ProcessLink = Clazz.extend({
 
 		
 		// Generate the svg-representation of a link
-		var link  = ORYX.Editor.graft("http://www.w3.org/2000/svg", null ,
+		var link  = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null ,
 					[ 'a',
 						{'target': '_blank'},
 						['path', 
@@ -85,7 +85,7 @@ ORYX.Plugins.ProcessLink = Clazz.extend({
 						]
 					]);
 
-		var link  = ORYX.Editor.graft("http://www.w3.org/2000/svg", null ,		
+		var link  = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null ,		
 						[ 'a',
 							{'target': '_blank'},
 							['path', { "style": "fill:#92BFFC;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72", "d": "M0 1.44 L0 15.05 L11.91 15.05 L11.91 5.98 L7.37 1.44 L0 1.44 Z"}],
@@ -114,7 +114,7 @@ ORYX.Plugins.ProcessLink = Clazz.extend({
 		
 		// Shows the link in the overlay					
 		this.facade.raiseEvent({
-					type: 			ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+					type: 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
 					id: 			"arissupport.urlref_" + shape.id,
 					shapes: 		[shape],
 					node:			link,
@@ -131,7 +131,7 @@ ORYX.Plugins.ProcessLink = Clazz.extend({
 	hide: function( shape ){
 
 		this.facade.raiseEvent({
-					type: 			ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+					type: 			WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 					id: 			"arissupport.urlref_" + shape.id
 				});	
 							

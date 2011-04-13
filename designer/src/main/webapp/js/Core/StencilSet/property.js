@@ -24,14 +24,14 @@
 /**
  * Init namespace
  */
-if (!ORYX) {
-    var ORYX = {};
+if (!WAPAMA) {
+    var WAPAMA = {};
 }
-if (!ORYX.Core) {
-    ORYX.Core = {};
+if (!WAPAMA.Core) {
+    WAPAMA.Core = {};
 }
-if (!ORYX.Core.StencilSet) {
-    ORYX.Core.StencilSet = {};
+if (!WAPAMA.Core.StencilSet) {
+    WAPAMA.Core.StencilSet = {};
 }
 
 /**
@@ -39,7 +39,7 @@ if (!ORYX.Core.StencilSet) {
  * uses Prototpye 1.5.0
  * uses Inheritance
  */
-ORYX.Core.StencilSet.Property = Clazz.extend({
+WAPAMA.Core.StencilSet.Property = Clazz.extend({
 
     /**
      * Constructor
@@ -47,25 +47,25 @@ ORYX.Core.StencilSet.Property = Clazz.extend({
     construct: function(jsonProp, namespace, stencil){
         arguments.callee.$.construct.apply(this, arguments);
         
-        this._jsonProp = jsonProp || ORYX.Log.error("Parameter jsonProp is not defined.");
-        this._namespace = namespace || ORYX.Log.error("Parameter namespace is not defined.");
-        this._stencil = stencil || ORYX.Log.error("Parameter stencil is not defined.");
+        this._jsonProp = jsonProp || WAPAMA.Log.error("Parameter jsonProp is not defined.");
+        this._namespace = namespace || WAPAMA.Log.error("Parameter namespace is not defined.");
+        this._stencil = stencil || WAPAMA.Log.error("Parameter stencil is not defined.");
         
         this._items = new Hash();
         this._complexItems = new Hash();
         
-        jsonProp.id = jsonProp.id || ORYX.Log.error("ORYX.Core.StencilSet.Property(construct): Id is not defined.");
+        jsonProp.id = jsonProp.id || WAPAMA.Log.error("WAPAMA.Core.StencilSet.Property(construct): Id is not defined.");
 		jsonProp.id = jsonProp.id.toLowerCase();
 		
         if (!jsonProp.type) {
-            ORYX.Log.info("Type is not defined for stencil '%0', id '%1'. Falling back to 'String'.", stencil, jsonProp.id);
+            WAPAMA.Log.info("Type is not defined for stencil '%0', id '%1'. Falling back to 'String'.", stencil, jsonProp.id);
             jsonProp.type = "string";
         }
         else {
             jsonProp.type = jsonProp.type.toLowerCase();
         }
         
-        jsonProp.prefix = jsonProp.prefix || "oryx";
+        jsonProp.prefix = jsonProp.prefix || "wapama";
         jsonProp.title = jsonProp.title || "";
         jsonProp.value = jsonProp.value || "";
         jsonProp.description = jsonProp.description || "";
@@ -138,26 +138,26 @@ ORYX.Core.StencilSet.Property = Clazz.extend({
         if (jsonProp.complexItems && jsonProp.complexItems instanceof Array) {
             jsonProp.complexItems.each((function(jsonComplexItem){
                try {
-                    this._complexItems[jsonComplexItem.id] = new ORYX.Core.StencilSet.ComplexPropertyItem(jsonComplexItem, namespace, this);
+                    this._complexItems[jsonComplexItem.id] = new WAPAMA.Core.StencilSet.ComplexPropertyItem(jsonComplexItem, namespace, this);
                 } catch(e) {
-                    ORYX.Log.error("error while initializing complex items for " + jsonProp.title);
-                    ORYX.Log.error(e);
+                    WAPAMA.Log.error("error while initializing complex items for " + jsonProp.title);
+                    WAPAMA.Log.error(e);
                 }
             }).bind(this));
         }
 
-        if (jsonProp.type === ORYX.CONFIG.TYPE_CHOICE) {
+        if (jsonProp.type === WAPAMA.CONFIG.TYPE_CHOICE) {
             if (jsonProp.items && jsonProp.items instanceof Array) {
                 jsonProp.items.each((function(jsonItem){
                 	// why is the item's value used as the key???
-                    this._items[jsonItem.value] = new ORYX.Core.StencilSet.PropertyItem(jsonItem, namespace, this);
+                    this._items[jsonItem.value] = new WAPAMA.Core.StencilSet.PropertyItem(jsonItem, namespace, this);
                 }).bind(this));
             } else {
-                throw "ORYX.Core.StencilSet.Property(construct): No property items defined."
+                throw "WAPAMA.Core.StencilSet.Property(construct): No property items defined."
             }
         }
-        if (jsonProp.type === ORYX.CONFIG.TYPE_COMPLEX && jsonProp.complexItems === undefined) {
-            throw "ORYX.Core.StencilSet.Property(construct): No complex property items defined."
+        if (jsonProp.type === WAPAMA.CONFIG.TYPE_COMPLEX && jsonProp.complexItems === undefined) {
+            throw "WAPAMA.Core.StencilSet.Property(construct): No complex property items defined."
         }    
         
         if (jsonProp.labelProvider) {
@@ -166,7 +166,7 @@ ORYX.Core.StencilSet.Property = Clazz.extend({
     },
     
     /**
-     * @param {ORYX.Core.StencilSet.Property} property
+     * @param {WAPAMA.Core.StencilSet.Property} property
      * @return {Boolean} True, if property has the same namespace and id.
      */
     equals: function(property){
@@ -215,7 +215,7 @@ ORYX.Core.StencilSet.Property = Clazz.extend({
 	},
     
     title: function(){
-        return ORYX.Core.StencilSet.getTranslation(this._jsonProp, "title");
+        return WAPAMA.Core.StencilSet.getTranslation(this._jsonProp, "title");
     },
     
     value: function(){
@@ -231,7 +231,7 @@ ORYX.Core.StencilSet.Property = Clazz.extend({
     },
     
     description: function(){
-        return ORYX.Core.StencilSet.getTranslation(this._jsonProp, "description");
+        return WAPAMA.Core.StencilSet.getTranslation(this._jsonProp, "description");
     },
     
     /**

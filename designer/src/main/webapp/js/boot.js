@@ -27,18 +27,18 @@ if (params['profile'] === undefined) {
 	params['profile'] = 'default';
 }
 
-ORYX = {};
-ORYX.CONFIG = {};
-ORYX.UUID = params['uuid'];
-ORYX.PROFILE = params['profile'];
+WAPAMA = {};
+WAPAMA.CONFIG = {};
+WAPAMA.UUID = params['uuid'];
+WAPAMA.PROFILE = params['profile'];
 
 var segments = window.location.pathname.split("/").without("");
 
-ORYX.CONFIG.ROOT_PATH = "/" + segments.first() + "/";
-ORYX.PATH = ORYX.CONFIG.ROOT_PATH;
+WAPAMA.CONFIG.ROOT_PATH = "/" + segments.first() + "/";
+WAPAMA.PATH = WAPAMA.CONFIG.ROOT_PATH;
 
-if (ORYX.UUID === undefined) {
-	ORYX.UUID = segments.pop();
+if (WAPAMA.UUID === undefined) {
+	WAPAMA.UUID = segments.pop();
 }
 
 var addScript = function(url, urls, prefix, finalCallback){
@@ -78,13 +78,13 @@ var addScriptSequential = function(urls, prefix, finalCallback) {
 };
 
 function loadLanguageFiles() {
-	addScript(ORYX.PATH + "i18n/translation_en_us.js");
+	addScript(WAPAMA.PATH + "i18n/translation_en_us.js");
 }
 
 function loadProfile(nextStep) {
 	// get the profile, ask for its info, load the files.
 
-	new Ajax.Request(ORYX.PATH + "profile?name=" + params['profile'], {
+	new Ajax.Request(WAPAMA.PATH + "profile?name=" + params['profile'], {
 		asynchronous: false,
 		method: 'get',
 		contentType: 'application/json',
@@ -94,13 +94,13 @@ function loadProfile(nextStep) {
 		document.getElementsByTagName('title').item(0).text = profile.title;
 
 		// set the stencilset to use:
-		ORYX.CONFIG.SSET= profile.stencilset;
+		WAPAMA.CONFIG.SSET= profile.stencilset;
 		// set the stencilset extensions in effect:
-		ORYX.CONFIG.SSEXTS= profile.ssexts.map(function(ssext) {
+		WAPAMA.CONFIG.SSEXTS= profile.ssexts.map(function(ssext) {
 			// for each of the extensions, we get the extension file and return its contents.
 			var contents = null;
 			
-			new Ajax.Request(ORYX.PATH + "stencilset/" + ssext, {
+			new Ajax.Request(WAPAMA.PATH + "stencilset/" + ssext, {
 				asynchronous: false,
 				method: 'get',
 				contentType: 'application/json',
@@ -114,7 +114,7 @@ function loadProfile(nextStep) {
 			return contents;
 		});
 		//get the complete plugin info:
-		new Ajax.Request(ORYX.PATH + "plugins", {
+		new Ajax.Request(WAPAMA.PATH + "plugins", {
 			asynchronous: false,
 			method: 'get',
 			contentType: 'application/json',
@@ -124,14 +124,14 @@ function loadProfile(nextStep) {
 				allPlugins[p.name] = p;
 			}.bind(allPlugins));
 			// install the current plugins
-			ORYX.availablePlugins = [];
+			WAPAMA.availablePlugins = [];
 			profile.plugins.each(function(pluginName) {
-				ORYX.availablePlugins.push(allPlugins[pluginName]);
+				WAPAMA.availablePlugins.push(allPlugins[pluginName]);
 			}.bind(allPlugins));
 			
 			// now load the files as requested:
 			addScriptSequential(profile.plugins.map(function(pluginName) { return pluginName + ".js"; }), 
-					ORYX.PATH + 'plugin/', nextStep);
+					WAPAMA.PATH + 'plugin/', nextStep);
 		},
 	    onFailure: function(result) {
 	    	alert("Could not load Process Designer"); //TODO even better logging ?
@@ -150,14 +150,14 @@ function loadProfile(nextStep) {
 }
 
 //get the core files to load:
-new Ajax.Request(ORYX.PATH + "env", {
+new Ajax.Request(WAPAMA.PATH + "env", {
 	asynchronous: false,
 	method: 'get',
 	contentType: 'application/json',
 	onSuccess: function(result) {
-	  addScriptSequential(result.responseText.evalJSON().files, ORYX.PATH, function() { 
+	  addScriptSequential(result.responseText.evalJSON().files, WAPAMA.PATH, function() { 
 		  loadLanguageFiles();
-		  loadProfile(ORYX.load);
+		  loadProfile(WAPAMA.load);
 		  
 	  });
     },

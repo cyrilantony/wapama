@@ -22,22 +22,22 @@
  **/
 
 /**
-   @namespace Oryx name space for plugins
-   @name ORYX.Plugins
+   @namespace Wapama name space for plugins
+   @name WAPAMA.Plugins
 */
- if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+ if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 	
 
 /**
  * This plugin provides methodes to layout the choreography diagrams of BPMN 2.0.
  * 
- * @class ORYX.Plugins.Bpmn2_0Choreography
- * @extends ORYX.Plugins.AbstractPlugin
+ * @class WAPAMA.Plugins.Bpmn2_0Choreography
+ * @extends WAPAMA.Plugins.AbstractPlugin
  * @param {Object} facade
  * 		The facade of the Editor
  */
-ORYX.Plugins.Bpmn2_0Choreography = {
+WAPAMA.Plugins.Bpmn2_0Choreography = {
 	
 	/**
 	 *	Constructor
@@ -46,16 +46,16 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	construct: function(facade) {
 		this.facade = facade;
 		
-		/* Register on event ORYX.CONFIG.EVENT_STENCIL_SET_LOADED and ensure that
+		/* Register on event WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED and ensure that
 		 * the stencil set extension is loaded.
 		 */
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_STENCIL_SET_LOADED, 
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED, 
 										this.handleStencilSetLoaded.bind(this));
 		
 		/**
 		 * FF 3.0 Bugfixing: Check if all events are loaded
 		 */
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, function(){
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LOADED, function(){
 			if (!this._eventsRegistered) {
 				this.handleStencilSetLoaded({});
 				this.afterLoad();
@@ -72,7 +72,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	
 	
 	/**
-	 * Check if the 'http://oryx-editor.org/stencilsets/extensions/bpmn2.0choreography#'
+	 * Check if the 'http://www.wapama.net/stencilsets/extensions/bpmn2.0choreography#'
 	 * stencil set extension is loaded and thus register or unregisters on the 
 	 * appropriated events.
 	 */
@@ -83,7 +83,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 			this._isLayoutEnabled = true;
 		}
 		
-		if(this.isStencilSetExtensionLoaded('http://oryx-editor.org/stencilsets/extensions/bpmn2.0choreography#')) {
+		if(this.isStencilSetExtensionLoaded('http://www.wapama.net/stencilsets/extensions/bpmn2.0choreography#')) {
 			this.registerPluginOnEvents();
 		} else {
 			this.unregisterPluginOnEvents();
@@ -95,26 +95,26 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	 */
 	registerPluginOnEvents: function() {
 		this._eventsRegistered = true;
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, this.addParticipantsOnCreation.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_SELECTION_CHANGED, this.addParticipantsOnCreation.bind(this));
 		this.facade.registerOnEvent('layout.bpmn2_0.choreography.task', this.handleLayoutChoreographyTask.bind(this));
 		this.facade.registerOnEvent('layout.bpmn2_0.choreography.subprocess.expanded', this.handleLayoutChoreographySubprocessExpanded.bind(this));
 		this.facade.registerOnEvent('layout.bpmn2_0.choreography.subprocess.collapsed', this.handleLayoutChoreographySubprocessCollapsed.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, this.afterLoad.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LOADED, this.afterLoad.bind(this));
 
-//		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_PROPERTY_CHANGED, this.handlePropertyChanged.bind(this));
+//		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_PROPERTY_CHANGED, this.handlePropertyChanged.bind(this));
 	},
 	
 	/**
 	 * Unregisters this plugin from the events.
 	 */
 	unregisterPluginOnEvents: function() {
-//		this.facade.unregisterOnEvent(ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
-		//this.facade.unregisterOnEvent(ORYX.CONFIG.EVENT_SHAPEADDED, this.addParticipantsOnCreation.bind(this));
+//		this.facade.unregisterOnEvent(WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
+		//this.facade.unregisterOnEvent(WAPAMA.CONFIG.EVENT_SHAPEADDED, this.addParticipantsOnCreation.bind(this));
 //		this.facade.unregisterOnEvent('layout.bpmn2_0.choreography.task', this.handleLayoutChoreographyTask.bind(this));
 //		this.facade.unregisterOnEvent('layout.bpmn2_0.choreography.subprocess.expanded', this.handleLayoutChoreographySubprocessExpanded.bind(this));
 //		this.facade.unregisterOnEvent('layout.bpmn2_0.choreography.subprocess.collapsed', this.handleLayoutChoreographySubprocessCollapsed.bind(this));
-		this.facade.unregisterOnEvent(ORYX.CONFIG.EVENT_LOADED, this.afterLoad.bind(this));
+		this.facade.unregisterOnEvent(WAPAMA.CONFIG.EVENT_LOADED, this.afterLoad.bind(this));
 	},
 	
 	/**
@@ -163,8 +163,8 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 				/* Disable Resizing */
 				participant.isResizable = false;
 				
-				var extended = (participant.properties['oryx-multiple_instance'] === "" ? 
-						false : participant.properties['oryx-multiple_instance']);
+				var extended = (participant.properties['wapama-multiple_instance'] === "" ? 
+						false : participant.properties['wapama-multiple_instance']);
 				if(participant.bounds.upperLeft().y == expectedYValue) {
 					participantsOnTop.push(participant);
 					expectedYValue = participant.bounds.lowerRight().y;
@@ -276,7 +276,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	 * be added (one initiating and one returning)
 	 * 
 	 * @param {Object} event
-	 * 		The ORYX.CONFIG.EVENT_SHAPEADDED event
+	 * 		The WAPAMA.CONFIG.EVENT_SHAPEADDED event
 	 */
 	addParticipantsOnCreation: function(event) {
 		if(!this._isLayoutEnabled) {return;}
@@ -305,10 +305,10 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 				parent:shape
 			};
 			var shapeParticipant1 = this.facade.createShape(participant1);
-			shapeParticipant1.setProperty('oryx-initiating', true);
+			shapeParticipant1.setProperty('wapama-initiating', true);
 			var propEvent = {
 				elements 	: [shapeParticipant1],
-				key 		: "oryx-initiating",
+				key 		: "wapama-initiating",
 				value		: true
 			};
 			this.handlePropertyChanged(propEvent);
@@ -445,7 +445,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 			/* Disable resizing by the user interface */
 			participant.isResizable = false;
 			
-			participant.setProperty('oryx-corners', "None");
+			participant.setProperty('wapama-corners', "None");
 			var isExtended = this.setBoundsOfParticipantDependOnProperties(
 													participant,
 													i,
@@ -462,7 +462,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 			
 			/* The first participants gets rounded corners */
 			if(i == 0) {
-				participant.setProperty('oryx-corners', "Top");
+				participant.setProperty('wapama-corners', "Top");
 			}
 			
 			this.adjustTopBackground(participant);
@@ -527,7 +527,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 			/* Disable resizing by the user interface */
 			participant.isResizable = false;
 			
-			participant.setProperty('oryx-corners', "None");
+			participant.setProperty('wapama-corners', "None");
 			
 			var isExtendedParticipant = 
 				this.setBoundsOfParticipantDependOnProperties(participant, 
@@ -547,7 +547,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 			
 			/* The last participants gets rounded corners */
 			if(i == participants.length - 1) {
-				participant.setProperty('oryx-corners', "Bottom");
+				participant.setProperty('wapama-corners', "Bottom");
 			}
 			
 			this.adjustTopBackground(participant);
@@ -591,18 +591,18 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	
 	/**
 	 * Return TRUE if the participant is extended (has the attribute muliple instance)
-	 * @param {ORYX.Core.Node} participant
+	 * @param {WAPAMA.Core.Node} participant
 	 */
 	isExtended: function(participant){
-		return (!participant || participant.properties['oryx-multiple_instance'] === "" ? 
-					false : !!participant.properties['oryx-multiple_instance']);
+		return (!participant || participant.properties['wapama-multiple_instance'] === "" ? 
+					false : !!participant.properties['wapama-multiple_instance']);
 	},
 	
 	/**
 	 * Resizes the participant depending on value of the multi-instances 
 	 * property.
 	 * 
-	 * @param {ORYX.Core.Node} participant
+	 * @param {WAPAMA.Core.Node} participant
 	 * 		The concerning participant
 	 * @param {Integer} numParticipantsBefore
 	 * 		Number of participants before current
@@ -641,7 +641,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	 * position in order to ensure that the text or marker is not hidden 
 	 * by a participant.
 	 * 
-	 * @param {ORYX.Core.Node} choreographyTask
+	 * @param {WAPAMA.Core.Node} choreographyTask
 	 * 		The choreography task.
 	 */
 	adjustTextFieldAndMarkerPosition: function(choreographyTask) {
@@ -687,7 +687,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	 * The magnets of choreography activity were placed in the middle of both
 	 * participant bands.
 	 * 
-	 * @param {ORYX.Core.Node} choreographyTask
+	 * @param {WAPAMA.Core.Node} choreographyTask
 	 * 		The choregraphy task containing the magnets
 	 * @param {boolean} isResized
 	 * 		Flag indicating a resizing of the task
@@ -728,7 +728,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 		var dockers = new Array();
 		
 		choreographyTask.incoming.each(function(seqFlow) {
-			if(!(seqFlow instanceof ORYX.Core.Edge)) {return;}
+			if(!(seqFlow instanceof WAPAMA.Core.Edge)) {return;}
 			var docker = seqFlow.dockers.last();
 			if(absoluteTopYEndValue <= docker.bounds.center().y 
 				&& docker.bounds.center().y <= absoluteBottomYStartValue ) {
@@ -737,7 +737,7 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 		});
 		
 		choreographyTask.outgoing.each(function(seqFlow) {
-			if(!(seqFlow instanceof ORYX.Core.Edge)) {return;}
+			if(!(seqFlow instanceof WAPAMA.Core.Edge)) {return;}
 			var docker = seqFlow.dockers.first();
 			if(absoluteTopYEndValue <= docker.bounds.center().y 
 				&& docker.bounds.center().y <= absoluteBottomYStartValue ) {
@@ -835,10 +835,10 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	 * Checks if the participant belongs to the shape. Used to detect choreography
 	 * tasks inside an expanded choreography subprocess.
 	 * 
-	 * @param {ORYX.Core.Node} shape
+	 * @param {WAPAMA.Core.Node} shape
 	 * 		The choreography element
 	 * 
-	 * @param {ORYX.Core.Node} participant
+	 * @param {WAPAMA.Core.Node} participant
 	 * 		The participant node
 	 * 
 	 * @return {boolean} 
@@ -860,14 +860,14 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	},
 	
 	adjustTopBackground: function(shape){
-		var pos = shape.properties["oryx-corners"];
+		var pos = shape.properties["wapama-corners"];
 		var bg = $(shape.getId()+"roundedBgRect");
 		if (!bg){ return }
 		
 		if(pos==="Top") {
 			bg.setAttributeNS(null, "fill", "url(#"+shape.getId()+"background_top) white");
 		} else {
-			var bgColor = shape.properties["oryx-color"];
+			var bgColor = shape.properties["wapama-color"];
 			bg.setAttributeNS(null, "fill", bgColor);
 		}	
 	},
@@ -889,13 +889,13 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 		var changed = false;
 		shapes.each(function(shape) {
 			if (shape.getStencil().id() === "http://b3mn.org/stencilset/bpmn2.0#ChoreographyParticipant" &&
-			propertyKey === "oryx-initiating") {
+			propertyKey === "wapama-initiating") {
 			
 				if (!propertyValue) {
-					shape.setProperty("oryx-color", "#acacac");
+					shape.setProperty("wapama-color", "#acacac");
 				}
 				else {
-					shape.setProperty("oryx-color", "#ffffff");
+					shape.setProperty("wapama-color", "#ffffff");
 				}
 				
 				changed = true;
@@ -910,4 +910,4 @@ ORYX.Plugins.Bpmn2_0Choreography = {
 	
 };
 
-ORYX.Plugins.Bpmn2_0Choreography = ORYX.Plugins.AbstractPlugin.extend(ORYX.Plugins.Bpmn2_0Choreography);
+WAPAMA.Plugins.Bpmn2_0Choreography = WAPAMA.Plugins.AbstractPlugin.extend(WAPAMA.Plugins.Bpmn2_0Choreography);

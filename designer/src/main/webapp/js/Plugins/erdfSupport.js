@@ -21,15 +21,15 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * Supports EPCs by offering a syntax check and export and import ability..
  * 
  * 
  */
-ORYX.Plugins.ERDFSupport = Clazz.extend({
+WAPAMA.Plugins.ERDFSupport = Clazz.extend({
 
 	facade: undefined,
 	
@@ -45,24 +45,24 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 			
 			
 		this.facade.offer({
-			'name':				ORYX.I18N.ERDFSupport.exp,
+			'name':				WAPAMA.I18N.ERDFSupport.exp,
 			'functionality': 	this.exportERDF.bind(this),
 			'group': 			'Export',
-            dropDownGroupIcon: ORYX.PATH + "images/export2.png",
-			'icon': 			ORYX.PATH + "images/erdf_export_icon.png",
-			'description': 		ORYX.I18N.ERDFSupport.expDesc,
+            dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
+			'icon': 			WAPAMA.PATH + "images/erdf_export_icon.png",
+			'description': 		WAPAMA.I18N.ERDFSupport.expDesc,
 			'index': 			0,
 			'minShape': 		0,
 			'maxShape': 		0
 		});
 					
 		this.facade.offer({
-			'name':				ORYX.I18N.ERDFSupport.imp,
+			'name':				WAPAMA.I18N.ERDFSupport.imp,
 			'functionality': 	this.importERDF.bind(this),
 			'group': 			'Export',
-            dropDownGroupIcon: ORYX.PATH + "images/import.png",
-			'icon': 			ORYX.PATH + "images/erdf_import_icon.png",
-			'description': 		ORYX.I18N.ERDFSupport.impDesc,
+            dropDownGroupIcon: WAPAMA.PATH + "images/import.png",
+			'icon': 			WAPAMA.PATH + "images/erdf_import_icon.png",
+			'description': 		WAPAMA.I18N.ERDFSupport.impDesc,
 			'index': 			1,
 			'minShape': 		0,
 			'maxShape': 		0
@@ -87,8 +87,8 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 	exportERDF: function(){
         // Show deprecation message
         Ext.Msg.show({
-           title:ORYX.I18N.ERDFSupport.deprTitle,
-           msg: ORYX.I18N.ERDFSupport.deprText,
+           title:WAPAMA.I18N.ERDFSupport.deprTitle,
+           msg: WAPAMA.I18N.ERDFSupport.deprText,
            buttons: Ext.Msg.YESNO,
            fn: function(buttonId){
                if(buttonId === 'yes'){
@@ -134,8 +134,8 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 					failedcallback();
 					
 				} else {
-					Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.ERDFSupport.impFailed);
-					ORYX.log.warn("Import ERDF failed: " + transport.responseText);	
+					Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.ERDFSupport.impFailed);
+					WAPAMA.log.warn("Import ERDF failed: " + transport.responseText);	
 				}
 				
 			}.bind(this)		
@@ -158,8 +158,8 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 		if( doc.firstChild.tagName == "parsererror" ){
 
 			Ext.MessageBox.show({
-					title: 		ORYX.I18N.ERDFSupport.error,
- 					msg: 		ORYX.I18N.ERDFSupport.impFailed2 + doc.firstChild.textContent.escapeHTML(),
+					title: 		WAPAMA.I18N.ERDFSupport.error,
+ 					msg: 		WAPAMA.I18N.ERDFSupport.impFailed2 + doc.firstChild.textContent.escapeHTML(),
 					buttons: 	Ext.MessageBox.OK,
 					icon: 		Ext.MessageBox.ERROR
 				});
@@ -187,17 +187,17 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 		var getElementsByClassNameFromDiv 	= function(doc, id){ return $A(doc.getElementsByTagName('div')).findAll(function(el){ return $A(el.attributes).any(function(attr){ return attr.nodeName == 'class' && attr.nodeValue == id }) })	}
 
 		// Get Canvas Node
-		var editorNode 		= getElementsByClassNameFromDiv( doc, '-oryx-canvas')[0];
+		var editorNode 		= getElementsByClassNameFromDiv( doc, '-wapama-canvas')[0];
 		
 		if( !editorNode ){
-			this.throwWarning(ORYX.I18N.ERDFSupport.noCanvas);
+			this.throwWarning(WAPAMA.I18N.ERDFSupport.noCanvas);
 			return false
 		}
 		
-		var stencilSetNode 	= $A(editorNode.getElementsByTagName('a')).find(function(node){ return node.getAttribute('rel') == 'oryx-stencilset'});
+		var stencilSetNode 	= $A(editorNode.getElementsByTagName('a')).find(function(node){ return node.getAttribute('rel') == 'wapama-stencilset'});
 
 		if( !stencilSetNode ){
-			this.throwWarning(ORYX.I18N.ERDFSupport.noSS);
+			this.throwWarning(WAPAMA.I18N.ERDFSupport.noSS);
 			return false
 		}
 		
@@ -206,7 +206,7 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 		
 //		var isLoaded = this.facade.getStencilSets().values().any(function(ss){ return ss.source().endsWith( stencilSetUrl ) })
 //		if( !isLoaded ){
-//			this.throwWarning(ORYX.I18N.ERDFSupport.wrongSS);
+//			this.throwWarning(WAPAMA.I18N.ERDFSupport.wrongSS);
 //			return false
 //		}
 				
@@ -215,7 +215,7 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 	
 	throwWarning: function( text ){
 		Ext.MessageBox.show({
-					title: 		ORYX.I18N.Oryx.title,
+					title: 		WAPAMA.I18N.Wapama.title,
  					msg: 		text,
 					buttons: 	Ext.MessageBox.OK,
 					icon: 		Ext.MessageBox.WARNING
@@ -255,7 +255,7 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 			submitForm.method = "POST";
 			win.document.write("</body></html>");
 			win.document.close();
-			submitForm.action= ORYX.PATH + "/download";
+			submitForm.action= WAPAMA.PATH + "/download";
 			submitForm.submit();
 		}		
 	},
@@ -285,12 +285,12 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 	        labelWidth: 	50,
 	        defaultType: 	'textfield',
 	        items: [{
-	            text : 		ORYX.I18N.ERDFSupport.selectFile, 
+	            text : 		WAPAMA.I18N.ERDFSupport.selectFile, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 	            anchor:		'100%',
 				xtype : 	'label' 
 	        },{
-	            fieldLabel: ORYX.I18N.ERDFSupport.file,
+	            fieldLabel: WAPAMA.I18N.ERDFSupport.file,
 	            name: 		'subject',
 				inputType : 'file',
 				style : 	'margin-bottom:10px;display:block;',
@@ -311,7 +311,7 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 			layout: 	'fit',
 			plain:		true,
 			bodyStyle: 	'padding:5px;',
-			title: 		ORYX.I18N.ERDFSupport.impERDF, 
+			title: 		WAPAMA.I18N.ERDFSupport.impERDF, 
 			height: 	350, 
 			width:		500,
 			modal:		true,
@@ -322,10 +322,10 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 			items: 		[form],
 			buttons:[
 				{
-					text:ORYX.I18N.ERDFSupport.impBtn,
+					text:WAPAMA.I18N.ERDFSupport.impBtn,
 					handler:function(){
 						
-						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.ERDFSupport.impProgress});
+						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.ERDFSupport.impProgress});
 						loadMask.show();
 						
 						window.setTimeout(function(){
@@ -340,7 +340,7 @@ ORYX.Plugins.ERDFSupport = Clazz.extend({
 			
 					}.bind(this)
 				},{
-					text:ORYX.I18N.ERDFSupport.close,
+					text:WAPAMA.I18N.ERDFSupport.close,
 					handler:function(){
 						
 						dialog.hide();

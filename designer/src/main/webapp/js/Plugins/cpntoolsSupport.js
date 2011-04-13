@@ -1,7 +1,7 @@
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.CPNToolsSupport = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	facade: undefined,
 	
@@ -15,10 +15,10 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade.offer({
 			'name':				"Export to CPN Tools",
 			'functionality': 	this.exportCPN.bind(this),
-			'group': 			ORYX.I18N.cpntoolsSupport.group,
-			'dropDownGroupIcon':ORYX.PATH + "images/export2.png",
-			'icon': 			ORYX.PATH + "images/cpn/cpn_export.png",
-			'description': 		ORYX.I18N.cpntoolsSupport.exportDescription,
+			'group': 			WAPAMA.I18N.cpntoolsSupport.group,
+			'dropDownGroupIcon':WAPAMA.PATH + "images/export2.png",
+			'icon': 			WAPAMA.PATH + "images/cpn/cpn_export.png",
+			'description': 		WAPAMA.I18N.cpntoolsSupport.exportDescription,
 			'index': 			0,
 			'minShape': 		0,
 			'maxShape': 		0,
@@ -28,16 +28,16 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade.offer({
 			'name':				"Import from CPN Tools",
 			'functionality': 	this.importCPN.bind(this),
-			'group': 			ORYX.I18N.cpntoolsSupport.group,
-			'dropDownGroupIcon':ORYX.PATH + "images/import.png",
-			'icon': 			ORYX.PATH + "images/cpn/cpn_import.png",
-			'description': 		ORYX.I18N.cpntoolsSupport.importDescription,
+			'group': 			WAPAMA.I18N.cpntoolsSupport.group,
+			'dropDownGroupIcon':WAPAMA.PATH + "images/import.png",
+			'icon': 			WAPAMA.PATH + "images/cpn/cpn_import.png",
+			'description': 		WAPAMA.I18N.cpntoolsSupport.importDescription,
 			'index': 			1,
 			'minShape': 		0,
 			'maxShape': 		0
 		});
 
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_RESIZE_END, this.resetTokenPosition.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_RESIZE_END, this.resetTokenPosition.bind(this));
 	},
 
 	// Imports CPN - File
@@ -146,8 +146,8 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 				} 
 				else 
 				{
-					this._showErrorMessageBox(ORYX.I18N.Oryx.title, ORYX.I18N.cpntoolsSupport.serverConnectionFailed);
-					ORYX.log.warn("Communication failed: " + transport.responseText);	
+					this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.cpntoolsSupport.serverConnectionFailed);
+					WAPAMA.log.warn("Communication failed: " + transport.responseText);	
 				}					
 		   }.bind(this)		
 		});
@@ -161,7 +161,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 	{		
 		this._sendRequest
 		(
-			ORYX.CONFIG.CPNTOOLSEXPORTER,
+			WAPAMA.CONFIG.CPNTOOLSEXPORTER,
 			'POST',
 			{ 
 				data: cpnJSON
@@ -170,7 +170,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 			{ 			
 				if (result.startsWith("error:"))
 				{
-					this._showErrorMessageBox(ORYX.I18N.Oryx.title, result);
+					this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, result);
 				}
 				else
 				{
@@ -179,7 +179,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 			}.bind(this),
 			function()
 			{ 
-				this._showErrorMessageBox(ORYX.I18N.Oryx.title, ORYX.I18N.cpntoolsSupport.serverConnectionFailed);
+				this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.cpntoolsSupport.serverConnectionFailed);
 		 	}.bind(this)
 		)
 	}, 
@@ -197,13 +197,13 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 	        items: 
 	        [
 	         {
-	            text : 		ORYX.I18N.cpntoolsSupport.importTask, 
+	            text : 		WAPAMA.I18N.cpntoolsSupport.importTask, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 	            anchor:		'100%',
 				xtype : 	'label' 
 	         },
 	         {
-	            fieldLabel: ORYX.I18N.cpntoolsSupport.File,
+	            fieldLabel: WAPAMA.I18N.cpntoolsSupport.File,
 	            name: 		'subject',
 				inputType : 'file',
 				style : 	'margin-bottom:10px;display:block;',
@@ -224,7 +224,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 			layout: 	'fit',
 			plain:		true,
 			bodyStyle: 	'padding:5px;',
-			title: 		ORYX.I18N.cpntoolsSupport.cpn, 
+			title: 		WAPAMA.I18N.cpntoolsSupport.cpn, 
 			height: 	350, 
 			width:		500,
 			modal:		true,
@@ -235,10 +235,10 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 			items: 		[form],
 			buttons:[
 				{
-					text: ORYX.I18N.cpntoolsSupport.importLable,
+					text: WAPAMA.I18N.cpntoolsSupport.importLable,
 					handler:function(){
 						
-						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.jPDLSupport.impProgress});
+						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.jPDLSupport.impProgress});
 						loadMask.show();
 						
 						window.setTimeout(function()
@@ -254,7 +254,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 					}.bind(this)
 					
 				},{
-					text: ORYX.I18N.cpntoolsSupport.close,
+					text: WAPAMA.I18N.cpntoolsSupport.close,
 					handler:function()
 					{						
 						dialog.hide();					
@@ -293,7 +293,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 		if (allPages.length == 0)
 		{
 			loadMask.hide();
-			this._showErrorMessageBox(ORYX.I18N.cpntoolsSupport.title, ORYX.I18N.cpntoolsSupport.wrongCPNFile);
+			this._showErrorMessageBox(WAPAMA.I18N.cpntoolsSupport.title, WAPAMA.I18N.cpntoolsSupport.wrongCPNFile);
 			
 			return;
 		}
@@ -305,7 +305,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 			pageName = pageAttr.attributes[0].nodeValue;
 			
 			this._sendRequest(
-					ORYX.CONFIG.CPNTOOLSIMPORTER,
+					WAPAMA.CONFIG.CPNTOOLSIMPORTER,
 					'POST',
 					{ 
 						'pagesToImport': pageName,
@@ -315,7 +315,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 					{
 						if (arg.startsWith("error:"))
 						{
-							this._showErrorMessageBox(ORYX.I18N.Oryx.title, arg);
+							this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, arg);
 							loadMask.hide();
 						}
 						else
@@ -327,7 +327,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
 					function()
 					{
 						loadMask.hide();
-						this._showErrorMessageBox(ORYX.I18N.Oryx.title, ORYX.I18N.cpntoolsSupport.serverConnectionFailed);
+						this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.cpntoolsSupport.serverConnectionFailed);
 					}.bind(this)
 				);
 			
@@ -413,9 +413,9 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
         
         // Create a new Window
         var window = new Ext.Window({
-            id: 'oryx_new_page_selection',
+            id: 'wapama_new_page_selection',
             autoWidth: true,
-            title: ORYX.I18N.cpntoolsSupport.title,
+            title: WAPAMA.I18N.cpntoolsSupport.title,
             floating: true,
             shim: true,
             modal: true,
@@ -423,7 +423,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
             autoHeight: true,
             items: [panel],
             buttons: [{
-                text: ORYX.I18N.cpntoolsSupport.importLable,
+                text: WAPAMA.I18N.cpntoolsSupport.importLable,
                 handler: function()
                 {
             		var chosenRecs = "";
@@ -438,18 +438,18 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
             		
             		if (chosenRecs.length == 0)
             		{
-            			alert(ORYX.I18N.cpntoolsSupport.noPageSelection);
+            			alert(WAPAMA.I18N.cpntoolsSupport.noPageSelection);
             			return;
             		}
             		
-            		var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.cpntoolsSupport.importProgress});
+            		var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.cpntoolsSupport.importProgress});
 					loadMask.show();
 					
             		window.hide();
             		
         			pageName = chosenRecs;
         			this._sendRequest(
-        					ORYX.CONFIG.CPNTOOLSIMPORTER,
+        					WAPAMA.CONFIG.CPNTOOLSIMPORTER,
         					'POST',
         					{ 
         						'pagesToImport': pageName,
@@ -459,7 +459,7 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
         					{
 								if (arg.startsWith("error:"))
 								{
-									this._showErrorMessageBox(ORYX.I18N.Oryx.title, arg);
+									this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, arg);
 									loadMask.hide();
 								}
 								else
@@ -471,13 +471,13 @@ ORYX.Plugins.CPNToolsSupport = ORYX.Plugins.AbstractPlugin.extend({
         					function()
         					{
 								loadMask.hide();
-								this._showErrorMessageBox(ORYX.I18N.Oryx.title, ORYX.I18N.cpntoolsSupport.serverConnectionFailed);
+								this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.cpntoolsSupport.serverConnectionFailed);
 							}.bind(this)
         				);
                 }.bind(this)
             }, 
             {
-                text: ORYX.I18N.cpntoolsSupport.close,
+                text: WAPAMA.I18N.cpntoolsSupport.close,
                 handler: function(){
                     window.hide();
                 }.bind(this)

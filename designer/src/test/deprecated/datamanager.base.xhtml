@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="test.css" type="text/css" />
   
   <link rel="schema.process" href="http://b3mn.org/" />
-  <link rel="schema.oryx" href="http://oryx-editor.org/" />
+  <link rel="schema.wapama" href="http://www.wapama.net/" />
   <link rel="schema.aress" href="http://aress.org/" />
 </head>
 <body>
@@ -31,11 +31,11 @@
         <a rel="edit" href="http://b3mn.org/feedName/diagram/1/version/1" />
         <a rel="self" href="http://b3mn.org/feedName/diagram/1/version/1" />
 
-        <a rel="oryx-incoming" href="#4ad8c3f5e2b4320786560b5f3c656cd4-26" />
+        <a rel="wapama-incoming" href="#4ad8c3f5e2b4320786560b5f3c656cd4-26" />
 
-        <span class="oryx-stencilset">http://b3mn.org/2007/b3mn/</span>
-        <span class="oryx-type">Task</span>
-        <span class="oryx-bounds">100,200,200,280</span>
+        <span class="wapama-stencilset">http://b3mn.org/2007/b3mn/</span>
+        <span class="wapama-type">Task</span>
+        <span class="wapama-bounds">100,200,200,280</span>
 
         <div class="aress-content">
             bla
@@ -45,8 +45,8 @@
 	<div id="dummy" />
 	
 	<div id="removablediv">
-		<span class="oryx-test">removabletext</span>
-		<a rel="oryx-test" href='#x'>removablelink</span>
+		<span class="wapama-test">removabletext</span>
+		<a rel="wapama-test" href='#x'>removablelink</a>
 	</div>
 
 	<script type="text/javascript" language="javascript" charset="utf-8">
@@ -138,13 +138,13 @@
 				// construct a new triple.
 				var triple = new ERDF.Triple(
 					{type: ERDF.RESOURCE, value: '#removablediv'},
-					{prefix: 'oryx', name: 'test'},
+					{prefix: 'wapama', name: 'test'},
 					{type: ERDF.LITERAL, value: 'removabletext'});
 
 				// query that triple.
 				var resultSet = DataManager.query(
 					{type: ERDF.RESOURCE, value: '#removablediv'},
-					{prefix: 'oryx', name: 'test'},
+					{prefix: 'wapama', name: 'test'},
 					{type: ERDF.LITERAL, value: 'removabletext'});
 
 				// assert there is one.
@@ -156,7 +156,7 @@
 				// query that triple.
 				var resultSet = DataManager.query(
 					{type: ERDF.RESOURCE, value: '#removablediv'},
-					{prefix: 'oryx', name: 'test'},
+					{prefix: 'wapama', name: 'test'},
 					{type: ERDF.LITERAL, value: 'removabletext'});
 
 				// assert there is one.

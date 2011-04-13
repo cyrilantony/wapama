@@ -20,9 +20,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-Ext.ns("Oryx.Plugins");
+Ext.ns("Wapama.Plugins");
 
-ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.PetriNetSoundnessChecker = WAPAMA.Plugins.AbstractPlugin.extend({
 
     hideOverlays: function(){
         //TODO set in constructor!!!
@@ -31,7 +31,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
     
         Ext.each(this.overlayIds, function(overlayId){
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+                type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
                 id: overlayId
             });
         }.bind(this));
@@ -49,12 +49,12 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
     
     /**
        Show overlay on given shape.
-       @methodOf ORYX.Plugins.AbstractPlugin.prototype
+       @methodOf WAPAMA.Plugins.AbstractPlugin.prototype
        @example
        showOverlay(
            myShape,
            { stroke: "green" },
-           ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
+           WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
                "title": "Click the element to execute it!",
                "stroke-width": 2.0,
                "stroke": "black",
@@ -62,9 +62,9 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                "line-captions": "round"
            }])
        )
-       @param {Oryx.XXX.Shape[]} shapes One shape or array of shapes the overlay should be put on
-       @param {Oryx.XXX.Attributes} attributes some attributes...
-       @param {Oryx.svg.node} svgNode The svg node which should be used as overlay
+       @param {Wapama.XXX.Shape[]} shapes One shape or array of shapes the overlay should be put on
+       @param {Wapama.XXX.Attributes} attributes some attributes...
+       @param {Wapama.svg.node} svgNode The svg node which should be used as overlay
        @param {String} [svgNode="NW"] The svg node position where the overlay should be placed
     */
     showOverlay: function(shapes, attributes, svgNode, svgNodePosition ){
@@ -87,11 +87,11 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
         }.bind(this)).compact();
         
         // Define unified id
-        var overlayId = this.type + ORYX.Editor.provideId();
+        var overlayId = this.type + WAPAMA.Editor.provideId();
         this.overlayIds.push(overlayId);
         
         this.facade.raiseEvent({
-            type        : ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+            type        : WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
             id          : overlayId,
             shapes      : shapes,
             attributes  : attributes,
@@ -107,10 +107,10 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
         arguments.callee.$.construct.apply(this, arguments);
                 
         this.facade.offer({
-            'name': "Check soundness",//ORYX.I18N.BPMN2PNConverter.name,
+            'name': "Check soundness",//WAPAMA.I18N.BPMN2PNConverter.name,
             'functionality': this.showCheckerWindow.bind(this),
             'group': "Verification",
-            'icon': ORYX.PATH + "images/checker_validation.png",
+            'icon': WAPAMA.PATH + "images/checker_validation.png",
             'description': "Checks current Petri net for different soundness criteria.",
             'index': 3,
             'minShape': 0,
@@ -145,7 +145,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                 plugin.hideOverlays();
                 this.hideMarking();
                 // Reset syntax errors
-                plugin.facade.raiseEvent({type: ORYX.Plugins.SyntaxChecker.RESET_ERRORS_EVENT});
+                plugin.facade.raiseEvent({type: WAPAMA.Plugins.SyntaxChecker.RESET_ERRORS_EVENT});
             },
             hideMarking: function(){
                 if(!plugin.marking)
@@ -154,7 +154,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                 for(place in plugin.marking){
                     var placeShape = plugin.facade.getCanvas().getChildShapeByResourceId(place);
                     if(placeShape)//place can be null if removed
-                        placeShape.setProperty("oryx-numberoftokens", 0);
+                        placeShape.setProperty("wapama-numberoftokens", 0);
                 }
                 // Show changes
                 plugin.facade.getCanvas().update();
@@ -166,7 +166,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
             
                 for(place in marking){
                     var placeShape = plugin.facade.getCanvas().getChildShapeByResourceId(place);
-                    placeShape.setProperty("oryx-numberoftokens", marking[place]);
+                    placeShape.setProperty("wapama-numberoftokens", marking[place]);
                 }
                 // Show changes
                 plugin.facade.getCanvas().update();
@@ -202,7 +202,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                         {
                             fill: "#FB7E02"//orange
                         },
-                        ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['text', {
+                        WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['text', {
                             "style": "font-size: 16px; font-weight: bold;"
                         }, (index + 1)+"."]),
                         "SE" //position in south east
@@ -213,7 +213,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                 if(shapes.length === 0)
                     return;
 
-                if(! shapes[0] instanceof ORYX.Core.Node)
+                if(! shapes[0] instanceof WAPAMA.Core.Node)
                     shapes = plugin.getChildShapesByResourceIds(shapes)
             
                 plugin.showOverlay(
@@ -224,10 +224,10 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                 );
             }
         });
-        CheckNode.UNKNOWN_STATUS = ORYX.PATH + 'images/soundness_checker/' + 'asterisk_yellow.png';
-        CheckNode.ERROR_STATUS = ORYX.PATH + 'images/soundness_checker/' + 'exclamation.png';
-        CheckNode.OK_STATUS = ORYX.PATH + 'images/soundness_checker/' + 'accept.png';
-        CheckNode.LOADING_STATUS = ORYX.PATH + 'images/soundness_checker/' + 'loading.gif';
+        CheckNode.UNKNOWN_STATUS = WAPAMA.PATH + 'images/soundness_checker/' + 'asterisk_yellow.png';
+        CheckNode.ERROR_STATUS = WAPAMA.PATH + 'images/soundness_checker/' + 'exclamation.png';
+        CheckNode.OK_STATUS = WAPAMA.PATH + 'images/soundness_checker/' + 'accept.png';
+        CheckNode.LOADING_STATUS = WAPAMA.PATH + 'images/soundness_checker/' + 'loading.gif';
         
         var DeadLocksNode = Ext.extend(CheckNode, {
             constructor: function(config) {
@@ -359,7 +359,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
             },
             checkSyntax: function(callback){
                 plugin.facade.raiseEvent({
-                    type: ORYX.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT,
+                    type: WAPAMA.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT,
                     onErrors: function(){
                         Ext.Msg.alert("Syntax Check", "Some syntax errors have been found, please correct them!")
                         this.turnLoadingIntoUnknownStatus();
@@ -389,7 +389,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                 
                 // Check other soundness criteria which needs server requests
                 Ext.Ajax.request({
-                    url: ORYX.CONFIG.ROOT_PATH + 'checksoundness',
+                    url: WAPAMA.CONFIG.ROOT_PATH + 'checksoundness',
                     method: 'POST',
                     success: function(request){
                         var res = Ext.decode(request.responseText);
@@ -500,7 +500,7 @@ ORYX.Plugins.PetriNetSoundnessChecker = ORYX.Plugins.AbstractPlugin.extend({
                                     
                                     this.notParticipatingNodes = [];
                                     Ext.each(plugin.facade.getCanvas().getChildShapes(), function(shape){
-                                        if(shape instanceof ORYX.Core.Node)
+                                        if(shape instanceof WAPAMA.Core.Node)
                                             this.notParticipatingNodes.push(shape);
                                     }.bind(this));
                                     

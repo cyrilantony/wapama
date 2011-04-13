@@ -2,30 +2,30 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
 
    width="102"
    height="82"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="0" oryx:cy="40" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="50" oryx:cy="80" oryx:anchors="bottom" />
-  	<oryx:magnet oryx:cx="100" oryx:cy="40" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="50" oryx:cy="0" oryx:anchors="top" />
-  	<oryx:magnet oryx:cx="50" oryx:cy="40" oryx:default="yes" />
-  </oryx:magnets>
-  <g pointer-events="fill" oryx:minimumSize="50 40" oryx:maximumSize="200 160" >
-    <rect id="taskrect" oryx:resize="vertical horizontal" x="0" y="0" width="100" height="80" rx="10" ry="10" stroke="black" stroke-width="1" fill="white" />
-    <image id="java" x="3" y="3" width="16" height="16" oryx:anchors="left top" xlink:href="../../extensions/jbpm/icon/java.png" />    
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="0" wapama:cy="40" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="50" wapama:cy="80" wapama:anchors="bottom" />
+  	<wapama:magnet wapama:cx="100" wapama:cy="40" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="50" wapama:cy="0" wapama:anchors="top" />
+  	<wapama:magnet wapama:cx="50" wapama:cy="40" wapama:default="yes" />
+  </wapama:magnets>
+  <g pointer-events="fill" wapama:minimumSize="50 40" wapama:maximumSize="200 160" >
+    <rect id="taskrect" wapama:resize="vertical horizontal" x="0" y="0" width="100" height="80" rx="10" ry="10" stroke="black" stroke-width="1" fill="white" />
+    <image id="java" x="3" y="3" width="16" height="16" wapama:anchors="left top" xlink:href="../../extensions/jbpm/icon/java.png" />    
 	<text 
 			font-size="14" 
 			id="acttext" 
 			x="50" 
 			y="40" 
-			oryx:align="middle center"
-			oryx:fittoelem="taskrect"
+			wapama:align="middle center"
+			wapama:fittoelem="taskrect"
 			stroke="black">
 	</text>
   </g>

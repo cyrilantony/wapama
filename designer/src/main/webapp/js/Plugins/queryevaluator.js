@@ -19,10 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.QueryEvaluator = WAPAMA.Plugins.AbstractPlugin.extend({
 
     facade: undefined,
     
@@ -34,11 +34,11 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 		this.raisedEventIds = [];
 		
         this.facade.offer({
-            'name': ORYX.I18N.QueryEvaluator.name,
+            'name': WAPAMA.I18N.QueryEvaluator.name,
             'functionality': this.showOverlay.bind(this),
-            'group': ORYX.I18N.QueryEvaluator.group,
-            'icon': ORYX.PATH + "images/xforms_export.png",
-            'description': ORYX.I18N.QueryEvaluator.desc,
+            'group': WAPAMA.I18N.QueryEvaluator.group,
+            'icon': WAPAMA.PATH + "images/xforms_export.png",
+            'description': WAPAMA.I18N.QueryEvaluator.desc,
             'index': 0,
 			'toggle': true,
             'minShape': 0,
@@ -53,7 +53,7 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 			
 /*			this.raisedEventIds.each(function(id){
 				this.facade.raiseEvent({
-						type: 	ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+						type: 	WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 						id: 	id
 					});
 			}.bind(this))
@@ -156,7 +156,7 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 						inputValue	: 'processQuery', 
 						checked: true},
 					{
-					// this is edited by Ahmed Awad on 28.07.09 to reflect compliance checking in the Oryx editor
+					// this is edited by Ahmed Awad on 28.07.09 to reflect compliance checking in the Wapama editor
 						boxLabel	: 'Process Compliance Query', 
 						labelSeparator: '', 
 						name		: 'command', 
@@ -212,11 +212,11 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 //			serialized_rdf = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized_rdf;
 
 			this.facade.raiseEvent({
-	            type: ORYX.CONFIG.EVENT_LOADING_ENABLE,
-				text: "Processing query"  //ORYX.I18N.Save.saving
+	            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE,
+				text: "Processing query"  //WAPAMA.I18N.Save.saving
 	        });
 			// Send the request to the server.
-			new Ajax.Request(ORYX.CONFIG.QUERYEVAL_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.QUERYEVAL_URL, {
 				method: 'POST',
 				asynchronous: true,
 				parameters: {
@@ -228,7 +228,7 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 				},
                 onSuccess: function(response){
                     this.facade.raiseEvent({
-						type:ORYX.CONFIG.EVENT_LOADING_DISABLE
+						type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE
 					});
 					
 					var respXML = response.responseXML;
@@ -254,22 +254,22 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 					try {
 						this.processProcessList(processList);
 					} catch (error) {
-						Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+						Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 					}
                 }.bind(this),
 				
 				onFailure: function(response){
 					this.facade.raiseEvent({
-						type:ORYX.CONFIG.EVENT_LOADING_DISABLE
+						type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE
 					});
-					Ext.Msg.alert(ORYX.I18N.Oryx.title, "Server encountered an error (" + response.statusText + ").\n"
+					Ext.Msg.alert(WAPAMA.I18N.Wapama.title, "Server encountered an error (" + response.statusText + ").\n"
 						+ response.responseText);
 				}.bind(this)
 			});
 			
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 	 	}
 
 	},
@@ -327,7 +327,7 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 	 */
 	processProcessList: function(processList){
 		if(processList.length == 0) {
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, "Found no matching processes!");
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, "Found no matching processes!");
 			return;
 		}
 		
@@ -415,7 +415,7 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 					processEntry.metadata = transport.responseText.evalJSON();
 				}.bind(this),
 				onFailure		: function() {
-					Ext.MessageBox.alert(ORYX.I18N.Oryx.title, "Error loading model meta data.");
+					Ext.MessageBox.alert(WAPAMA.I18N.Wapama.title, "Error loading model meta data.");
 				}.bind(this)
 			});
 		
@@ -446,7 +446,7 @@ ORYX.Plugins.QueryEvaluator = ORYX.Plugins.AbstractPlugin.extend({
 		window.setTimeout(
 	        function() {
                 if(!editor || !editor.opener || editor.closed) {
-                        Ext.MessageBox.alert(ORYX.I18N.Oryx.title, ORYX.I18N.Oryx.editorOpenTimeout).setIcon(Ext.MessageBox.QUESTION);
+                        Ext.MessageBox.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Wapama.editorOpenTimeout).setIcon(Ext.MessageBox.QUESTION);
                 }
 	        }, 5000);			
 		

@@ -24,14 +24,14 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
 
 
 /**
  * @classDescription With Bounds you can set and get position and size of UIObjects.
  */
-ORYX.Core.Command = Clazz.extend({
+WAPAMA.Core.Command = Clazz.extend({
 
 	/**
 	 * Constructor

@@ -2,15 +2,15 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:svg="http://www.w3.org/2000/svg"
-	xmlns:oryx="http://www.b3mn.org/oryx"
+	xmlns:wapama="http://www.wapama.net/diagram"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	width="33.5"
 	height="29"
 	version="1.0">
 	<defs></defs>
-	<oryx:magnets>
-		<oryx:magnet oryx:cx="16.75" oryx:cy="14.5" oryx:default="yes" />
-	</oryx:magnets>
+	<wapama:magnets>
+		<wapama:magnet wapama:cx="16.75" wapama:cy="14.5" wapama:default="yes" />
+	</wapama:magnets>
 	
 	<g pointer-events="fill">		
 	
@@ -32,7 +32,7 @@
 			id="text_name" 
 			x="16.75" 
 			y="40" 
-			oryx:align="middle center"
+			wapama:align="middle center"
 			stroke="black">
 		</text>
 	

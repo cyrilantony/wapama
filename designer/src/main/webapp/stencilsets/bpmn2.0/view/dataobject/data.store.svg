@@ -2,20 +2,20 @@
 <svg 
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:svg="http://www.w3.org/2000/svg"
-   	xmlns:oryx="http://www.b3mn.org/oryx"
+   	xmlns:wapama="http://www.wapama.net/diagram"
    	xmlns:xlink="http://www.w3.org/1999/xlink"
 	
 	width="63.001px" 
 	height="61.173px"
 	version="1.0">
 	<defs></defs>
-	<oryx:magnets>
-		<oryx:magnet oryx:cx="0" oryx:cy="30.5865" oryx:anchors="left" />
-		<oryx:magnet oryx:cx="31.5005" oryx:cy="61.173" oryx:anchors="bottom" />
-		<oryx:magnet oryx:cx="63.001" oryx:cy="30.5865" oryx:anchors="right" />
-		<oryx:magnet oryx:cx="31.5005" oryx:cy="0" oryx:anchors="top" />
-		<oryx:magnet oryx:cx="31.5005" oryx:cy="30.5865" oryx:default="yes" />
-	</oryx:magnets>
+	<wapama:magnets>
+		<wapama:magnet wapama:cx="0" wapama:cy="30.5865" wapama:anchors="left" />
+		<wapama:magnet wapama:cx="31.5005" wapama:cy="61.173" wapama:anchors="bottom" />
+		<wapama:magnet wapama:cx="63.001" wapama:cy="30.5865" wapama:anchors="right" />
+		<wapama:magnet wapama:cx="31.5005" wapama:cy="0" wapama:anchors="top" />
+		<wapama:magnet wapama:cx="31.5005" wapama:cy="30.5865" wapama:default="yes" />
+	</wapama:magnets>
 	
 	<g>
 		<defs>
@@ -33,7 +33,7 @@
 			c0,1.769,3.088,6.455,30.734,6.455c27.647,0,31.267-4.565,31.267-6.551 M0.925,6.487c0,2.35,3.088,6.455,30.734,6.455
 			c27.647,0,31.267-3.912,31.267-6.552 M62.926,6.391v4.844 M0.949,6.391v4.844 M62.926,11.041v4.844 M0.949,11.041v4.844"/>
 			 	
-		<text font-size="12" id="text_name" x="31" y="66" oryx:align="center top" stroke="black" />
+		<text font-size="12" id="text_name" x="31" y="66" wapama:align="center top" stroke="black" />
 			 
 	</g>
 </svg>

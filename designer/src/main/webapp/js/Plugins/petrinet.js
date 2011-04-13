@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
- if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+ if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.PetriNet = {
+WAPAMA.Plugins.PetriNet = {
 
 	/**
 	 *	Constructor
@@ -33,7 +33,7 @@ ORYX.Plugins.PetriNet = {
 	construct: function(facade){
 		this.facade = facade;
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
 	},
 	
 	/**
@@ -48,32 +48,32 @@ ORYX.Plugins.PetriNet = {
 		var changed = false;
 		shapes.each(function(shape){
 			if((shape.getStencil().id() === "http://b3mn.org/stencilset/petrinet#Place") &&
-				(propertyKey === "oryx-numberoftokens")) {
+				(propertyKey === "wapama-numberoftokens")) {
 				
 				/* Visualize number of Tokens */
 				if(propertyValue == 0) {
-					shape.setProperty("oryx-numberoftokens_text", "");
-					shape.setProperty("oryx-numberoftokens_drawing", "0");
+					shape.setProperty("wapama-numberoftokens_text", "");
+					shape.setProperty("wapama-numberoftokens_drawing", "0");
 				} else if(propertyValue == 1) {
-					shape.setProperty("oryx-numberoftokens_text", "");
-					shape.setProperty("oryx-numberoftokens_drawing", "1");
+					shape.setProperty("wapama-numberoftokens_text", "");
+					shape.setProperty("wapama-numberoftokens_drawing", "1");
 				} else if(propertyValue == 2) {
-					shape.setProperty("oryx-numberoftokens_text", "");
-					shape.setProperty("oryx-numberoftokens_drawing", "2");
+					shape.setProperty("wapama-numberoftokens_text", "");
+					shape.setProperty("wapama-numberoftokens_drawing", "2");
 				} else if(propertyValue == 3) {
-					shape.setProperty("oryx-numberoftokens_text", "");
-					shape.setProperty("oryx-numberoftokens_drawing", "3");
+					shape.setProperty("wapama-numberoftokens_text", "");
+					shape.setProperty("wapama-numberoftokens_drawing", "3");
 				} else if(propertyValue == 4) {
-					shape.setProperty("oryx-numberoftokens_text", "");
-					shape.setProperty("oryx-numberoftokens_drawing", "4");
+					shape.setProperty("wapama-numberoftokens_text", "");
+					shape.setProperty("wapama-numberoftokens_drawing", "4");
 				} else {
 					var tokens = parseInt(propertyValue, 10);
 					if(tokens && tokens > 0) {
-						shape.setProperty("oryx-numberoftokens_text", "" + tokens);
-						shape.setProperty("oryx-numberoftokens_drawing", "0");
+						shape.setProperty("wapama-numberoftokens_text", "" + tokens);
+						shape.setProperty("wapama-numberoftokens_drawing", "0");
 					} else {
-						shape.setProperty("oryx-numberoftokens_text", "");
-						shape.setProperty("oryx-numberoftokens_drawing", "0");
+						shape.setProperty("wapama-numberoftokens_text", "");
+						shape.setProperty("wapama-numberoftokens_drawing", "0");
 					}
 				}
 				changed = true;
@@ -84,5 +84,5 @@ ORYX.Plugins.PetriNet = {
 	}
 };
 	
-ORYX.Plugins.PetriNet = ORYX.Plugins.AbstractPlugin.extend(ORYX.Plugins.PetriNet);
+WAPAMA.Plugins.PetriNet = WAPAMA.Plugins.AbstractPlugin.extend(WAPAMA.Plugins.PetriNet);
 	

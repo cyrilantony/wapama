@@ -9,11 +9,11 @@ var pathQuadraticBezierRelD = "M50,50 q-30,100 50,150 100,230 150,150 230,100 15
 var pathEllipticArcRelD = "M10,150 a15 15 180 0 1 70 140 a15 25 180 0 0 130 130 a15 55 180 0 1 190 120";
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a line path with absolute coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a line path with absolute coordinates
  */
 function testCalculateMinMaxLineAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathLineAbsD);
 
@@ -24,11 +24,11 @@ function testCalculateMinMaxLineAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a cubic Bezier path with absolute coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a cubic Bezier path with absolute coordinates
  */
 function testCalculateMinMaxCubicBezierAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathCubicBezierAbsD);
 
@@ -39,11 +39,11 @@ function testCalculateMinMaxCubicBezierAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a quadratic Bezier path with absolute coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a quadratic Bezier path with absolute coordinates
  */
 function testCalculateMinMaxQuadraticBezierAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathQuadraticBezierAbsD);
 
@@ -54,11 +54,11 @@ function testCalculateMinMaxQuadraticBezierAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a elliptic arc path with absolute coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a elliptic arc path with absolute coordinates
  */
 function testCalculateMinMaxEllipticArcAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathEllipticArcAbsD);
 
@@ -69,11 +69,11 @@ function testCalculateMinMaxEllipticArcAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a line path with relative coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a line path with relative coordinates
  */
 function testCalculateMinMaxLineRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathLineRelD);
 
@@ -84,11 +84,11 @@ function testCalculateMinMaxLineRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a cubic Bezier path with relative coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a cubic Bezier path with relative coordinates
  */
 function testCalculateMinMaxCubicBezierRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathCubicBezierRelD);
 
@@ -99,11 +99,11 @@ function testCalculateMinMaxCubicBezierRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a quadratic Bezier path with relative coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a quadratic Bezier path with relative coordinates
  */
 function testCalculateMinMaxQuadraticBezierRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathQuadraticBezierRelD);
 
@@ -114,11 +114,11 @@ function testCalculateMinMaxQuadraticBezierRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.MinMaxPathHandler.calculateMinMax() for a elliptic arc path with relative coordinates
+ * Test WAPAMA.Core.SVG.MinMaxPathHandler.calculateMinMax() for a elliptic arc path with relative coordinates
  */
 function testCalculateMinMaxEllipticArcRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.MinMaxPathHandler();
+	var handler = new WAPAMA.Core.SVG.MinMaxPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathEllipticArcRelD);
 

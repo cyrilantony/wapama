@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.AddDocker = Clazz.extend({
+WAPAMA.Plugins.AddDocker = Clazz.extend({
 
 	/**
 	 *	Constructor
@@ -34,11 +34,11 @@ ORYX.Plugins.AddDocker = Clazz.extend({
 		this.facade = facade;
 
 		this.facade.offer({
-			'name':ORYX.I18N.AddDocker.add,
+			'name':WAPAMA.I18N.AddDocker.add,
 			'functionality': this.enableAddDocker.bind(this),
-			'group': ORYX.I18N.AddDocker.group,
-			'icon': ORYX.PATH + "images/vector_add.png",
-			'description': ORYX.I18N.AddDocker.addDesc,
+			'group': WAPAMA.I18N.AddDocker.group,
+			'icon': WAPAMA.PATH + "images/vector_add.png",
+			'description': WAPAMA.I18N.AddDocker.addDesc,
 			'index': 1,
             'toggle': true,
 			'minShape': 0,
@@ -46,17 +46,17 @@ ORYX.Plugins.AddDocker = Clazz.extend({
 
 
 		this.facade.offer({
-			'name':ORYX.I18N.AddDocker.del,
+			'name':WAPAMA.I18N.AddDocker.del,
 			'functionality': this.enableDeleteDocker.bind(this),
-			'group': ORYX.I18N.AddDocker.group,
-			'icon': ORYX.PATH + "images/vector_delete.png",
-			'description': ORYX.I18N.AddDocker.delDesc,
+			'group': WAPAMA.I18N.AddDocker.group,
+			'icon': WAPAMA.PATH + "images/vector_delete.png",
+			'description': WAPAMA.I18N.AddDocker.delDesc,
 			'index': 2,
             'toggle': true,
 			'minShape': 0,
 			'maxShape': 0});
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
 	},
 	
 	enableAddDocker: function(button, pressed) {
@@ -88,14 +88,14 @@ ORYX.Plugins.AddDocker = Clazz.extend({
 	 *
 	 */	
 	handleMouseDown: function(event, uiObj) {
-		if (this.enabledAdd() && uiObj instanceof ORYX.Core.Edge) {
+		if (this.enabledAdd() && uiObj instanceof WAPAMA.Core.Edge) {
             this.newDockerCommand({
                 edge: uiObj,
                 position: this.facade.eventCoordinates(event)
             });
 		} else if (this.enabledDelete() &&
-				   uiObj instanceof ORYX.Core.Controls.Docker &&
-				   uiObj.parent instanceof ORYX.Core.Edge) {
+				   uiObj instanceof WAPAMA.Core.Controls.Docker &&
+				   uiObj.parent instanceof WAPAMA.Core.Edge) {
             this.newDockerCommand({
                 edge: uiObj.parent,
                 docker: uiObj
@@ -112,7 +112,7 @@ ORYX.Plugins.AddDocker = Clazz.extend({
         if(!options.edge)
             return;
 
-        var commandClass = ORYX.Core.Command.extend({
+        var commandClass = WAPAMA.Core.Command.extend({
             construct: function(addEnabled, deleteEnabled, edge, docker, pos, facade){
                 this.addEnabled = addEnabled;
                 this.deleteEnabled = deleteEnabled;
@@ -138,7 +138,7 @@ ORYX.Plugins.AddDocker = Clazz.extend({
             },
             rollback: function(){
                 if (this.addEnabled) {
-                    if (this.docker instanceof ORYX.Core.Controls.Docker) {
+                    if (this.docker instanceof WAPAMA.Core.Controls.Docker) {
                         this.edge.removeDocker(this.docker);
                     }
                 }

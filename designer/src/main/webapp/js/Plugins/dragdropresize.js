@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins) 
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins) 
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.DragDropResize = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	/**
 	 *	Constructor
@@ -55,12 +55,12 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		var containerNode = this.facade.getCanvas().getSvgContainer();
 		
 		// Create the Selected Rectangle in the SVG
-		this.selectedRect = new ORYX.Plugins.SelectedRect(containerNode);
+		this.selectedRect = new WAPAMA.Plugins.SelectedRect(containerNode);
 		
 		// Show grid line if enabled
-		if (ORYX.CONFIG.SHOW_GRIDLINE) {
-			this.vLine = new ORYX.Plugins.GridLine(containerNode, ORYX.Plugins.GridLine.DIR_VERTICAL);
-			this.hLine = new ORYX.Plugins.GridLine(containerNode, ORYX.Plugins.GridLine.DIR_HORIZONTAL);
+		if (WAPAMA.CONFIG.SHOW_GRIDLINE) {
+			this.vLine = new WAPAMA.Plugins.GridLine(containerNode, WAPAMA.Plugins.GridLine.DIR_VERTICAL);
+			this.hLine = new WAPAMA.Plugins.GridLine(containerNode, WAPAMA.Plugins.GridLine.DIR_HORIZONTAL);
 		}
 		
 		// Get a HTML-ContainerNode
@@ -69,21 +69,21 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		this.scrollNode = this.facade.getCanvas().rootNode.parentNode.parentNode;
 		
 		// Create the southeastern button for resizing
-		this.resizerSE = new ORYX.Plugins.Resizer(containerNode, "southeast", this.facade);
+		this.resizerSE = new WAPAMA.Plugins.Resizer(containerNode, "southeast", this.facade);
 		this.resizerSE.registerOnResize(this.onResize.bind(this)); // register the resize callback
 		this.resizerSE.registerOnResizeEnd(this.onResizeEnd.bind(this)); // register the resize end callback
 		this.resizerSE.registerOnResizeStart(this.onResizeStart.bind(this)); // register the resize start callback
 		
 		
 		// Create the northwestern button for resizing
-		this.resizerNW = new ORYX.Plugins.Resizer(containerNode, "northwest", this.facade);
+		this.resizerNW = new WAPAMA.Plugins.Resizer(containerNode, "northwest", this.facade);
 		this.resizerNW.registerOnResize(this.onResize.bind(this)); // register the resize callback
 		this.resizerNW.registerOnResizeEnd(this.onResizeEnd.bind(this)); // register the resize end callback
 		this.resizerNW.registerOnResizeStart(this.onResizeStart.bind(this)); // register the resize start callback
 		
 		// For the Drag and Drop
 		// Register on MouseDown-Event on a Shape
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
 	},
 
 	/**
@@ -114,9 +114,9 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		this.offsetScroll	= {x:this.scrollNode.scrollLeft,y:this.scrollNode.scrollTop};
 			
 		// Register on Global Mouse-MOVE Event
-		document.documentElement.addEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, this.callbackMouseMove, false);	
+		document.documentElement.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEMOVE, this.callbackMouseMove, false);	
 		// Register on Global Mouse-UP Event
-		document.documentElement.addEventListener(ORYX.CONFIG.EVENT_MOUSEUP, this.callbackMouseUp, true);			
+		document.documentElement.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEUP, this.callbackMouseUp, true);			
 
 		return;
 	},
@@ -129,12 +129,12 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		
 		//disable containment highlighting
 		this.facade.raiseEvent({
-									type:ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+									type:WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 									highlightId:"dragdropresize.contain"
 								});
 								
 		this.facade.raiseEvent({
-									type:ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+									type:WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 									highlightId:"dragdropresize.attached"
 								});
 
@@ -149,7 +149,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 				
 				// Check if the Shape is allowed to dock to the other Shape						
 				if ( 	this.isAttachingAllowed &&
-						this.toMoveShapes.length == 1 && this.toMoveShapes[0] instanceof ORYX.Core.Node  &&
+						this.toMoveShapes.length == 1 && this.toMoveShapes[0] instanceof WAPAMA.Core.Node  &&
 						this.toMoveShapes[0].dockers.length > 0) {
 					
 					// Get the position and the docker					
@@ -159,7 +159,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 
 			
 					//Command-Pattern for dragging several Shapes
-					var dockCommand = ORYX.Core.Command.extend({
+					var dockCommand = WAPAMA.Core.Command.extend({
 						construct: function(docker, position, newDockedShape, facade){
 							this.docker 		= docker;
 							this.newPosition	= position;
@@ -179,7 +179,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 							this.dock( this.newDockedShape, this.newParent,  this.newPosition );
 							
 							// Raise Event for having the docked shape on top of the other shape
-							this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_ARRANGEMENT_TOP, excludeCommand: true})									
+							this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_ARRANGEMENT_TOP, excludeCommand: true})									
 						},
 						rollback: function(){
 							this.dock( this.oldDockedShape, this.oldParent, this.oldPosition );
@@ -221,7 +221,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 							
 				//this.currentShapes.each(function(shape) {shape.update()})
 				// Raise Event: Dragging is finished
-				this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_DRAGDROP_END});
+				this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_DRAGDROP_END});
 			}	
 
 			if (this.vLine)
@@ -235,8 +235,8 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		
 
 		// UnRegister on Global Mouse-UP/-Move Event
-		document.documentElement.removeEventListener(ORYX.CONFIG.EVENT_MOUSEUP, this.callbackMouseUp, true);	
-		document.documentElement.removeEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, this.callbackMouseMove, false);				
+		document.documentElement.removeEventListener(WAPAMA.CONFIG.EVENT_MOUSEUP, this.callbackMouseUp, true);	
+		document.documentElement.removeEventListener(WAPAMA.CONFIG.EVENT_MOUSEMOVE, this.callbackMouseMove, false);				
 			
 		return;
 	},
@@ -251,7 +251,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		// If Dragging is initialized
 		if(this.dragIntialized) {
 			// Raise Event: Drag will be started
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_DRAGDROP_START});
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_DRAGDROP_START});
 			this.dragIntialized = false;
 			
 			// And hide the resizers and the highlighting
@@ -260,7 +260,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			
 			// if only edges are selected, containmentParentNode must be the canvas
 			this._onlyEdges = this.currentShapes.all(function(currentShape) {
-				return (currentShape instanceof ORYX.Core.Edge);
+				return (currentShape instanceof WAPAMA.Core.Edge);
 			});
 			
 //			/* If only edges are selected, check if they are movable. An Edge is
@@ -293,7 +293,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		
 		// If not the Control-Key are pressed
 		var modifierKeyPressed = event.shiftKey || event.ctrlKey;
-		if(ORYX.CONFIG.GRID_ENABLED && !modifierKeyPressed) {
+		if(WAPAMA.CONFIG.GRID_ENABLED && !modifierKeyPressed) {
 			// Snap the current position to the nearest Snap-Point
 			position = this.snapToGrid(position);
 		} else {
@@ -320,7 +320,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		this.dragBounds.moveBy(offset);
 		
 		this.facade.raiseEvent({
-			type		: ORYX.CONFIG.EVENT_DRAG_TRACKER_DRAG,
+			type		: WAPAMA.CONFIG.EVENT_DRAG_TRACKER_DRAG,
 			shapes		: this.currentShapes,
 			bounds      : this.dragBounds
 		});
@@ -336,7 +336,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		//check, if a node can be added to the underlying node
 		var underlyingNodes = $A(this.facade.getCanvas().getAbstractShapesAtPosition(this.facade.eventCoordinates(event)));
 		
-		var checkIfAttachable = this.toMoveShapes.length == 1 && this.toMoveShapes[0] instanceof ORYX.Core.Node && this.toMoveShapes[0].dockers.length > 0
+		var checkIfAttachable = this.toMoveShapes.length == 1 && this.toMoveShapes[0] instanceof WAPAMA.Core.Node && this.toMoveShapes[0].dockers.length > 0
 		checkIfAttachable	= checkIfAttachable && underlyingNodes.length != 1
 		
 			
@@ -369,17 +369,17 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		if( this.isAttachingAllowed ) {
 			
 			this.facade.raiseEvent({
-									type: 			ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW,
+									type: 			WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW,
 									highlightId: 	"dragdropresize.attached",
 									elements: 		[this.containmentParentNode],
-									style: 			ORYX.CONFIG.SELECTION_HIGHLIGHT_STYLE_RECTANGLE,
-									color: 			ORYX.CONFIG.SELECTION_VALID_COLOR
+									style: 			WAPAMA.CONFIG.SELECTION_HIGHLIGHT_STYLE_RECTANGLE,
+									color: 			WAPAMA.CONFIG.SELECTION_VALID_COLOR
 								});
 								
 		} else {
 			
 			this.facade.raiseEvent({
-									type:ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+									type:WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 									highlightId:"dragdropresize.attached"
 								});
 		}
@@ -388,25 +388,25 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			if( this.isAddingAllowed ) {
 
 				this.facade.raiseEvent({
-										type:ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW,
+										type:WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW,
 										highlightId:"dragdropresize.contain",
 										elements:[this.containmentParentNode],
-										color: ORYX.CONFIG.SELECTION_VALID_COLOR
+										color: WAPAMA.CONFIG.SELECTION_VALID_COLOR
 									});
 
 			} else {
 
 				this.facade.raiseEvent({
-										type:ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW,
+										type:WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW,
 										highlightId:"dragdropresize.contain",
 										elements:[this.containmentParentNode],
-										color: ORYX.CONFIG.SELECTION_INVALID_COLOR
+										color: WAPAMA.CONFIG.SELECTION_INVALID_COLOR
 									});
 
 			}
 		} else {
 			this.facade.raiseEvent({
-									type:ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+									type:WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 									highlightId:"dragdropresize.contain"
 								});			
 		}	
@@ -439,8 +439,8 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		// a child of one of the selected shapes with the highest z Order.
 		// The result is a shape or the canvas
 		this.containmentParentNode = underlyingNodes.reverse().find((function(node) {
-			return (node instanceof ORYX.Core.Canvas) || 
-					(((node instanceof ORYX.Core.Node) || ((node instanceof ORYX.Core.Edge) && !noEdges)) 
+			return (node instanceof WAPAMA.Core.Canvas) || 
+					(((node instanceof WAPAMA.Core.Node) || ((node instanceof WAPAMA.Core.Edge) && !noEdges)) 
 					&& (!(this.currentShapes.member(node) || 
 							this.currentShapes.any(function(shape) {
 								return (shape.children.length > 0 && shape.getChildNodes(true).member(node));
@@ -464,13 +464,13 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		if( !this.isAttachingAllowed ){
 			//check all selected shapes, if they can be added to containmentParentNode
 			this.isAddingAllowed = this.toMoveShapes.all((function(currentShape) {
-				if(currentShape instanceof ORYX.Core.Edge ||
-					currentShape instanceof ORYX.Core.Controls.Docker ||
+				if(currentShape instanceof WAPAMA.Core.Edge ||
+					currentShape instanceof WAPAMA.Core.Controls.Docker ||
 					this.containmentParentNode === currentShape.parent) {
 					return true;
 				} else if(this.containmentParentNode !== currentShape) {
 					
-					if(!(this.containmentParentNode instanceof ORYX.Core.Edge) || !noEdges) {
+					if(!(this.containmentParentNode instanceof WAPAMA.Core.Edge) || !noEdges) {
 					
 						if(this.facade.getRules().canContain({containingShape:this.containmentParentNode,
 															  containedShape:currentShape})) {	  	
@@ -483,7 +483,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		}
 		
 		if(!this.isAttachingAllowed && !this.isAddingAllowed && 
-				(this.containmentParentNode instanceof ORYX.Core.Edge)) {
+				(this.containmentParentNode instanceof WAPAMA.Core.Edge)) {
 			options.noEdges = true;
 			options.underlyingNodes.reverse();
 			this.checkRules(options);			
@@ -506,9 +506,9 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			y: upL.y - oldUpL.y };
 
 		// Instanciate the dragCommand
-		var commands = [new ORYX.Core.Command.Move(this.toMoveShapes, offset, null, this.containmentParentNode, this.currentShapes, this, true)];
+		var commands = [new WAPAMA.Core.Command.Move(this.toMoveShapes, offset, null, this.containmentParentNode, this.currentShapes, this, true)];
 		// If the undocked edges command is setted, add this command
-		if( this._undockedEdgesCommand instanceof ORYX.Core.Command ){
+		if( this._undockedEdgesCommand instanceof WAPAMA.Core.Command ){
 			commands.unshift( this._undockedEdgesCommand );
 		}
 		// Execute the commands			
@@ -536,7 +536,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 	},
 	
 	onResizeStart: function() {
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_RESIZE_START});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_RESIZE_START});
 	},
 
 	onResizeEnd: function() {
@@ -548,7 +548,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		// If Resizing finished, the Shapes will be resize
 		if(this.isResizing) {
 			
-			var commandClass = ORYX.Core.Command.extend({
+			var commandClass = WAPAMA.Core.Command.extend({
 				construct: function(shape, newBounds, plugin){
 					this.shape = shape;
 					this.oldBounds = shape.bounds.clone();
@@ -581,7 +581,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 					var allEdges = [].concat(this.shape.getIncomingShapes())
 						.concat(this.shape.getOutgoingShapes())
 						// Remove all edges which are included in the selection from the list
-						.findAll(function(r){ return r instanceof ORYX.Core.Edge }.bind(this))
+						.findAll(function(r){ return r instanceof WAPAMA.Core.Edge }.bind(this))
 												
 					this.plugin.layoutEdges(this.shape, allEdges, offset);
 					this.plugin.doLayout([this.shape]);
@@ -607,7 +607,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			
 			this.isResizing = false;
 			
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_RESIZE_END, shapes:[shape]});
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_RESIZE_END, shapes:[shape]});
 		}
 	},
 	
@@ -618,9 +618,9 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 	 */
 	beforeDrag: function(){
 
-		var undockEdgeCommand = ORYX.Core.Command.extend({
+		var undockEdgeCommand = WAPAMA.Core.Command.extend({
 			construct: function(moveShapes){
-				this.dockers = moveShapes.collect(function(shape){ return shape instanceof ORYX.Core.Controls.Docker ? {docker:shape, dockedShape:shape.getDockedShape(), refPoint:shape.referencePoint} : undefined }).compact();
+				this.dockers = moveShapes.collect(function(shape){ return shape instanceof WAPAMA.Core.Controls.Docker ? {docker:shape, dockedShape:shape.getDockedShape(), refPoint:shape.referencePoint} : undefined }).compact();
 			},			
 			execute: function(){
 				this.dockers.each(function(el){
@@ -660,7 +660,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			// Do this recursive for all child shapes
 			// EXP-NICO use getShapes
 			shape.getChildren().each((function(value) {
-				if(value instanceof ORYX.Core.Shape)
+				if(value instanceof WAPAMA.Core.Shape)
 					this.hideAllLabels(value);
 			}).bind(this));
 	},
@@ -702,7 +702,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			//shape.children.each((function(value) {
 			for(var i=0; i<shape.children.length ;i++){
 				var value = shape.children[i];	
-				if(value instanceof ORYX.Core.Shape)
+				if(value instanceof WAPAMA.Core.Shape)
 					this.showAllLabels(value);
 			}//).bind(this));
 	},
@@ -751,11 +751,11 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			var topLevelElements = this.facade.getCanvas().getShapesWithSharedParent(elements);
 			this.toMoveShapes = topLevelElements;
 			
-			this.toMoveShapes = this.toMoveShapes.findAll( function(shape) { return shape instanceof ORYX.Core.Node && 
+			this.toMoveShapes = this.toMoveShapes.findAll( function(shape) { return shape instanceof WAPAMA.Core.Node && 
 																			(shape.dockers.length === 0 || !elements.member(shape.dockers.first().getDockedShape()))});		
 																			
 			elements.each((function(shape){
-				if(!(shape instanceof ORYX.Core.Edge)) {return}
+				if(!(shape instanceof WAPAMA.Core.Edge)) {return}
 				
 				var dks = shape.getDockers() 
 								
@@ -786,7 +786,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			var newBounds = undefined;
 			this.toMoveShapes.each(function(value) {
 				var shape = value;
-				if(value instanceof ORYX.Core.Controls.Docker) {
+				if(value instanceof WAPAMA.Core.Controls.Docker) {
 					/* Get the Shape */
 					shape = value.parent;
 				}
@@ -830,7 +830,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			}
 
 			// If Snap-To-Grid is enabled, the Snap-Point will be calculate
-			if(ORYX.CONFIG.GRID_ENABLED) {
+			if(WAPAMA.CONFIG.GRID_ENABLED) {
 
 				// Reset all points
 				this.distPoints = [];
@@ -857,7 +857,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 
 					// For all these shapes
 					distShapes.each((function(value) {
-						if(!(value instanceof ORYX.Core.Edge)) {
+						if(!(value instanceof WAPAMA.Core.Edge)) {
 							var ul = value.absoluteXY();
 							var width = value.bounds.width();
 							var height = value.bounds.height();
@@ -958,7 +958,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			if (this.vLine&&gridX)
 				this.vLine.update(gridX);
 		} else {
-			ul.x = (position.x - (position.x % (ORYX.CONFIG.GRID_DISTANCE/2)));
+			ul.x = (position.x - (position.x % (WAPAMA.CONFIG.GRID_DISTANCE/2)));
 			if (this.vLine)
 				this.vLine.hide()
 		}
@@ -969,7 +969,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			if (this.hLine&&gridY)
 				this.hLine.update(gridY);
 		} else {
-			ul.y = (position.y - (position.y % (ORYX.CONFIG.GRID_DISTANCE/2)));
+			ul.y = (position.y - (position.y % (WAPAMA.CONFIG.GRID_DISTANCE/2)));
 			if (this.hLine)
 				this.hLine.hide();
 		}
@@ -994,16 +994,16 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 });
 
 
-ORYX.Plugins.SelectedRect = Clazz.extend({
+WAPAMA.Plugins.SelectedRect = Clazz.extend({
 
 	construct: function(parentId) {
 
 		this.parentId = parentId;
 
-		this.node = ORYX.Editor.graft("http://www.w3.org/2000/svg", $(parentId),
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", $(parentId),
 					['g']);
 
-		this.dashedArea = ORYX.Editor.graft("http://www.w3.org/2000/svg", this.node,
+		this.dashedArea = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", this.node,
 			['rect', {x: 0, y: 0,
 				'stroke-width': 1, stroke: '#777777', fill: 'none',
 				'stroke-dasharray': '2,2',
@@ -1024,7 +1024,7 @@ ORYX.Plugins.SelectedRect = Clazz.extend({
 	resize: function(bounds) {
 		var upL = bounds.upperLeft();
 
-		var padding = ORYX.CONFIG.SELECTED_AREA_PADDING;
+		var padding = WAPAMA.CONFIG.SELECTED_AREA_PADDING;
 
 		this.dashedArea.setAttributeNS(null, 'width', bounds.width() + 2*padding);
 		this.dashedArea.setAttributeNS(null, 'height', bounds.height() + 2*padding);
@@ -1036,21 +1036,21 @@ ORYX.Plugins.SelectedRect = Clazz.extend({
 
 
 
-ORYX.Plugins.GridLine = Clazz.extend({
+WAPAMA.Plugins.GridLine = Clazz.extend({
 	
 	construct: function(parentId, direction) {
 
-		if (ORYX.Plugins.GridLine.DIR_HORIZONTAL !== direction && ORYX.Plugins.GridLine.DIR_VERTICAL !== direction) {
-			direction = ORYX.Plugins.GridLine.DIR_HORIZONTAL
+		if (WAPAMA.Plugins.GridLine.DIR_HORIZONTAL !== direction && WAPAMA.Plugins.GridLine.DIR_VERTICAL !== direction) {
+			direction = WAPAMA.Plugins.GridLine.DIR_HORIZONTAL
 		}
 		
 	
 		this.parent = $(parentId);
 		this.direction = direction;
-		this.node = ORYX.Editor.graft("http://www.w3.org/2000/svg", this.parent,
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", this.parent,
 					['g']);
 
-		this.line = ORYX.Editor.graft("http://www.w3.org/2000/svg", this.node,
+		this.line = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", this.node,
 			['path', {
 				'stroke-width': 1, stroke: 'silver', fill: 'none',
 				'stroke-dasharray': '5,5',
@@ -1078,7 +1078,7 @@ ORYX.Plugins.GridLine = Clazz.extend({
 	
 	update: function(pos) {
 		
-		if (this.direction === ORYX.Plugins.GridLine.DIR_HORIZONTAL) {
+		if (this.direction === WAPAMA.Plugins.GridLine.DIR_HORIZONTAL) {
 			var y = pos instanceof Object ? pos.y : pos; 
 			var cWidth = this.parent.parentNode.parentNode.width.baseVal.value/this.getScale();
 			this.line.setAttributeNS(null, 'd', 'M 0 '+y+ ' L '+cWidth+' '+y);
@@ -1094,22 +1094,22 @@ ORYX.Plugins.GridLine = Clazz.extend({
 
 });
 
-ORYX.Plugins.GridLine.DIR_HORIZONTAL = "hor";
-ORYX.Plugins.GridLine.DIR_VERTICAL = "ver";
+WAPAMA.Plugins.GridLine.DIR_HORIZONTAL = "hor";
+WAPAMA.Plugins.GridLine.DIR_VERTICAL = "ver";
 
-ORYX.Plugins.Resizer = Clazz.extend({
+WAPAMA.Plugins.Resizer = Clazz.extend({
 
 	construct: function(parentId, orientation, facade) {
 
 		this.parentId 		= parentId;
 		this.orientation	= orientation;
 		this.facade			= facade;
-		this.node = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", $(this.parentId),
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", $(this.parentId),
 			['div', {'class': 'resizer_'+ this.orientation, style:'left:0px; top:0px;'}]);
 
-		this.node.addEventListener(ORYX.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this), true);
-		document.documentElement.addEventListener(ORYX.CONFIG.EVENT_MOUSEUP, 	this.handleMouseUp.bind(this), 		true);
-		document.documentElement.addEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, 	this.handleMouseMove.bind(this), 	false);
+		this.node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this), true);
+		document.documentElement.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEUP, 	this.handleMouseUp.bind(this), 		true);
+		document.documentElement.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEMOVE, 	this.handleMouseMove.bind(this), 	false);
 
 		this.dragEnable = false;
 		this.offSetPosition = {x: 0, y: 0};
@@ -1264,7 +1264,7 @@ ORYX.Plugins.Resizer = Clazz.extend({
 		}
 		
 		this.facade.raiseEvent({
-			type		: ORYX.CONFIG.EVENT_DRAG_TRACKER_RESIZE,
+			type		: WAPAMA.CONFIG.EVENT_DRAG_TRACKER_RESIZE,
 			shapes		: this.currentShapes,
 			bounds      : this.bounds
 		});
@@ -1327,10 +1327,10 @@ ORYX.Plugins.Resizer = Clazz.extend({
 		this.bounds = bounds;
 
 		if(!min)
-			min = {width: ORYX.CONFIG.MINIMUM_SIZE, height: ORYX.CONFIG.MINIMUM_SIZE};
+			min = {width: WAPAMA.CONFIG.MINIMUM_SIZE, height: WAPAMA.CONFIG.MINIMUM_SIZE};
 
 		if(!max)
-			max = {width: ORYX.CONFIG.MAXIMUM_SIZE, height: ORYX.CONFIG.MAXIMUM_SIZE};
+			max = {width: WAPAMA.CONFIG.MAXIMUM_SIZE, height: WAPAMA.CONFIG.MAXIMUM_SIZE};
 
 		this.minSize = min;
 		this.maxSize = max;
@@ -1376,7 +1376,7 @@ ORYX.Plugins.Resizer = Clazz.extend({
  * Implements a Command to move shapes
  * 
  */ 
-ORYX.Core.Command.Move = ORYX.Core.Command.extend({
+WAPAMA.Core.Command.Move = WAPAMA.Core.Command.extend({
 	construct: function(moveShapes, offset, newLocation, parent, selectedShapes, plugin, doLayout){
 		this.moveShapes = moveShapes;
 		this.selectedShapes = selectedShapes;
@@ -1387,7 +1387,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 		// Defines the old/new parents for the particular shape
 		this.newParents	= moveShapes.collect(function(t){ return parent || t.parent });
 		this.oldParents	= moveShapes.collect(function(shape){ return shape.parent });
-		this.dockedNodes= moveShapes.findAll(function(shape){ return shape instanceof ORYX.Core.Node && shape.dockers.length == 1}).collect(function(shape){ return {docker:shape.dockers[0], dockedShape:shape.dockers[0].getDockedShape(), refPoint:shape.dockers[0].referencePoint} });
+		this.dockedNodes= moveShapes.findAll(function(shape){ return shape instanceof WAPAMA.Core.Node && shape.dockers.length == 1}).collect(function(shape){ return {docker:shape.dockers[0], dockedShape:shape.dockers[0].getDockedShape(), refPoint:shape.dockers[0].referencePoint} });
 	},			
 	execute: function(){
 		this.dockAllShapes()				
@@ -1424,7 +1424,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 			} else {
 				value.bounds.moveTo(newLocation);
 			}
-			if (value instanceof ORYX.Core.Node) {
+			if (value instanceof WAPAMA.Core.Node) {
 				
 				(value.dockers||[]).each(function(d){
 					if (offset) {
@@ -1433,9 +1433,9 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 				})
 				
 				// Update all Dockers of Child shapes
-				/*var childShapesNodes = value.getChildShapes(true).findAll(function(shape){ return shape instanceof ORYX.Core.Node });							
+				/*var childShapesNodes = value.getChildShapes(true).findAll(function(shape){ return shape instanceof WAPAMA.Core.Node });							
 				var childDockedShapes = childShapesNodes.collect(function(shape){ return shape.getAllDockedShapes() }).flatten().uniq();							
-				var childDockedEdge = childDockedShapes.findAll(function(shape){ return shape instanceof ORYX.Core.Edge });							
+				var childDockedEdge = childDockedShapes.findAll(function(shape){ return shape instanceof WAPAMA.Core.Edge });							
 				childDockedEdge = childDockedEdge.findAll(function(shape){ return shape.getAllDockedShapes().all(function(dsh){ return childShapesNodes.include(dsh) }) });							
 				var childDockedDockers = childDockedEdge.collect(function(shape){ return shape.dockers }).flatten();
 				
@@ -1451,7 +1451,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 				var allEdges = [].concat(value.getIncomingShapes())
 					.concat(value.getOutgoingShapes())
 					// Remove all edges which are included in the selection from the list
-					.findAll(function(r){ return	r instanceof ORYX.Core.Edge && !this.moveShapes.any(function(d){ return d == r || (d instanceof ORYX.Core.Controls.Docker && d.parent == r)}) }.bind(this))
+					.findAll(function(r){ return	r instanceof WAPAMA.Core.Edge && !this.moveShapes.any(function(d){ return d == r || (d instanceof WAPAMA.Core.Controls.Docker && d.parent == r)}) }.bind(this))
 					// Remove all edges which are between the node and a node contained in the selection from the list
 					.findAll(function(r){ return 	(r.dockers.first().getDockedShape() == value || !this.moveShapes.include(r.dockers.first().getDockedShape())) &&  
 													(r.dockers.last().getDockedShape() == value || !this.moveShapes.include(r.dockers.last().getDockedShape()))}.bind(this))
@@ -1463,7 +1463,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 				var allSameEdges = [].concat(value.getIncomingShapes())
 					.concat(value.getOutgoingShapes())
 					// Remove all edges which are included in the selection from the list
-					.findAll(function(r){ return r instanceof ORYX.Core.Edge && r.dockers.first().isDocked() && r.dockers.last().isDocked() && !this.moveShapes.include(r) && !this.moveShapes.any(function(d){ return d == r || (d instanceof ORYX.Core.Controls.Docker && d.parent == r)}) }.bind(this))
+					.findAll(function(r){ return r instanceof WAPAMA.Core.Edge && r.dockers.first().isDocked() && r.dockers.last().isDocked() && !this.moveShapes.include(r) && !this.moveShapes.any(function(d){ return d == r || (d instanceof WAPAMA.Core.Controls.Docker && d.parent == r)}) }.bind(this))
 					// Remove all edges which are included in the selection from the list
 					.findAll(function(r){ return this.moveShapes.indexOf(r.dockers.first().getDockedShape()) > i ||  this.moveShapes.indexOf(r.dockers.last().getDockedShape()) > i}.bind(this))
 
@@ -1483,7 +1483,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 					var edges = [].concat(nodes[i].getIncomingShapes())
 						.concat(nodes[i].getOutgoingShapes())
 						// Remove all edges which are included in the selection from the list
-						.findAll(function(r){ return r instanceof ORYX.Core.Edge && !allEdges.include(r) && r.dockers.any(function(d){ return !value.bounds.isIncluded(d.bounds.center)})})
+						.findAll(function(r){ return r instanceof WAPAMA.Core.Edge && !allEdges.include(r) && r.dockers.any(function(d){ return !value.bounds.isIncluded(d.bounds.center)})})
 					allEdges = allEdges.concat(edges);
 					if (edges.length <= 0){ continue }
 					//this.plugin.layoutEdges(nodes[i], edges, offset);
@@ -1513,7 +1513,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 		// For every Shape, add this and reset the position		
 		for(var i=0; i<this.moveShapes.length ;i++){
 			var currentShape = this.moveShapes[i];
-			if(currentShape instanceof ORYX.Core.Node &&
+			if(currentShape instanceof WAPAMA.Core.Node &&
 			   currentShape.parent !== parents[i]) {
 				
 				// Calc the new position
@@ -1526,13 +1526,13 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 				parents[i].add(currentShape);
 				// Add all attached shapes as well
 				currentShape.getOutgoingShapes((function(shape) {
-					if(shape instanceof ORYX.Core.Node && !this.moveShapes.member(shape)) {
+					if(shape instanceof WAPAMA.Core.Node && !this.moveShapes.member(shape)) {
 						parents[i].add(shape);
 					}
 				}).bind(this));
 
 				// Set the new position
-				if(currentShape instanceof ORYX.Core.Node && currentShape.dockers.length == 1){
+				if(currentShape instanceof WAPAMA.Core.Node && currentShape.dockers.length == 1){
 					var b = currentShape.bounds;
 					x += b.width()/2;y += b.height()/2
 					currentShape.dockers.first().bounds.centerMoveTo(x, y);

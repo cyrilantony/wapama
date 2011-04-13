@@ -2,37 +2,37 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="122"
    height="72"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-    <oryx:magnet oryx:cx="1" oryx:cy="10" oryx:anchors="left" />
-    <oryx:magnet oryx:cx="1" oryx:cy="35" oryx:anchors="left" />
-    <oryx:magnet oryx:cx="1" oryx:cy="60" oryx:anchors="left" />
+  <wapama:magnets>
+    <wapama:magnet wapama:cx="1" wapama:cy="10" wapama:anchors="left" />
+    <wapama:magnet wapama:cx="1" wapama:cy="35" wapama:anchors="left" />
+    <wapama:magnet wapama:cx="1" wapama:cy="60" wapama:anchors="left" />
 
-    <oryx:magnet oryx:cx="20" oryx:cy="69" oryx:anchors="bottom" />
-    <oryx:magnet oryx:cx="60" oryx:cy="69" oryx:anchors="bottom" />
-    <oryx:magnet oryx:cx="100" oryx:cy="69" oryx:anchors="bottom" />
+    <wapama:magnet wapama:cx="20" wapama:cy="69" wapama:anchors="bottom" />
+    <wapama:magnet wapama:cx="60" wapama:cy="69" wapama:anchors="bottom" />
+    <wapama:magnet wapama:cx="100" wapama:cy="69" wapama:anchors="bottom" />
 
-    <oryx:magnet oryx:cx="119" oryx:cy="10" oryx:anchors="right" />
-    <oryx:magnet oryx:cx="119" oryx:cy="35" oryx:anchors="right" />
-    <oryx:magnet oryx:cx="119" oryx:cy="60" oryx:anchors="right" />
+    <wapama:magnet wapama:cx="119" wapama:cy="10" wapama:anchors="right" />
+    <wapama:magnet wapama:cx="119" wapama:cy="35" wapama:anchors="right" />
+    <wapama:magnet wapama:cx="119" wapama:cy="60" wapama:anchors="right" />
 
-    <oryx:magnet oryx:cx="20" oryx:cy="1" oryx:anchors="top" />
-    <oryx:magnet oryx:cx="60" oryx:cy="1" oryx:anchors="top" />
-    <oryx:magnet oryx:cx="100" oryx:cy="1" oryx:anchors="top" />
+    <wapama:magnet wapama:cx="20" wapama:cy="1" wapama:anchors="top" />
+    <wapama:magnet wapama:cx="60" wapama:cy="1" wapama:anchors="top" />
+    <wapama:magnet wapama:cx="100" wapama:cy="1" wapama:anchors="top" />
 
-    <oryx:magnet oryx:cx="60" oryx:cy="35" oryx:default="yes" />
-  </oryx:magnets>
-  <g oryx:minimumSize="50 40" oryx:maximumSize="">
-    <rect id="classBorder" oryx:resize="vertical horizontal" x="0" y="0" width="120" height="70" stroke="black" stroke-width="1.4" fill="white" />
-    <text font-size="12" id="className" x="60" y="10" oryx:align="middle center" oryx:anchors="top" stroke="black"></text>
-    <text font-size="12" id="attributes" x="3" y="22" oryx:align="top left" oryx:anchors="top" stroke="black"></text>
-    <text font-size="12" id="methods" x="3" y="42" oryx:align="top left" oryx:anchors="top" stroke="black"></text>
-    <line x1="0" x2="120" y1="20" y2="20" oryx:resize="horizontal" oryx:anchors="top" />
-    <line x1="0" x2="120" y1="40" y2="40" oryx:resize="horizontal" oryx:anchors="top" id="separator" />
+    <wapama:magnet wapama:cx="60" wapama:cy="35" wapama:default="yes" />
+  </wapama:magnets>
+  <g wapama:minimumSize="50 40" wapama:maximumSize="">
+    <rect id="classBorder" wapama:resize="vertical horizontal" x="0" y="0" width="120" height="70" stroke="black" stroke-width="1.4" fill="white" />
+    <text font-size="12" id="className" x="60" y="10" wapama:align="middle center" wapama:anchors="top" stroke="black"></text>
+    <text font-size="12" id="attributes" x="3" y="22" wapama:align="top left" wapama:anchors="top" stroke="black"></text>
+    <text font-size="12" id="methods" x="3" y="42" wapama:align="top left" wapama:anchors="top" stroke="black"></text>
+    <line x1="0" x2="120" y1="20" y2="20" wapama:resize="horizontal" wapama:anchors="top" />
+    <line x1="0" x2="120" y1="40" y2="40" wapama:resize="horizontal" wapama:anchors="top" id="separator" />
   </g>
 </svg>

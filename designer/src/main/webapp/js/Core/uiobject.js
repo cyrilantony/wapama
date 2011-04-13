@@ -24,8 +24,8 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
 
 
 /**
@@ -33,13 +33,13 @@ if(!ORYX.Core) {ORYX.Core = {};}
  * within the editor.
  * @extends Clazz
  */
-ORYX.Core.UIObject = {
+WAPAMA.Core.UIObject = {
 	/**
 	 * Constructor of the UIObject class.
 	 */
 	construct: function(options, stencil, resourceId) {
 	    if (!resourceId) {
-	        resourceId = ORYX.Editor.provideId();
+	        resourceId = WAPAMA.Editor.provideId();
 	    }
 	    this.resourceId = resourceId;
 		this.id = resourceId;
@@ -54,7 +54,7 @@ ORYX.Core.UIObject = {
 		this.node = undefined;			//this is a reference to the SVG representation, either locally or in DOM.
 		this.children = [];				//array for all add uiObjects
 		
-		this.bounds = new ORYX.Core.Bounds();		//bounds with undefined values
+		this.bounds = new WAPAMA.Core.Bounds();		//bounds with undefined values
 
 		this._changedCallback = this._changed.bind(this);	//callback reference for calling _changed
 		this.bounds.registerCallback(this._changedCallback);	//set callback in bounds
@@ -188,10 +188,10 @@ ORYX.Core.UIObject = {
 			
 		
 			if(this.eventHandlerCallback)
-				this.eventHandlerCallback({type:ORYX.CONFIG.EVENT_SHAPEADDED,shape:uiObject})
+				this.eventHandlerCallback({type:WAPAMA.CONFIG.EVENT_SHAPEADDED,shape:uiObject})
 			//uiObject.update();
 		} else {
-			ORYX.Log.info("add: ORYX.Core.UIObject is already a child of this object.");
+			WAPAMA.Log.info("add: WAPAMA.Core.UIObject is already a child of this object.");
 		}
 	},
 	
@@ -215,7 +215,7 @@ ORYX.Core.UIObject = {
 			//unregister callback to get informed, if child is changed
 			uiObject.bounds.unregisterCallback(this._changedCallback);
 		} else {
-			ORYX.Log.info("remove: ORYX.Core.UIObject is not a child of this object.");
+			WAPAMA.Log.info("remove: WAPAMA.Core.UIObject is not a child of this object.");
 		}
 		
 	},
@@ -226,7 +226,7 @@ ORYX.Core.UIObject = {
 	absoluteBounds: function() {
 		if(this.parent) {
 			var absUL = this.absoluteXY();
-			return new ORYX.Core.Bounds(absUL.x, absUL.y,
+			return new WAPAMA.Core.Bounds(absUL.x, absUL.y,
 							absUL.x + this.bounds.width(),
 							absUL.y + this.bounds.height());
 		} else {
@@ -284,13 +284,13 @@ ORYX.Core.UIObject = {
 	
 	addEventHandlers: function(node) {
 		
-		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEDOWN, this._delegateEvent.bind(this), false);
-		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, this._delegateEvent.bind(this), false);	
-		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEUP, this._delegateEvent.bind(this), false);
-		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEOVER, this._delegateEvent.bind(this), false);
-		node.addEventListener(ORYX.CONFIG.EVENT_MOUSEOUT, this._delegateEvent.bind(this), false);
+		node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this._delegateEvent.bind(this), false);
+		node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEMOVE, this._delegateEvent.bind(this), false);	
+		node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEUP, this._delegateEvent.bind(this), false);
+		node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEOVER, this._delegateEvent.bind(this), false);
+		node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEOUT, this._delegateEvent.bind(this), false);
 		node.addEventListener('click', this._delegateEvent.bind(this), false);
-		node.addEventListener(ORYX.CONFIG.EVENT_DBLCLICK, this._delegateEvent.bind(this), false);
+		node.addEventListener(WAPAMA.CONFIG.EVENT_DBLCLICK, this._delegateEvent.bind(this), false);
 			
 	},
 		
@@ -302,4 +302,4 @@ ORYX.Core.UIObject = {
 	
 	toString: function() { return "UIObject " + this.resourceId }
  };
- ORYX.Core.UIObject = Clazz.extend(ORYX.Core.UIObject);
+ WAPAMA.Core.UIObject = Clazz.extend(WAPAMA.Core.UIObject);

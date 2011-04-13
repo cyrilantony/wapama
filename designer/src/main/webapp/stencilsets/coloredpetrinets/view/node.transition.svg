@@ -2,22 +2,22 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="102"
    height="82"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="1" oryx:cy="20" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="20" oryx:cy="39" oryx:anchors="bottom" />
-  	<oryx:magnet oryx:cx="39" oryx:cy="20" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="20" oryx:cy="1" oryx:anchors="top" />
-	<oryx:magnet oryx:cx="20" oryx:cy="20" oryx:default="yes" />
-  </oryx:magnets>
-  <g pointer-events="fill" oryx:minimumSize="10 10" oryx:maximumSize="160 160" >
-    <rect id="taskrect" oryx:resize="vertical horizontal" x="0" y="0" width="40" height="40" stroke="black" stroke-width="1" fill="white" />
-    	<text font-size="12" id="text" x="20" y="18" oryx:align="middle center" stroke="black" oryx:fittoelem="taskrect"></text>
-    	<text font-size="12" id="guardtext" x="-30" y="-20" oryx:align="top left" oryx:anchors="left top" stroke="black" oryx:fittoelem="taskrect"></text>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="1" wapama:cy="20" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="20" wapama:cy="39" wapama:anchors="bottom" />
+  	<wapama:magnet wapama:cx="39" wapama:cy="20" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="20" wapama:cy="1" wapama:anchors="top" />
+	<wapama:magnet wapama:cx="20" wapama:cy="20" wapama:default="yes" />
+  </wapama:magnets>
+  <g pointer-events="fill" wapama:minimumSize="10 10" wapama:maximumSize="160 160" >
+    <rect id="taskrect" wapama:resize="vertical horizontal" x="0" y="0" width="40" height="40" stroke="black" stroke-width="1" fill="white" />
+    	<text font-size="12" id="text" x="20" y="18" wapama:align="middle center" stroke="black" wapama:fittoelem="taskrect"></text>
+    	<text font-size="12" id="guardtext" x="-30" y="-20" wapama:align="top left" wapama:anchors="left top" stroke="black" wapama:fittoelem="taskrect"></text>
   </g>
 </svg>

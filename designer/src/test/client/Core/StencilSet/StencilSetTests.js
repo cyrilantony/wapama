@@ -1,26 +1,26 @@
 
 // Mocks
 
-// mocking ORYX.Log
-if (!ORYX) {
-	ORYX = {};
+// mocking WAPAMA.Log
+if (!WAPAMA) {
+	WAPAMA = {};
 }
-if (!ORYX.Log) {
-	ORYX.Log = {};
+if (!WAPAMA.Log) {
+	WAPAMA.Log = {};
 }
 
 // mocking Stencil Class
-if (!ORYX) {
-	ORYX = {};
+if (!WAPAMA) {
+	WAPAMA = {};
 }
-if (!ORYX.Core) {
-	ORYX.Core = {};
+if (!WAPAMA.Core) {
+	WAPAMA.Core = {};
 }
-if (!ORYX.Core.StencilSet) {
-	ORYX.Core.StencilSet = {};
+if (!WAPAMA.Core.StencilSet) {
+	WAPAMA.Core.StencilSet = {};
 }
 
-ORYX.Core.StencilSet.Stencil = Clazz.extend({
+WAPAMA.Core.StencilSet.Stencil = Clazz.extend({
 			construct : function(stencil, namespace, baseUrl, stencilSet) {
 				arguments.callee.$.construct.apply(this, arguments);
 				this._jsonStencil = stencil
@@ -172,16 +172,16 @@ Ajax.Request = function(source, options) {
 	options.onSuccess(response)
 }
 
-// stubing ORYX.Log.warn method
+// stubing WAPAMA.Log.warn method
 
-ORYX.Log.warn = function(string) {
+WAPAMA.Log.warn = function(string) {
 	var warning = string
 }
 
-// stubing ORYX.Log.debug method
+// stubing WAPAMA.Log.debug method
 
-ORYX.Log.debug = function(string) {
-	ORYX.Log.debugInfo = string
+WAPAMA.Log.debug = function(string) {
+	WAPAMA.Log.debugInfo = string
 }
 
 /**
@@ -189,7 +189,7 @@ ORYX.Log.debug = function(string) {
  */
 function testFailForMissingSourceParameter() {
 	try {
-		var testStencilSet = new ORYX.Core.StencilSet.StencilSet()
+		var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet()
 		fail("Test case should fail yet, because of missing source parameter")
 	} catch (e) {
 		if ((e instanceof JsUnitException)) {
@@ -203,7 +203,7 @@ function testFailForMissingSourceParameter() {
  */
 function testFailForNoSuchFile() {
 	try {
-		var testStencilSet = new ORYX.Core.StencilSet.StencilSet("./badDir/zzz.json")
+		var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("./badDir/zzz.json")
 
 		fail("Test case should fail yet, because of NoSuchFile Error.")
 	} catch (e) {
@@ -218,7 +218,7 @@ function testFailForNoSuchFile() {
  */
 function testFailForCorruptedJSON() {
 	try {
-		var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestCorruptedStencilSet")
+		var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestCorruptedStencilSet")
 
 		fail("Test case should fail yet, because of corrupted stencil set json format.")
 	} catch (e) {
@@ -230,12 +230,12 @@ function testFailForCorruptedJSON() {
 
 /**
  * A valid stencil set is passed to the constructor. So afterwards a new
- * instance of ORYX.Core.StencilSet.StencilSet should exist.
+ * instance of WAPAMA.Core.StencilSet.StencilSet should exist.
  */
 function testConstructor() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	assertTrue("A new StencilSet should be created.",
-			testStencilSet instanceof ORYX.Core.StencilSet.StencilSet)
+			testStencilSet instanceof WAPAMA.Core.StencilSet.StencilSet)
 	assertUndefined(testStencilSet.errornous)
 }
 
@@ -244,7 +244,7 @@ function testConstructor() {
  */
 function testFailureOnAjaxRequest() {
 	try {
-		var testStencilSet = new ORYX.Core.StencilSet.StencilSet("request fail")
+		var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("request fail")
 		fail("Test should fail yet, because of failed ajax request.")
 	} catch (e) {
 		if (!(e == "Loading stencil set request fail failed.")) {
@@ -258,7 +258,7 @@ function testFailureOnAjaxRequest() {
  * findRootStencilName method should return the first one.
  */
 function testFindRootStencilNameWithoutMarkedRoot() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
 	var root = testStencilSet.findRootStencilName()
 	assertEquals("Diagram should be the root Stencil", "http://b3mn.org/stencilset/test#Diagram", root)
 }
@@ -267,7 +267,7 @@ function testFindRootStencilNameWithoutMarkedRoot() {
  * FindRootStencilName should return the stencil marked as root element
  */
 function testFindRootStencilNameWithMarkedRoot() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	var root = testStencilSet.findRootStencilName()
 	assertEquals("Diagram should be the root Stencil", "http://b3mn.org/stencilset/testB#Diagram", root)
 }
@@ -275,11 +275,11 @@ function testFindRootStencilNameWithMarkedRoot() {
 /**
  * Two stencil sets are equal if both have the same namespace. It should be
  * checked if the passed stencilset is an instance of
- * ORYX.Core.StencilSet.StencilSet
+ * WAPAMA.Core.StencilSet.StencilSet
  */
 function testFailForInvalidParameterStencilSetEqual() {
 	try {
-		var testStencilSet = new ORYX.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
+		var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
 		testStencilSet.equals("invaildStencilSet")
 		fail("Test should fail yet for passing invalid stencil set")
 	} catch (e) {
@@ -294,8 +294,8 @@ function testFailForInvalidParameterStencilSetEqual() {
  * If both stencil sets have the same namespace it shell return true.
  */
 function testEqualStencilSets() {
-	var testStencilSet1 = new ORYX.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
-	var testStencilSet2 = new ORYX.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
+	var testStencilSet1 = new WAPAMA.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
+	var testStencilSet2 = new WAPAMA.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
 	assertTrue("The two stencil sets should be equal.", testStencilSet1
 					.equals(testStencilSet2))
 }
@@ -304,8 +304,8 @@ function testEqualStencilSets() {
  * If both stencil sets have not the same namespace it shell return true.
  */
 function testEqualStencilSets() {
-	var testStencilSet1 = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
-	var testStencilSet2 = new ORYX.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
+	var testStencilSet1 = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet2 = new WAPAMA.Core.StencilSet.StencilSet("StencilSetWithoutRoot")
 	assertFalse("The two stencil sets should not be equal.", testStencilSet1
 					.equals(testStencilSet2))
 }
@@ -314,7 +314,7 @@ function testEqualStencilSets() {
  * If the stencils method gets invalid parameters, it should raise an exception.
  */
 function testInvalidParametersForStencilsMethod() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	try {
 		testStencilSet.stencils("invalidstencil", "invalidrules")
 	} catch (e) {
@@ -329,7 +329,7 @@ function testInvalidParametersForStencilsMethod() {
  * stencils.
  */
 function testStencilsAll() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	var stencils = testStencilSet.stencils()
 
 	assertEquals("Number elements should be equal",
@@ -351,7 +351,7 @@ function testStencilsRejectAll() {
 	rules.canContain = function(arg) {
 		return false
 	}
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	var stencils = testStencilSet.stencils(
 			testStencilSet._stencils.values()[0], rules)
 	// there is one edge inside the test stencil set
@@ -368,7 +368,7 @@ function testStencilsAcceptAll() {
 		return true
 	}
 
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	var stencils = testStencilSet.stencils(
 			testStencilSet._stencils.values()[0], rules)
 	assertEquals("Number elements should be equal",
@@ -386,7 +386,7 @@ function testStencilsAcceptAll() {
  * Test if the node method returns the correct stencils.
  */
 function testGetNodes() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 
 	var nodes = testStencilSet.nodes()
 
@@ -410,7 +410,7 @@ function testGetNodes() {
  * return an array with the sequenceflow stencil.
  */
 function testGetEdges() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 
 	// use #edges method to retrieve edge stencils
 	var edges = testStencilSet.edges()
@@ -423,7 +423,7 @@ function testGetEdges() {
  * the stencil set.
  */
 function testGetEdgesNoEdges() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	testStencilSet._availableStencils.remove('http://b3mn.org/stencilset/testB#SequenceFlow')
 	// Now the stencil set has no edges
 
@@ -436,7 +436,7 @@ function testGetEdgesNoEdges() {
  * #stencil should return the appropriate stencil by id.
  */
 function testGetStencilById() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	// get Diagram node
 	var stencil = testStencilSet.stencil('http://b3mn.org/stencilset/testB#Diagram')
 	assertEquals("The ID of the stencil should be 'Diagram'",
@@ -447,7 +447,7 @@ function testGetStencilById() {
  * #stencil should return undefined if no stencil matches the id.
  */
 function testGetStencilByIdNotExists() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 
 	var stencil = testStencilSet.stencil('notexists')
 	assertUndefined('No stencil should be returned.', stencil)
@@ -457,7 +457,7 @@ function testGetStencilByIdNotExists() {
  * Tests get namespace method
  */
 function testGetNamespace() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	var namespace = testStencilSet.namespace()
 
 	assertEquals("Check namespace of testStencilSet", namespace, "http://b3mn.org/stencilset/testB#")
@@ -467,7 +467,7 @@ function testGetNamespace() {
  * Tests get rules from json source.
  */
 function testGetJSONRules() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	var rules = testStencilSet.jsonRules()
 
 	assertNotUndefined('ContainmentRules should exist.', rules.containmentRules)
@@ -478,7 +478,7 @@ function testGetJSONRules() {
  * Tests get source of stencil set
  */
 function testGetSource() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	assertEquals('Stencil set source should be "TestStencilSet".', testStencilSet.source(), "TestStencilSet")
 }
 
@@ -486,7 +486,7 @@ function testGetSource() {
  * Test get extensions.
  */
 function testGetExtensions() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 
 	// Should return an empty hash.
 	assertTrue("Should be an instance of hash",
@@ -498,7 +498,7 @@ function testGetExtensions() {
  * Loads a stencil set extension and checks if it stored correctly.
  */
 function testLoadStencilSetExtension() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	testStencilSet.addExtension("StencilSetExtension")
 
 	assertNotUndefined("The 'TestStencilSetExtension' should exist.", testStencilSet.extensions()["http://testStencilSetExtension#"])
@@ -509,7 +509,7 @@ function testLoadStencilSetExtension() {
  * assured.
  */
 function testExtensionExtendNamespaceEndWithPoundSign() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	testStencilSet.addExtension("StencilSetExtensionWithoutNamespace#")
 
 	// pound sign at the end should be assured
@@ -522,7 +522,7 @@ function testExtensionExtendNamespaceEndWithPoundSign() {
  * stencil set's namespace, the stencil set extension should be ignored.
  */
 function testNotMatchingNamespace() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	testStencilSet.addExtension("StencilSetExtensionNotMatchingNamespace")
 
 	var extension = testStencilSet.extensions()["http://testStencilSetExtension#"]
@@ -533,11 +533,11 @@ function testNotMatchingNamespace() {
  * Test it with an invalid extension. An error should be thrown.
  */
 function testFailForInvalidExtension() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	testStencilSet.addExtension("StencilSetExtensionInvalid")
 
 	var message = "StencilSet.addExtension: Something went wrong when initialising the stencil set extension. TypeError: jsonExtension.extends is undefined"
-	assertEquals("Validate error message", message, ORYX.Log.debugInfo)
+	assertEquals("Validate error message", message, WAPAMA.Log.debugInfo)
 }
 
 /**
@@ -545,7 +545,7 @@ function testFailForInvalidExtension() {
  * extension.
  */
 function testAddNewStencil() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	testStencilSet.addExtension("StencilSetExtensionNewStencil")
 
 	// check if the new stencil was added
@@ -558,7 +558,7 @@ function testAddNewStencil() {
  * and verify if they were only added to the stencils "Service1" and "Service2"
  */
 function testAddPropertyPackageOverExtension() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	testStencilSet.addExtension("StencilSetExtensionNewProperties")
 
 	assertNotUndefined("Now the new property should exist for Service1",
@@ -576,7 +576,7 @@ function testAddPropertyPackageOverExtension() {
  * and verifies the result.
  */
 function testRemovePropertiesOverExtension() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	
 	// removes the properties value and description from stencil "Service1"
 	
@@ -591,7 +591,7 @@ function testRemovePropertiesOverExtension() {
  * and verifies the result.
  */
 function testRemoveStencilsOverExtension() {
-	var testStencilSet = new ORYX.Core.StencilSet.StencilSet("TestStencilSet")
+	var testStencilSet = new WAPAMA.Core.StencilSet.StencilSet("TestStencilSet")
 	
 	// removes the stencils "Service1" and "Service2"
 	

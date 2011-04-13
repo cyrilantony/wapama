@@ -31,9 +31,9 @@
  * 	Key				Value-Type							Description
  * 	================================================================
  * 
- *	type 			ORYX.CONFIG.EVENT_OVERLAY_SHOW | ORYX.CONFIG.EVENT_OVERLAY_HIDE		This is the type of the event	
+ *	type 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW | WAPAMA.CONFIG.EVENT_OVERLAY_HIDE		This is the type of the event	
  *	id				<String>							You have to use an unified id for later on hiding this overlay
- *	shapes 			<ORYX.Core.Shape[]>					The Shapes where the attributes should be changed
+ *	shapes 			<WAPAMA.Core.Shape[]>					The Shapes where the attributes should be changed
  *	attributes 		<Object>							An object with svg-style attributes as key-value pair
  *	node			<SVGElement>						An SVG-Element could be specified for adding this to the Shape
  *	nodePosition	"N"|"NE"|"E"|"SE"|"S"|"SW"|"W"|"NW"|"START"|"END"	The position for the SVG-Element relative to the 
@@ -42,10 +42,10 @@
  *	
  * 
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.Overlay = Clazz.extend({
+WAPAMA.Plugins.Overlay = Clazz.extend({
 
     facade: undefined,
 	
@@ -57,8 +57,8 @@ ORYX.Plugins.Overlay = Clazz.extend({
 
 		this.changes = [];
 
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_OVERLAY_SHOW, this.show.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_OVERLAY_HIDE, this.hide.bind(this));	
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_OVERLAY_SHOW, this.show.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_OVERLAY_HIDE, this.hide.bind(this));	
 
 		this.styleNode = document.createElement('style')
 		this.styleNode.setAttributeNS(null, 'type', 'text/css')
@@ -72,7 +72,7 @@ ORYX.Plugins.Overlay = Clazz.extend({
 	 * @param {Object} options
 	 * 
 	 * 	String				options.id		- MUST - Define the id of the overlay (is needed for the hiding of this overlay)		
-	 *	ORYX.Core.Shape[] 	options.shapes 	- MUST - Define the Shapes for the changes
+	 *	WAPAMA.Core.Shape[] 	options.shapes 	- MUST - Define the Shapes for the changes
 	 * 	attr-name:value		options.changes	- Defines all the changes which should be shown
 	 * 
 	 * 
@@ -100,7 +100,7 @@ ORYX.Plugins.Overlay = Clazz.extend({
 			options.shapes.each(function(el){
 				
 				// Checks if the node is a Shape
-				if( !el instanceof ORYX.Core.Shape){ return }
+				if( !el instanceof WAPAMA.Core.Shape){ return }
 				
 				this.setAttributes( el.node , options.attributes )
 				
@@ -122,16 +122,16 @@ ORYX.Plugins.Overlay = Clazz.extend({
 			options.shapes.each(function(el, index){
 				
 				// Checks if the node is a Shape
-				if( !el instanceof ORYX.Core.Shape){ return }
+				if( !el instanceof WAPAMA.Core.Shape){ return }
 				
 				var _temp = {}
 				_temp.svg = options.dontCloneNode ? options.node : options.node.cloneNode( true );
 				
-				// Add the svg node to the ORYX-Shape
+				// Add the svg node to the WAPAMA-Shape
 				el.node.firstChild.appendChild( _temp.svg )		
 				
 				// If
-				if (el instanceof ORYX.Core.Edge && !options.nodePosition) {
+				if (el instanceof WAPAMA.Core.Edge && !options.nodePosition) {
 					options['nodePosition'] = "START"
 				}
 						
@@ -142,13 +142,13 @@ ORYX.Plugins.Overlay = Clazz.extend({
 					var p = options.nodePosition.toUpperCase();
 										
 					// Check the values of START and END
-					if( el instanceof ORYX.Core.Node && p == "START"){
+					if( el instanceof WAPAMA.Core.Node && p == "START"){
 						p = "NW";
-					} else if(el instanceof ORYX.Core.Node && p == "END"){
+					} else if(el instanceof WAPAMA.Core.Node && p == "END"){
 						p = "SE";
-					} else if(el instanceof ORYX.Core.Edge && p == "START"){
+					} else if(el instanceof WAPAMA.Core.Edge && p == "START"){
 						b = el.getDockers().first().bounds
-					} else if(el instanceof ORYX.Core.Edge && p == "END"){
+					} else if(el instanceof WAPAMA.Core.Edge && p == "END"){
 						b = el.getDockers().last().bounds
 					}
 
@@ -181,7 +181,7 @@ ORYX.Plugins.Overlay = Clazz.extend({
 							return
 						}
 						
-						if( el instanceof ORYX.Core.Edge){
+						if( el instanceof WAPAMA.Core.Edge){
 							x  += b.upperLeft().x ; y  += b.upperLeft().y ;
 						}
 						
@@ -275,7 +275,7 @@ ORYX.Plugins.Overlay = Clazz.extend({
 			option.shapes.each(function(el, index){
 				
 				// Checks if the node is a Shape
-				if( !el instanceof ORYX.Core.Shape){ return }
+				if( !el instanceof WAPAMA.Core.Shape){ return }
 				
 				this.deleteAttributes( el.node )
 							

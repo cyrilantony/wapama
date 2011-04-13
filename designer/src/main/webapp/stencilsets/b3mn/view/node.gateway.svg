@@ -8,7 +8,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    width="32"
    height="32"
    id="svg2"
@@ -52,12 +52,12 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="1" oryx:cy="16" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="16" oryx:cy="1" oryx:anchors="top" />
-  	<oryx:magnet oryx:cx="31" oryx:cy="16" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="16" oryx:cy="31" oryx:anchors="bottom" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="1" wapama:cy="16" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="16" wapama:cy="1" wapama:anchors="top" />
+  	<wapama:magnet wapama:cx="31" wapama:cy="16" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="16" wapama:cy="31" wapama:anchors="bottom" />
+  </wapama:magnets>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"

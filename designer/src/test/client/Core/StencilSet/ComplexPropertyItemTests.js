@@ -1,7 +1,7 @@
-// Mock ORYX.CONFIG
-ORYX.CONFIG = {};
-ORYX.CONFIG.TYPE_CHOICE = "choice";
-ORYX.CONFIG.TYPE_COMPLEX = "complex";
+// Mock WAPAMA.CONFIG
+WAPAMA.CONFIG = {};
+WAPAMA.CONFIG.TYPE_CHOICE = "choice";
+WAPAMA.CONFIG.TYPE_COMPLEX = "complex";
 
 // Mock property item objects
 var complexItem1 = {
@@ -50,17 +50,17 @@ var prop1 = {
 	};
 
 //Stub for StencilSet.getTranslation
-ORYX.Core.StencilSet.getTranslation = function(jsonProp, prop) {
+WAPAMA.Core.StencilSet.getTranslation = function(jsonProp, prop) {
 	return jsonProp[prop];
 }
 
 function setUp() {
-	propComplItem1 = new ORYX.Core.StencilSet.ComplexPropertyItem(complexItem1, "testNS", prop1);
-	propComplItem2 = new ORYX.Core.StencilSet.ComplexPropertyItem(complexItem2, "testNS", prop1);
-	propComplItem3 = new ORYX.Core.StencilSet.ComplexPropertyItem(complexItem1, "testNS", prop2);
-	propComplItem1Dupl = new ORYX.Core.StencilSet.ComplexPropertyItem(complexItem1, "testNS", prop1);
+	propComplItem1 = new WAPAMA.Core.StencilSet.ComplexPropertyItem(complexItem1, "testNS", prop1);
+	propComplItem2 = new WAPAMA.Core.StencilSet.ComplexPropertyItem(complexItem2, "testNS", prop1);
+	propComplItem3 = new WAPAMA.Core.StencilSet.ComplexPropertyItem(complexItem1, "testNS", prop2);
+	propComplItem1Dupl = new WAPAMA.Core.StencilSet.ComplexPropertyItem(complexItem1, "testNS", prop1);
 	
-	propSimplItem = new ORYX.Core.StencilSet.PropertyItem(simpleItem, "testNS", prop1);
+	propSimplItem = new WAPAMA.Core.StencilSet.PropertyItem(simpleItem, "testNS", prop1);
 }
 
 /*

@@ -21,8 +21,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
 
 /**
@@ -30,7 +30,7 @@ if (!ORYX.Plugins)
  *
  *
  */
-ORYX.Plugins.EPC2BPMN = Clazz.extend({
+WAPAMA.Plugins.EPC2BPMN = Clazz.extend({
 
     facade: undefined,
     
@@ -54,7 +54,7 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
             'name': "EPC to BPMN transform",
             'functionality': this.startTransform.bind(this),
             'group': "epc",
-            'icon': ORYX.PATH + "images/epc_export.png",
+            'icon': WAPAMA.PATH + "images/epc_export.png",
             'description': "Import from EPC",
             'index': 1,
             'minShape': 0,
@@ -80,13 +80,13 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 	 */
 	sendRequest: function(options){
 
-		var waitingpanel = new Ext.Window({id:'oryx-loading-panel_epc2bpmn',bodyStyle:'padding: 8px',title:'Oryx',width:230,height:55,modal:true,resizable:false,closable:false,frame:true,html:'<span style="font-size:11px;">Please wait while importing...</span>'})
+		var waitingpanel = new Ext.Window({id:'wapama-loading-panel_epc2bpmn',bodyStyle:'padding: 8px',title:'Wapama',width:230,height:55,modal:true,resizable:false,closable:false,frame:true,html:'<span style="font-size:11px;">Please wait while importing...</span>'})
 		waitingpanel.show()
 		
 		if( !options || !options.url ){ return }
 
 
-		//this.facade.raiseEvent({ type: ORYX.CONFIG.EVENT_LOADING_ENABLE,text: 'Import' });
+		//this.facade.raiseEvent({ type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE,text: 'Import' });
 				
 		var url = "./engineproxy?url=" + options.url;
 				
@@ -100,15 +100,15 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			 		try{
 						this.doTransform( request.responseText, options);
 					} catch(e) {
-						Ext.Msg.alert(ORYX.I18N.Oryx.title,"An Error is occured while importing!");
+						Ext.Msg.alert(WAPAMA.I18N.Wapama.title,"An Error is occured while importing!");
 					}
 					
-					Ext.getCmp("oryx-loading-panel_epc2bpmn").close();
+					Ext.getCmp("wapama-loading-panel_epc2bpmn").close();
 
 					// If autolayout is needed, it will be calles 'asychronly'
 					if (options.autolayout) {
 						window.setTimeout((function(){
-							this.facade.raiseEvent({type: ORYX.CONFIG.EVENT_AUTOLAYOUT_LAYOUT});
+							this.facade.raiseEvent({type: WAPAMA.CONFIG.EVENT_AUTOLAYOUT_LAYOUT});
 						}).bind(this), 100);
 					}
 	            }).bind(this), 100);
@@ -118,9 +118,9 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			onFailure: function(request){
 				
 				// Disable the loading panel
-				this.facade.raiseEvent({ type: ORYX.CONFIG.EVENT_LOADING_DISABLE});	
+				this.facade.raiseEvent({ type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE});	
 				
-				Ext.Msg.alert(ORYX.I18N.Oryx.title, "Request to server failed!");
+				Ext.Msg.alert(WAPAMA.I18N.Wapama.title, "Request to server failed!");
 			
 			}.bind(this)
         });
@@ -169,9 +169,9 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			// Create a new Task
 			var shape = this.createElement("Task", epc, true);
 			// Map Title -> Name
-			shape.setProperty(	"oryx-name", 			epc.title);
+			shape.setProperty(	"wapama-name", 			epc.title);
 			// Map Description -> Documentation
-			shape.setProperty(	"oryx-documentation", 	epc.description);
+			shape.setProperty(	"wapama-documentation", 	epc.description);
 			
 			shapes.push({shape: shape, epc:epc})
 		}.bind(this))
@@ -199,9 +199,9 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			var shape = this.createElement(startEventType, epc, true);
 			// Map Title, Description -> Documentation
 			if( startEventType == "StartMessageEvent"){
-				shape.setProperty(	"oryx-message", epc.title );
+				shape.setProperty(	"wapama-message", epc.title );
 			} else {
-				shape.setProperty(	"oryx-documentation", epc.title + " - "+ epc.description);			
+				shape.setProperty(	"wapama-documentation", epc.title + " - "+ epc.description);			
 			}
 			shapes.push({shape: shape, epc:epc})
 		}.bind(this));		
@@ -226,15 +226,15 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			
 			// Map Title, Description -> Documentation			
 			if( endEventType == "MessageEndEvent"){
-				shape.setProperty(	"oryx-message", epc.title );
+				shape.setProperty(	"wapama-message", epc.title );
 			} else {
-				shape.setProperty(	"oryx-documentation", epc.title + " - "+ epc.description);			
+				shape.setProperty(	"wapama-documentation", epc.title + " - "+ epc.description);			
 			}
 
 			// Set the end event type of message
 			if(  this.isBPMN1_0 && isIncludedInMappingEventThrow(epc.title)){
-				shape.setProperty(	"oryx-result", "Message");
-				shape.setProperty(	"oryx-message", epc.title );
+				shape.setProperty(	"wapama-result", "Message");
+				shape.setProperty(	"wapama-message", epc.title );
 			}
 			shapes.push({shape: shape, epc:epc})
 			
@@ -253,8 +253,8 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			// Create a new Task
 			var shape = this.createElement(type, epc, true);
 			// Map Title -> Message
-			shape.setProperty(	"oryx-message", epc.title );
-			//shape.setProperty(	"oryx-message", epc.title + " - "+ epc.description);
+			shape.setProperty(	"wapama-message", epc.title );
+			//shape.setProperty(	"wapama-message", epc.title + " - "+ epc.description);
 
 			shapes.push({shape: shape, epc:epc})
 			
@@ -281,11 +281,11 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			var shape = this.createElement(type, epc, true);
 			
 			// Map Title -> Message
-			shape.setProperty(	"oryx-message", epc.title );
-			//shape.setProperty(	"oryx-message", epc.title + " - "+ epc.description);
+			shape.setProperty(	"wapama-message", epc.title );
+			//shape.setProperty(	"wapama-message", epc.title + " - "+ epc.description);
 			
 			if(  this.isBPMN1_0 && type == "EndEvent"){
-				shape.setProperty(	"oryx-result", "Message");
+				shape.setProperty(	"wapama-result", "Message");
 			}
 			
 			shapes.push({shape: shape, epc:epc})
@@ -352,9 +352,9 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			// Create a new Task
 			var shape = this.createElement("DataObject", epc, true);
 			// Map Title -> Name
-			shape.setProperty(	"oryx-name", 			epc.title);
+			shape.setProperty(	"wapama-name", 			epc.title);
 			// Map Description -> Documentation
-			shape.setProperty(	"oryx-documentation", 	epc.description);
+			shape.setProperty(	"wapama-documentation", 	epc.description);
 			
 			shapes.push({shape: shape, epc:epc})
 		}.bind(this))
@@ -370,7 +370,7 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			// Create a new Task
 			var shape = this.createElement("TextAnnotation", epc, true);
 			// Map Title -> Text
-			shape.setProperty(	"oryx-text", "Used System: " + epc.title);
+			shape.setProperty(	"wapama-text", "Used System: " + epc.title);
 						
 			shapes.push({shape: shape, epc:epc})
 		}.bind(this))
@@ -389,9 +389,9 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			// Create a new Task
 			var shape = this.createElement(type, epc, true);
 			// Map Title -> Name
-			shape.setProperty(	"oryx-name", 			epc.title);
+			shape.setProperty(	"wapama-name", 			epc.title);
 			// Map Description -> Documentation
-			shape.setProperty(	"oryx-documentation", 	epc.description);
+			shape.setProperty(	"wapama-documentation", 	epc.description);
 			// Map URL -> SubProcessRef
 			shape.setProperty(	"raziel-entry",		 	epc.refuri);
 			
@@ -420,7 +420,7 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 				// Create a new Task
 				var lane = this.createElement("Lane");
 				// Map Title -> Name
-				lane.setProperty(	"oryx-name", epcs[0].title);
+				lane.setProperty(	"wapama-name", epcs[0].title);
 				pool.add( lane );
 				lanes.push({shape: lane, epc:epcs[0]});
 				
@@ -611,7 +611,7 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			
 			// If there is an expression, it will be setted
 			if( edge.edge.expression ){
-				shape.setProperty("oryx-conditionexpression", edge.edge.expression)
+				shape.setProperty("wapama-conditionexpression", edge.edge.expression)
 			}
 			
 			shapes.push({shape: shape, epc:edge.edge})
@@ -636,10 +636,10 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 
 		// Create a new Stencil		
 		var ssn 	= this.facade.getStencilSets().keys()[0];						
-		var stencil = ORYX.Core.StencilSet.stencil(ssn + bpmnType);
+		var stencil = WAPAMA.Core.StencilSet.stencil(ssn + bpmnType);
 	
 		if( !stencil && alternativeBPMNType ){
-			stencil = ORYX.Core.StencilSet.stencil(ssn + alternativeBPMNType);
+			stencil = WAPAMA.Core.StencilSet.stencil(ssn + alternativeBPMNType);
 		}
 
 		if( !stencil ){
@@ -648,10 +648,10 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 			
 		// Create a new Shape
 		var newShape = (stencil.type() == "node") ?
-										new ORYX.Core.Node(
+										new WAPAMA.Core.Node(
 											{'eventHandlerCallback':this.facade.raiseEvent },
 											stencil) :
-										new ORYX.Core.Edge(
+										new WAPAMA.Core.Edge(
 											{'eventHandlerCallback':this.facade.raiseEvent },
 											stencil);
 
@@ -680,11 +680,11 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 
 		var getElementByIdFromDiv = function(id){ return $A(doc.getElementsByTagName('div')).find(function(el){return el.getAttribute("id")== id})}
 
-		// Get the oryx-editor div
-		var editorNode 	= getElementByIdFromDiv('oryxcanvas');
-		editorNode 		= editorNode ? editorNode : getElementByIdFromDiv('oryx-canvas123');
+		// Get the wapama-editor div
+		var editorNode 	= getElementByIdFromDiv('wapamacanvas');
+		editorNode 		= editorNode ? editorNode : getElementByIdFromDiv('wapama-canvas123');
 
-		var hasEPC = editorNode ? $A(editorNode.childNodes).any(function(node){return node.nodeName.toLowerCase() == "a" && node.getAttribute('rel') == 'oryx-stencilset' && node.getAttribute('href').endsWith('epc/epc.json')}) : null;
+		var hasEPC = editorNode ? $A(editorNode.childNodes).any(function(node){return node.nodeName.toLowerCase() == "a" && node.getAttribute('rel') == 'wapama-stencilset' && node.getAttribute('href').endsWith('epc/epc.json')}) : null;
 
 		if( !hasEPC ){
 			this.throwErrorMessage('Imported model is not an EPC model!');
@@ -693,7 +693,7 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 
 
 		// Get all ids from the canvas node for rendering
-		var renderNodes = $A(editorNode.childNodes).collect(function(el){ return el.nodeName.toLowerCase() == "a" && el.getAttribute('rel') == 'oryx-render' ? el.getAttribute('href').slice(1) : null}).compact()
+		var renderNodes = $A(editorNode.childNodes).collect(function(el){ return el.nodeName.toLowerCase() == "a" && el.getAttribute('rel') == 'wapama-render' ? el.getAttribute('href').slice(1) : null}).compact()
 		// Collect all nodes from the ids
 		renderNodes = renderNodes.collect(function(el){return getElementByIdFromDiv(el)});
 
@@ -736,7 +736,7 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 	 * @param {Object} message
 	 */
 	throwErrorMessage: function(message){
-		Ext.Msg.alert( ORYX.I18N.Oryx.title, message )
+		Ext.Msg.alert( WAPAMA.I18N.Wapama.title, message )
 	},
 	
 	/** ********************************************************
@@ -859,7 +859,7 @@ ORYX.Plugins.EPC2BPMN = Clazz.extend({
 					
 		
 		var windowPanel = new Ext.Window({
-					    title:			ORYX.I18N.Oryx.title + " - Transform EPC to BPMN",
+					    title:			WAPAMA.I18N.Wapama.title + " - Transform EPC to BPMN",
 					    width:			400,
 						id:				'transform-epc-bpmn-id-panel',
 						cls:			'transform-epc-bpmn-window',

@@ -51,7 +51,7 @@ Explicitly supported cases are:
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:oryx="http://oryx-editor.org/"
+    xmlns:wapama="http://www.wapama.net/diagram/"
     xmlns:raziel="http://raziel.org/"
 
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
@@ -84,11 +84,11 @@ Explicitly supported cases are:
     <!-- Root Node -->
     <xsl:template match="/">
         <!-- TODO remove these variables, which are specific to the test case -->
-        <xsl:variable name="test1" select="'http://localhost:8180/backend/poem/model/237/self#oryx_606560F1-BE0B-4130-81CC-F77202E2F27A'"/>
-        <xsl:variable name="test2" select="'http://localhost:8180/backend/poem/model/237/self#oryx_E6E357E0-6407-4221-9C4F-E4CE9F5FE42F'"/>
-        <xsl:variable name="test3" select="'http://localhost:8180/backend/poem/model/237/self#oryx_1A426703-F199-4123-BE6B-452A2900ADDF'"/>
-        <xsl:variable name="test4" select="'http://localhost:8180/backend/poem/model/237/self#oryx_249FD0F7-EEFF-4A08-ACB5-D3F23F1E0A42'"/>
-        <xsl:variable name="test5" select="'http://localhost:8180/backend/poem/model/237/self#oryx_24055331-44F5-483D-A612-6ABB2E609096'"/>
+        <xsl:variable name="test1" select="'http://localhost:8180/backend/poem/model/237/self#wapama_606560F1-BE0B-4130-81CC-F77202E2F27A'"/>
+        <xsl:variable name="test2" select="'http://localhost:8180/backend/poem/model/237/self#wapama_E6E357E0-6407-4221-9C4F-E4CE9F5FE42F'"/>
+        <xsl:variable name="test3" select="'http://localhost:8180/backend/poem/model/237/self#wapama_1A426703-F199-4123-BE6B-452A2900ADDF'"/>
+        <xsl:variable name="test4" select="'http://localhost:8180/backend/poem/model/237/self#wapama_249FD0F7-EEFF-4A08-ACB5-D3F23F1E0A42'"/>
+        <xsl:variable name="test5" select="'http://localhost:8180/backend/poem/model/237/self#wapama_24055331-44F5-483D-A612-6ABB2E609096'"/>
         <xsl:if test="$debug"><xsl:message>root</xsl:message></xsl:if>
         <xhtml:html>
             <xhtml:head>
@@ -107,11 +107,11 @@ Explicitly supported cases are:
                 -->
                 <xsl:apply-templates select="//rdf:Description" mode="model"/>
                 <!-- [ @rdf:about = $test1 or @rdf:about = $test2 or @rdf:about = $test4 ] -->
-                <!-- [ oryx:name = 'check Company Name'  or oryx:name = 'check Disqualified Directors Register' ] -->
+                <!-- [ wapama:name = 'check Company Name'  or wapama:name = 'check Disqualified Directors Register' ] -->
             </xhtml:head>
             <xhtml:body>
                 <xhtml:h1>
-                    <xsl:value-of select="//rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram' ]/oryx:name"/>
+                    <xsl:value-of select="//rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram' ]/wapama:name"/>
                 </xhtml:h1>
                 <!--
                 <xforms:output model="execution_state" ref="instance('parallel_splits')"/>
@@ -131,7 +131,7 @@ Explicitly supported cases are:
                         <xhtml:img src="{
                             substring-before(
                                 //rdf:Description[
-                                    oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram'
+                                    wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram'
                                 ][1]/@rdf:about,
                                 '/self'
                             )}/png"/>
@@ -140,11 +140,11 @@ Explicitly supported cases are:
                 <!--
                 -->
                 <!--
-                <xsl:apply-templates select="//rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway' ]" mode="view-for-parallel-gateways"/>
+                <xsl:apply-templates select="//rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway' ]" mode="view-for-parallel-gateways"/>
                 -->
                 <xforms:switch>
                     <xforms:case id="no_gateway" selected="true"/>
-                    <xsl:apply-templates select="//rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway' ]" mode="view-for-parallel-gateways"/>
+                    <xsl:apply-templates select="//rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway' ]" mode="view-for-parallel-gateways"/>
                 </xforms:switch>
                 <xforms:switch>
                     <xforms:case id="no_node" selected="false"/>
@@ -155,19 +155,19 @@ Explicitly supported cases are:
     </xsl:template>
 
     <!-- XForms Model -->
-    <xsl:template match="rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Task' ]" mode="model">
+    <xsl:template match="rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Task' ]" mode="model">
         <xsl:if test="$debug">
             <xsl:message/>
-            <xsl:message><xsl:value-of select="concat('Model for ', substring-after(oryx:type, '#'), ': ', oryx:name)"/></xsl:message>
+            <xsl:message><xsl:value-of select="concat('Model for ', substring-after(wapama:type, '#'), ': ', wapama:name)"/></xsl:message>
             <xsl:message><xsl:value-of select="concat('    id: ', @rdf:about)"/></xsl:message>
-            <xsl:message><xsl:value-of select="concat('    ui: ', oryx:xform)"/></xsl:message>
+            <xsl:message><xsl:value-of select="concat('    ui: ', wapama:xform)"/></xsl:message>
         </xsl:if>
         <xsl:variable name="model" select="@rdf:about"/>
-        <xsl:variable name="xformURL" select="oryx:xform"/>
+        <xsl:variable name="xformURL" select="wapama:xform"/>
         <xsl:for-each select="document($xformURL)//xforms:model">
             <xforms:model id="{concat($model, '_model_', @id)}">
                 <!-- TODO generate a unique id for each model
-                     maybe by adding existing model IDs to the Oryx task ID.
+                     maybe by adding existing model IDs to the Wapama task ID.
                      Problem with that: nested elements with relative references
                      Solution might be to check for the instance() function inside
                      ref attributes
@@ -216,26 +216,26 @@ Explicitly supported cases are:
     <!-- TODO decide Data-based Exclusive (XOR) Gateways automatically using XPath -->
     <xsl:template mode="view" match="rdf:Description[
         (
-            starts-with(oryx:type, 'http://b3mn.org/stencilset/bpmn1.1#Start')
+            starts-with(wapama:type, 'http://b3mn.org/stencilset/bpmn1.1#Start')
             and
-            ends-with(oryx:type, 'Event')
+            ends-with(wapama:type, 'Event')
         )
         or
-        oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Exclusive_Eventbased_Gateway'
+        wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Exclusive_Eventbased_Gateway'
         or
-        oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Exclusive_Databased_Gateway'
+        wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Exclusive_Databased_Gateway'
     ]">
         <xsl:if test="$debug">
             <xsl:message/>
-            <xsl:message><xsl:value-of select="concat('View for ', substring-after(oryx:type, '#'), ': ', oryx:name)"/></xsl:message>
+            <xsl:message><xsl:value-of select="concat('View for ', substring-after(wapama:type, '#'), ': ', wapama:name)"/></xsl:message>
             <xsl:message><xsl:value-of select="concat('    id: ', @rdf:about)"/></xsl:message>
         </xsl:if>
         <xforms:case id="{@rdf:about}">
             <xsl:choose>
                 <xsl:when test="
-                    starts-with(oryx:type, 'http://b3mn.org/stencilset/bpmn1.1#Start')
+                    starts-with(wapama:type, 'http://b3mn.org/stencilset/bpmn1.1#Start')
                     and
-                    ends-with(oryx:type, 'Event')
+                    ends-with(wapama:type, 'Event')
                 ">
                     <xsl:attribute name="selected">true</xsl:attribute>
                 </xsl:when>
@@ -250,10 +250,10 @@ Explicitly supported cases are:
     </xsl:template>
 
     <!-- Parallel Gateways -->
-    <xsl:template match="rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway' ]" mode="view-for-parallel-gateways">
+    <xsl:template match="rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway' ]" mode="view-for-parallel-gateways">
         <xsl:if test="$debug">
             <xsl:message/>
-            <xsl:message><xsl:value-of select="concat('View for ', substring-after(oryx:type, '#'), ': ', oryx:name)"/></xsl:message>
+            <xsl:message><xsl:value-of select="concat('View for ', substring-after(wapama:type, '#'), ': ', wapama:name)"/></xsl:message>
             <xsl:message><xsl:value-of select="concat('    id: ', @rdf:about)"/></xsl:message>
         </xsl:if>
         <xforms:case id="{@rdf:about}" selected="false">
@@ -287,10 +287,10 @@ Explicitly supported cases are:
     </xsl:template>
 
     <!-- End Events -->
-    <xsl:template match="rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#EndEvent' ]" mode="view">
+    <xsl:template match="rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#EndEvent' ]" mode="view">
         <xsl:if test="$debug">
             <xsl:message/>
-            <xsl:message><xsl:value-of select="concat('View for ', substring-after(oryx:type, '#'), ': ', oryx:name)"/></xsl:message>
+            <xsl:message><xsl:value-of select="concat('View for ', substring-after(wapama:type, '#'), ': ', wapama:name)"/></xsl:message>
             <xsl:message><xsl:value-of select="concat('    id: ', @rdf:about)"/></xsl:message>
         </xsl:if>
         <xforms:case id="{@rdf:about}" selected="false">
@@ -300,7 +300,7 @@ Explicitly supported cases are:
             <xsl:call-template name="trigger">
                 <xsl:with-param name="nextNodes" select="
                     //rdf:Description [
-                        oryx:type='http://b3mn.org/stencilset/bpmn1.1#StartEvent'
+                        wapama:type='http://b3mn.org/stencilset/bpmn1.1#StartEvent'
                     ]
                 "/>
                 <xsl:with-param name="label" select="'Restart the Process'"/>
@@ -309,23 +309,23 @@ Explicitly supported cases are:
     </xsl:template>
 
     <!-- Tasks -->
-    <xsl:template match="rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Task' ]" mode="view">
+    <xsl:template match="rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Task' ]" mode="view">
         <xsl:if test="$debug">
             <xsl:message/>
-            <xsl:message><xsl:value-of select="concat('View for ', substring-after(oryx:type, '#'), ': ', oryx:name)"/></xsl:message>
+            <xsl:message><xsl:value-of select="concat('View for ', substring-after(wapama:type, '#'), ': ', wapama:name)"/></xsl:message>
             <xsl:message><xsl:value-of select="concat('    id: ', @rdf:about)"/></xsl:message>
-            <xsl:message><xsl:value-of select="concat('    ui: ', oryx:xform)"/></xsl:message>
+            <xsl:message><xsl:value-of select="concat('    ui: ', wapama:xform)"/></xsl:message>
         </xsl:if>
         <xforms:case id="{@rdf:about}" selected="false">
-            <xhtml:h2><xsl:value-of select="oryx:name"/></xhtml:h2>
+            <xhtml:h2><xsl:value-of select="wapama:name"/></xhtml:h2>
             <xsl:variable name="nextNodes">
                 <xsl:call-template name="getNextNodes">
                     <xsl:with-param name="currentNode" select="."/>
                 </xsl:call-template>
             </xsl:variable>
             <xsl:choose>
-                <xsl:when test="string-length(oryx:xform) &gt; 0">
-                    <xsl:apply-templates select="document(oryx:xform)//xhtml:body/*" mode="view-copy">
+                <xsl:when test="string-length(wapama:xform) &gt; 0">
+                    <xsl:apply-templates select="document(wapama:xform)//xhtml:body/*" mode="view-copy">
                         <xsl:with-param name="model" select="@rdf:about"/>
                         <xsl:with-param name="nextNodes" select="$nextNodes/rdf:Description"/>
                     </xsl:apply-templates>
@@ -434,7 +434,7 @@ Explicitly supported cases are:
         <xsl:param name="currentNode"/>
         <xsl:variable name="outgoingSequenceFlows" select="
             //rdf:Description [
-                oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
+                wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
                 and
                 @rdf:about = $currentNode/raziel:outgoing/@rdf:resource
             ]
@@ -453,7 +453,7 @@ Explicitly supported cases are:
         <xsl:param name="currentNode"/>
         <xsl:variable name="incomingSequenceFlows" select="
             //rdf:Description [
-                oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
+                wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
                 and
                 raziel:outgoing/@rdf:resource = $currentNode/@rdf:about
             ]
@@ -479,10 +479,10 @@ Explicitly supported cases are:
                         <xsl:when test="$label != ''">
                             <xsl:value-of select="$label"/>
                         </xsl:when>
-                        <xsl:when test="oryx:name != ''">
-                            <xsl:value-of select="oryx:name"/>
+                        <xsl:when test="wapama:name != ''">
+                            <xsl:value-of select="wapama:name"/>
                         </xsl:when>
-                        <xsl:when test="oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#EndEvent'">
+                        <xsl:when test="wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#EndEvent'">
                             <xsl:text>Finish</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -493,7 +493,7 @@ Explicitly supported cases are:
                 <xsl:if test="$hideParallelSplit">
                     <xforms:toggle events:event="DOMActivate" case="no_gateway"/>
                 </xsl:if>
-                <xsl:if test="oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway'">
+                <xsl:if test="wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#AND_Gateway'">
                     <xforms:toggle events:event="DOMActivate" case="no_node"/>
                 </xsl:if>
                 <xforms:toggle events:event="DOMActivate" case="{@rdf:about}"/>

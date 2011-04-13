@@ -21,17 +21,17 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins) { ORYX.Plugins = {} }
-if(!ORYX.Plugins.DragTracker) { ORYX.Plugins.DragTracker = {} }
+if(!WAPAMA.Plugins) { WAPAMA.Plugins = {} }
+if(!WAPAMA.Plugins.DragTracker) { WAPAMA.Plugins.DragTracker = {} }
 
 new function(){
 	
 	/**
 	 * Lane drag tracker is an implementation to help drag lanes inside pools.
-	 * @class ORYX.Plugins.DragTracker.LaneLayouter
+	 * @class WAPAMA.Plugins.DragTracker.LaneLayouter
 	 * @author Antoine Toulme
 	 */
-	ORYX.Plugins.DragTracker.LaneDragTracker = ORYX.Plugins.AbstractDragTracker.extend({
+	WAPAMA.Plugins.DragTracker.LaneDragTracker = WAPAMA.Plugins.AbstractDragTracker.extend({
 		
 		shapes : ["Lane"],
 
@@ -78,7 +78,7 @@ new function(){
 		newShape: function(shape) {
 			//we create our own command for resizing. It's a bit awkward to recreate commands
 			//for such things, and that begs for a nice framework.
-			var commandClass = ORYX.Core.Command.extend({
+			var commandClass = WAPAMA.Core.Command.extend({
 				construct: function(shape, newBounds, plugin){
 					this.shape = shape;
 					this.oldBounds = shape.bounds.clone();
@@ -122,7 +122,7 @@ new function(){
 			if (lefty < 0) {
 				lefty = 0;
 			}
-			var newBounds = new ORYX.Core.Bounds(30, lefty, shape.parent.bounds.width(), righty);
+			var newBounds = new WAPAMA.Core.Bounds(30, lefty, shape.parent.bounds.width(), righty);
 			var command = new commandClass(shape, newBounds, this);
 			this.facade.executeCommands([command]);
 			this.doLayout([shape]);

@@ -21,12 +21,12 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.XFormsExportOrbeon = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.XFormsExportOrbeon = WAPAMA.Plugins.AbstractPlugin.extend({
 	
-	CSS_URL: ORYX.PATH + "/css/xforms_default.css",
+	CSS_URL: WAPAMA.PATH + "/css/xforms_default.css",
 
 	facade: undefined,
 
@@ -36,8 +36,8 @@ ORYX.Plugins.XFormsExportOrbeon = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade.offer({
 			'name': "Run XForm with Orbeon",
 			'functionality': this.exportIt.bind(this),
-			'group': ORYX.I18N.XFormsSerialization.group,
-			'icon': ORYX.PATH + "images/xforms_orbeon_export.png",
+			'group': WAPAMA.I18N.XFormsSerialization.group,
+			'icon': WAPAMA.PATH + "images/xforms_orbeon_export.png",
 			'description': 'XForms export for Orbeon',
 			'index': 1,
 			'minShape': 0,
@@ -48,7 +48,7 @@ ORYX.Plugins.XFormsExportOrbeon = ORYX.Plugins.AbstractPlugin.extend({
 
 		// raise loading enable event
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE
         });
 		
 		//this.checkClientXFormsSupport();
@@ -61,7 +61,7 @@ ORYX.Plugins.XFormsExportOrbeon = ORYX.Plugins.AbstractPlugin.extend({
 			
 			// raise loading disable event.
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
             });
 			
         }).bind(this), 10);
@@ -79,7 +79,7 @@ ORYX.Plugins.XFormsExportOrbeon = ORYX.Plugins.AbstractPlugin.extend({
 			serialized_rdf 		= serialized_rdf.startsWith("<?xml") ? serialized_rdf : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized_rdf;
 
 			// Send the request to the server.
-			new Ajax.Request(ORYX.CONFIG.XFORMS_EXPORT_ORBEON_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.XFORMS_EXPORT_ORBEON_URL, {
 				method: 'POST',
 				asynchronous: false,
 				parameters: {
@@ -100,15 +100,15 @@ ORYX.Plugins.XFormsExportOrbeon = ORYX.Plugins.AbstractPlugin.extend({
 			});
 			
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 	 	}
 	},
 	
 	checkClientXFormsSupport: function() {
 		if(!clientSupportsXForms) {
 			
-			var output = ORYX.I18N.XFormsSerialization.noClientXFormsSupportDesc;
+			var output = WAPAMA.I18N.XFormsSerialization.noClientXFormsSupportDesc;
 
 			var win = new Ext.Window({
                             width: 320,
@@ -117,10 +117,10 @@ ORYX.Plugins.XFormsExportOrbeon = ORYX.Plugins.AbstractPlugin.extend({
                             minimizable: false,
                             modal: true,
                             autoScroll: true,
-                            title: ORYX.I18N.XFormsSerialization.noClientXFormsSupport,
+                            title: WAPAMA.I18N.XFormsSerialization.noClientXFormsSupport,
                             html: output,
                             buttons: [{
-                                text: ORYX.I18N.XFormsSerialization.ok,
+                                text: WAPAMA.I18N.XFormsSerialization.ok,
                                 handler: function(){
                                     win.hide();
                                 }

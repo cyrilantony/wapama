@@ -19,10 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.QueryResultHighlighter = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	facade: undefined,
 	
@@ -38,8 +38,8 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade.offer({
 			'name': "Query result highlighter",
 			'functionality': this.buttonClick.bind(this),
-			'group': ORYX.I18N.QueryEvaluator.group,
-			'icon': ORYX.PATH + "images/xforms_export.png",
+			'group': WAPAMA.I18N.QueryEvaluator.group,
+			'icon': WAPAMA.PATH + "images/xforms_export.png",
 			'description': "This plugin highlights model parts which were matched by a query.",
 			'index': 1,
 			'toggle': true,
@@ -47,7 +47,7 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 			'maxShape': 0
 		});
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, this.highlightMatches.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LOADED, this.highlightMatches.bind(this));
 		
 	},
 	
@@ -112,31 +112,31 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 				// Commented by Ahmed Awad 30.07.09
 				//this.raiseOverlay(shape,color,colorHex, "Moeep! Error when raising an overlay.");
 				// Added by Ahmed Awad
-				if (shape instanceof ORYX.Core.Node)
+				if (shape instanceof WAPAMA.Core.Node)
                 {
-        	       shape.setProperty("oryx-bgcolor",colorHex);
+        	       shape.setProperty("wapama-bgcolor",colorHex);
         	       shape.refresh();
                 }
 			}.bind(this));
 		} catch (e) {
-			Ext.MessageBox.alert(ORYX.I18N.Oryx.title, "Something went wrong while applying highlighting to shapes: " + e);
+			Ext.MessageBox.alert(WAPAMA.I18N.Wapama.title, "Something went wrong while applying highlighting to shapes: " + e);
 		}
 		
 		this.isHighlighted = true;
-		//Ext.MessageBox.alert(ORYX.I18N.Oryx.title, "Finished highlighting!");
+		//Ext.MessageBox.alert(WAPAMA.I18N.Wapama.title, "Finished highlighting!");
 	},
 
 	raiseOverlay: function(shape,color,colorHex, errorMsg){
         var id = "queryhighlighter." + this.raisedEventIds.length;
         // Added by Ahmed Awad to change the color of the matched node
-        if (shape instanceof ORYX.Core.Node)
+        if (shape instanceof WAPAMA.Core.Node)
         {
-        	shape.setProperty("oryx-bgcolor",colorHex);
+        	shape.setProperty("wapama-bgcolor",colorHex);
         	shape.refresh();
         }
         
 //     
-        var cross = ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
+        var cross = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
             	"title": errorMsg,
             	"stroke-width": 5.0,
             	"stroke": color,
@@ -144,11 +144,11 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
             	"line-captions": "round"
         	}]);
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+            type: WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
             id: id,
             shapes: [shape],
             node: cross,
-            nodePosition: shape instanceof ORYX.Core.Edge ? "START" : "NW"
+            nodePosition: shape instanceof WAPAMA.Core.Edge ? "START" : "NW"
         });
         
         this.raisedEventIds.push(id);
@@ -159,7 +159,7 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 	removeHighlighting: function(shape, errorMsg){
         this.raisedEventIds.each(function(id) {
 	        this.facade.raiseEvent({
-	            type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+	            type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 	            id: id
 	        });
 		}.bind(this));
@@ -168,7 +168,7 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 		
 		this.raisedHighlightEventIds.each(function(id) {
 	        this.facade.raiseEvent({
-	            type: ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+	            type: WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 	            id: id
 	        });
 		}.bind(this));
@@ -177,9 +177,9 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
     },
 	
 	highlightSelectedTask: function(shape){ //edge marking of selected/ given task
-		if(!(shape instanceof ORYX.Core.Shape)) return;
+		if(!(shape instanceof WAPAMA.Core.Shape)) return;
 		this.facade.raiseEvent({
-			type:			ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW, 
+			type:			WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW, 
 			highlightId:	shape.id,
 			elements:		[shape],
 			color:			'#FF0000'
@@ -227,7 +227,7 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 			var matchedElementsJson = decodeURIComponent(paramComponents);
 			var matchedElements = Ext.decode(matchedElementsJson);
 		} catch (e) {
-			Ext.MessageBox.alert(ORYX.I18N.Oryx.title, "I found highlighting information from BPMN-Q, but they could not be understood: " + e);
+			Ext.MessageBox.alert(WAPAMA.I18N.Wapama.title, "I found highlighting information from BPMN-Q, but they could not be understood: " + e);
 			return null;
 		}
 		
@@ -251,7 +251,7 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 			var descriptionJson = decodeURIComponent(paramComponents);
 			var description = Ext.decode(descriptionJson);
 		} catch (e) {
-			Ext.MessageBox.alert(ORYX.I18N.Oryx.title, "I found description information from BPMN-Q, but they could not be understood: " + e);
+			Ext.MessageBox.alert(WAPAMA.I18N.Wapama.title, "I found description information from BPMN-Q, but they could not be understood: " + e);
 			return null;
 		}
 		
@@ -261,8 +261,8 @@ ORYX.Plugins.QueryResultHighlighter = ORYX.Plugins.AbstractPlugin.extend({
 		var shapes = this.facade.getCanvas().getChildShapeByResourceId(resourceId);
 /*		var task;
 		for (var index = 0; index < shapes.length; index++) {
-    		if (shapes[index].properties["oryx-activitytype"] == "Task") {
-				if (shapes[index].properties["oryx-id"] == taskId) {
+    		if (shapes[index].properties["wapama-activitytype"] == "Task") {
+				if (shapes[index].properties["wapama-id"] == taskId) {
 					task = shapes[index];
 					break;
 				}

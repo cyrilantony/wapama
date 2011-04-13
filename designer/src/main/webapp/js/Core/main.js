@@ -34,14 +34,14 @@ function init() {
 	 * representation, a spacer gif on the site of ext is loaded from the
 	 * internet. This causes problems when internet or the ext site are not
 	 * available. */
-	Ext.BLANK_IMAGE_URL = ORYX.PATH + 'lib/ext-2.0.2/resources/images/default/s.gif';	
+	Ext.BLANK_IMAGE_URL = WAPAMA.PATH + 'lib/ext-2.0.2/resources/images/default/s.gif';	
 	
-	ORYX.Log.debug("Querying editor instances");
+	WAPAMA.Log.debug("Querying editor instances");
 
 	// Hack for WebKit to set the SVGElement-Classes
-	ORYX.Editor.setMissingClasses();
+	WAPAMA.Editor.setMissingClasses();
     // use this hook to get initialized through the plugin in charge of loading the model
-	window.onOryxResourcesLoaded();
+	window.onWapamaResourcesLoaded();
 
 }
 
@@ -111,24 +111,24 @@ HOOKS = {
 };
 
 /**
-   @namespace Global Oryx name space
-   @name ORYX
+   @namespace Global Wapama name space
+   @name WAPAMA
 */
-if(!ORYX) {var ORYX = {};}
+if(!WAPAMA) {var WAPAMA= {};}
 
 /**
  * The Editor class.
- * @class ORYX.Editor
+ * @class WAPAMA.Editor
  * @extends Clazz
- * @param {Object} config An editor object, passed to {@link ORYX.Editor#loadSerialized}
+ * @param {Object} config An editor object, passed to {@link WAPAMA.Editor#loadSerialized}
  * @param {String} config.id Any ID that can be used inside the editor. If fullscreen=false, any HTML node with this id must be present to render the editor to this node.
  * @param {boolean} [config.fullscreen=true] Render editor in fullscreen mode or not.
  * @param {String} config.stencilset.url Stencil set URL.
  * @param {String} [config.stencil.id] Stencil type used for creating the canvas.  
  * @param {Object} config.properties Any properties applied to the canvas.
 */
-ORYX.Editor = {
-    /** @lends ORYX.Editor.prototype */
+WAPAMA.Editor = {
+    /** @lends WAPAMA.Editor.prototype */
 	// Defines the global dom event listener 
 	DOMEventListeners: new Hash(),
 
@@ -159,7 +159,7 @@ ORYX.Editor = {
         if(!this.id) {
         	this.id = model.id;
         	if(!this.id) {
-        		this.id = ORYX.Editor.provideId();
+        		this.id = WAPAMA.Editor.provideId();
         	}
         }
         
@@ -170,32 +170,32 @@ ORYX.Editor = {
 		this._initEventListener();
 
 		// Load particular stencilset
-		if(ORYX.CONFIG.BACKEND_SWITCH) {
+		if(WAPAMA.CONFIG.BACKEND_SWITCH) {
 			var ssUrl = (model.stencilset.namespace||model.stencilset.url).replace("#", "%23");
-        	ORYX.Core.StencilSet.loadStencilSet(this, ORYX.CONFIG.STENCILSET_HANDLER + ssUrl, this.id);
+        	WAPAMA.Core.StencilSet.loadStencilSet(this, WAPAMA.CONFIG.STENCILSET_HANDLER + ssUrl, this.id);
 		} else {
 			var ssUrl = model.stencilset.url;
-        	ORYX.Core.StencilSet.loadStencilSet(this, ssUrl, this.id);
+        	WAPAMA.Core.StencilSet.loadStencilSet(this, ssUrl, this.id);
 		}
 		
         
         //load the extensions
-        if(!!ORYX.CONFIG.SSEXTS){
-        	ORYX.CONFIG.SSEXTS.each(function(ssext){
+        if(!!WAPAMA.CONFIG.SSEXTS){
+        	WAPAMA.CONFIG.SSEXTS.each(function(ssext){
                 this.loadSSExtension(ssext);
             }.bind(this));
         }
 
 		// Register the callback of creating the canvas
-		this.registerOnEvent(ORYX.CONFIG.EVENT_SS_LOADED_ON_STARTUP, this._stencilSetLoadFinished.bind(this));
+		this.registerOnEvent(WAPAMA.CONFIG.EVENT_SS_LOADED_ON_STARTUP, this._stencilSetLoadFinished.bind(this));
 
 		// disable key events when Ext modal window is active
-		ORYX.Editor.makeExtModalWindowKeysave(this._getPluginFacade());
+		WAPAMA.Editor.makeExtModalWindowKeysave(this._getPluginFacade());
 	},
 	
 	_finishedLoading: function() {
-		if(Ext.getCmp('oryx-loading-panel')){
-			Ext.getCmp('oryx-loading-panel').hide()
+		if(Ext.getCmp('wapama-loading-panel')){
+			Ext.getCmp('wapama-loading-panel').hide()
 		}
 		
 		// Do Layout for viewport
@@ -205,15 +205,15 @@ ORYX.Editor = {
 		
 		// Fixed the problem that the viewport can not 
 		// start with collapsed panels correctly
-		if (ORYX.CONFIG.PANEL_RIGHT_COLLAPSED === true){
+		if (WAPAMA.CONFIG.PANEL_RIGHT_COLLAPSED === true){
 			this.layout_regions.east.collapse();
 		}
-		if (ORYX.CONFIG.PANEL_LEFT_COLLAPSED === true){
+		if (WAPAMA.CONFIG.PANEL_LEFT_COLLAPSED === true){
 			this.layout_regions.west.collapse();
 		}
 		
 		// Raise Loaded Event
-		this.handleEvents( {type:ORYX.CONFIG.EVENT_LOADED} )
+		this.handleEvents( {type:WAPAMA.CONFIG.EVENT_LOADED} )
 		
 	},
 	
@@ -221,19 +221,19 @@ ORYX.Editor = {
 
 		// Register on Events
 		
-		document.documentElement.addEventListener(ORYX.CONFIG.EVENT_KEYDOWN, this.catchKeyDownEvents.bind(this), true);
-		document.documentElement.addEventListener(ORYX.CONFIG.EVENT_KEYUP, this.catchKeyUpEvents.bind(this), true);
+		document.documentElement.addEventListener(WAPAMA.CONFIG.EVENT_KEYDOWN, this.catchKeyDownEvents.bind(this), true);
+		document.documentElement.addEventListener(WAPAMA.CONFIG.EVENT_KEYUP, this.catchKeyUpEvents.bind(this), true);
 
 		// Enable Key up and down Event
 		this._keydownEnabled = 	true;
 		this._keyupEnabled =  	true;
 
-		this.DOMEventListeners[ORYX.CONFIG.EVENT_MOUSEDOWN] = [];
-		this.DOMEventListeners[ORYX.CONFIG.EVENT_MOUSEUP] 	= [];
-		this.DOMEventListeners[ORYX.CONFIG.EVENT_MOUSEOVER] = [];
-		this.DOMEventListeners[ORYX.CONFIG.EVENT_MOUSEOUT] 	= [];
-		this.DOMEventListeners[ORYX.CONFIG.EVENT_SELECTION_CHANGED] = [];
-		this.DOMEventListeners[ORYX.CONFIG.EVENT_MOUSEMOVE] = [];
+		this.DOMEventListeners[WAPAMA.CONFIG.EVENT_MOUSEDOWN] = [];
+		this.DOMEventListeners[WAPAMA.CONFIG.EVENT_MOUSEUP] 	= [];
+		this.DOMEventListeners[WAPAMA.CONFIG.EVENT_MOUSEOVER] = [];
+		this.DOMEventListeners[WAPAMA.CONFIG.EVENT_MOUSEOUT] 	= [];
+		this.DOMEventListeners[WAPAMA.CONFIG.EVENT_SELECTION_CHANGED] = [];
+		this.DOMEventListeners[WAPAMA.CONFIG.EVENT_MOUSEMOVE] = [];
 				
 	},
 	
@@ -256,7 +256,7 @@ ORYX.Editor = {
 		this.layout_regions = {
 				
 				// DEFINES TOP-AREA
-				north	: new Ext.Panel({ //TOOO make a composite of the oryx header and addable elements (for toolbar), second one should contain margins
+				north	: new Ext.Panel({ //TOOO make a composite of the wapama header and addable elements (for toolbar), second one should contain margins
 					region	: 'north',
 					cls		: 'x-panel-editor-north',
 					autoEl	: 'div',
@@ -277,7 +277,7 @@ ORYX.Editor = {
 	                },*/
 					autoEl	: 'div',
 					border	:false,
-					width	: ORYX.CONFIG.PANEL_RIGHT_WIDTH || 200,
+					width	: WAPAMA.CONFIG.PANEL_RIGHT_WIDTH || 200,
 					split	: true,
 					animate: true,
 					collapsible : true,
@@ -301,7 +301,7 @@ ORYX.Editor = {
 					layout	: 'anchor',
 					autoEl	: 'div',
 					cls		: 'x-panel-editor-west',
-					width	: ORYX.CONFIG.PANEL_LEFT_WIDTH || 200,
+					width	: WAPAMA.CONFIG.PANEL_LEFT_WIDTH || 200,
 					autoScroll:true,
 					split	: true,
 					animate: true,
@@ -358,7 +358,7 @@ ORYX.Editor = {
 			this.layout = new Ext.Panel( layout_config )
 		}
 		
-		//Generates the ORYX-Header
+		//Generates the WAPAMA-Header
 		this._generateHeader();
 		
 		
@@ -412,15 +412,15 @@ ORYX.Editor = {
 				
 			}	*/		
 
-			ORYX.Log.debug("original dimensions of region %0: %1 x %2", current_region.region, current_region.width, current_region.height)
+			WAPAMA.Log.debug("original dimensions of region %0: %1 x %2", current_region.region, current_region.width, current_region.height)
 
 			// update dimensions of region if required.
 			if  (!current_region.width && component.initialConfig && component.initialConfig.width) {
-				ORYX.Log.debug("resizing width of region %0: %1", current_region.region, component.initialConfig.width)	
+				WAPAMA.Log.debug("resizing width of region %0: %1", current_region.region, component.initialConfig.width)	
 				current_region.setWidth(component.initialConfig.width)
 			}
 			if  (component.initialConfig && component.initialConfig.height) {
-				ORYX.Log.debug("resizing height of region %0: %1", current_region.region, component.initialConfig.height)
+				WAPAMA.Log.debug("resizing height of region %0: %1", current_region.region, component.initialConfig.height)
 				var current_height = current_region.height || 0;
 				current_region.height = component.initialConfig.height + current_height;
 				current_region.setHeight(component.initialConfig.height + current_height)
@@ -436,7 +436,7 @@ ORYX.Editor = {
 			current_region.show();
 
 			if(Ext.isMac)
-				ORYX.Editor.resizeFix();
+				WAPAMA.Editor.resizeFix();
 			
 			return current_region;
 		}
@@ -444,7 +444,7 @@ ORYX.Editor = {
 		return null;
 	},
 	getAvailablePlugins: function(){
-		var curAvailablePlugins=ORYX.availablePlugins.clone();
+		var curAvailablePlugins=WAPAMA.availablePlugins.clone();
 		curAvailablePlugins.each(function(plugin){
 			if(this.loadedPlugins.find(function(loadedPlugin){
 				return loadedPlugin.type==this.name;
@@ -491,7 +491,7 @@ ORYX.Editor = {
 				var facade = this._getPluginFacade();
 				var newPlugin;
 				var me=this;
-				ORYX.Log.debug("Initializing plugin '%0'", match.name);
+				WAPAMA.Log.debug("Initializing plugin '%0'", match.name);
 				
 					if (!match.requires 	|| !match.requires.namespaces 	|| match.requires.namespaces.any(function(req){ return loadedStencilSetsNamespaces.indexOf(req) >= 0 }) ){
 						if(!match.notUsesIn 	|| !match.notUsesIn.namespaces 	|| !match.notUsesIn.namespaces.any(function(req){ return loadedStencilSetsNamespaces.indexOf(req) >= 0 })){
@@ -508,7 +508,7 @@ ORYX.Editor = {
 							
 							// If there have an onSelection-Method it will pushed to the Editor Event-Handler
 							if (newPlugin.onSelectionChanged) 
-								me.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, newPlugin.onSelectionChanged.bind(newPlugin));
+								me.registerOnEvent(WAPAMA.CONFIG.EVENT_SELECTION_CHANGED, newPlugin.onSelectionChanged.bind(newPlugin));
 							this.loadedPlugins.push(newPlugin);
 							this.loadedPlugins.each(function(loaded){
 								if(loaded.registryChanged)
@@ -517,7 +517,7 @@ ORYX.Editor = {
 							callback(true);
 						
 					} catch(e) {
-						ORYX.Log.warn("Plugin %0 is not available", match.name);
+						WAPAMA.Log.warn("Plugin %0 is not available", match.name);
 						if(!!loadTry){
 							callback(false,"INITFAILED");
 							return;
@@ -526,12 +526,12 @@ ORYX.Editor = {
 					}
 					}else{
 						callback(false,"NOTUSEINSTENCILSET");
-						ORYX.Log.info("Plugin need a stencilset which is not loaded'", match.name);
+						WAPAMA.Log.info("Plugin need a stencilset which is not loaded'", match.name);
 					}
 								
 				} else {
 					callback(false,"REQUIRESTENCILSET");
-					ORYX.Log.info("Plugin need a stencilset which is not loaded'", match.name);
+					WAPAMA.Log.info("Plugin need a stencilset which is not loaded'", match.name);
 				}
 
 			
@@ -548,7 +548,7 @@ ORYX.Editor = {
 		
 		// if there should be plugins but still are none, try again.
 		// TODO this should wait for every plugin respectively.
-		/*if (!ORYX.Plugins && ORYX.availablePlugins.length > 0) {
+		/*if (!WAPAMA.Plugins && WAPAMA.availablePlugins.length > 0) {
 			window.setTimeout(this.loadPlugins.bind(this), 100);
 			return;
 		}*/
@@ -563,23 +563,23 @@ ORYX.Editor = {
 		var facade = this._getPluginFacade();
 		
 		// If there is an Array where all plugins are described, than only take those
-		// (that comes from the usage of oryx with a mashup api)
-		if( ORYX.MashupAPI && ORYX.MashupAPI.loadablePlugins && ORYX.MashupAPI.loadablePlugins instanceof Array ){
+		// (that comes from the usage of wapama with a mashup api)
+		if( WAPAMA.MashupAPI && WAPAMA.MashupAPI.loadablePlugins && WAPAMA.MashupAPI.loadablePlugins instanceof Array ){
 			// Get the plugins from the available plugins (those who are in the plugins.xml)
-			ORYX.availablePlugins = $A(ORYX.availablePlugins).findAll(function(value){
-										return ORYX.MashupAPI.loadablePlugins.include( value.name )
+			WAPAMA.availablePlugins = $A(WAPAMA.availablePlugins).findAll(function(value){
+										return WAPAMA.MashupAPI.loadablePlugins.include( value.name )
 									})
 			
 			// Add those plugins to the list, which are only in the loadablePlugins list
-			ORYX.MashupAPI.loadablePlugins.each(function( className ){
-				if( !(ORYX.availablePlugins.find(function(val){ return val.name == className }))){
-					ORYX.availablePlugins.push( {name: className } );
+			WAPAMA.MashupAPI.loadablePlugins.each(function( className ){
+				if( !(WAPAMA.availablePlugins.find(function(val){ return val.name == className }))){
+					WAPAMA.availablePlugins.push( {name: className } );
 				}
 			})
 		}
 		
-		ORYX.availablePlugins.each(function(value) {
-			ORYX.Log.debug("Initializing plugin '%0'", value.name);
+		WAPAMA.availablePlugins.each(function(value) {
+			WAPAMA.Log.debug("Initializing plugin '%0'", value.name);
 				if( (!value.requires 	|| !value.requires.namespaces 	|| value.requires.namespaces.any(function(req){ return loadedStencilSetsNamespaces.indexOf(req) >= 0 }) ) &&
 					(!value.notUsesIn 	|| !value.notUsesIn.namespaces 	|| !value.notUsesIn.namespaces.any(function(req){ return loadedStencilSetsNamespaces.indexOf(req) >= 0 }) )&&
 					/*only load activated plugins or undefined */
@@ -591,17 +591,17 @@ ORYX.Editor = {
 						var plugin		= new className(facade, value);
 						plugin.type		= value.name;
 						newPlugins.push( plugin );
-						if ("ORYX.Plugins.UUIDRepositorySave" == value.name) {
+						if ("WAPAMA.Plugins.UUIDRepositorySave" == value.name) {
 							HOOKS.savePlugin = plugin;
 						}
 						plugin.engaged=true;
 					}
 				} catch(e) {
-					ORYX.Log.warn("Plugin %0 is not available", value.name);
+					WAPAMA.Log.warn("Plugin %0 is not available", value.name);
 				}
 							
 			} else {
-				ORYX.Log.info("Plugin need a stencilset which is not loaded'", value.name);
+				WAPAMA.Log.info("Plugin need a stencilset which is not loaded'", value.name);
 			}
 			
 		});
@@ -613,14 +613,14 @@ ORYX.Editor = {
 
 			// If there have an onSelection-Method it will pushed to the Editor Event-Handler
 			if(value.onSelectionChanged)
-				me.registerOnEvent(ORYX.CONFIG.EVENT_SELECTION_CHANGED, value.onSelectionChanged.bind(value));
+				me.registerOnEvent(WAPAMA.CONFIG.EVENT_SELECTION_CHANGED, value.onSelectionChanged.bind(value));
 		});
 
 		this.loadedPlugins = newPlugins;
 		
 		// Hack for the Scrollbars
 		if(Ext.isMac) {
-			ORYX.Editor.resizeFix();
+			WAPAMA.Editor.resizeFix();
 		}
 		
 		this.registerPluginsOnKeyEvents();
@@ -670,21 +670,21 @@ ORYX.Editor = {
         }
         
 		// get the stencil associated with the type
-		var canvasStencil = ORYX.Core.StencilSet.stencil(stencilType);
+		var canvasStencil = WAPAMA.Core.StencilSet.stencil(stencilType);
 			
 		if (!canvasStencil) 
-			ORYX.Log.fatal("Initialisation failed, because the stencil with the type %0 is not part of one of the loaded stencil sets.", stencilType);
+			WAPAMA.Log.fatal("Initialisation failed, because the stencil with the type %0 is not part of one of the loaded stencil sets.", stencilType);
 		
 		// create all dom
 		// TODO fix border, so the visible canvas has a double border and some spacing to the scrollbars
-		var div = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", null, ['div']);
+		var div = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", null, ['div']);
 		// set class for custom styling
-		div.addClassName("ORYX_Editor");
+		div.addClassName("WAPAMA_Editor");
 						
 		// create the canvas
-		this._canvas = new ORYX.Core.Canvas({
-			width					: ORYX.CONFIG.CANVAS_WIDTH,
-			height					: ORYX.CONFIG.CANVAS_HEIGHT,
+		this._canvas = new WAPAMA.Core.Canvas({
+			width					: WAPAMA.CONFIG.CANVAS_WIDTH,
+			height					: WAPAMA.CONFIG.CANVAS_HEIGHT,
 			'eventHandlerCallback'	: this.handleEvents.bind(this),
 			id						: this.id,
 			parentNode				: div
@@ -696,7 +696,7 @@ ORYX.Editor = {
           var properties = [];
           for(field in canvasConfig){
             properties.push({
-              prefix: 'oryx',
+              prefix: 'wapama',
               name: field,
               value: canvasConfig[field]
             });
@@ -760,18 +760,18 @@ ORYX.Editor = {
 	 * (The real usage of the command pattern
 	 * is implemented and shown in the Plugins/undo.js)
 	 *
-	 * @param <Oryx.Core.Command>[] Array of commands
+	 * @param <Wapama.Core.Command>[] Array of commands
 	 */
 	executeCommands: function(commands){
 		
 		// Check if the argument is an array and the elements are from command-class
 		if ( 	commands instanceof Array 	&& 
 				commands.length > 0 		&& 
-				commands.all(function(command){ return command instanceof ORYX.Core.Command }) ) {
+				commands.all(function(command){ return command instanceof WAPAMA.Core.Command }) ) {
 		
 			// Raise event for executing commands
 			this.handleEvents({
-				type		: ORYX.CONFIG.EVENT_EXECUTE_COMMANDS,
+				type		: WAPAMA.CONFIG.EVENT_EXECUTE_COMMANDS,
 				commands	: commands
 			});
 			
@@ -784,7 +784,7 @@ ORYX.Editor = {
 	},
 	
     /**
-     * Returns JSON of underlying canvas (calls ORYX.Canvas#toJSON()).
+     * Returns JSON of underlying canvas (calls WAPAMA.Canvas#toJSON()).
      * @return {Object} Returns JSON representation as JSON object.
      */
     getJSON: function(){
@@ -803,7 +803,7 @@ ORYX.Editor = {
 	
     /**
 	 * @return {String} Returns eRDF representation.
-	 * @deprecated Use ORYX.Editor#getJSON instead, if possible.
+	 * @deprecated Use WAPAMA.Editor#getJSON instead, if possible.
 	 */
 	getERDF:function(){
 
@@ -821,7 +821,7 @@ ORYX.Editor = {
 						'<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />' +
 						'<link rel="schema.dcTerms" href="http://purl.org/dc/terms/ " />' +
 						'<link rel="schema.b3mn" href="http://b3mn.org" />' +
-						'<link rel="schema.oryx" href="http://oryx-editor.org/" />' +
+						'<link rel="schema.wapama" href="http://www.wapama.net/" />' +
 						'<link rel="schema.raziel" href="http://raziel.org/" />' +
 						'<base href="' +
 						location.href.split("?")[0] +
@@ -834,7 +834,7 @@ ORYX.Editor = {
 	},
     
 	/**
-	* Imports shapes in JSON as expected by {@link ORYX.Editor#loadSerialized}
+	* Imports shapes in JSON as expected by {@link WAPAMA.Editor#loadSerialized}
 	* @param {Object|String} jsonObject The (serialized) json object to be imported
 	* @param {boolean } [noSelectionAfterImport=false] Set to true if no shapes should be selected after import
 	* @throws {SyntaxError} If the serialized json object contains syntax errors
@@ -849,14 +849,14 @@ ORYX.Editor = {
 		//check, if the imported json model can be loaded in this editor
 		// (stencil set has to fit)
         if (!jsonObject.stencilset) {
-        	Ext.Msg.alert(ORYX.I18N.JSONImport.title, ORYX.I18N.JSONImport.invalidJSON);
+        	Ext.Msg.alert(WAPAMA.I18N.JSONImport.title, WAPAMA.I18N.JSONImport.invalidJSON);
         	return null;
         }
 		if(jsonObject.stencilset.namespace && jsonObject.stencilset.namespace !== this.getCanvas().getStencil().stencilSet().namespace()) {
-			Ext.Msg.alert(ORYX.I18N.JSONImport.title, String.format(ORYX.I18N.JSONImport.wrongSS, jsonObject.stencilset.namespace, this.getCanvas().getStencil().stencilSet().namespace()));
+			Ext.Msg.alert(WAPAMA.I18N.JSONImport.title, String.format(WAPAMA.I18N.JSONImport.wrongSS, jsonObject.stencilset.namespace, this.getCanvas().getStencil().stencilSet().namespace()));
 			return null;
 		} else {
-			var commandClass = ORYX.Core.Command.extend({
+			var commandClass = WAPAMA.Core.Command.extend({
 			construct: function(jsonObject, loadSerializedCB, noSelectionAfterImport, facade){
 				this.jsonObject = jsonObject;
 				this.noSelection = noSelectionAfterImport;
@@ -976,7 +976,7 @@ ORYX.Editor = {
         
         // Replace each resource id by a new one
         resourceIds.each(function(oldResourceId){
-            var newResourceId = ORYX.Editor.provideId();
+            var newResourceId = WAPAMA.Editor.provideId();
             serJsonObject = serJsonObject.gsub('"'+oldResourceId+'"', '"'+newResourceId+'"')
         });
         
@@ -1008,7 +1008,7 @@ ORYX.Editor = {
 		if(oneProcessData.normalize) oneProcessData.normalize();
 		try {
 			var xsl = "";
-			var source=ORYX.PATH + "lib/extract-rdf.xsl";
+			var source=WAPAMA.PATH + "lib/extract-rdf.xsl";
 			new Ajax.Request(source, {
 				asynchronous: false,
 				method: 'get',
@@ -1016,7 +1016,7 @@ ORYX.Editor = {
 					xsl = transport.responseText
 				}.bind(this),
 				onFailure: (function(transport){
-					ORYX.Log.error("XSL load failed" + transport);
+					WAPAMA.Log.error("XSL load failed" + transport);
 				}).bind(this)
 			});
 			var domParser = new DOMParser();
@@ -1029,14 +1029,14 @@ ORYX.Editor = {
             var new_rdf = xsltProcessor.transformToFragment(xmlObject, document);
             var serialized_rdf = (new XMLSerializer()).serializeToString(new_rdf);
 			}catch(e){
-			Ext.Msg.alert("Oryx", error);
+			Ext.Msg.alert("Wapama", error);
 			var serialized_rdf = "";
 		}
             
             // Firefox 2 to 3 problem?!
             serialized_rdf = !serialized_rdf.startsWith("<?xml") ? "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized_rdf : serialized_rdf;
 
-        var req = new Ajax.Request(ORYX.CONFIG.ROOT_PATH+"rdf2json", {
+        var req = new Ajax.Request(WAPAMA.CONFIG.ROOT_PATH+"rdf2json", {
           method: 'POST',
           asynchronous: false,
           onSuccess: function(transport) {
@@ -1051,7 +1051,7 @@ ORYX.Editor = {
 	},
 
     /**
-     * Loads serialized model to the oryx.
+     * Loads serialized model to the wapama.
      * @example
      * editor.loadSerialized({
      *    resourceId: "mymodel1",
@@ -1070,7 +1070,7 @@ ORYX.Editor = {
      *       language: "English"
      *    },
      *    stencilset:{
-     *       url:"http://localhost:8080/oryx/stencilsets/bpmn1.1/bpmn1.1.json"
+     *       url:"http://localhost:8080/wapama/stencilsets/bpmn1.1/bpmn1.1.json"
      *    },
      *    stencil:{
      *       id:"BPMNDiagram"
@@ -1083,14 +1083,14 @@ ORYX.Editor = {
      * @param {Array} model.childShapes
      * @param {Array} [model.properties]
      * @param {String} model.resourceId
-     * @return {ORYX.Core.Shape[]} List of created shapes
-     * @methodOf ORYX.Editor.prototype
+     * @return {WAPAMA.Core.Shape[]} List of created shapes
+     * @methodOf WAPAMA.Editor.prototype
      */
     loadSerialized: function( model ){
         var canvas  = this.getCanvas();
       
         
-        // Bugfix (cf. http://code.google.com/p/oryx-editor/issues/detail?id=240)
+        // Bugfix (cf. http://code.google.com/p/wapama-editor/issues/detail?id=240)
         // Deserialize the canvas' stencil set extensions properties first!
         this.loadSSExtensions(model.ssextensions);
         var shapes = this.getCanvas().addShapeObjects(model.childShapes, this.handleEvents.bind(this));
@@ -1101,7 +1101,7 @@ ORYX.Editor = {
         		if (!(typeof prop === "string")) {
         			prop = Ext.encode(prop);
         		}
-            	this.getCanvas().setProperty("oryx-" + key, prop);
+            	this.getCanvas().setProperty("wapama-" + key, prop);
             }
         }
         
@@ -1111,7 +1111,7 @@ ORYX.Editor = {
     },
     
     /**
-     * Calls ORYX.Editor.prototype.ss_extension_namespace for each element
+     * Calls WAPAMA.Editor.prototype.ss_extension_namespace for each element
      * @param {Array} ss_extension_namespaces An array of stencil set extension namespaces.
      */
     loadSSExtensions: function(ss_extension_namespaces){
@@ -1138,20 +1138,20 @@ ORYX.Editor = {
     		return;
     	}
     	stencilset.addExtension(extension);
-    	//stencilset.addExtension("/oryx/build/stencilsets/extensions/" + extension["definition"])
+    	//stencilset.addExtension("/wapama/build/stencilsets/extensions/" + extension["definition"])
     	this.getRules().initializeRules(stencilset);
 
     	this._getPluginFacade().raiseEvent({
-    		type: ORYX.CONFIG.EVENT_STENCIL_SET_LOADED
+    		type: WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED
     	});
 		
 	},
 
 	disableEvent: function(eventType){
-		if(eventType == ORYX.CONFIG.EVENT_KEYDOWN) {
+		if(eventType == WAPAMA.CONFIG.EVENT_KEYDOWN) {
 			this._keydownEnabled = false;
 		}
-		if(eventType == ORYX.CONFIG.EVENT_KEYUP) {
+		if(eventType == WAPAMA.CONFIG.EVENT_KEYUP) {
 			this._keyupEnabled = false;
 		}
 		if(this.DOMEventListeners.keys().member(eventType)) {
@@ -1161,11 +1161,11 @@ ORYX.Editor = {
 	},
 
 	enableEvent: function(eventType){
-		if(eventType == ORYX.CONFIG.EVENT_KEYDOWN) {
+		if(eventType == WAPAMA.CONFIG.EVENT_KEYDOWN) {
 			this._keydownEnabled = true;
 		}
 		
-		if(eventType == ORYX.CONFIG.EVENT_KEYUP) {
+		if(eventType == WAPAMA.CONFIG.EVENT_KEYUP) {
 			this._keyupEnabled = true;
 		}
 		
@@ -1200,19 +1200,19 @@ ORYX.Editor = {
 	},
 
 	getStencilSets: function() { 
-		return ORYX.Core.StencilSet.stencilSets(this.id); 
+		return WAPAMA.Core.StencilSet.stencilSets(this.id); 
 	},
 	
 	getRules: function() {
-		return ORYX.Core.StencilSet.rules(this.id);
+		return WAPAMA.Core.StencilSet.rules(this.id);
 	},
 	
 	loadStencilSet: function(source) {
 		try {
-			ORYX.Core.StencilSet.loadStencilSet(this, source, this.id);
-			this.handleEvents({type:ORYX.CONFIG.EVENT_STENCIL_SET_LOADED});
+			WAPAMA.Core.StencilSet.loadStencilSet(this, source, this.id);
+			this.handleEvents({type:WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED});
 		} catch (e) {
-			ORYX.Log.warn("Requesting stencil set file failed. (" + e + ")");
+			WAPAMA.Log.warn("Requesting stencil set file failed. (" + e + ")");
 		}
 	},
 
@@ -1244,20 +1244,20 @@ ORYX.Editor = {
 					if(keyComb.metaKeys) {
 						/* Register on ctrl or apple meta key as meta key */
 						if(keyComb.metaKeys.
-							indexOf(ORYX.CONFIG.META_KEY_META_CTRL) > -1) {
-								eventName += "." + ORYX.CONFIG.META_KEY_META_CTRL;
+							indexOf(WAPAMA.CONFIG.META_KEY_META_CTRL) > -1) {
+								eventName += "." + WAPAMA.CONFIG.META_KEY_META_CTRL;
 						}
 							
 						/* Register on alt key as meta key */
 						if(keyComb.metaKeys.
-							indexOf(ORYX.CONFIG.META_KEY_ALT) > -1) {
-								eventName += '.' + ORYX.CONFIG.META_KEY_ALT;
+							indexOf(WAPAMA.CONFIG.META_KEY_ALT) > -1) {
+								eventName += '.' + WAPAMA.CONFIG.META_KEY_ALT;
 						}
 						
 						/* Register on shift key as meta key */
 						if(keyComb.metaKeys.
-							indexOf(ORYX.CONFIG.META_KEY_SHIFT) > -1) {
-								eventName += '.' + ORYX.CONFIG.META_KEY_SHIFT;
+							indexOf(WAPAMA.CONFIG.META_KEY_SHIFT) > -1) {
+								eventName += '.' + WAPAMA.CONFIG.META_KEY_SHIFT;
 						}		
 					}
 					
@@ -1267,7 +1267,7 @@ ORYX.Editor = {
 					}
 					
 					/* Register the event */
-					ORYX.Log.debug("Register Plugin on Key Event: %0", eventName);
+					WAPAMA.Log.debug("Register Plugin on Key Event: %0", eventName);
 					this.registerOnEvent(eventName,pluginData.functionality);
 				
 				}.bind(this));
@@ -1279,9 +1279,9 @@ ORYX.Editor = {
 		
 		if (!elements) { elements = [] }
 		
-		elements = elements.compact().findAll(function(n){ return n instanceof ORYX.Core.Shape });
+		elements = elements.compact().findAll(function(n){ return n instanceof WAPAMA.Core.Shape });
 		
-		if (elements.first() instanceof ORYX.Core.Canvas) {
+		if (elements.first() instanceof WAPAMA.Core.Canvas) {
 			elements = [];
 		}
 		
@@ -1292,7 +1292,7 @@ ORYX.Editor = {
 		this.selection = elements;
 		this._subSelection = subSelectionElement;
 		
-		this.handleEvents({type:ORYX.CONFIG.EVENT_SELECTION_CHANGED, elements:elements, subSelection: subSelectionElement})
+		this.handleEvents({type:WAPAMA.CONFIG.EVENT_SELECTION_CHANGED, elements:elements, subSelection: subSelectionElement})
 	},
 	
 	updateSelection: function() {
@@ -1315,7 +1315,7 @@ ORYX.Editor = {
 	*		connectedShape: uiObj
 	*		draggin: bool
 	*		namespace: url
-	*       parent: ORYX.Core.AbstractShape
+	*       parent: WAPAMA.Core.AbstractShape
 	*		template: a template shape that the newly created inherits properties from.
 	*		}
 	*/
@@ -1323,13 +1323,13 @@ ORYX.Editor = {
 
 		if(option && option.serialize && option.serialize instanceof Array){
 		
-			var type = option.serialize.find(function(obj){return (obj.prefix+"-"+obj.name) == "oryx-type"});
-			var stencil = ORYX.Core.StencilSet.stencil(type.value);
+			var type = option.serialize.find(function(obj){return (obj.prefix+"-"+obj.name) == "wapama-type"});
+			var stencil = WAPAMA.Core.StencilSet.stencil(type.value);
 		
 			if(stencil.type() == 'node'){
-				var newShapeObject = new ORYX.Core.Node({'eventHandlerCallback':this.handleEvents.bind(this)}, stencil);	
+				var newShapeObject = new WAPAMA.Core.Node({'eventHandlerCallback':this.handleEvents.bind(this)}, stencil);	
 			} else {
-				var newShapeObject = new ORYX.Core.Edge({'eventHandlerCallback':this.handleEvents.bind(this)}, stencil);	
+				var newShapeObject = new WAPAMA.Core.Edge({'eventHandlerCallback':this.handleEvents.bind(this)}, stencil);	
 			}
 		
 			this.getCanvas().add(newShapeObject);
@@ -1348,13 +1348,13 @@ ORYX.Editor = {
 		var shapetype = option.type;
 
 		// Get the stencil set
-		var sset = ORYX.Core.StencilSet.stencilSet(option.namespace);
+		var sset = WAPAMA.Core.StencilSet.stencilSet(option.namespace);
 
 		// Create an New Shape, dependents on an Edge or a Node
 		if(sset.stencil(shapetype).type() == "node") {
-			newShapeObject = new ORYX.Core.Node({'eventHandlerCallback':this.handleEvents.bind(this)}, sset.stencil(shapetype))
+			newShapeObject = new WAPAMA.Core.Node({'eventHandlerCallback':this.handleEvents.bind(this)}, sset.stencil(shapetype))
 		} else {
-			newShapeObject = new ORYX.Core.Edge({'eventHandlerCallback':this.handleEvents.bind(this)}, sset.stencil(shapetype))
+			newShapeObject = new WAPAMA.Core.Edge({'eventHandlerCallback':this.handleEvents.bind(this)}, sset.stencil(shapetype))
 		}
 		
 		// when there is a template, inherit the properties.
@@ -1365,7 +1365,7 @@ ORYX.Editor = {
 		}
 
 		// Add to the canvas
-		if(option.parent && newShapeObject instanceof ORYX.Core.Node) {
+		if(option.parent && newShapeObject instanceof WAPAMA.Core.Node) {
 			// make the raw SVG of the node invisible before it's updated
 			// to avoid the abnormal display when drag a shape into the canvas in Firefox
 			newShapeObject.setVisible(false);
@@ -1381,10 +1381,10 @@ ORYX.Editor = {
 		
 		var con;
 		// If there is create a shape and in the argument there is given an ConnectingType and is instance of an edge
-		if(option.connectingType && option.connectedShape && !(newShapeObject instanceof ORYX.Core.Edge)) {
+		if(option.connectingType && option.connectedShape && !(newShapeObject instanceof WAPAMA.Core.Edge)) {
 
 			// there will be create a new Edge
-			con = new ORYX.Core.Edge({'eventHandlerCallback':this.handleEvents.bind(this)}, sset.stencil(option.connectingType));
+			con = new WAPAMA.Core.Edge({'eventHandlerCallback':this.handleEvents.bind(this)}, sset.stencil(option.connectingType));
 			
 			// And both endings dockers will be referenced to the both shapes
 			con.dockers.first().setDockedShape(option.connectedShape);
@@ -1402,11 +1402,11 @@ ORYX.Editor = {
 		} 
 		
 		// Move the new Shape to the position
-		if(newShapeObject instanceof ORYX.Core.Edge && option.connectedShape) {
+		if(newShapeObject instanceof WAPAMA.Core.Edge && option.connectedShape) {
 
 			newShapeObject.dockers.first().setDockedShape(option.connectedShape);
 			
-			if( option.connectedShape instanceof ORYX.Core.Node ){
+			if( option.connectedShape instanceof WAPAMA.Core.Node ){
 				newShapeObject.dockers.first().setReferencePoint(option.connectedShape.getDefaultMagnet().bounds.center());					
 				newShapeObject.dockers.last().bounds.centerMoveTo(point);			
 			} else {
@@ -1416,7 +1416,7 @@ ORYX.Editor = {
 		} else {
 			
 			var b = newShapeObject.bounds
-			if( newShapeObject instanceof ORYX.Core.Node && newShapeObject.dockers.length == 1){
+			if( newShapeObject instanceof WAPAMA.Core.Node && newShapeObject.dockers.length == 1){
 				b = newShapeObject.dockers.first().bounds
 			}
 			
@@ -1431,12 +1431,12 @@ ORYX.Editor = {
 		}
 		
 		// Update the shape
-		if (newShapeObject instanceof ORYX.Core.Edge) {
+		if (newShapeObject instanceof WAPAMA.Core.Edge) {
 			newShapeObject._update(false);
 		}
 		
 		// And refresh the selection
-		if(!(newShapeObject instanceof ORYX.Core.Edge)) {
+		if(!(newShapeObject instanceof WAPAMA.Core.Edge)) {
 			this.setSelection([newShapeObject]);
 		}
 		
@@ -1522,22 +1522,22 @@ ORYX.Editor = {
 	 */
 	handleEvents: function(event, uiObj) {
 		
-		ORYX.Log.trace("Dispatching event type %0 on %1", event.type, uiObj);
+		WAPAMA.Log.trace("Dispatching event type %0 on %1", event.type, uiObj);
 
 		switch(event.type) {
-			case ORYX.CONFIG.EVENT_MOUSEDOWN:
+			case WAPAMA.CONFIG.EVENT_MOUSEDOWN:
 				this._handleMouseDown(event, uiObj);
 				break;
-			case ORYX.CONFIG.EVENT_MOUSEMOVE:
+			case WAPAMA.CONFIG.EVENT_MOUSEMOVE:
 				this._handleMouseMove(event, uiObj);
 				break;
-			case ORYX.CONFIG.EVENT_MOUSEUP:
+			case WAPAMA.CONFIG.EVENT_MOUSEUP:
 				this._handleMouseUp(event, uiObj);
 				break;
-			case ORYX.CONFIG.EVENT_MOUSEOVER:
+			case WAPAMA.CONFIG.EVENT_MOUSEOVER:
 				this._handleMouseHover(event, uiObj);
 				break;
-			case ORYX.CONFIG.EVENT_MOUSEOUT:
+			case WAPAMA.CONFIG.EVENT_MOUSEOUT:
 				this._handleMouseOut(event, uiObj);
 				break;
 		}
@@ -1571,9 +1571,9 @@ ORYX.Editor = {
 		}
 		
 		/* Create key up event type */
-		var keyUpEvent = this.createKeyCombEvent(event,	ORYX.CONFIG.KEY_ACTION_UP);
+		var keyUpEvent = this.createKeyCombEvent(event,	WAPAMA.CONFIG.KEY_ACTION_UP);
 		
-		ORYX.Log.debug("Key Event to handle: %0", keyUpEvent);
+		WAPAMA.Log.debug("Key Event to handle: %0", keyUpEvent);
 
 		/* forward to dispatching. */
 		this.handleEvents({type: keyUpEvent, event:event});
@@ -1598,10 +1598,10 @@ ORYX.Editor = {
 		// This is a mac-specific fix. The mozilla event object has no knowledge
 		// of meta key modifier on osx, however, it is needed for certain
 		// shortcuts. This fix adds the metaKey field to the event object, so
-		// that all listeners that registered per Oryx plugin facade profit from
+		// that all listeners that registered per Wapama plugin facade profit from
 		// this. The original bug is filed in
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=418334
-		//if (this.__currentKey == ORYX.CONFIG.KEY_CODE_META) {
+		//if (this.__currentKey == WAPAMA.CONFIG.KEY_CODE_META) {
 		//	event.appleMetaKey = true;
 		//}
 		//this.__currentKey = pressedKey;
@@ -1612,9 +1612,9 @@ ORYX.Editor = {
 		}
 		
 		/* Create key up event type */
-		var keyDownEvent = this.createKeyCombEvent(event, ORYX.CONFIG.KEY_ACTION_DOWN);
+		var keyDownEvent = this.createKeyCombEvent(event, WAPAMA.CONFIG.KEY_ACTION_DOWN);
 		
-		ORYX.Log.debug("Key Event to handle: %0", keyDownEvent);
+		WAPAMA.Log.debug("Key Event to handle: %0", keyDownEvent);
 		
 		/* Forward to dispatching. */
 		this.handleEvents({type: keyDownEvent,event: event});
@@ -1642,17 +1642,17 @@ ORYX.Editor = {
 		
 		/* Ctrl or apple meta key is pressed */
 		if(keyEvent.ctrlKey || keyEvent.metaKey) {
-			eventName += "." + ORYX.CONFIG.META_KEY_META_CTRL;
+			eventName += "." + WAPAMA.CONFIG.META_KEY_META_CTRL;
 		}
 		
 		/* Alt key is pressed */
 		if(keyEvent.altKey) {
-			eventName += "." + ORYX.CONFIG.META_KEY_ALT;
+			eventName += "." + WAPAMA.CONFIG.META_KEY_ALT;
 		}
 		
 		/* Alt key is pressed */
 		if(keyEvent.shiftKey) {
-			eventName += "." + ORYX.CONFIG.META_KEY_SHIFT;
+			eventName += "." + WAPAMA.CONFIG.META_KEY_SHIFT;
 		}
 		
 		/* Return the composed event name */
@@ -1685,7 +1685,7 @@ ORYX.Editor = {
 
 			this.setSelection([elementController]);
 
-			ORYX.Log.trace("Rule #1 applied for mouse down on %0", element.id);
+			WAPAMA.Log.trace("Rule #1 applied for mouse down on %0", element.id);
 
 		// Rule #3: When at least one element is selected, and there is no
 		// control key pressed, and the clicked object is not selected, select
@@ -1698,7 +1698,7 @@ ORYX.Editor = {
 			//var objectType = elementController.readAttributes();
 			//alert(objectType[0] + ": " + objectType[1]);
 
-			ORYX.Log.trace("Rule #3 applied for mouse down on %0", element.id);
+			WAPAMA.Log.trace("Rule #3 applied for mouse down on %0", element.id);
 
 		// Rule #4: When the control key is pressed, and the current object is
 		// not selected, add it to the selection.
@@ -1709,7 +1709,7 @@ ORYX.Editor = {
 			newSelection.push(elementController)
 			this.setSelection(newSelection)
 
-			ORYX.Log.trace("Rule #4 applied for mouse down on %0", element.id);
+			WAPAMA.Log.trace("Rule #4 applied for mouse down on %0", element.id);
 
 		// Rule #6
 		} else if(currentIsSelectable && currentIsSelected &&
@@ -1718,7 +1718,7 @@ ORYX.Editor = {
 			var newSelection = this.selection.clone();
 			this.setSelection(newSelection.without(elementController))
 
-			ORYX.Log.trace("Rule #6 applied for mouse down on %0", elementController.id);
+			WAPAMA.Log.trace("Rule #6 applied for mouse down on %0", elementController.id);
 
 		// Rule #5: When there is at least one object selected and no control
 		// key pressed, we're dragging.
@@ -1734,7 +1734,7 @@ ORYX.Editor = {
 			
 			this.setSelection([]);
 			
-			ORYX.Log.trace("Rule #2 applied for mouse down on %0", element.id);
+			WAPAMA.Log.trace("Rule #2 applied for mouse down on %0", element.id);
 
 			return;
 
@@ -1742,12 +1742,12 @@ ORYX.Editor = {
 		// it is probably a control. Leave the selection unchanged but set
 		// the movedObject to the current one and enable Drag. Dockers will
 		// be processed in the dragDocker plugin.
-		} else if(!currentIsSelectable && currentIsMovable && !(elementController instanceof ORYX.Core.Controls.Docker)) {
+		} else if(!currentIsSelectable && currentIsMovable && !(elementController instanceof WAPAMA.Core.Controls.Docker)) {
 			
 			// TODO: If there is any moveable elements, do this in a plugin
-			//ORYX.Core.UIEnableDrag(event, elementController);
+			//WAPAMA.Core.UIEnableDrag(event, elementController);
 
-			ORYX.Log.trace("Rule #7 applied for mouse down on %0", element.id);
+			WAPAMA.Log.trace("Rule #7 applied for mouse down on %0", element.id);
 		
 		// Rule #8: When the element is selectable and is currently selected and no 
 		// modifier key is pressed
@@ -1758,7 +1758,7 @@ ORYX.Editor = {
 						
 			this.setSelection(this.selection, this._subSelection);
 			
-			ORYX.Log.trace("Rule #8 applied for mouse down on %0", element.id);
+			WAPAMA.Log.trace("Rule #8 applied for mouse down on %0", element.id);
 		}
 		
 		
@@ -1808,14 +1808,14 @@ ORYX.Editor = {
 		return svgPoint.matrixTransform(matrix.inverse());
 	}
 };
-ORYX.Editor = Clazz.extend(ORYX.Editor);
+WAPAMA.Editor = Clazz.extend(WAPAMA.Editor);
 
 /**
- * Creates a new ORYX.Editor instance by fetching a model from given url and passing it to the constructur
+ * Creates a new WAPAMA.Editor instance by fetching a model from given url and passing it to the constructur
  * @param {String} modelUrl The JSON URL of a model.
  * @param {Object} config Editor config passed to the constructur, merged with the response of the request to modelUrl
  */
-ORYX.Editor.createByUrl = function(modelUrl, config){
+WAPAMA.Editor.createByUrl = function(modelUrl, config){
     if(!config) config = {};
     
     new Ajax.Request(modelUrl, {
@@ -1823,7 +1823,7 @@ ORYX.Editor.createByUrl = function(modelUrl, config){
       onSuccess: function(transport) {
         var editorConfig = Ext.decode(transport.responseText);
         editorConfig = Ext.applyIf(editorConfig, config);
-        new ORYX.Editor(editorConfig);
+        new WAPAMA.Editor(editorConfig);
       
         if ("function" == typeof(config.onSuccess)) {
 		  	config.onSuccess(transport);
@@ -1855,7 +1855,7 @@ ORYX.Editor.createByUrl = function(modelUrl, config){
  * @param {Object} t the crafting structure.
  * @param {Object} doc the document in which grafting is performed.
  */
-ORYX.Editor.graft = function(namespace, parent, t, doc) {
+WAPAMA.Editor.graft = function(namespace, parent, t, doc) {
 
     doc = (doc || (parent && parent.ownerDocument) || document);
     var e;
@@ -1906,7 +1906,7 @@ ORYX.Editor.graft = function(namespace, parent, t, doc) {
     return e; // return the topmost created node
 };
 
-ORYX.Editor.provideId = function() {
+WAPAMA.Editor.provideId = function() {
 	var res = [], hex = '0123456789ABCDEF';
 
 	for (var i = 0; i < 36; i++) res[i] = Math.floor(Math.random()*0x10);
@@ -1927,17 +1927,17 @@ ORYX.Editor.provideId = function() {
  * resizeBugFix calls are ignored until the initially requested resize is
  * performed.
  */
-ORYX.Editor.resizeFix = function() {
-	if (!ORYX.Editor._resizeFixTimeout) {
-		ORYX.Editor._resizeFixTimeout = window.setTimeout(function() {
+WAPAMA.Editor.resizeFix = function() {
+	if (!WAPAMA.Editor._resizeFixTimeout) {
+		WAPAMA.Editor._resizeFixTimeout = window.setTimeout(function() {
 			window.resizeBy(1,1);
 			window.resizeBy(-1,-1);
-			ORYX.Editor._resizefixTimeout = null;
+			WAPAMA.Editor._resizefixTimeout = null;
 		}, 100); 
 	}
 };
 
-ORYX.Editor.Cookie = {
+WAPAMA.Editor.Cookie = {
 	
 	callbacks:[],
 		
@@ -1994,13 +1994,13 @@ ORYX.Editor.Cookie = {
  * raising an error
  * 
  */
-ORYX.Editor.SVGClassElementsAreAvailable = true;
-ORYX.Editor.setMissingClasses = function() {
+WAPAMA.Editor.SVGClassElementsAreAvailable = true;
+WAPAMA.Editor.setMissingClasses = function() {
 	
 	try {
 		SVGElement;
 	} catch(e) {
-		ORYX.Editor.SVGClassElementsAreAvailable = false;
+		WAPAMA.Editor.SVGClassElementsAreAvailable = false;
 		SVGSVGElement 		= document.createElementNS('http://www.w3.org/2000/svg', 'svg').toString();
 		SVGGElement 		= document.createElementNS('http://www.w3.org/2000/svg', 'g').toString();
 		SVGPathElement 		= document.createElementNS('http://www.w3.org/2000/svg', 'path').toString();
@@ -2017,15 +2017,15 @@ ORYX.Editor.setMissingClasses = function() {
 	}
 	
 }
-ORYX.Editor.checkClassType = function( classInst, classType ) {
+WAPAMA.Editor.checkClassType = function( classInst, classType ) {
 	
-	if( ORYX.Editor.SVGClassElementsAreAvailable ){
+	if( WAPAMA.Editor.SVGClassElementsAreAvailable ){
 		return classInst instanceof classType
 	} else {
 		return classInst == classType
 	}
 };
-ORYX.Editor.makeExtModalWindowKeysave = function(facade) {
+WAPAMA.Editor.makeExtModalWindowKeysave = function(facade) {
 	Ext.override(Ext.Window,{
 		beforeShow : function(){
 			delete this.el.lastXY;
@@ -2043,7 +2043,7 @@ ORYX.Editor.makeExtModalWindowKeysave = function(facade) {
 			}
 	
 			if(this.modal){
-				facade.disableEvent(ORYX.CONFIG.EVENT_KEYDOWN);
+				facade.disableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
 				Ext.getBody().addClass("x-body-masked");
 				this.mask.setSize(Ext.lib.Dom.getViewWidth(true), Ext.lib.Dom.getViewHeight(true));
 				this.mask.show();
@@ -2056,7 +2056,7 @@ ORYX.Editor.makeExtModalWindowKeysave = function(facade) {
 	        }
 	        if(this.modal){
 	            this.mask.hide();
-	            facade.enableEvent(ORYX.CONFIG.EVENT_KEYDOWN);
+	            facade.enableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
 	            Ext.getBody().removeClass("x-body-masked");
 	        }
 	        if(this.keyMap){
@@ -2066,7 +2066,7 @@ ORYX.Editor.makeExtModalWindowKeysave = function(facade) {
 	    },
 	    beforeDestroy : function(){
 	    	if(this.modal)
-	    		facade.enableEvent(ORYX.CONFIG.EVENT_KEYDOWN);
+	    		facade.enableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
 	        Ext.destroy(
 	            this.resizer,
 	            this.dd,

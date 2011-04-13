@@ -21,12 +21,12 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if (!ORYX) 
-	ORYX = new Object();
-if (!ORYX.Plugins) 
-	ORYX.Plugins = new Object();
+if (!WAPAMA) 
+	WAPAMA = new Object();
+if (!WAPAMA.Plugins) 
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.BpmnLayouter = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.BpmnLayouter = WAPAMA.Plugins.AbstractPlugin.extend({
 	facade: undefined,
 	construct: function(facade){
 		this.facade = facade;
@@ -35,7 +35,7 @@ ORYX.Plugins.BpmnLayouter = ORYX.Plugins.AbstractPlugin.extend({
 			'description' : "Layout BPMN Model",
 			'functionality' : this.layout.bind(this),
 			'group' : "Layout",
-			'icon' : ORYX.PATH + "images/auto_layout.png",
+			'icon' : WAPAMA.PATH + "images/auto_layout.png",
 			'index' : 1,
 			'minShape' : 0,
 			'maxShape' : 0
@@ -44,12 +44,12 @@ ORYX.Plugins.BpmnLayouter = ORYX.Plugins.AbstractPlugin.extend({
 	layout: function(){
 		
 		this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE,
-			text: ORYX.I18N.Layouting.doing
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE,
+			text: WAPAMA.I18N.Layouting.doing
         });
 		
 		
-		new Ajax.Request(ORYX.CONFIG.BPMN_LAYOUTER, {
+		new Ajax.Request(WAPAMA.CONFIG.BPMN_LAYOUTER, {
 			method : 'POST',
 			asynchronous : false,
 			parameters : {
@@ -58,13 +58,13 @@ ORYX.Plugins.BpmnLayouter = ORYX.Plugins.AbstractPlugin.extend({
 			},
 			onFailure: function(request){
 				Ext.Msg.alert("Layouting Error", "Error while layouting:!\n" + request.responseText);
-            	this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+            	this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 			},
 			onSuccess: function(request){
 
-				/*Ext.Msg.alert("Oryx", "New Layout arrived:!\n" + request.responseText);*/
+				/*Ext.Msg.alert("Wapama", "New Layout arrived:!\n" + request.responseText);*/
 				
-				var setLayoutCommandClass = ORYX.Core.Command.extend({
+				var setLayoutCommandClass = WAPAMA.Core.Command.extend({
 					construct: function(layoutArray, plugin){
 						this.layoutArray = layoutArray;
 						this.plugin = plugin;
@@ -118,7 +118,7 @@ ORYX.Plugins.BpmnLayouter = ORYX.Plugins.AbstractPlugin.extend({
 					/* execute command */
 					this.facade.executeCommands([command]);
 				}
-            	this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+            	this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 			}.bind(this)
 		})
 	},
@@ -129,7 +129,7 @@ ORYX.Plugins.BpmnLayouter = ORYX.Plugins.AbstractPlugin.extend({
 		});
 		dockersString += " # ";
 		shape.deserialize([{
-								prefix: 'oryx',
+								prefix: 'wapama',
 								name: 'dockers',
 								value: dockersString
 							}]);

@@ -19,10 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
+WAPAMA.Plugins.ResourcesSoDShow = Clazz.extend({
 
     facade: undefined,
     
@@ -35,12 +35,12 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 		this.raisedHighlightEventIds = [];
 		
         this.facade.offer({
-            'name': ORYX.I18N.ResourcesSoDShow.name,
+            'name': WAPAMA.I18N.ResourcesSoDShow.name,
             'functionality': this.showSoD.bind(this),
-            'group': ORYX.I18N.ResourcesSoDShow.group,
-			'dropDownGroupIcon': ORYX.PATH + "images/sod.png",
-            'icon': ORYX.PATH + "images/sod_view.png",
-            'description': ORYX.I18N.ResourcesSoDShow.desc,
+            'group': WAPAMA.I18N.ResourcesSoDShow.group,
+			'dropDownGroupIcon': WAPAMA.PATH + "images/sod.png",
+            'icon': WAPAMA.PATH + "images/sod_view.png",
+            'description': WAPAMA.I18N.ResourcesSoDShow.desc,
             'index': 2,
             'toggle': true,
             'minShape': 1,
@@ -52,7 +52,7 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 	showSoD: function(){
 		this.removeHighlightsAndOverlays();
 		var selectedElements = this.facade.getSelection();
- 		if(selectedElements[0].properties["oryx-activitytype"] == "Task") {
+ 		if(selectedElements[0].properties["wapama-activitytype"] == "Task") {
 			this.highlightSelectedTask(selectedElements[0]);
 			this.prepareOverlays(selectedElements[0]);
 		} else {
@@ -61,23 +61,23 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 	},
 	
 	highlightSelectedTask: function(task){ //edge marking of selected/ given task
-		if(!(task instanceof ORYX.Core.Shape)) return;
+		if(!(task instanceof WAPAMA.Core.Shape)) return;
 		this.facade.raiseEvent({
-			type:			ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW, 
-			highlightId:	task.properties["oryx-id"],
+			type:			WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW, 
+			highlightId:	task.properties["wapama-id"],
 			elements:		[task],
 			color:			'#FF0000'
 		});
-		this.raisedHighlightEventIds.push(task.properties["oryx-id"]);
+		this.raisedHighlightEventIds.push(task.properties["wapama-id"]);
 	},
 	
 	showOverlaysForSeparations: function(task, elementId) { //colour given task red
-		if(!(task instanceof ORYX.Core.Shape)) return;
+		if(!(task instanceof WAPAMA.Core.Shape)) return;
 		//colour element
 		var attr = {fill: "#FF0000", stroke:"white", "stroke-width": 1};
 		this.facade.raiseEvent({
-			type: 			ORYX.CONFIG.EVENT_OVERLAY_SHOW,
-			id: 			task.properties["oryx-id"],
+			type: 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
+			id: 			task.properties["wapama-id"],
 			shapes: 		[task],
 			attributes: 	attr
 		});
@@ -89,7 +89,7 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 		var cx; //x coordinate for circle center
 		var cy; //y coordinate for circle center
 		for(index = 0; index < this.raisedOverlayEventIds.length; index++) {
-			if (task.properties["oryx-id"] == this.raisedOverlayEventIds[index]) {
+			if (task.properties["wapama-id"] == this.raisedOverlayEventIds[index]) {
 				appearanceCounter++;
 			} 
 		}
@@ -142,7 +142,7 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 						cx = -13;
 						cy = 0;
 						break;
-			case 8: 	alert("There exist more Separation of Duties constraints for task " + task.properties["oryx-id"] + ", but they will not be illustrated by a number in that task's rectangle.");
+			case 8: 	alert("There exist more Separation of Duties constraints for task " + task.properties["wapama-id"] + ", but they will not be illustrated by a number in that task's rectangle.");
 						break;
 			default:	break;
 		}
@@ -151,34 +151,34 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 		}
 		if(appearanceCounter < 8) { //skip number representation, if task occurs too often
 			//create circle of marker
-			var circle = ORYX.Editor.graft("http://www.w3.org/2000/svg", null, 
+			var circle = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, 
 				['circle', {"cx":cx, "cy":cy, "r":"10", "stroke":"white", "fill":"white", "stroke-width":"2"}]
 			);
 			this.facade.raiseEvent({
-				type: 			ORYX.CONFIG.EVENT_OVERLAY_SHOW,
-				id: 			task.properties["oryx-id"],
+				type: 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
+				id: 			task.properties["wapama-id"],
 				shapes: 		[task],
 				node:			circle,
 				nodePosition:	nodePosition
 			});
 			//create text/ number of marker
-			var text = ORYX.Editor.graft("http://www.w3.org/2000/svg", null, 
+			var text = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, 
 				['text', {"x":x, "y":y, "style": "font-size: 12px;"}, elementId]
 			);
 			this.facade.raiseEvent({
-				type: 			ORYX.CONFIG.EVENT_OVERLAY_SHOW,
-				id: 			task.properties["oryx-id"],
+				type: 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
+				id: 			task.properties["wapama-id"],
 				shapes: 		[task],
 				node:			text,
 				nodePosition:	nodePosition
 			});
 		}
-		this.raisedOverlayEventIds.push(task.properties["oryx-id"]);
+		this.raisedOverlayEventIds.push(task.properties["wapama-id"]);
 	},
 	
 	prepareOverlays: function(task) { //identify tasks to be coloured as a constraint exist with given and initiate colouring
-		if(task.properties["oryx-separationofduties"] != "") {
-			var jsonObject = task.properties["oryx-separationofduties"].evalJSON();
+		if(task.properties["wapama-separationofduties"] != "") {
+			var jsonObject = task.properties["wapama-separationofduties"].evalJSON();
 			var items = jsonObject.items.toArray();
 			var overlayTask;
 			for(var index = 0; index < items.length; index++) {
@@ -204,8 +204,8 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 		var i = 0;
 		//get all tasks of canvas
 		for (var index = 0; index < allShapes.length; index++) {
-    		if (allShapes[index].properties["oryx-activitytype"] == "Task") {
-				allShapeIds[i] = allShapes[index].properties["oryx-id"];
+    		if (allShapes[index].properties["wapama-activitytype"] == "Task") {
+				allShapeIds[i] = allShapes[index].properties["wapama-id"];
 				i++;
 			}
     	}
@@ -213,7 +213,7 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 		//remove highlights
 		allShapeIds.each(function(id){
 			this.facade.raiseEvent({
-					type: 	ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+					type: 	WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 					highlightId: 	id
 				});
 		}.bind(this))
@@ -222,7 +222,7 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 		//remove overlays 
 		allShapeIds.each(function(id){
 			this.facade.raiseEvent({
-					type: 	ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+					type: 	WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 					id: 	id
 				});
 		}.bind(this))
@@ -233,8 +233,8 @@ ORYX.Plugins.ResourcesSoDShow = Clazz.extend({
 		var shapes = this.facade.getCanvas().getChildShapes(true);
 		var task;
 		for (var index = 0; index < shapes.length; index++) {
-    		if (shapes[index].properties["oryx-activitytype"] == "Task") {
-				if (shapes[index].properties["oryx-id"] == taskId) {
+    		if (shapes[index].properties["wapama-activitytype"] == "Task") {
+				if (shapes[index].properties["wapama-id"] == taskId) {
 					task = shapes[index];
 					break;
 				}

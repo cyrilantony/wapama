@@ -1,7 +1,7 @@
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.PluginLoader = Clazz.extend({
+WAPAMA.Plugins.PluginLoader = Clazz.extend({
 	
     facade: undefined,
 	mask: undefined,
@@ -11,17 +11,17 @@ ORYX.Plugins.PluginLoader = Clazz.extend({
 		this.facade = facade;
 		
 		this.facade.offer({
-			'name': ORYX.I18N.PluginLoad.AddPluginButtonName,
+			'name': WAPAMA.I18N.PluginLoad.AddPluginButtonName,
 			'functionality': this.showManageDialog.bind(this),
-			'group': ORYX.I18N.SSExtensionLoader.group,
-			'icon': ORYX.PATH + "images/labs/script_add.png",
-			'description': ORYX.I18N.PluginLoad.AddPluginButtonDesc,
+			'group': WAPAMA.I18N.SSExtensionLoader.group,
+			'icon': WAPAMA.PATH + "images/labs/script_add.png",
+			'description': WAPAMA.I18N.PluginLoad.AddPluginButtonDesc,
 			'index': 8,
 			'minShape': 0,
 			'maxShape': 0
 		});},
 	showManageDialog: function(){
-			this.mask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.Oryx.pleaseWait});
+			this.mask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.Wapama.pleaseWait});
 			this.mask.show();
 	var data=[];
 	//(var plugins=this.facade.getAvailablePlugins();
@@ -48,7 +48,7 @@ ORYX.Plugins.PluginLoader = Clazz.extend({
 		var sm = new Ext.grid.CheckboxSelectionModel({
 			listeners:{
 			beforerowselect: function(sm,nbr,exist,rec){
-			this.mask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.Oryx.pleaseWait});
+			this.mask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.Wapama.pleaseWait});
 			this.mask.show();
 				this.facade.activatePluginByName(rec.data.name, 
 						function(sucess,err){
@@ -60,8 +60,8 @@ ORYX.Plugins.PluginLoader = Clazz.extend({
 								sm.resumeEvents();
 							}else{
 								Ext.Msg.show({
-		   							   title: ORYX.I18N.PluginLoad.loadErrorTitle,
-									   msg: ORYX.I18N.PluginLoad.loadErrorDesc + ORYX.I18N.PluginLoad[err],
+		   							   title: WAPAMA.I18N.PluginLoad.loadErrorTitle,
+									   msg: WAPAMA.I18N.PluginLoad.loadErrorDesc + WAPAMA.I18N.PluginLoad[err],
 									   buttons: Ext.MessageBox.OK
 									});
 							}}.bind(this));
@@ -105,7 +105,7 @@ ORYX.Plugins.PluginLoader = Clazz.extend({
 	    });
 
 		var newURLWin = new Ext.Window({
-					title:		ORYX.I18N.PluginLoad.WindowTitle, 
+					title:		WAPAMA.I18N.PluginLoad.WindowTitle, 
 					//bodyStyle:	"background:white;padding:0px", 
 					width:		'auto', 
 					height:		'auto',

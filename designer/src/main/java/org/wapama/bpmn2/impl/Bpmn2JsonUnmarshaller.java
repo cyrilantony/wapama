@@ -218,7 +218,7 @@ public class Bpmn2JsonUnmarshaller {
                 parser.skipChildren();
             } else if ("outgoing".equals(fieldname)) {
                 while (parser.nextToken() != JsonToken.END_ARRAY) {
-                    // {resourceId: oryx_1AAA8C9A-39A5-42FC-8ED1-507A7F3728EA}
+                    // {resourceId: wapama_1AAA8C9A-39A5-42FC-8ED1-507A7F3728EA}
                     parser.nextToken();
                     parser.nextToken();
                     outgoing.add(parser.getText());
@@ -230,7 +230,7 @@ public class Bpmn2JsonUnmarshaller {
                 // we already collected that info with the outgoing field.
                 parser.skipChildren();
                 // "target": {
-                // "resourceId": "oryx_A75E7546-DF71-48EA-84D3-2A8FD4A47568"
+                // "resourceId": "wapama_A75E7546-DF71-48EA-84D3-2A8FD4A47568"
                 // }
                 // add to the map:
                 // parser.nextToken(); // resourceId:

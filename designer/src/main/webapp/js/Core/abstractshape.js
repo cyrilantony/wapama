@@ -24,16 +24,16 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
+if(!WAPAMA) {var WAPAMA = {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
 
 /**
  * Top Level uiobject.
- * @class ORYX.Core.AbstractShape
- * @extends ORYX.Core.UIObject
+ * @class WAPAMA.Core.AbstractShape
+ * @extends WAPAMA.Core.UIObject
  */
-ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
-/** @lends ORYX.Core.AbstractShape.prototype */
+WAPAMA.Core.AbstractShape = WAPAMA.Core.UIObject.extend(
+/** @lends WAPAMA.Core.AbstractShape.prototype */
 {
 
 	/**
@@ -83,7 +83,7 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 				//window.setTimeout( function(){
 
 					this._delegateEvent({
-							type	: ORYX.CONFIG.EVENT_PROPERTY_CHANGED, 
+							type	: WAPAMA.CONFIG.EVENT_PROPERTY_CHANGED, 
 							name	: key, 
 							value	: value,
 							oldValue: oldValue
@@ -128,7 +128,7 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 		var result = [];
 
 		this.children.each(function(uiObject) {
-			if(uiObject instanceof ORYX.Core.Shape && uiObject.isVisible ) {
+			if(uiObject instanceof WAPAMA.Core.Shape && uiObject.isVisible ) {
 				if(iterator) {
 					iterator(uiObject);
 				}
@@ -161,13 +161,13 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 		var result = [];
 
 		this.children.each(function(uiObject) {
-			if(uiObject instanceof ORYX.Core.Node && uiObject.isVisible) {
+			if(uiObject instanceof WAPAMA.Core.Node && uiObject.isVisible) {
 				if(iterator) {
 					iterator(uiObject);
 				}
 				result.push(uiObject);
 			}
-			if(uiObject instanceof ORYX.Core.Shape) {
+			if(uiObject instanceof WAPAMA.Core.Shape) {
 				if(deep) {
 					result = result.concat(uiObject.getChildNodes(deep, iterator));
 				}
@@ -186,13 +186,13 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 		var result = [];
 
 		this.children.each(function(uiObject) {
-			if(uiObject instanceof ORYX.Core.Edge && uiObject.isVisible) {
+			if(uiObject instanceof WAPAMA.Core.Edge && uiObject.isVisible) {
 				if(iterator) {
 					iterator(uiObject);
 				}
 				result.push(uiObject);
 			}
-			if(uiObject instanceof ORYX.Core.Shape) {
+			if(uiObject instanceof WAPAMA.Core.Shape) {
 				if(deep) {
 					result = result.concat(uiObject.getChildEdges(deep, iterator));
 				}
@@ -203,7 +203,7 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 	},
 	
 	/**
-	 * Returns a sorted array of ORYX.Core.Node objects.
+	 * Returns a sorted array of WAPAMA.Core.Node objects.
 	 * Ordered in z Order, the last object has the highest z Order.
 	 */
 	//TODO deep iterator
@@ -277,7 +277,7 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 				this._isInSetProperty = true;
 				
 				this._delegateEvent({
-						type	: ORYX.CONFIG.EVENT_PROPERTY_CHANGED, 
+						type	: WAPAMA.CONFIG.EVENT_PROPERTY_CHANGED, 
 						elements : [this],
 						name	: key, 
 						value	: value,
@@ -327,11 +327,11 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 		var serializedObject = [];
 		
 		// Add the type
-		serializedObject.push({name: 'type', prefix:'oryx', value: this.getStencil().id(), type: 'literal'});	
+		serializedObject.push({name: 'type', prefix:'wapama', value: this.getStencil().id(), type: 'literal'});	
 	
 		// Add hidden properties
 		this.hiddenProperties.each(function(prop){
-			serializedObject.push({name: prop.key.replace("oryx-", ""), prefix: "oryx", value: prop.value, type: 'literal'});
+			serializedObject.push({name: prop.key.replace("wapama-", ""), prefix: "wapama", value: prop.value, type: 'literal'});
 		}.bind(this));
 		
 		// Add all properties
@@ -389,11 +389,11 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
 		}).bind(this));
 	},
 	
-	toString: function() { return "ORYX.Core.AbstractShape " + this.id },
+	toString: function() { return "WAPAMA.Core.AbstractShape " + this.id },
     
     /**
      * Converts the shape to a JSON representation.
-     * @return {Object} A JSON object with included ORYX.Core.AbstractShape.JSONHelper and getShape() method.
+     * @return {Object} A JSON object with included WAPAMA.Core.AbstractShape.JSONHelper and getShape() method.
      */
     toJSON: function(){
         var json = {
@@ -404,12 +404,12 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
                 
               //If complex property, value should be a json object
               if(this.getStencil().property(key)
-                && this.getStencil().property(key).type() === ORYX.CONFIG.TYPE_COMPLEX 
+                && this.getStencil().property(key).type() === WAPAMA.CONFIG.TYPE_COMPLEX 
                 && Ext.type(value) === "string"){
                   try {value = Ext.decode(value);} catch(error){}
               }
               
-              //Takes "my_property" instead of "oryx-my_property" as key
+              //Takes "my_property" instead of "wapama-my_property" as key
               key = key.replace(/^[\w_]+-/, "");
               props[key] = value;
               
@@ -446,7 +446,7 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
             })
         }
         
-        Ext.apply(json, ORYX.Core.AbstractShape.JSONHelper);
+        Ext.apply(json, WAPAMA.Core.AbstractShape.JSONHelper);
         
         // do not pollute the json attributes (for serialization), so put the corresponding
         // shape is encapsulated in a method
@@ -459,11 +459,11 @@ ORYX.Core.AbstractShape = ORYX.Core.UIObject.extend(
  });
  
 /**
- * @namespace Collection of methods which can be used on a shape json object (ORYX.Core.AbstractShape#toJSON()).
+ * @namespace Collection of methods which can be used on a shape json object (WAPAMA.Core.AbstractShape#toJSON()).
  * @example
- * Ext.apply(shapeAsJson, ORYX.Core.AbstractShape.JSONHelper);
+ * Ext.apply(shapeAsJson, WAPAMA.Core.AbstractShape.JSONHelper);
  */
-ORYX.Core.AbstractShape.JSONHelper = {
+WAPAMA.Core.AbstractShape.JSONHelper = {
      /**
       * Iterates over each child shape.
       * @param {Object} iterator Iterator function getting a child shape and his parent as arguments.

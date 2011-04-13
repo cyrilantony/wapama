@@ -2,20 +2,20 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="50"
    height="50"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-    <oryx:magnet oryx:cx="25" oryx:cy="25" oryx:default="yes"/>
-    <oryx:magnet oryx:cx="0" oryx:cy="25"/>
-    <oryx:magnet oryx:cx="25" oryx:cy="50"/>
-    <oryx:magnet oryx:cx="25" oryx:cy="0"/>
-    <oryx:magnet oryx:cx="50" oryx:cy="25"/>
-  </oryx:magnets>
-  <g oryx:minimumSize="50 50" oryx:maximumSize="50 50">
+  <wapama:magnets>
+    <wapama:magnet wapama:cx="25" wapama:cy="25" wapama:default="yes"/>
+    <wapama:magnet wapama:cx="0" wapama:cy="25"/>
+    <wapama:magnet wapama:cx="25" wapama:cy="50"/>
+    <wapama:magnet wapama:cx="25" wapama:cy="0"/>
+    <wapama:magnet wapama:cx="50" wapama:cy="25"/>
+  </wapama:magnets>
+  <g wapama:minimumSize="50 50" wapama:maximumSize="50 50">
     <path d="M0 25 L25 50 L50 25 L25 0 L0 25" stroke="black" fill="white" stroke-width="1"/>
   </g>
 </svg>

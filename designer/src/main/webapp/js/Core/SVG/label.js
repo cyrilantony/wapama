@@ -24,15 +24,15 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.SVG) {WAPAMA.Core.SVG = {};}
 
 /**
  * @classDescription Class for adding text to a shape.
  * 
  */
-ORYX.Core.SVG.Label = Clazz.extend({
+WAPAMA.Core.SVG.Label = Clazz.extend({
 	
 	_characterSets:[
 		"%W",
@@ -61,7 +61,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 		
 		if(!options.textElement) {
 			throw "Label: No parameter textElement." 
-		} else if (!ORYX.Editor.checkClassType( options.textElement, SVGTextElement ) ) {
+		} else if (!WAPAMA.Editor.checkClassType( options.textElement, SVGTextElement ) ) {
 			throw "Label: Parameter textElement is not an SVGTextElement."	
 		}
 		
@@ -111,12 +111,12 @@ ORYX.Core.SVG.Label = Clazz.extend({
 		//initialization	
 		
 		//set referenced element the text is fit to
-		this.fitToElemId = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'fittoelem');
+		this.fitToElemId = this.node.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, 'fittoelem');
 		if(this.fitToElemId)
 			this.fitToElemId = this.shapeId + this.fitToElemId;
 		
 		//set alignment	
-		var alignValues = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'align');
+		var alignValues = this.node.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, 'align');
 		if(alignValues) {
 			alignValues = alignValues.replace(/,/g, " ");
 			alignValues = alignValues.split(" ");
@@ -139,27 +139,27 @@ ORYX.Core.SVG.Label = Clazz.extend({
 		}
 		
 		//set edge position (only in case the label belongs to an edge)
-		this.edgePosition = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'edgePosition');
+		this.edgePosition = this.node.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, 'edgePosition');
 		if(this.edgePosition) {
 			this.edgePosition = this.edgePosition.toLowerCase();
 		}
 		
 		
 		//get offset top
-		this.offsetTop = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'offsetTop') || ORYX.CONFIG.OFFSET_EDGE_LABEL_TOP;
+		this.offsetTop = this.node.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, 'offsetTop') || WAPAMA.CONFIG.OFFSET_EDGE_LABEL_TOP;
 		if(this.offsetTop) {
 			this.offsetTop = parseInt(this.offsetTop);
 		}
 		
 		//get offset top
-		this.offsetBottom = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'offsetBottom') || ORYX.CONFIG.OFFSET_EDGE_LABEL_BOTTOM;
+		this.offsetBottom = this.node.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, 'offsetBottom') || WAPAMA.CONFIG.OFFSET_EDGE_LABEL_BOTTOM;
 		if(this.offsetBottom) {
 			this.offsetBottom = parseInt(this.offsetBottom);
 		}
 		
 				
 		//set rotation
-		var rotateValue = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'rotate');
+		var rotateValue = this.node.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, 'rotate');
 		if(rotateValue) {
 			try {
 				this._rotate = parseFloat(rotateValue);
@@ -171,7 +171,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 		}
 		
 		//anchors
-		var anchorAttr = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "anchors");
+		var anchorAttr = this.node.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "anchors");
 		if(anchorAttr) {
 			anchorAttr = anchorAttr.replace("/,/g", " ");
 			var anchors = anchorAttr.split(" ").without("");
@@ -234,7 +234,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 				this.node.setAttributeNS(null, 'y', this.y);
 				
 				//this.node.setAttributeNS(null, 'font-size', this._fontSize);
-				//this.node.setAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'align', this._horizontalAlign + " " + this._verticalAlign);
+				//this.node.setAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, 'align', this._horizontalAlign + " " + this._verticalAlign);
 				
 				//set horizontal alignment
 				switch (this._horizontalAlign) {
@@ -268,7 +268,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 				
 				if (this.node.ownerDocument) {
 					textLines.each((function(textLine, index){
-						var tspan = this.node.ownerDocument.createElementNS(ORYX.CONFIG.NAMESPACE_SVG, 'tspan');
+						var tspan = this.node.ownerDocument.createElementNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'tspan');
 						tspan.textContent = textLine;
 						tspan.setAttributeNS(null, 'x', this.invisibleRenderPoint);
 						tspan.setAttributeNS(null, 'y', this.invisibleRenderPoint);
@@ -303,7 +303,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 	
 	_checkFittingToReferencedElem: function() {
 		try {
-			var tspans = $A(this.node.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'tspan'));
+			var tspans = $A(this.node.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'tspan'));
 			
 			//only do this in firefox 3. all other browsers do not support word wrapping!!!!!
 			//if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent) && new Number(RegExp.$1)>=3) {
@@ -339,7 +339,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 								var sslength = this._getRenderedTextLength(tspan, startIndex, i-startIndex, fontSize);
 								
 								if (sslength > refBoxLength - 3) {
-									var newtspan = this.node.ownerDocument.createElementNS(ORYX.CONFIG.NAMESPACE_SVG, 'tspan');
+									var newtspan = this.node.ownerDocument.createElementNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'tspan');
 									if (lastSeperatorIndex <= startIndex) {
 										lastSeperatorIndex = (i == 0) ? i : i-1;
 										newtspan.textContent = tspan.textContent.slice(startIndex, lastSeperatorIndex);
@@ -399,7 +399,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 	 */
 	_positionText: function() {
 		try {
-			var tspans = this.node.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'tspan');
+			var tspans = this.node.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'tspan');
 			
 			var fontSize = this.getFontSize(this.node); 
 			
@@ -418,7 +418,7 @@ ORYX.Core.SVG.Label = Clazz.extend({
 							break;
 						case 'middle':
 							dy = -(tspans.length / 2.0 - index - 1) * (fontSize);
-							dy -= ORYX.CONFIG.LABEL_LINE_DISTANCE / 2;
+							dy -= WAPAMA.CONFIG.LABEL_LINE_DISTANCE / 2;
 							break;
 						case 'top':
 							dy = index * (fontSize);
@@ -636,13 +636,13 @@ ORYX.Core.SVG.Label = Clazz.extend({
 		var attr = node.getAttributeNS(null, "font-size");
 		if(attr) {
 			return parseFloat(attr);
-		} else if(!ORYX.Editor.checkClassType(node, SVGSVGElement)) {
+		} else if(!WAPAMA.Editor.checkClassType(node, SVGSVGElement)) {
 			return this.getInheritedFontSize(node.parentNode);
 		}
 	},
 	
 	getFontSize: function(node) {
-		var tspans = this.node.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'tspan');
+		var tspans = this.node.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'tspan');
 			
 		//trying to get an inherited font-size attribute
 		//NO CSS CONSIDERED!
@@ -654,17 +654,17 @@ ORYX.Core.SVG.Label = Clazz.extend({
 				fontSize = tspans[0].getExtentOfChar(0).height;
 			}
 			else {
-				fontSize = ORYX.CONFIG.LABEL_DEFAULT_LINE_HEIGHT;
+				fontSize = WAPAMA.CONFIG.LABEL_DEFAULT_LINE_HEIGHT;
 			}
 			
 			//handling of unsupported method in webkit
 			if (fontSize <= 0) {
-				fontSize = ORYX.CONFIG.LABEL_DEFAULT_LINE_HEIGHT;
+				fontSize = WAPAMA.CONFIG.LABEL_DEFAULT_LINE_HEIGHT;
 			}
 		}
 		
 		if(fontSize)
-			this.node.setAttribute("oryx:fontSize", fontSize);
+			this.node.setAttribute("wapama:fontSize", fontSize);
 		
 		return fontSize;
 	},

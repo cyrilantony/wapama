@@ -30,14 +30,14 @@
     <link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
     <link rel="schema.dcTerms" href="http://purl.org/dc/terms/" />
     <link rel="schema.b3mn" href="http://b3mn.org" />
-    <link rel="schema.oryx" href="http://oryx-editor.org/" />
+    <link rel="schema.wapama" href="http://www.wapama.net/" />
     <link rel="schema.raziel" href="http://raziel.org/" />
     <script type="text/javascript">
     
-      ORYX.CONFIG.SSET = "@stencilset@";
-      ORYX.CONFIG.DEV = @debug@;
-      if (ORYX.CONFIG.DEV) {
-        ORYX_LOGLEVEL = 4;
+      WAPAMA.CONFIG.SSET = "@stencilset@";
+      WAPAMA.CONFIG.DEV = @debug@;
+      if (WAPAMA.CONFIG.DEV) {
+        WAPAMA_LOGLEVEL = 4;
       }
       params = window.location.search.toQueryParams();
 
@@ -45,25 +45,25 @@
         params['profile'] = 'default';
       }
 
-      ORYX.UUID = params['uuid'];
-      ORYX.PROFILE = params['profile'];
+      WAPAMA.UUID = params['uuid'];
+      WAPAMA.PROFILE = params['profile'];
 
       var segments = window.location.pathname.split("/").without("");
 
-      ORYX.CONFIG.ROOT_PATH = "/" + segments.first() + "/";
-      ORYX.PATH = ORYX.CONFIG.ROOT_PATH;
+      WAPAMA.CONFIG.ROOT_PATH = "/" + segments.first() + "/";
+      WAPAMA.PATH = WAPAMA.CONFIG.ROOT_PATH;
 
-      if (ORYX.UUID === undefined) {
-        ORYX.UUID = segments.pop();
+      if (WAPAMA.UUID === undefined) {
+        WAPAMA.UUID = segments.pop();
       }
       
-      ORYX.CONFIG.UUID_AUTOSAVE_INTERVAL = @autosaveinterval@;
-	  ORYX.CONFIG.UUID_AUTOSAVE_DEFAULT = @autosavedefault@;
+      WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL = @autosaveinterval@;
+	  WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT = @autosavedefault@;
 	  
-      ORYX.CONFIG.SSEXTS= [@ssextensions@].map(function(ssext) {
+      WAPAMA.CONFIG.SSEXTS= [@ssextensions@].map(function(ssext) {
         // for each of the extensions, we get the extension file and return its contents.
         var contents = null;
-        new Ajax.Request(ORYX.PATH + "stencilset/" + ssext, {
+        new Ajax.Request(WAPAMA.PATH + "stencilset/" + ssext, {
           asynchronous: false,
           method: 'get',
           contentType: 'application/json',
@@ -77,7 +77,7 @@
         return contents;
       });
       
-      new Ajax.Request(ORYX.PATH + "plugins", {
+      new Ajax.Request(WAPAMA.PATH + "plugins", {
         asynchronous: false,
         method: 'get',
         contentType: 'application/json',
@@ -87,13 +87,13 @@
             allPlugins[p.name] = p;
           }.bind(allPlugins));
           // install the current plugins
-          ORYX.availablePlugins = [];
+          WAPAMA.availablePlugins = [];
           [@profileplugins@].each(function(pluginName) {
             p = allPlugins[pluginName];
             if (p) {
-              ORYX.availablePlugins.push(p);
+              WAPAMA.availablePlugins.push(p);
             } else {
-              ORYX.Log.error("missing plugin " + pluginName);
+              WAPAMA.Log.error("missing plugin " + pluginName);
             }
           }.bind(allPlugins));
       

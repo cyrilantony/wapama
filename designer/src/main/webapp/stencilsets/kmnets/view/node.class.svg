@@ -2,37 +2,37 @@
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    version="1.0">
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="50" oryx:cy="62.5" oryx:default="yes"/>
-  	<oryx:magnet oryx:cx="50" oryx:cy="0"/>
-  	<oryx:magnet oryx:cx="50" oryx:cy="125"/>
-  	<oryx:magnet oryx:cx="0" oryx:cy="62.5"/>
-  	<oryx:magnet oryx:cx="100" oryx:cy="62.5"/>
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="50" wapama:cy="62.5" wapama:default="yes"/>
+  	<wapama:magnet wapama:cx="50" wapama:cy="0"/>
+  	<wapama:magnet wapama:cx="50" wapama:cy="125"/>
+  	<wapama:magnet wapama:cx="0" wapama:cy="62.5"/>
+  	<wapama:magnet wapama:cx="100" wapama:cy="62.5"/>
+  </wapama:magnets>
   <g>
     <rect
        id="classname"
-       oryx:anchors="top left right"
+       wapama:anchors="top left right"
        width="100" height="25"
        x="0" y="0"
        stroke="black" fill="white" stroke-width="2"/>
     <rect
        id="rect"
-       oryx:anchors="left right top bottom"
-       oryx:resize="vertical horizontal"
+       wapama:anchors="left right top bottom"
+       wapama:resize="vertical horizontal"
        width="100" height="100"
        x="0" y="25"
        stroke="black" fill="white" stroke-width="2"/>
     <line
        id="line"
-       oryx:anchors="left right"
-       oryx:resize="vertical horizontal"
+       wapama:anchors="left right"
+       wapama:resize="vertical horizontal"
        x1="0" y1="75" x2="100" y2="75"
        stroke="black" fill="black" stroke-width="2"/>
-	<text id="name" x="50" y="12.5" oryx:align="middle center" oryx:anchors="top"></text>
-	<text id="attributes" x="5" y="30" oryx:align="top left" oryx:anchors="top left"></text>
-	<text id="methods" x="5" y="80" oryx:align="top left" oryx:anchors="left"></text>			
+	<text id="name" x="50" y="12.5" wapama:align="middle center" wapama:anchors="top"></text>
+	<text id="attributes" x="5" y="30" wapama:align="top left" wapama:anchors="top left"></text>
+	<text id="methods" x="5" y="80" wapama:align="top left" wapama:anchors="left"></text>			
   </g>
 </svg>

@@ -2,15 +2,15 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    version="1.0">
    
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="30" 
-  		oryx:cy="15" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="30" 
+  		wapama:cy="15" 
+  		wapama:default="yes" />
+  </wapama:magnets>
   
   <g pointer-events="fill">
   	<rect
@@ -19,23 +19,23 @@
        x="10"
        y="0"
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="frame" oryx:resize="vertical horizontal" />
-    <text font-size="14" id="text" x="30" y="30" oryx:align="center top" stroke="black" oryx:resize="vertical horizontal"></text>
+       id="frame" wapama:resize="vertical horizontal" />
+    <text font-size="14" id="text" x="30" y="30" wapama:align="center top" stroke="black" wapama:resize="vertical horizontal"></text>
     <path
        d="M 14,7 L 46,7"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3134" oryx:resize="vertical horizontal"/>
+       id="path3134" wapama:resize="vertical horizontal"/>
     <path
        d="M 14,12 L 46,12"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3138" oryx:resize="vertical horizontal"/>
+       id="path3138" wapama:resize="vertical horizontal"/>
     <path
        d="M 14,17 L 46,17"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3140" oryx:resize="vertical horizontal"/>
+       id="path3140" wapama:resize="vertical horizontal"/>
     <path
        d="M 14,23 L 46,23"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3142" oryx:resize="vertical horizontal"/>
+       id="path3142" wapama:resize="vertical horizontal"/>
   </g>
 </svg>

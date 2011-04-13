@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    width="515"
    height="315"
    version="1.0">
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="0" oryx:cy="31" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="306" oryx:cy="64" oryx:anchors="bottom" />
-  	<oryx:magnet oryx:cx="614" oryx:cy="31" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="306" oryx:cy="0" oryx:anchors="top" />
-  	<oryx:magnet oryx:cx="306" oryx:cy="31" oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="0" wapama:cy="31" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="306" wapama:cy="64" wapama:anchors="bottom" />
+  	<wapama:magnet wapama:cx="614" wapama:cy="31" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="306" wapama:cy="0" wapama:anchors="top" />
+  	<wapama:magnet wapama:cx="306" wapama:cy="31" wapama:default="yes" />
+  </wapama:magnets>
   <g pointer-events="fill" >
-  	<rect id="border_shade" oryx:resize="vertical horizontal" x="15" y="0" width="600" height="50" stroke="black" stroke-width="1" fill="none" />
-  	<rect id="c_shade" oryx:resize="vertical horizontal" x="15" y="0" width="600" height="50" stroke="none" fill="white" />
+  	<rect id="border_shade" wapama:resize="vertical horizontal" x="15" y="0" width="600" height="50" stroke="black" stroke-width="1" fill="none" />
+  	<rect id="c_shade" wapama:resize="vertical horizontal" x="15" y="0" width="600" height="50" stroke="none" fill="white" />
   
-    <rect id="c" oryx:resize="vertical horizontal" x="0" y="15" width="600" height="50" stroke="none" fill="white" />
-    <rect id="border" oryx:resize="vertical horizontal" x="0" y="15" width="600" height="50" stroke="black" stroke-width="1" fill="none" />
+    <rect id="c" wapama:resize="vertical horizontal" x="0" y="15" width="600" height="50" stroke="none" fill="white" />
+    <rect id="border" wapama:resize="vertical horizontal" x="0" y="15" width="600" height="50" stroke="black" stroke-width="1" fill="none" />
     
-    <text x="300" y="39" font-size="18" id="text_v" oryx:align="middle center" fill="black" stroke="black"/>
+    <text x="300" y="39" font-size="18" id="text_v" wapama:align="middle center" fill="black" stroke="black"/>
   </g>
 </svg>

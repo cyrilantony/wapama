@@ -22,7 +22,7 @@
  **/
 
 /**
- * This little script is used to enable debugging without the need to change oryx.js
+ * This little script is used to enable debugging without the need to change wapama.js
  * 
  * It is included in the test/examples/*.xhtml files as separate script
  * To enable inclusion in the WAR file, build-with-script-files-flag has to be used together with
@@ -36,6 +36,6 @@ loadFirebugConsole();
 // TODO only enable debugging, if firebug is really there
 // this doesn't work with Firebug 1.4.0a12
 //if(typeof loadFirebugConsole == 'function') {
-	ORYX_LOGLEVEL = ORYX_LOGLEVEL_DEBUG
+	WAPAMA_LOGLEVEL = WAPAMA_LOGLEVEL_DEBUG
 //} 
 

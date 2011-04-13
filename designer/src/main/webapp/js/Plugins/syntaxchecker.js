@@ -19,17 +19,17 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
 /**
    This plugin is a generic syntax checker for different diagram types.
    Needs server communication.
-   @class ORYX.Plugins.SyntaxChecker
+   @class WAPAMA.Plugins.SyntaxChecker
    @constructor Creates a new instance
-   @extends ORYX.Plugins.AbstractPlugin
+   @extends WAPAMA.Plugins.AbstractPlugin
 */
-ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.SyntaxChecker = WAPAMA.Plugins.AbstractPlugin.extend({
     /**@private*/
     construct: function(){
         arguments.callee.$.construct.apply(this, arguments);
@@ -38,20 +38,20 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
         this.raisedEventIds = [];
         
         this.facade.offer({
-            'name': ORYX.I18N.SyntaxChecker.name,
+            'name': WAPAMA.I18N.SyntaxChecker.name,
             'functionality': this.perform.bind(this),
-            'group': ORYX.I18N.SyntaxChecker.group,
-            'icon': ORYX.PATH + "images/checker_syntax.png",
-            'description': ORYX.I18N.SyntaxChecker.desc,
+            'group': WAPAMA.I18N.SyntaxChecker.group,
+            'icon': WAPAMA.PATH + "images/checker_syntax.png",
+            'description': WAPAMA.I18N.SyntaxChecker.desc,
             'index': 0,
             'toggle': true,
             'minShape': 0,
             'maxShape': 0
         });
         
-        this.facade.registerOnEvent(ORYX.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT, this.checkForErrors.bind(this));
-        this.facade.registerOnEvent(ORYX.Plugins.SyntaxChecker.RESET_ERRORS_EVENT, this.resetErrors.bind(this));
-        this.facade.registerOnEvent(ORYX.Plugins.SyntaxChecker.SHOW_ERRORS_EVENT, this.doShowErrors.bind(this));
+        this.facade.registerOnEvent(WAPAMA.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT, this.checkForErrors.bind(this));
+        this.facade.registerOnEvent(WAPAMA.Plugins.SyntaxChecker.RESET_ERRORS_EVENT, this.resetErrors.bind(this));
+        this.facade.registerOnEvent(WAPAMA.Plugins.SyntaxChecker.SHOW_ERRORS_EVENT, this.doShowErrors.bind(this));
     },
     
     perform: function(button, pressed){
@@ -62,18 +62,18 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
                 onNoErrors: function(){
                     this.setActivated(button, false);
                     this.facade.raiseEvent({
-            			type:ORYX.CONFIG.EVENT_LOADING_STATUS,
-            			text:ORYX.I18N.SyntaxChecker.noErrors,
+            			type:WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+            			text:WAPAMA.I18N.SyntaxChecker.noErrors,
             			timeout:10000
             		});
-                    //Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.SyntaxChecker.noErrors);
+                    //Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.SyntaxChecker.noErrors);
                 }.bind(this),
                 onErrors: function(){
                     this.enableDeactivationHandler(button);
                 }.bind(this),
                 onFailure: function(){
                     this.setActivated(button, false);
-                    Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.SyntaxChecker.invalid);
+                    Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.SyntaxChecker.invalid);
                 }.bind(this)
             });      
         }
@@ -87,10 +87,10 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
         var deactivate = function(){
             this.setActivated(button, false);
             this.resetErrors();
-            this.facade.unregisterOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, deactivate);
+            this.facade.unregisterOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, deactivate);
         };
         
-        this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, deactivate.bind(this));
+        this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, deactivate.bind(this));
     },
     
     /**
@@ -109,13 +109,13 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
     
     /**
      * Performs request to server to check for errors on current model.
-     * @methodOf ORYX.Plugins.SyntaxChecker.prototype
+     * @methodOf WAPAMA.Plugins.SyntaxChecker.prototype
      * @param {Object} options Configuration hash
      * @param {String} context A context send to the syntax checker servlet
      * @param {Function} [options.onNoErrors] Raised when model has no errors.
      * @param {Function} [options.onErrors] Raised when model has errors.
      * @param {Function} [options.onFailure] Raised when server communcation failed.
-     * @param {boolean} [options.showErrors=true] Display errors on nodes on canvas (by calling ORYX.Plugins.SyntaxChecker.prototype.showErrors)
+     * @param {boolean} [options.showErrors=true] Display errors on nodes on canvas (by calling WAPAMA.Plugins.SyntaxChecker.prototype.showErrors)
      */
     checkForErrors: function(options){
         Ext.applyIf(options || {}, {
@@ -125,7 +125,7 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
           onFailure: Ext.emptyFn
         });
             
-        Ext.Msg.wait(ORYX.I18N.SyntaxChecker.checkingMessage);
+        Ext.Msg.wait(WAPAMA.I18N.SyntaxChecker.checkingMessage);
 
 		var ss = this.facade.getStencilSets();
 		var data = null;
@@ -140,7 +140,7 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
 		}
         
         // Send the request to the server.
-        new Ajax.Request(ORYX.CONFIG.SYNTAXCHECKER_URL, {
+        new Ajax.Request(WAPAMA.CONFIG.SYNTAXCHECKER_URL, {
             method: 'POST',
             asynchronous: false,
             parameters: {
@@ -187,7 +187,7 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
     
     /**
      * Shows overlays for each given error
-     * @methodOf ORYX.Plugins.SyntaxChecker.prototype
+     * @methodOf WAPAMA.Plugins.SyntaxChecker.prototype
      * @param {Hash|Object} errors
      * @example
      * showErrors({
@@ -212,8 +212,8 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
         
         //show a status message with a hint to the error messages in the tooltip
         this.facade.raiseEvent({
-			type:ORYX.CONFIG.EVENT_LOADING_STATUS,
-			text:ORYX.I18N.SyntaxChecker.notice,
+			type:WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+			text:WAPAMA.I18N.SyntaxChecker.notice,
 			timeout:10000
 		});
     },
@@ -232,16 +232,16 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
 	},
 	
 	parseSingleCodeToMsg: function(code){
-		return ORYX.I18N.SyntaxChecker[code]||code;
+		return WAPAMA.I18N.SyntaxChecker[code]||code;
 	},
     /**
      * Resets all (displayed) errors
-     * @methodOf ORYX.Plugins.SyntaxChecker.prototype
+     * @methodOf WAPAMA.Plugins.SyntaxChecker.prototype
      */
     resetErrors: function(){
         this.raisedEventIds.each(function(id){
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+                type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
                 id: id
             });
         }.bind(this))
@@ -252,8 +252,8 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
     
     raiseOverlay: function(shape, errorMsg){
         var id = "syntaxchecker." + this.raisedEventIds.length;
-        var crossId = ORYX.Editor.provideId();
-        var cross = ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
+        var crossId = WAPAMA.Editor.provideId();
+        var cross = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
             "id":crossId,
             "title":"",
             "stroke-width": 5.0,
@@ -263,11 +263,11 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
         }]);
         
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+            type: WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
             id: id,
             shapes: [shape],
             node: cross,
-            nodePosition: shape instanceof ORYX.Core.Edge ? "START" : "NW"
+            nodePosition: shape instanceof WAPAMA.Core.Edge ? "START" : "NW"
         });
         
         var tooltip = new Ext.ToolTip({
@@ -282,11 +282,11 @@ ORYX.Plugins.SyntaxChecker = ORYX.Plugins.AbstractPlugin.extend({
     }
 });
 
-ORYX.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT = "checkForErrors";
-ORYX.Plugins.SyntaxChecker.RESET_ERRORS_EVENT = "resetErrors";
-ORYX.Plugins.SyntaxChecker.SHOW_ERRORS_EVENT = "showErrors";
+WAPAMA.Plugins.SyntaxChecker.CHECK_FOR_ERRORS_EVENT = "checkForErrors";
+WAPAMA.Plugins.SyntaxChecker.RESET_ERRORS_EVENT = "resetErrors";
+WAPAMA.Plugins.SyntaxChecker.SHOW_ERRORS_EVENT = "showErrors";
 
-ORYX.Plugins.PetrinetSyntaxChecker = ORYX.Plugins.SyntaxChecker.extend({
+WAPAMA.Plugins.PetrinetSyntaxChecker = WAPAMA.Plugins.SyntaxChecker.extend({
     /*FIXME:: BPMN + EPC syntax checker needs rdf, but petri nets needs erdf.
      * So we override getRDFFromDOM from AbstractPlugin to return erdf.
      */

@@ -24,14 +24,14 @@
 /**
  * Init namespace
  */
-if (!ORYX) {
-    var ORYX = {};
+if (!WAPAMA) {
+    var WAPAMA = {};
 }
-if (!ORYX.Core) {
-    ORYX.Core = {};
+if (!WAPAMA.Core) {
+    WAPAMA.Core = {};
 }
-if (!ORYX.Core.StencilSet) {
-    ORYX.Core.StencilSet = {};
+if (!WAPAMA.Core.StencilSet) {
+    WAPAMA.Core.StencilSet = {};
 }
 
 /**
@@ -39,19 +39,19 @@ if (!ORYX.Core.StencilSet) {
  *  the attributes of the stencil set description JSON file and the stencil set's
  *  stencils.
  */
-ORYX.Core.StencilSet.StencilSet = Clazz.extend({
+WAPAMA.Core.StencilSet.StencilSet = Clazz.extend({
 
     /**
      * Constructor
      * @param source {URL} A reference to the stencil set specification.
      *
      */
-    construct: function(oryxEditor, source, editorId){
+    construct: function(wapamaEditor, source, editorId){
 
         arguments.callee.$.construct.apply(this, arguments);
         
         if (!source) {
-            throw "ORYX.Core.StencilSet.StencilSet(construct): Parameter 'source' is not defined.";
+            throw "WAPAMA.Core.StencilSet.StencilSet(construct): Parameter 'source' is not defined.";
         }
         if (source.endsWith("/")) {
             source = source.substr(0, source.length - 1);
@@ -60,10 +60,10 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 		this._extensions = new Hash();
 
         // save reference
-        this._oryxEditor = oryxEditor;
+        this._wapamaEditor = wapamaEditor;
         this._source = source;
         this._editorId = editorId;
-        this._baseUrl = ORYX.PATH + "stencilset/" + source + "/"
+        this._baseUrl = WAPAMA.PATH + "stencilset/" + source + "/"
         this._jsonObject = {};
         
         this._stencils = new Hash();
@@ -74,9 +74,9 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 		this._currentStencilCount = 0;
 		this._totalStencilCount = 0;
 
-        ORYX.Log.debug("Start to load the stencilset: " + source);
+        WAPAMA.Log.debug("Start to load the stencilset: " + source);
 
-		new Ajax.Request(ORYX.PATH + "stencilset/" + source, {
+		new Ajax.Request(WAPAMA.PATH + "stencilset/" + source, {
             asynchronous: true,
             method: 'get',
             onSuccess: this._init.bind(this),
@@ -100,7 +100,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
         
 		// if there is none, just guess the first.
 		if (!rootStencil) {
-			ORYX.Log.warn("Did not find any stencil that may be root. Taking a guess.");
+			WAPAMA.Log.warn("Did not find any stencil that may be root. Taking a guess.");
 			rootStencil = this._stencils.values()[0];
 		}
 
@@ -109,7 +109,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
     },
     
     /**
-     * @param {ORYX.Core.StencilSet.StencilSet} stencilSet
+     * @param {WAPAMA.Core.StencilSet.StencilSet} stencilSet
      * @return {Boolean} True, if stencil set has the same namespace.
      */
     equals: function(stencilSet){
@@ -118,7 +118,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
     
 	/**
 	 * 
-	 * @param {Oryx.Core.StencilSet.Stencil} rootStencil If rootStencil is defined, it only returns stencils
+	 * @param {WAPAMA.Core.StencilSet.Stencil} rootStencil If rootStencil is defined, it only returns stencils
 	 * 			that could be (in)direct child of that stencil.
 	 */
     stencils: function(rootStencil, rules, sortByGroup){
@@ -194,11 +194,11 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
     },
     
     title: function(){
-        return ORYX.Core.StencilSet.getTranslation(this._jsonObject, "title");
+        return WAPAMA.Core.StencilSet.getTranslation(this._jsonObject, "title");
     },
     
     description: function(){
-        return ORYX.Core.StencilSet.getTranslation(this._jsonObject, "description");
+        return WAPAMA.Core.StencilSet.getTranslation(this._jsonObject, "description");
     },
     
     namespace: function(){
@@ -234,7 +234,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 				if(jsonExtension.stencils) {
 					$A(jsonExtension.stencils).each(function(stencil) {
 						defaultPosition++;
-						var oStencil = new ORYX.Core.StencilSet.Stencil(stencil, this.namespace(), this._baseUrl, this, undefined, defaultPosition);            
+						var oStencil = new WAPAMA.Core.StencilSet.Stencil(stencil, this.namespace(), this._baseUrl, this, undefined, defaultPosition);            
 						this._stencils[oStencil.id()] = oStencil;
 						this._availableStencils[oStencil.id()] = oStencil;
 					}.bind(this));
@@ -284,7 +284,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 				}
 			}
 		} catch (e) {
-			ORYX.Log.debug("StencilSet.addExtension: Something went wrong when initialising the stencil set extension. " + e);
+			WAPAMA.Log.debug("StencilSet.addExtension: Something went wrong when initialising the stencil set extension. " + e);
 		}	
 	},
 	
@@ -295,7 +295,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 			//unload extension's stencils
 			if(jsonExtension.stencils) {
 				$A(jsonExtension.stencils).each(function(stencil) {
-					var oStencil = new ORYX.Core.StencilSet.Stencil(stencil, this.namespace(), this._baseUrl, this);            
+					var oStencil = new WAPAMA.Core.StencilSet.Stencil(stencil, this.namespace(), this._baseUrl, this);            
 					delete this._stencils[oStencil.id()]; // maybe not ??
 					delete this._availableStencils[oStencil.id()];
 				}.bind(this));
@@ -406,7 +406,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
      * 			stencil set specification.
      */
     _init: function(response){
-        ORYX.Log.debug("Finish loading the of stencilset: " + this._source);
+        WAPAMA.Log.debug("Finish loading the of stencilset: " + this._source);
         // init and check consistency.
         this.__handleStencilset(response);
 		
@@ -420,7 +420,7 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 		}
 		
 		var defaultPosition = 0;
-		ORYX.Log.debug("Start to load each stencil");
+		WAPAMA.Log.debug("Start to load each stencil");
 		// set the total count of all the stencils
 		this._totalStencilCount = this._jsonObject.stencils.length;
         // init each stencil
@@ -428,11 +428,11 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
         	defaultPosition++;
             // instantiate normally.
         	try {
-        	    var oStencil = new ORYX.Core.StencilSet.Stencil(stencil, this.namespace(), this._baseUrl, this, pps, defaultPosition);      
+        	    var oStencil = new WAPAMA.Core.StencilSet.Stencil(stencil, this.namespace(), this._baseUrl, this, pps, defaultPosition);      
         	    this._stencils[oStencil.id()] = oStencil;
         	    this._availableStencils[oStencil.id()] = oStencil;
         	} catch(e) {
-        	    ORYX.Log.error("Problems instantiating a stencil:");
+        	    WAPAMA.Log.error("Problems instantiating a stencil:");
         	    if (console !== undefined) {
         	        console.log(e);
         	        if (e.stack !== undefined) {
@@ -444,27 +444,27 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
         
 
 		//store stencil set
-		ORYX.Core.StencilSet._stencilSetsByNamespace[this.namespace()] = this;
+		WAPAMA.Core.StencilSet._stencilSetsByNamespace[this.namespace()] = this;
 
 		//store stencil set by url
-		ORYX.Core.StencilSet._stencilSetsByUrl[this._source] = this;
+		WAPAMA.Core.StencilSet._stencilSetsByUrl[this._source] = this;
 		
 		var namespace = this.namespace();
 		
 		//store which editorInstance loads the stencil set
-		if(ORYX.Core.StencilSet._StencilSetNSByEditorInstance[this._editorId]) {
-			ORYX.Core.StencilSet._StencilSetNSByEditorInstance[this._editorId].push(namespace);
+		if(WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance[this._editorId]) {
+			WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance[this._editorId].push(namespace);
 		} else {
-			ORYX.Core.StencilSet._StencilSetNSByEditorInstance[this._editorId] = [namespace];
+			WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance[this._editorId] = [namespace];
 		}
 
 		//store the rules for the editor instance
-		if(ORYX.Core.StencilSet._rulesByEditorInstance[this._editorId]) {
-			ORYX.Core.StencilSet._rulesByEditorInstance[this._editorId].initializeRules(this);
+		if(WAPAMA.Core.StencilSet._rulesByEditorInstance[this._editorId]) {
+			WAPAMA.Core.StencilSet._rulesByEditorInstance[this._editorId].initializeRules(this);
 		} else {
-			var rules = new ORYX.Core.StencilSet.Rules();
+			var rules = new WAPAMA.Core.StencilSet.Rules();
 			rules.initializeRules(this);
-			ORYX.Core.StencilSet._rulesByEditorInstance[this._editorId] = rules;
+			WAPAMA.Core.StencilSet._rulesByEditorInstance[this._editorId] = rules;
 		}
     },
     
@@ -490,6 +490,6 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
      * Callback when stencil set loading finished
      */
     stencilSetLoadFinish: function() {
-        this._oryxEditor.handleEvents( {type: ORYX.CONFIG.EVENT_SS_LOADED_ON_STARTUP}, { stencilType: null, canvasConfig: null });
+        this._wapamaEditor.handleEvents( {type: WAPAMA.CONFIG.EVENT_SS_LOADED_ON_STARTUP}, { stencilType: null, canvasConfig: null });
     }
 });

@@ -9,25 +9,25 @@
 	<xsl:template match="process|exc:process|abs:process">
 		<root>
 			
-			<div class="-oryx-canvas" id="oryx-canvas123" style="display: none; width: 1200px; height: 600px;">
-				<span class="oryx-type">http://b3mn.org/stencilset/bpel#worksheet</span>
-				<span class="oryx-mode">writeable</span>
-				<span class="oryx-mode">fullscreen</span>
-				<a rel="oryx-stencilset" href="./stencilsets/bpel/bpel.json"/>
-				<a rel="oryx-render" href="#oryx_0" />
+			<div class="-wapama-canvas" id="wapama-canvas123" style="display: none; width: 1200px; height: 600px;">
+				<span class="wapama-type">http://b3mn.org/stencilset/bpel#worksheet</span>
+				<span class="wapama-mode">writeable</span>
+				<span class="wapama-mode">fullscreen</span>
+				<a rel="wapama-stencilset" href="./stencilsets/bpel/bpel.json"/>
+				<a rel="wapama-render" href="#wapama_0" />
 				<xsl:call-template name="DFS-for-adding-render"/>
 			</div>	
 			
-	         <div id="oryx_0">
-				<span class="oryx-type">http://b3mn.org/stencilset/bpel#process</span>
-				<span class="oryx-bounds">114,18,714,518</span>
+	         <div id="wapama_0">
+				<span class="wapama-type">http://b3mn.org/stencilset/bpel#process</span>
+				<span class="wapama-bounds">114,18,714,518</span>
 				<xsl:call-template name="add-attributes"/>
 				<xsl:call-template name="add-elements"/>
-				<a rel="raziel-parent" href="#oryx-canvas123"/>
+				<a rel="raziel-parent" href="#wapama-canvas123"/>
 			</div>
 			
 			<xsl:call-template name="add-children-nodes">
-				<xsl:with-param name="parentID">oryx_0</xsl:with-param>
+				<xsl:with-param name="parentID">wapama_0</xsl:with-param>
 			</xsl:call-template>	
 			
 			<xsl:call-template name="add-link-edges"/>
@@ -37,7 +37,7 @@
 	<xsl:template name="add-attributes">		
 		<xsl:for-each select="@*">
 			<xsl:if test="local-name()!='id' and local-name()!='boundLUX' and local-name()!='boundLUY' and local-name()!='boundRLX' and local-name()!='boundRLY' and local-name()!='messageType' and local-name()!='element' and local-name()!='isNodeStencilSet' and local-name()!='isEdgeStencilSet'">
-				<xsl:variable name="attributeName" select="translate(concat('oryx-',name()),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>		
+				<xsl:variable name="attributeName" select="translate(concat('wapama-',name()),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>		
 				<span>
 					<xsl:attribute name="class">
 						<xsl:value-of select="$attributeName"/>
@@ -68,7 +68,7 @@
 			 			<xsl:value-of select="$id"/>
 			 		</xsl:attribute>	
 						
-			   		<span class="oryx-type">
+			   		<span class="wapama-type">
 						<xsl:text>http://b3mn.org/stencilset/bpel#</xsl:text>
 						<xsl:choose>
 							<xsl:when test="local-name()='elseif'">
@@ -84,7 +84,7 @@
 					
 					<xsl:call-template name="add-elements"/>			
 							
-					<span class="oryx-bounds">
+					<span class="wapama-bounds">
 						<xsl:value-of select="concat($BoundLUX,',',$BoundLUY,',',$BoundRLX,',',$BoundRLY)" />
 					</span>
 					
@@ -109,12 +109,12 @@
 		
 		<!-- in <process> -->
 		<xsl:if test="local-name()='process'">	
-			<!--<oryx-extensions>-->
+			<!--<wapama-extensions>-->
 			<xsl:for-each select="extensions">
 				<xsl:variable name="numberOfExtensionElement" select="count(extension)"/>
 				<xsl:if test="not($numberOfExtensionElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-extensions</xsl:attribute>	
+						<xsl:attribute name="class">wapama-extensions</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text>
 						<xsl:value-of select="$numberOfExtensionElement" /><xsl:text>, items: [{</xsl:text>
@@ -138,11 +138,11 @@
 				</xsl:if>	
 			</xsl:for-each>	
 			
-			<!--<oryx-import>-->
+			<!--<wapama-import>-->
 			<xsl:variable name="numberOfImportElement" select="count(import)"/>
 			<xsl:if test="not($numberOfImportElement=0)">
 				<span>
-					<xsl:attribute name="class">oryx-import</xsl:attribute>	
+					<xsl:attribute name="class">wapama-import</xsl:attribute>	
 					
 					<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfImportElement" /><xsl:text>, items: [{</xsl:text>
 					
@@ -170,12 +170,12 @@
 		
 		<!--- in <process> or <scope> -->
 		<xsl:if test="local-name()='process' or local-name()='scope'">
-			<!--<oryx-variables>-->
+			<!--<wapama-variables>-->
 			<xsl:for-each select="variables|abs:variables|exc:variables">
 				<xsl:variable name="numberOfVariableElement" select="count(variable|abs:variable|exc:variable)"/>
 				<xsl:if test="not($numberOfVariableElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-variables</xsl:attribute>	
+						<xsl:attribute name="class">wapama-variables</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfVariableElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -224,12 +224,12 @@
 				</xsl:if>	
 			</xsl:for-each>
 			
-			<!--<oryx-PartnerLinks>-->
+			<!--<wapama-PartnerLinks>-->
 			<xsl:for-each select="partnerLinks | abs:partnerLinks | exc:partnerLinks">
 				<xsl:variable name="numberOfPartnerLinkElement" select="count(partnerLink | abs:partnerLink | exc:partnerLinks)"/>
 				<xsl:if test="not($numberOfPartnerLinkElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-partnerlinks</xsl:attribute>	
+						<xsl:attribute name="class">wapama-partnerlinks</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfPartnerLinkElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -257,12 +257,12 @@
 				</xsl:if>	
 			</xsl:for-each>	
 			
-			<!--<oryx-CorrelationSets>-->
+			<!--<wapama-CorrelationSets>-->
 			<xsl:for-each select="correlationSets | abs:correlationSets | exc:correlationSets">
 				<xsl:variable name="numberOfCorrelationSetElement" select="count(correlationSet|abs:correlationSet|exc:correlationSet)"/>
 				<xsl:if test="not($numberOfCorrelationSetElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-correlationsets</xsl:attribute>	
+						<xsl:attribute name="class">wapama-correlationsets</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfCorrelationSetElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -284,12 +284,12 @@
 				</xsl:if>	
 			</xsl:for-each>	
 			
-			<!--<oryx-MessageExchanges>-->
+			<!--<wapama-messageExchanges>-->
 			<xsl:for-each select="messageExchanges|abs:messageExchanges|exc:messageExchanges">
 				<xsl:variable name="numberOfMessageExchangeElement" select="count(messageExchange|abs:messageExchange|exc:messageExchange)"/>
 				<xsl:if test="not($numberOfMessageExchangeElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-messageexchanges</xsl:attribute>	
+						<xsl:attribute name="class">wapama-messageexchanges</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfMessageExchangeElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -314,12 +314,12 @@
 		
 		<!-- in <invoke> or <receive> or <reply> -->
 		<xsl:if test="local-name()='invoke' or local-name()='receive' or local-name()='reply'">
-			<!--<oryx-Correlations>-->
+			<!--<wapama-Correlations>-->
 			<xsl:for-each select="correlations|abs:correlations|exc:correlations">
 				<xsl:variable name="numberOfCorrelationElement" select="count(correlation|abs:correlation|exc:correlation)"/>
 				<xsl:if test="not($numberOfCorrelationElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-correlations</xsl:attribute>	
+						<xsl:attribute name="class">wapama-correlations</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfCorrelationElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -348,12 +348,12 @@
 		
 		<!-- in <onMessage> or <onEvent> -->
 		<xsl:if test="local-name()='onMessage' or local-name()='onEvent'">
-			<!--<oryx-Correlations>-->
+			<!--<wapama-Correlations>-->
 			<xsl:for-each select="correlations|abs:correlations|exc:correlations">
 				<xsl:variable name="numberOfCorrelationElement" select="count(correlation|abs:correlation|exc:correlation)"/>
 				<xsl:if test="not($numberOfCorrelationElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-correlations</xsl:attribute>	
+						<xsl:attribute name="class">wapama-correlations</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfCorrelationElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -380,12 +380,12 @@
 		
 		<!-- in <invoke> or <reply> -->
 		<xsl:if test="local-name()='invoke' or local-name()='reply'">
-			<!--<oryx-toParts>-->
+			<!--<wapama-toParts>-->
 			<xsl:for-each select="toParts|abs:toParts|exc:toParts">
 				<xsl:variable name="numberOfToPartElement" select="count(toPart|abs:toPart|exc:toPart)"/>
 				<xsl:if test="not($numberOfToPartElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-toparts</xsl:attribute>	
+						<xsl:attribute name="class">wapama-toparts</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfToPartElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -411,12 +411,12 @@
 		
 		<!-- in <invoke> or <onEvent>  or <onMessage>-->
 		<xsl:if test="local-name()='invoke' or local-name()='onEvent' or local-name()='onMessage'">
-			<!--<oryx-fromParts>-->
+			<!--<wapama-fromParts>-->
 			<xsl:for-each select="fromParts|abs:fromParts|exc:fromParts">
 				<xsl:variable name="numberOfFromPartElement" select="count(fromPart|abs:fromPart|exc:fromPart)"/>
 				<xsl:if test="not($numberOfFromPartElement=0)">
 					<span>
-						<xsl:attribute name="class">oryx-fromparts</xsl:attribute>	
+						<xsl:attribute name="class">wapama-fromparts</xsl:attribute>	
 						
 						<xsl:text>{totalCount:</xsl:text><xsl:value-of select="$numberOfFromPartElement" /><xsl:text>, items: [{</xsl:text>
 						
@@ -700,7 +700,7 @@
 			<div> 
 				<xsl:variable name="id" select="@id"/>
 				
-				<span class="oryx-type">http://b3mn.org/stencilset/bpel#link</span>
+				<span class="wapama-type">http://b3mn.org/stencilset/bpel#link</span>
 				
 				<xsl:call-template name="add-standard-element">
 					<xsl:with-param name="elementName">linkname</xsl:with-param>
@@ -730,9 +730,9 @@
 					</xsl:attribute>	
 	    		</a>	
 				
-				<a rel="raziel-parent" href="#oryx-canvas123"/>
+				<a rel="raziel-parent" href="#wapama-canvas123"/>
 				
-    			<!--span class="oryx-dockers">50 40 50 40  # </span-->
+    			<!--span class="wapama-dockers">50 40 50 40  # </span-->
 				
 				<a rel="raziel-target">
 	    			<xsl:attribute name="href">
@@ -749,11 +749,11 @@
 		<xsl:param name="valueOfElement"/>
 		
 		<xsl:if test="not($valueOfElement='')">
-	 		<xsl:variable name="oryxElementName" select="translate(concat('oryx-',$elementName),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
+	 		<xsl:variable name="wapamaElementName" select="translate(concat('wapama-',$elementName),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
 				
 			<span>
 				<xsl:attribute name="class">
-					<xsl:value-of select="$oryxElementName"/>
+					<xsl:value-of select="$wapamaElementName"/>
 				</xsl:attribute>	
 				<xsl:value-of select="$valueOfElement"/>
 			</span>	
@@ -801,7 +801,7 @@
 			<xsl:if test = "$isNodeStencilSet='true' or $isEdgeStencilSet='true' ">
 			 	<xsl:variable name="id" select="@id"/>
 	 		    		
-	 			<a rel="oryx-render">
+	 			<a rel="wapama-render">
 	 				<xsl:attribute name="href">
 	 					<xsl:value-of select="concat('#',$id)" />
 					</xsl:attribute>

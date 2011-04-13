@@ -25,10 +25,10 @@ var prop1 = {
 
 
 function setUp() {
-	propItem1 = new ORYX.Core.StencilSet.PropertyItem(item1, "testNS", prop1);
-	propItem2 = new ORYX.Core.StencilSet.PropertyItem(item2, "testNS", prop1);
-	propItem3 = new ORYX.Core.StencilSet.PropertyItem(item1, "testNS", prop2);
-	propItem1Dupl = new ORYX.Core.StencilSet.PropertyItem(item1, "testNS", prop1);
+	propItem1 = new WAPAMA.Core.StencilSet.PropertyItem(item1, "testNS", prop1);
+	propItem2 = new WAPAMA.Core.StencilSet.PropertyItem(item2, "testNS", prop1);
+	propItem3 = new WAPAMA.Core.StencilSet.PropertyItem(item1, "testNS", prop2);
+	propItem1Dupl = new WAPAMA.Core.StencilSet.PropertyItem(item1, "testNS", prop1);
 }
 
 /*

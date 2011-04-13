@@ -2,7 +2,7 @@
 <svg 
     xmlns="http://www.w3.org/2000/svg"
     xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:oryx="http://www.b3mn.org/oryx"
+    xmlns:wapama="http://www.wapama.net/diagram"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     
     width="60px" 
@@ -30,6 +30,6 @@
         c-2.465,2.465-12.061,2.741-14.801,0c-2.741-2.742-2.741-4.02-2.741-5.849c0-1.828,1.278-2.74,2.741-4.202
         C24.708,26.775,21.604,22.845,22.972,21.474z"/>
         	
-    <text font-size="12" id="text_name" x="34" y="66" oryx:align="center top" stroke="black" />        	
+    <text font-size="12" id="text_name" x="34" y="66" wapama:align="center top" stroke="black" />        	
   </g>
 </svg>

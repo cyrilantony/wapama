@@ -21,10 +21,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.SimplePnmlexport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.SimplePnmlexport = WAPAMA.Plugins.AbstractPlugin.extend({
 
     facade: undefined,
     
@@ -32,12 +32,12 @@ ORYX.Plugins.SimplePnmlexport = ORYX.Plugins.AbstractPlugin.extend({
         this.facade = facade;
         
         this.facade.offer({
-            'name': ORYX.I18N.SimplePnmlexport.name,
+            'name': WAPAMA.I18N.SimplePnmlexport.name,
             'functionality': this.exportIt.bind(this),
-            'group': ORYX.I18N.SimplePnmlexport.group,
-            dropDownGroupIcon: ORYX.PATH + "images/export2.png",
-			'icon': ORYX.PATH + "images/page_white_gear.png",
-            'description': ORYX.I18N.SimplePnmlexport.desc,
+            'group': WAPAMA.I18N.SimplePnmlexport.group,
+            dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
+			'icon': WAPAMA.PATH + "images/page_white_gear.png",
+            'description': WAPAMA.I18N.SimplePnmlexport.desc,
             'index': 1,
             'minShape': 0,
             'maxShape': 0
@@ -49,7 +49,7 @@ ORYX.Plugins.SimplePnmlexport = ORYX.Plugins.AbstractPlugin.extend({
 
 		// raise loading enable event
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE
         });
             
 		// asynchronously ...
@@ -60,7 +60,7 @@ ORYX.Plugins.SimplePnmlexport = ORYX.Plugins.AbstractPlugin.extend({
 			
 			// raise loading disable event.
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
             });
 			
         }).bind(this), 10);
@@ -79,7 +79,7 @@ ORYX.Plugins.SimplePnmlexport = ORYX.Plugins.AbstractPlugin.extend({
 				serialized_rdf = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized_rdf;
 			}
 			// Send the request to the server.
-			new Ajax.Request(ORYX.CONFIG.SIMPLE_PNML_EXPORT_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.SIMPLE_PNML_EXPORT_URL, {
 				method: 'POST',
 				asynchronous: false,
 				parameters: {
@@ -98,8 +98,8 @@ ORYX.Plugins.SimplePnmlexport = ORYX.Plugins.AbstractPlugin.extend({
 			});
 			
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 	 	}
 	}
 });

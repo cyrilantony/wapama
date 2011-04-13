@@ -24,9 +24,9 @@
 /**
  * Init namespace
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.StencilSet) {WAPAMA.Core.StencilSet = {};}
 
 /**
  * Class StencilSets
@@ -36,16 +36,16 @@ if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
  * Singleton
  */
 //storage for loaded stencil sets by namespace
-ORYX.Core.StencilSet._stencilSetsByNamespace = new Hash();
+WAPAMA.Core.StencilSet._stencilSetsByNamespace = new Hash();
 
 //storage for stencil sets by url
-ORYX.Core.StencilSet._stencilSetsByUrl = new Hash();	
+WAPAMA.Core.StencilSet._stencilSetsByUrl = new Hash();	
 
 //storage for stencil set namespaces by editor instances
-ORYX.Core.StencilSet._StencilSetNSByEditorInstance = new Hash();
+WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance = new Hash();
 
 //storage for rules by editor instances
-ORYX.Core.StencilSet._rulesByEditorInstance = new Hash();
+WAPAMA.Core.StencilSet._rulesByEditorInstance = new Hash();
 
 /**
  * 
@@ -54,12 +54,12 @@ ORYX.Core.StencilSet._rulesByEditorInstance = new Hash();
  * @return {Hash} Returns a hash map with all stencil sets that are loaded by
  * 					the editor with the editorId.
  */
-ORYX.Core.StencilSet.stencilSets = function(editorId) {
-	var stencilSetNSs = ORYX.Core.StencilSet._StencilSetNSByEditorInstance[editorId];
+WAPAMA.Core.StencilSet.stencilSets = function(editorId) {
+	var stencilSetNSs = WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance[editorId];
 	var stencilSets = new Hash();
 	if(stencilSetNSs) {
 		stencilSetNSs.each(function(stencilSetNS) {
-			var stencilSet = ORYX.Core.StencilSet.stencilSet(stencilSetNS)
+			var stencilSet = WAPAMA.Core.StencilSet.stencilSet(stencilSetNS)
 			stencilSets[stencilSet.namespace()] = stencilSet;
 		});
 	}
@@ -70,7 +70,7 @@ ORYX.Core.StencilSet.stencilSets = function(editorId) {
  * 
  * @param {String} namespace
  * 
- * @return {ORYX.Core.StencilSet.StencilSet} Returns the stencil set with the specified
+ * @return {WAPAMA.Core.StencilSet.StencilSet} Returns the stencil set with the specified
  * 										namespace.
  * 
  * The method can handle namespace strings like
@@ -78,12 +78,12 @@ ORYX.Core.StencilSet.stencilSets = function(editorId) {
  *  http://www.example.org/stencilset#
  *  http://www.example.org/stencilset#ANode
  */
-ORYX.Core.StencilSet.stencilSet = function(namespace) {
-	ORYX.Log.trace("Getting stencil set %0", namespace);
+WAPAMA.Core.StencilSet.stencilSet = function(namespace) {
+	WAPAMA.Log.trace("Getting stencil set %0", namespace);
 	var splitted = namespace.split("#", 1);
 	if(splitted.length === 1) {
-		ORYX.Log.trace("Getting stencil set %0", splitted[0]);
-		return ORYX.Core.StencilSet._stencilSetsByNamespace[splitted[0] + "#"];
+		WAPAMA.Log.trace("Getting stencil set %0", splitted[0]);
+		return WAPAMA.Core.StencilSet._stencilSetsByNamespace[splitted[0] + "#"];
 	} else {
 		return undefined;
 	}
@@ -93,19 +93,19 @@ ORYX.Core.StencilSet.stencilSet = function(namespace) {
  * 
  * @param {String} id
  * 
- * @return {ORYX.Core.StencilSet.Stencil} Returns the stencil specified by the id.
+ * @return {WAPAMA.Core.StencilSet.Stencil} Returns the stencil specified by the id.
  * 
  * The id must be unique and contains the namespace of the stencil's stencil set.
  * e.g. http://www.example.org/stencilset#ANode
  */
-ORYX.Core.StencilSet.stencil = function(id) {
-	ORYX.Log.trace("Getting stencil for %0", id);
-	var ss = ORYX.Core.StencilSet.stencilSet(id);
+WAPAMA.Core.StencilSet.stencil = function(id) {
+	WAPAMA.Log.trace("Getting stencil for %0", id);
+	var ss = WAPAMA.Core.StencilSet.stencilSet(id);
 	if(ss) {
 		return ss.stencil(id);
 	} else {
 
-		ORYX.Log.trace("Cannot fild stencil for %0", id);
+		WAPAMA.Log.trace("Cannot fild stencil for %0", id);
 		return undefined;
 	}
 };
@@ -114,14 +114,14 @@ ORYX.Core.StencilSet.stencil = function(id) {
  * 
  * @param {String} editorId
  * 
- * @return {ORYX.Core.StencilSet.Rules} Returns the rules object for the editor
+ * @return {WAPAMA.Core.StencilSet.Rules} Returns the rules object for the editor
  * 									specified by its editor id.
  */
-ORYX.Core.StencilSet.rules = function(editorId) {
-	if(!ORYX.Core.StencilSet._rulesByEditorInstance[editorId]) {
-		ORYX.Core.StencilSet._rulesByEditorInstance[editorId] = new ORYX.Core.StencilSet.Rules();;
+WAPAMA.Core.StencilSet.rules = function(editorId) {
+	if(!WAPAMA.Core.StencilSet._rulesByEditorInstance[editorId]) {
+		WAPAMA.Core.StencilSet._rulesByEditorInstance[editorId] = new WAPAMA.Core.StencilSet.Rules();;
 	}
-	return ORYX.Core.StencilSet._rulesByEditorInstance[editorId];
+	return WAPAMA.Core.StencilSet._rulesByEditorInstance[editorId];
 };
 
 /**
@@ -133,12 +133,12 @@ ORYX.Core.StencilSet.rules = function(editorId) {
  * It also stores which editor instance loads the stencil set and 
  * initializes the Rules object for the editor instance.
  */
-ORYX.Core.StencilSet.loadStencilSet = function(oryxEditor, url, editorId) {
-	var stencilSet = ORYX.Core.StencilSet._stencilSetsByUrl[url];
+WAPAMA.Core.StencilSet.loadStencilSet = function(wapamaEditor, url, editorId) {
+	var stencilSet = WAPAMA.Core.StencilSet._stencilSetsByUrl[url];
 
 	if(!stencilSet) {
 		//load stencil set
-		stencilSet = new ORYX.Core.StencilSet.StencilSet(oryxEditor, url, editorId);
+		stencilSet = new WAPAMA.Core.StencilSet.StencilSet(wapamaEditor, url, editorId);
 		
 
 	}
@@ -148,8 +148,8 @@ ORYX.Core.StencilSet.loadStencilSet = function(oryxEditor, url, editorId) {
  * Returns the translation of an attribute in jsonObject specified by its name
  * according to navigator.language
  */
-ORYX.Core.StencilSet.getTranslation = function(jsonObject, name) {
-	var lang = ORYX.I18N.Language.toLowerCase();
+WAPAMA.Core.StencilSet.getTranslation = function(jsonObject, name) {
+	var lang = WAPAMA.I18N.Language.toLowerCase();
 	
 	var result = jsonObject[name + "_" + lang];
 	

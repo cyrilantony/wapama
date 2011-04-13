@@ -21,14 +21,14 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * Transforms a BPEL process into its BPMN representation.
  * 
  */
-ORYX.Plugins.BPEL2BPMN = Clazz.extend({
+WAPAMA.Plugins.BPEL2BPMN = Clazz.extend({
 
 	facade: undefined,
 
@@ -43,7 +43,7 @@ ORYX.Plugins.BPEL2BPMN = Clazz.extend({
 			'name':"Transform BPEL into BPMN",
 			'functionality': this.transform.bind(this),
 			'group': 			'Export',
-            dropDownGroupIcon: ORYX.PATH + "images/import.png",
+            dropDownGroupIcon: WAPAMA.PATH + "images/import.png",
 			'description': "Transform a BPEL process into its BPMN representation",
 			'index': 1,
 			'minShape': 0,
@@ -107,7 +107,7 @@ ORYX.Plugins.BPEL2BPMN = Clazz.extend({
 				{
 					form.form.submit({
 			      		clientValidation: false,
-						url: ORYX.PATH + '/bpel2bpmn',
+						url: WAPAMA.PATH + '/bpel2bpmn',
 			      		waitMsg: "Transforming...",
 			      		success: function(f,a){
 							/*
@@ -139,7 +139,7 @@ ORYX.Plugins.BPEL2BPMN = Clazz.extend({
 								/*
 								 * In all cases we try to import the resulting eRDF.
 								 */
-								eRDF = '<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:b3mn="http://b3mn.org/2007/b3mn" xmlns:ext="http://b3mn.org/2007/ext" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:atom="http://b3mn.org/2007/atom+xhtml"><head profile="http://purl.org/NET/erdf/profile"><link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" /><link rel="schema.dcTerms" href="http://purl.org/dc/terms/ " /><link rel="schema.b3mn" href="http://b3mn.org" /><link rel="schema.oryx" href="http://oryx-editor.org/" /><link rel="schema.raziel" href="http://raziel.org/" /><base href="http://localhost:8080/backend/poem/new" /></head><body>'
+								eRDF = '<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:b3mn="http://b3mn.org/2007/b3mn" xmlns:ext="http://b3mn.org/2007/ext" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:atom="http://b3mn.org/2007/atom+xhtml"><head profile="http://purl.org/NET/erdf/profile"><link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" /><link rel="schema.dcTerms" href="http://purl.org/dc/terms/ " /><link rel="schema.b3mn" href="http://b3mn.org" /><link rel="schema.wapama" href="http://www.wapama.net/" /><link rel="schema.raziel" href="http://raziel.org/" /><base href="http://localhost:8080/backend/poem/new" /></head><body>'
 									+eRDF+'</body></html>';
 								var parser	= new DOMParser();			
 								this.facade.importERDF(parser.parseFromString(eRDF ,"text/xml"));

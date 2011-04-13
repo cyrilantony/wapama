@@ -21,11 +21,11 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
 //TODO this one fails when importing a stencilset that is already loaded. Hoewver, since an asynchronous callback throws the error, the user doesn#t recognize it.
-ORYX.Plugins.SSExtensionLoader = {
+WAPAMA.Plugins.SSExtensionLoader = {
 
     /**
      *	Constructor
@@ -35,11 +35,11 @@ ORYX.Plugins.SSExtensionLoader = {
         this.facade = facade;
         
         this.facade.offer({
-            'name': ORYX.I18N.SSExtensionLoader.add,
+            'name': WAPAMA.I18N.SSExtensionLoader.add,
             'functionality': this.addSSExtension.bind(this),
-            'group': ORYX.I18N.SSExtensionLoader.group,
-            'icon': ORYX.PATH + "images/add.png",
-            'description': ORYX.I18N.SSExtensionLoader.addDesc,
+            'group': WAPAMA.I18N.SSExtensionLoader.group,
+            'icon': WAPAMA.PATH + "images/add.png",
+            'description': WAPAMA.I18N.SSExtensionLoader.addDesc,
             'index': 1,
             'minShape': 0,
             'maxShape': 0
@@ -48,12 +48,12 @@ ORYX.Plugins.SSExtensionLoader = {
     
     addSSExtension: function(facade){
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE,
-            text: ORYX.I18N.SSExtensionLoader.loading
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE,
+            text: WAPAMA.I18N.SSExtensionLoader.loading
         });
         
-        var url = ORYX.CONFIG.SS_EXTENSIONS_CONFIG;
-        //var url = "/oryx/build/stencilsets/extensions/extensions.json";
+        var url = WAPAMA.CONFIG.SS_EXTENSIONS_CONFIG;
+        //var url = "/wapama/build/stencilsets/extensions/extensions.json";
         new Ajax.Request(url, {
             method: 'GET',
             asynchronous: false,
@@ -79,26 +79,26 @@ ORYX.Plugins.SSExtensionLoader = {
                     });
 
 					if (validExtensions.size() == 0)
-						Ext.Msg.alert(ORYX.I18N.Oryx.title, 
-						ORYX.I18N.SSExtensionLoader.noExt);
+						Ext.Msg.alert(WAPAMA.I18N.Wapama.title, 
+						WAPAMA.I18N.SSExtensionLoader.noExt);
 					else 
                     	this._showPanel(validExtensions, loadedExtensions, this._loadExtensions.bind(this));
                     
                 } 
                 catch (e) {
-                    Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.SSExtensionLoader.failed1);
+                    Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.SSExtensionLoader.failed1);
 				}
                 
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
                 
             }).bind(this),
             onFailure: (function(transport){
-                Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.SSExtensionLoader.failed2);
+                Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.SSExtensionLoader.failed2);
 
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
             }).bind(this)
         });
@@ -123,7 +123,7 @@ ORYX.Plugins.SSExtensionLoader = {
 			var stencilset = stencilsets[extension["extends"]];
 			
 			if(stencilset) {
-				stencilset.addExtension(ORYX.CONFIG.SS_EXTENSIONS_FOLDER + extension.definition);
+				stencilset.addExtension(WAPAMA.CONFIG.SS_EXTENSIONS_FOLDER + extension.definition);
 				atLeastOne = true;
 			}
 		}.bind(this));
@@ -133,7 +133,7 @@ ORYX.Plugins.SSExtensionLoader = {
 				this.facade.getRules().initializeRules(stencilset);
 			}.bind(this));
 			this.facade.raiseEvent({
-				type: ORYX.CONFIG.EVENT_STENCIL_SET_LOADED,
+				type: WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED,
 				lazyLoaded : true
 			});
 			var selection = this.facade.getSelection();
@@ -156,12 +156,12 @@ ORYX.Plugins.SSExtensionLoader = {
         // Create a new Grid with a selection box
         var grid = new Ext.grid.GridPanel({
         	deferRowRender: false,
-            id: 'oryx_new_stencilset_extention_grid',
+            id: 'wapama_new_stencilset_extention_grid',
             store: new Ext.data.SimpleStore({
                 fields: ['title', 'definition', 'extends']
             }),
             cm: new Ext.grid.ColumnModel([sm, {
-                header: ORYX.I18N.SSExtensionLoader.panelTitle,
+                header: WAPAMA.I18N.SSExtensionLoader.panelTitle,
                 width: 200,
                 sortable: true,
                 dataIndex: 'title'
@@ -200,33 +200,33 @@ ORYX.Plugins.SSExtensionLoader = {
         var panel = new Ext.Panel({
             items: [{
                 xtype: 'label',
-                text: ORYX.I18N.SSExtensionLoader.panelText,
+                text: WAPAMA.I18N.SSExtensionLoader.panelText,
                 style: 'margin:10px;display:block'
             }, grid],
             frame: true,
             buttons: [{
-                text: ORYX.I18N.SSExtensionLoader.labelImport,
+                text: WAPAMA.I18N.SSExtensionLoader.labelImport,
                 handler: function(){
-                    var selectionModel = Ext.getCmp('oryx_new_stencilset_extention_grid').getSelectionModel();
+                    var selectionModel = Ext.getCmp('wapama_new_stencilset_extention_grid').getSelectionModel();
                     var result = selectionModel.selections.items.collect(function(item){
                         return item.data;
                     })
-                    Ext.getCmp('oryx_new_stencilset_extention_window').close();
+                    Ext.getCmp('wapama_new_stencilset_extention_window').close();
                     successCallback(result);
                 }.bind(this)
             }, {
-                text: ORYX.I18N.SSExtensionLoader.labelCancel,
+                text: WAPAMA.I18N.SSExtensionLoader.labelCancel,
                 handler: function(){
-                    Ext.getCmp('oryx_new_stencilset_extention_window').close();
+                    Ext.getCmp('wapama_new_stencilset_extention_window').close();
                 }.bind(this)
             }]
         })
         
         // Create a new Window
         var window = new Ext.Window({
-            id: 'oryx_new_stencilset_extention_window',
+            id: 'wapama_new_stencilset_extention_window',
             width: 227,
-            title: ORYX.I18N.Oryx.title,
+            title: WAPAMA.I18N.Wapama.title,
             floating: true,
             shim: true,
             modal: true,
@@ -240,4 +240,4 @@ ORYX.Plugins.SSExtensionLoader = {
         
     }
 };
-ORYX.Plugins.SSExtensionLoader = Clazz.extend(ORYX.Plugins.SSExtensionLoader);
+WAPAMA.Plugins.SSExtensionLoader = Clazz.extend(WAPAMA.Plugins.SSExtensionLoader);

@@ -59,11 +59,11 @@
   <!--  **************************** Template for Object element ****************** -->
   <xsl:template name="object">
     <xsl:param name="objectParent" />
-    <!-- <xpdl:Object Id="{$objectParent/x:span[@class='oryx-id']}"> -->
+    <!-- <xpdl:Object Id="{$objectParent/x:span[@class='wapama-id']}"> -->
     <xpdl:Object
       Id="{generate-id(.)}">
-      <xsl:variable name="categories" select="$objectParent/x:span[@class='oryx-categories']" />
-      <xsl:variable name="documentation" select="$objectParent/x:span[@class='oryx-documentation']" />
+      <xsl:variable name="categories" select="$objectParent/x:span[@class='wapama-categories']" />
+      <xsl:variable name="documentation" select="$objectParent/x:span[@class='wapama-documentation']" />
       <!-- Categories -->
       <xsl:if test="string-length(normalize-space($categories))>0">
         <xpdl:Categories>
@@ -87,7 +87,7 @@
     <xsl:variable name="parentRef" select="$node/x:a[@rel='raziel-parent']/@href" />
     <xsl:variable name="parent" select="//x:div[@id=substring($parentRef,2)]" />
     <xsl:choose>
-      <xsl:when test="$parent/x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#Lane'">
+      <xsl:when test="$parent/x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#Lane'">
         <xsl:value-of select="$parent/@id"/>
       </xsl:when>
       <xsl:otherwise>
@@ -104,7 +104,7 @@
   <!--  **************************** Template for NodeGraphicsInfo element ****************** -->
   <xsl:template name="nodeGraphicsInfos">
     <xsl:param name="node" />
-    <xsl:variable name="bounds" select="$node/x:span[@class='oryx-bounds']" />
+    <xsl:variable name="bounds" select="$node/x:span[@class='wapama-bounds']" />
     <xsl:variable name="x" select="substring-before($bounds, ',')" />
     <xsl:variable name="remaining1" select="substring-after($bounds, ',')" />
     <xsl:variable name="y" select="substring-before($remaining1, ',')" />
@@ -125,8 +125,8 @@
 
   <!--  **************************** Template for timer trigger ****************** -->
   <xsl:template name="triggerTimer">
-    <xsl:variable name="timeDate" select="x:span[@class='oryx-timedate']" />
-    <xsl:variable name="timeCycle" select="x:span[@class='oryx-timecycle']" />
+    <xsl:variable name="timeDate" select="x:span[@class='wapama-timedate']" />
+    <xsl:variable name="timeCycle" select="x:span[@class='wapama-timecycle']" />
     <xpdl:TriggerTimer>
       <xsl:if test="string-length(normalize-space($timeDate))>0">
         <xsl:attribute name="TimeDate">
@@ -153,13 +153,13 @@
   <xsl:template name="activities">
     <xsl:param name="activities" />
     <xsl:for-each select="$activities">
-      <xsl:variable name="type" select="x:span[@class='oryx-activitytype']" />
-      <xsl:variable name="gatewayType" select="x:span[@class='oryx-gatewaytype']" />
-      <xsl:variable name="eventType" select="x:span[@class='oryx-eventtype']" />
-      <xsl:variable name="loopType" select="x:span[@class='oryx-looptype']" />
-      <!-- <xsl:variable name="id" select="x:span[@class='oryx-id']" /> -->
+      <xsl:variable name="type" select="x:span[@class='wapama-activitytype']" />
+      <xsl:variable name="gatewayType" select="x:span[@class='wapama-gatewaytype']" />
+      <xsl:variable name="eventType" select="x:span[@class='wapama-eventtype']" />
+      <xsl:variable name="loopType" select="x:span[@class='wapama-looptype']" />
+      <!-- <xsl:variable name="id" select="x:span[@class='wapama-id']" /> -->
       <xsl:variable name="id" select="@id" />
-      <xsl:variable name="name" select="x:span[@class='oryx-name']" />
+      <xsl:variable name="name" select="x:span[@class='wapama-name']" />
       <xsl:if test="string-length(normalize-space($type))>0 or 
 				string-length(normalize-space($gatewayType))>0 or 
 				string-length(normalize-space($eventType))>0">
@@ -172,7 +172,7 @@
           </xsl:if>
           <!-- ******************** Route ********************** -->
           <xsl:if test="string-length(normalize-space($gatewayType))>0">
-            <xsl:variable name="instantiate" select="x:span[@class='oryx-instantiate']" />
+            <xsl:variable name="instantiate" select="x:span[@class='wapama-instantiate']" />
             <xpdl:Route GatewayType="{$gatewayType}">
               <xsl:if test="$instantiate">
                 <xsl:attribute name="Instantiate">
@@ -183,10 +183,10 @@
             <xsl:if test="$gatewayType='XOR'">
               <xpdl:TransitionRestrictions>
                 <xpdl:TransitionRestriction>
-                  <xsl:if test="x:span[@class='oryx-xortype']='Event'">
+                  <xsl:if test="x:span[@class='wapama-xortype']='Event'">
                     <xpdl:Split Type="XOREVENT" />
                   </xsl:if>
-                  <xsl:if test="x:span[@class='oryx-xortype']='Data'">
+                  <xsl:if test="x:span[@class='wapama-xortype']='Data'">
                     <xpdl:Split Type="XOR" />
                     <!-- TODO: transition Refs depending on defined transition order? -->
                   </xsl:if>
@@ -196,7 +196,7 @@
           </xsl:if>
           <!-- ******************** XPDL Tasks ********************** -->
           <xsl:if test="$type='Task'">
-            <xsl:variable name="taskType" select="x:span[@class='oryx-tasktype']" />
+            <xsl:variable name="taskType" select="x:span[@class='wapama-tasktype']" />
             <xsl:if test="$taskType='Service'">
               <xpdl:Implementation>
                 <xpdl:Task>
@@ -211,7 +211,7 @@
               <xpdl:Implementation>
                 <xpdl:Task>
                   <xpdl:TaskReceive
-										Instantiate="{x:span[@class='oryx-instantiate']}">
+										Instantiate="{x:span[@class='wapama-instantiate']}">
                     <xpdl:Message Id="{concat($id,'_message')}"/>
                   </xpdl:TaskReceive>
                 </xpdl:Task>
@@ -220,7 +220,7 @@
             <xsl:if test="$taskType='Send'">
               <xpdl:Implementation>
                 <xpdl:Task>
-                  <xsl:variable name="faultName" select="x:span[@class='oryx-faultname']" />
+                  <xsl:variable name="faultName" select="x:span[@class='wapama-faultname']" />
                   <xpdl:TaskSend>
                     <xpdl:Message Id="{concat($id,'_message')}"/>
                   </xpdl:TaskSend>
@@ -238,7 +238,7 @@
           <!-- ******************** Event ********************** -->
           <xsl:if test="string-length(normalize-space($eventType))>0">
             <xpdl:Event>
-              <xsl:variable name="trigger" select="x:span[@class='oryx-trigger']" />
+              <xsl:variable name="trigger" select="x:span[@class='wapama-trigger']" />
               <xsl:if test="$eventType='Start'" >
                 <xpdl:StartEvent Trigger="{$trigger}">
                   <xsl:if test="$trigger='Message'">
@@ -252,7 +252,7 @@
                 </xpdl:StartEvent>
               </xsl:if>
               <xsl:if test="$eventType='Intermediate'" >
-                <xsl:variable name="target" select="x:span[@class='oryx-target']" />
+                <xsl:variable name="target" select="x:span[@class='wapama-target']" />
                 <xsl:variable name="targetRef" select="//x:div[x:a[@rel='raziel-outgoing' and @href=concat('#',$id)]]/@id" />
                 <xpdl:IntermediateEvent>
                   <xsl:attribute name="Trigger">
@@ -281,10 +281,10 @@
                     <xsl:call-template name="triggerTimer" />
                   </xsl:if>
                   <xsl:if test="$trigger='Error'">
-                    <xpdl:ResultError ErrorCode="{x:span[@class='oryx-errorcode']}" />
+                    <xpdl:ResultError ErrorCode="{x:span[@class='wapama-errorcode']}" />
                   </xsl:if>
                   <xsl:if test="$trigger='Compensation'">
-                    <xsl:variable name="activity" select="x:span[@class='oryx-activity']" />
+                    <xsl:variable name="activity" select="x:span[@class='wapama-activity']" />
                     <xpdl:ResultCompensation>
                       <xsl:if test="string-length(normalize-space($activity))>0" >
                         <xsl:attribute name="ActivityId">
@@ -297,7 +297,7 @@
               </xsl:if>
               <xsl:if test="$eventType='End'" >
                 <xpdl:EndEvent>
-                  <xsl:variable name="result" select="x:span[@class='oryx-result']" />
+                  <xsl:variable name="result" select="x:span[@class='wapama-result']" />
                   <xsl:attribute name="Result">
                     <xsl:value-of select="$result"></xsl:value-of>
                   </xsl:attribute>
@@ -310,10 +310,10 @@
                     <xsl:call-template name="triggerTimer" />
                   </xsl:if>
                   <xsl:if test="$trigger='Error'">
-                    <xpdl:ResultError ErrorCode="{x:span[@class='oryx-errorcode']}" />
+                    <xpdl:ResultError ErrorCode="{x:span[@class='wapama-errorcode']}" />
                   </xsl:if>
                   <xsl:if test="$trigger='Compensation'">
-                    <xsl:variable name="activity" select="x:span[@class='oryx-activity']" />
+                    <xsl:variable name="activity" select="x:span[@class='wapama-activity']" />
                     <xpdl:ResultCompensation>
                       <xsl:if test="string-length(normalize-space($activity))>0" >
                         <xsl:attribute name="ActivityId">
@@ -331,15 +331,15 @@
             <xpdl:Loop LoopType="{$loopType}">
               <xsl:if test="$loopType ='Standard'">
                 <xpdl:LoopStandard
-									LoopCondition="{x:span[@class='oryx-loopcondition']}"
-									TestTime="{x:span[@class='oryx-testtime']}">
+									LoopCondition="{x:span[@class='wapama-loopcondition']}"
+									TestTime="{x:span[@class='wapama-testtime']}">
                 </xpdl:LoopStandard>
               </xsl:if>
               <xsl:if test="$loopType='MultiInstance'">
                 <xpdl:LoopMultiInstance
-                 MI_Condition="{x:span[@class='oryx-mi_condition']}"
-                 MI_Ordering="{x:span[@class='oryx-mi_ordering']}"
-                 MI_FlowCondition="{x:span[@class='oryx-mi_flowcondition']}">
+                 MI_Condition="{x:span[@class='wapama-mi_condition']}"
+                 MI_Ordering="{x:span[@class='wapama-mi_ordering']}"
+                 MI_FlowCondition="{x:span[@class='wapama-mi_flowcondition']}">
                 </xpdl:LoopMultiInstance>
               </xsl:if>
             </xpdl:Loop>
@@ -365,7 +365,7 @@
     <xsl:variable name="activitiesOutRefs" select="//x:div[x:a[@rel='raziel-parent' and @href=concat('#',$resId)]]/x:a[@rel='raziel-outgoing']"/>
     <xsl:for-each select="$activitiesOutRefs">
       <xsl:variable name="outRef" select="@href"/>
-      <xsl:variable name="relevantTransitions" select="//x:div[x:a[@rel='raziel-parent' and @href='#oryx-canvas123'] and @id=substring($outRef,2)]"/>
+      <xsl:variable name="relevantTransitions" select="//x:div[x:a[@rel='raziel-parent' and @href='#wapama-canvas123'] and @id=substring($outRef,2)]"/>
       <xsl:call-template name="transitions">
         <xsl:with-param name="transitions" select="$relevantTransitions" />
       </xsl:call-template>
@@ -376,12 +376,12 @@
   <xsl:template name="transitions">
     <xsl:param name="transitions" />
     <xsl:for-each select="$transitions">
-      <xsl:variable name="type" select="x:span[@class='oryx-type']" />
-      <!-- <xsl:variable name="id" select="x:span[@class='oryx-id']" /> -->
+      <xsl:variable name="type" select="x:span[@class='wapama-type']" />
+      <!-- <xsl:variable name="id" select="x:span[@class='wapama-id']" /> -->
       <xsl:variable name="id" select="@id" />
-      <xsl:variable name="name" select="x:span[@class='oryx-name']" />
+      <xsl:variable name="name" select="x:span[@class='wapama-name']" />
       <xsl:variable name="internalOutRef" select="x:a[@rel='raziel-outgoing']/@href" />
-      <xsl:variable name="conditionType" select="x:span[@class='oryx-conditiontype']" />
+      <xsl:variable name="conditionType" select="x:span[@class='wapama-conditiontype']" />
       <xsl:if test="$type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'">
         <xpdl:Transition
 					Id="{$id}"
@@ -393,7 +393,7 @@
             </xsl:attribute>
           </xsl:if>
           <xsl:if test="$conditionType='Expression'">
-            <xsl:variable name="conditionExpressionLanguage" select="x:span[@class='oryx-conditionexpressionlanguage']" />
+            <xsl:variable name="conditionExpressionLanguage" select="x:span[@class='wapama-conditionexpressionlanguage']" />
             <xpdl:Condition Type="CONDITION">
               <xpdl:Expression>
                 <xsl:if test="string-length(normalize-space($conditionExpressionLanguage))>0">
@@ -401,7 +401,7 @@
                     <xsl:value-of select="$conditionExpressionLanguage"/>
                   </xsl:attribute>
                 </xsl:if>
-                <xsl:value-of select="x:span[@class='oryx-conditionexpression']"/>
+                <xsl:value-of select="x:span[@class='wapama-conditionexpression']"/>
               </xpdl:Expression>
             </xpdl:Condition>
           </xsl:if>
@@ -418,10 +418,10 @@
   <xsl:template name="activitySets">
     <xsl:param name="blockActivities" />
     <xsl:for-each select="$blockActivities">
-      <xsl:variable name="type" select="x:span[@class='oryx-activitytype']" />
+      <xsl:variable name="type" select="x:span[@class='wapama-activitytype']" />
       <xsl:if test="$type='Sub-Process'">
         <xsl:variable name="resourceId" select="@id" />
-        <xsl:variable name="blockActivityId" select="x:span[@class='oryx-id']" />
+        <xsl:variable name="blockActivityId" select="x:span[@class='wapama-id']" />
         <xsl:variable name="innerActivities" select="//x:div[x:a[@rel='raziel-parent' and @href=concat('#',$resourceId)]]"/>
         <xsl:variable name="index" select="generate-id(.)" />
         <xsl:call-template name="activitySets">
@@ -451,8 +451,8 @@
     <xsl:if test="count($childLanes)>0">
       <xpdl:Lanes>
         <xsl:for-each select="$childLanes">
-          <xsl:variable name="laneName" select="x:span[@class='oryx-name']" />
-          <!--<xpdl:Lane Id="{x:span[@class='oryx-id']}"> -->
+          <xsl:variable name="laneName" select="x:span[@class='wapama-name']" />
+          <!--<xpdl:Lane Id="{x:span[@class='wapama-id']}"> -->
           <xpdl:Lane 
 						Id="{@id}">
             <xsl:if test="string-length(normalize-space($poolId))>0">
@@ -490,36 +490,36 @@
       Id="{generate-id(.)}">
       <xpdl:PackageHeader>
         <xpdl:XPDLVersion>2.0</xpdl:XPDLVersion>
-        <xpdl:Vendor>Oryx</xpdl:Vendor>
+        <xpdl:Vendor>Wapama</xpdl:Vendor>
         <xpdl:Created />
       </xpdl:PackageHeader>
       <!-- *********************** Pools ******************************** -->
-      <xsl:variable name="Pools" select="//x:div[x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#Pool']"/>
+      <xsl:variable name="Pools" select="//x:div[x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#Pool']"/>
 	  <!-- Get Id of canvas-->
-	  <xsl:variable name="canvasId" select="//x:div[x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram']/@id" />
+	  <xsl:variable name="canvasId" select="//x:div[x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram']/@id" />
 	  <!-- Get elements that are direct children of the canvas (no flows, no other pools) -->
 	  <xsl:variable name="canvasChildren" select="//x:div[x:a[@rel='raziel-parent' and @href=concat('#',$canvasId)] 
-	  and x:span[@class='oryx-type']!='http://b3mn.org/stencilset/bpmn1.1#MessageFlow'
-	  and x:span[@class='oryx-type']!='http://b3mn.org/stencilset/bpmn1.1#UndirectedAssociation'
-	  and x:span[@class='oryx-type']!='http://b3mn.org/stencilset/bpmn1.1#DirectedAssociation'
-	  and x:span[@class='oryx-type']!='http://b3mn.org/stencilset/bpmn1.1#DataObject'
-	  and x:span[@class='oryx-type']!='http://b3mn.org/stencilset/bpmn1.1#Pool']" />
+	  and x:span[@class='wapama-type']!='http://b3mn.org/stencilset/bpmn1.1#MessageFlow'
+	  and x:span[@class='wapama-type']!='http://b3mn.org/stencilset/bpmn1.1#UndirectedAssociation'
+	  and x:span[@class='wapama-type']!='http://b3mn.org/stencilset/bpmn1.1#DirectedAssociation'
+	  and x:span[@class='wapama-type']!='http://b3mn.org/stencilset/bpmn1.1#DataObject'
+	  and x:span[@class='wapama-type']!='http://b3mn.org/stencilset/bpmn1.1#Pool']" />
       <xpdl:Pools>
 	  <xsl:if test="count($Pools)>0">
 		  <xsl:for-each select="$Pools">
-			<!-- <xsl:variable name="id" select="x:span[@class='oryx-id']" /> -->
+			<!-- <xsl:variable name="id" select="x:span[@class='wapama-id']" /> -->
 			<xsl:variable name="id" select="@id" />
 			<!-- <xpdl:Pool 
 							Id="{$id}" 
-							Name="{x:span[@class='oryx-name']}"
-							Process="{x:span[@class='oryx-processRef']}"
-							BoundaryVisible="{x:span[@class='oryx-boundaryvisible']}"> -->
+							Name="{x:span[@class='wapama-name']}"
+							Process="{x:span[@class='wapama-processRef']}"
+							BoundaryVisible="{x:span[@class='wapama-boundaryvisible']}"> -->
 			<xpdl:Pool 
 							Id="{$id}" 
-							Name="{x:span[@class='oryx-name']}"
+							Name="{x:span[@class='wapama-name']}"
 							Process="{concat($id,'_process')}"
-							BoundaryVisible="{x:span[@class='oryx-boundaryvisible']}">
-			  <xsl:variable name="participantRef" select="x:span[@class='oryx-participantRef']" />
+							BoundaryVisible="{x:span[@class='wapama-boundaryvisible']}">
+			  <xsl:variable name="participantRef" select="x:span[@class='wapama-participantRef']" />
 			  <xsl:if test="string-length(normalize-space($participantRef))>0">
 				<xsl:attribute name="Participant">
 				  <xsl:value-of select="$participantRef"></xsl:value-of>
@@ -583,19 +583,19 @@
       </xpdl:Pools>
 
       <!-- ******************* Message Flows ********************** -->
-      <xsl:variable name="MessageFlows" select="//x:div[x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#MessageFlow']"/>
+      <xsl:variable name="MessageFlows" select="//x:div[x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#MessageFlow']"/>
       <xsl:if test="count($MessageFlows)>0">
         <xpdl:MessageFlows>
           <xsl:for-each select="$MessageFlows">
-            <!-- <xsl:variable name="id" select="x:span[@class='oryx-id']"/> -->
+            <!-- <xsl:variable name="id" select="x:span[@class='wapama-id']"/> -->
             <xsl:variable name="id" select="@id"/>
-            <xsl:variable name="name" select="x:span[@class='oryx-name']"/>
+            <xsl:variable name="name" select="x:span[@class='wapama-name']"/>
             <xsl:variable name="internalOutRef" select="x:a[@rel='raziel-outgoing']/@href" />
             <!--
             <xpdl:MessageFlow 
 							Id="{$id}"
-							Source="{x:span[@class='oryx-source']}"
-							Target="{x:span[@class='oryx-target']}"> -->
+							Source="{x:span[@class='wapama-source']}"
+							Target="{x:span[@class='wapama-target']}"> -->
             <xpdl:MessageFlow 
 							Id="{$id}"
               Source="{//x:div[x:a[@rel='raziel-outgoing' and @href=concat('#',$id)]]/@id}"
@@ -607,31 +607,31 @@
               </xsl:if>
               <xpdl:Message 
 								Id="{concat($id,'_message')}" 
-								Name="{x:span[@class='oryx-message']}">
+								Name="{x:span[@class='wapama-message']}">
               </xpdl:Message>
             </xpdl:MessageFlow>
           </xsl:for-each>
         </xpdl:MessageFlows>
       </xsl:if>
       <!-- ******************* Associations ********************** -->
-      <xsl:variable name="undirectedAssociations" select="//x:div[x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#UndirectedAssociation']"/>
-      <xsl:variable name="directedAssociations" select="//x:div[x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#DirectedAssociation']"/>
+      <xsl:variable name="undirectedAssociations" select="//x:div[x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#UndirectedAssociation']"/>
+      <xsl:variable name="directedAssociations" select="//x:div[x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#DirectedAssociation']"/>
       <xsl:if test="count($undirectedAssociations)>0 or count($directedAssociations)>0">
         <xpdl:Associations>
           <xsl:for-each select="$undirectedAssociations">
-            <xsl:variable name="name" select="x:span[@class='oryx-name']"/>
+            <xsl:variable name="name" select="x:span[@class='wapama-name']"/>
             <xsl:variable name="id" select="@id"/>
             <xsl:variable name="internalOutRef" select="x:a[@rel='raziel-outgoing']/@href" />
             <!--             <xpdl:Association 
-							Id="{x:span[@class='oryx-id']}"
-							Source="{x:span[@class='oryx-source']}"
-							Target="{x:span[@class='oryx-target']}"
-							AssociationDirection="{x:span[@class='oryx-direction']}"> -->
+							Id="{x:span[@class='wapama-id']}"
+							Source="{x:span[@class='wapama-source']}"
+							Target="{x:span[@class='wapama-target']}"
+							AssociationDirection="{x:span[@class='wapama-direction']}"> -->
             <xpdl:Association 
 							Id="{$id}"
               Source="{//x:div[x:a[@rel='raziel-outgoing' and @href=concat('#',$id)]]/@id}"
               Target="{//x:div[@id=substring($internalOutRef,2)]/@id}"
-              AssociationDirection="{x:span[@class='oryx-direction']}">
+              AssociationDirection="{x:span[@class='wapama-direction']}">
               <xsl:if test="string-length(normalize-space($name))>0">
                 <xsl:attribute name="Name">
                   <xsl:value-of select="$name" />
@@ -640,19 +640,19 @@
             </xpdl:Association>
           </xsl:for-each>
           <xsl:for-each select="$directedAssociations">
-            <xsl:variable name="name" select="x:span[@class='oryx-name']"/>
+            <xsl:variable name="name" select="x:span[@class='wapama-name']"/>
             <xsl:variable name="id" select="@id"/>
             <xsl:variable name="internalOutRef" select="x:a[@rel='raziel-outgoing']/@href" />
             <!--             <xpdl:Association 
-							Id="{x:span[@class='oryx-id']}"
-							Source="{x:span[@class='oryx-source']}"
-							Target="{x:span[@class='oryx-target']}"
-							AssociationDirection="{x:span[@class='oryx-direction']}"> -->
+							Id="{x:span[@class='wapama-id']}"
+							Source="{x:span[@class='wapama-source']}"
+							Target="{x:span[@class='wapama-target']}"
+							AssociationDirection="{x:span[@class='wapama-direction']}"> -->
             <xpdl:Association 
 							Id="{$id}"
               Source="{//x:div[x:a[@rel='raziel-outgoing' and @href=concat('#',$id)]]/@id}"
               Target="{//x:div[@id=substring($internalOutRef,2)]/@id}"
-              AssociationDirection="{x:span[@class='oryx-direction']}">
+              AssociationDirection="{x:span[@class='wapama-direction']}">
               <xsl:if test="string-length(normalize-space($name))>0">
                 <xsl:attribute name="Name">
                   <xsl:value-of select="$name" />
@@ -663,23 +663,23 @@
         </xpdl:Associations>
       </xsl:if>
       <!-- ******************* Artifacts *************************** -->
-      <xsl:variable name="VarDataObjects" select="//x:div[x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#DataObject']"/>
+      <xsl:variable name="VarDataObjects" select="//x:div[x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#DataObject']"/>
       <xsl:if test="(count($VarDataObjects))>0">
         <xpdl:Artifacts>
           <!-- ******************** Variable Data Object ******************* -->
           <xsl:for-each select="$VarDataObjects">
-            <!-- <xsl:variable name="id" select="x:span[@class='oryx-id']"/> -->
+            <!-- <xsl:variable name="id" select="x:span[@class='wapama-id']"/> -->
             <xsl:variable name="id" select="@id"/>
-            <xsl:variable name="pool" select="x:span[@class='oryx-pool']"/>
-            <xsl:variable name="lanes" select="x:span[@class='oryx-lanes']"/>
-            <xsl:variable name="state" select="x:span[@class='oryx-state']"/>
+            <xsl:variable name="pool" select="x:span[@class='wapama-pool']"/>
+            <xsl:variable name="lanes" select="x:span[@class='wapama-lanes']"/>
+            <xsl:variable name="state" select="x:span[@class='wapama-state']"/>
             <xpdl:Artifact
 							Id="{$id}"
-							Name="{x:span[@class='oryx-name']}"
+							Name="{x:span[@class='wapama-name']}"
 							ArtifactType="DataObject"
 							State="{$state}">
-              <xsl:variable name="requiredForStart" select="x:span[@class='oryx-requiredForStart']"/>
-              <xsl:variable name="producedAtCompletion" select="x:span[@class='oryx-producedAtCompletion']"/>
+              <xsl:variable name="requiredForStart" select="x:span[@class='wapama-requiredForStart']"/>
+              <xsl:variable name="producedAtCompletion" select="x:span[@class='wapama-producedAtCompletion']"/>
               <xpdl:DataObject 
 								Id="{concat($id,'_DataObject')}"
 								RequiredForStart="{$requiredForStart}" 
@@ -691,17 +691,17 @@
       </xsl:if>
       <!-- ************************** Processes ******************************* -->
       <xpdl:WorkflowProcesses>
-        <xsl:for-each select="//x:div[x:span[@class='oryx-type']='http://b3mn.org/stencilset/bpmn1.1#Pool']">
-          <xsl:variable name="suppressJoinFailure" select="x:span[@class='oryx-suppressjoinfailure']"/>
-          <xsl:variable name="enableInstanceCompensation" select="x:span[@class='oryx-enableinstancecompensation']"/>
-          <xsl:variable name="queryLanguage" select="x:span[@class='oryx-querylanguage']"/>
-          <xsl:variable name="expressionLanguage" select="x:span[@class='oryx-expressionlanguage']"/>
+        <xsl:for-each select="//x:div[x:span[@class='wapama-type']='http://b3mn.org/stencilset/bpmn1.1#Pool']">
+          <xsl:variable name="suppressJoinFailure" select="x:span[@class='wapama-suppressjoinfailure']"/>
+          <xsl:variable name="enableInstanceCompensation" select="x:span[@class='wapama-enableinstancecompensation']"/>
+          <xsl:variable name="queryLanguage" select="x:span[@class='wapama-querylanguage']"/>
+          <xsl:variable name="expressionLanguage" select="x:span[@class='wapama-expressionlanguage']"/>
           <!-- <xpdl:WorkflowProcess 
-						Id="{x:span[@class='oryx-processRef']}"
-						Name="{x:span[@class='oryx-processName']}"> -->
+						Id="{x:span[@class='wapama-processRef']}"
+						Name="{x:span[@class='wapama-processName']}"> -->
           <xpdl:WorkflowProcess 
 						Id="{concat(@id,'_process')}"
-						Name="{x:span[@class='oryx-processName']}">
+						Name="{x:span[@class='wapama-processName']}">
             <xsl:if test="string-length(normalize-space($suppressJoinFailure))>0">
               <xsl:attribute name="SuppressJoinFailure">
                 <xsl:value-of select="$suppressJoinFailure" />

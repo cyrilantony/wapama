@@ -24,9 +24,9 @@
 /**
  * Init namespace
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.StencilSet) {WAPAMA.Core.StencilSet = {};}
 
 /**
  * Class Stencil
@@ -35,7 +35,7 @@ if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
  * 
  * This class represents one stencil of a stencil set.
  */
-ORYX.Core.StencilSet.Stencil = {
+WAPAMA.Core.StencilSet.Stencil = {
 
 	/**
 	 * Constructor
@@ -81,13 +81,13 @@ ORYX.Core.StencilSet.Stencil = {
 		
 		//init all JSON values
 		if(!this._jsonStencil.type || !(this._jsonStencil.type === "edge" || this._jsonStencil.type === "node")) {
-			throw "ORYX.Core.StencilSet.Stencil(construct): Type is not defined.";
+			throw "WAPAMA.Core.StencilSet.Stencil(construct): Type is not defined.";
 		}
 		if(!this._jsonStencil.id || this._jsonStencil.id === "") {
-			throw "ORYX.Core.StencilSet.Stencil(construct): Id is not defined.";
+			throw "WAPAMA.Core.StencilSet.Stencil(construct): Id is not defined.";
 		}
 		if(!this._jsonStencil.title || this._jsonStencil.title === "") {
-			throw "ORYX.Core.StencilSet.Stencil(construct): Title is not defined.";
+			throw "WAPAMA.Core.StencilSet.Stencil(construct): Title is not defined.";
 		}
 
 		if(!this._jsonStencil.description) { this._jsonStencil.description = ""; };
@@ -161,7 +161,7 @@ ORYX.Core.StencilSet.Stencil = {
 		        var xml 	= parser.parseFromString( this._jsonStencil.view ,"text/xml");
 
 		        //check if result is a SVG document
-		        if( ORYX.Editor.checkClassType( xml.documentElement, SVGSVGElement )) {
+		        if( WAPAMA.Editor.checkClassType( xml.documentElement, SVGSVGElement )) {
 
 		            this._view = xml.documentElement;
 
@@ -174,10 +174,10 @@ ORYX.Core.StencilSet.Stencil = {
 		                }
 		            }).bind(this));
 		        } else {
-		            throw "ORYX.Core.StencilSet.Stencil(_loadSVGOnSuccess): The response is not a SVG document."
+		            throw "WAPAMA.Core.StencilSet.Stencil(_loadSVGOnSuccess): The response is not a SVG document."
 		        }
 		    } else {
-		    	ORYX.Log.debug("Send request to load SVG for stencil: " + this.title());
+		    	WAPAMA.Log.debug("Send request to load SVG for stencil: " + this.title());
 		        new Ajax.Request(
 		                url, {
 		                    asynchronous:true, method:'get',
@@ -211,7 +211,7 @@ ORYX.Core.StencilSet.Stencil = {
 				
 				if(pp) {
 					pp.each((function(prop){
-						var oProp = new ORYX.Core.StencilSet.Property(prop, this._namespace, this);
+						var oProp = new WAPAMA.Core.StencilSet.Property(prop, this._namespace, this);
 						this._properties[oProp.prefix() + "-" + oProp.id()] = oProp;
 					}).bind(this));
 				}
@@ -221,7 +221,7 @@ ORYX.Core.StencilSet.Stencil = {
 		// init properties
 		if(this._jsonStencil.properties && this._jsonStencil.properties instanceof Array) {
 			this._jsonStencil.properties.each((function(prop) {
-				var oProp = new ORYX.Core.StencilSet.Property(prop, this._namespace, this);
+				var oProp = new WAPAMA.Core.StencilSet.Property(prop, this._namespace, this);
 				this._properties[oProp.prefix() + "-" + oProp.id()] = oProp;
 			}).bind(this));
 		}
@@ -230,7 +230,7 @@ ORYX.Core.StencilSet.Stencil = {
 	},
 
 	/**
-	 * @param {ORYX.Core.StencilSet.Stencil} stencil
+	 * @param {WAPAMA.Core.StencilSet.Stencil} stencil
 	 * @return {Boolean} True, if stencil has the same namespace and type.
 	 */
 	equals: function(stencil) {
@@ -258,15 +258,15 @@ ORYX.Core.StencilSet.Stencil = {
     },
 
 	title: function() {
-		return ORYX.Core.StencilSet.getTranslation(this._jsonStencil, "title");
+		return WAPAMA.Core.StencilSet.getTranslation(this._jsonStencil, "title");
 	},
 
 	description: function() {
-		return ORYX.Core.StencilSet.getTranslation(this._jsonStencil, "description");
+		return WAPAMA.Core.StencilSet.getTranslation(this._jsonStencil, "description");
 	},
 	
 	groups: function() {
-		return ORYX.Core.StencilSet.getTranslation(this._jsonStencil, "groups");
+		return WAPAMA.Core.StencilSet.getTranslation(this._jsonStencil, "groups");
 	},
 	
 	position: function() {
@@ -337,7 +337,7 @@ ORYX.Core.StencilSet.Stencil = {
 	
 	addProperty: function(property, namespace) {
 		if(property && namespace) {
-			var oProp = new ORYX.Core.StencilSet.Property(property, namespace, this);
+			var oProp = new WAPAMA.Core.StencilSet.Property(property, namespace, this);
 			this._properties[oProp.prefix() + "-" + oProp.id()] = oProp;
 		}
 	},
@@ -353,7 +353,7 @@ ORYX.Core.StencilSet.Stencil = {
 	},
 
 	_loadSVGOnSuccess: function(result) {
-		ORYX.Log.debug("Receive response of the SVG of " + this.title());
+		WAPAMA.Log.debug("Receive response of the SVG of " + this.title());
 		var xml = null;
 		
 		// if this SVG is the last stencil which should be loaded
@@ -379,7 +379,7 @@ ORYX.Core.StencilSet.Stencil = {
 			xml = result.responseXML;
 
 		//check if result is a SVG document
-		if( ORYX.Editor.checkClassType( xml.documentElement, SVGSVGElement )) {
+		if( WAPAMA.Editor.checkClassType( xml.documentElement, SVGSVGElement )) {
 
 			this._view = xml.documentElement;
 			
@@ -392,18 +392,18 @@ ORYX.Core.StencilSet.Stencil = {
 				}
 			}).bind(this));
 		} else {
-			throw "ORYX.Core.StencilSet.Stencil(_loadSVGOnSuccess): The response is not a SVG document."
+			throw "WAPAMA.Core.StencilSet.Stencil(_loadSVGOnSuccess): The response is not a SVG document."
 		}
 	},
 
 	_loadSVGOnFailure: function(result) {
-		throw "ORYX.Core.StencilSet.Stencil(_loadSVGOnFailure): Loading SVG document failed."
+		throw "WAPAMA.Core.StencilSet.Stencil(_loadSVGOnFailure): Loading SVG document failed."
 	},
 
 	toString: function() { return "Stencil " + this.title() + " (" + this.id() + ")"; }
 };
 
-ORYX.Core.StencilSet.Stencil = Clazz.extend(ORYX.Core.StencilSet.Stencil);
+WAPAMA.Core.StencilSet.Stencil = Clazz.extend(WAPAMA.Core.StencilSet.Stencil);
 
 /**
  * Transform a string into an xml document, the Safari way, as long as

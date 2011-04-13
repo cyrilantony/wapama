@@ -23,21 +23,21 @@
  **/
 
 /**
- * @namespace Oryx name space for plugins
- * @name ORYX.Plugins
+ * @namespace Wapama name space for plugins
+ * @name WAPAMA.Plugins
 */
- if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+ if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * The XForms plugin provides layout methods primarily referring to the XForms stencilset. 
  * 
- * @class ORYX.Plugins.XForms
+ * @class WAPAMA.Plugins.XForms
  * @extends Clazz
  * @param {Object} facade The facade of the editor
  */
-ORYX.Plugins.XForms = 
-/** @lends ORYX.Plugins.XForms.prototype */
+WAPAMA.Plugins.XForms = 
+/** @lends WAPAMA.Plugins.XForms.prototype */
 {
 	/**
 	 * Creates a new instance of the XForms plugin and registers it on the
@@ -248,4 +248,4 @@ ORYX.Plugins.XForms =
 	
 };
 
-ORYX.Plugins.XForms = Clazz.extend(ORYX.Plugins.XForms);
+WAPAMA.Plugins.XForms = Clazz.extend(WAPAMA.Plugins.XForms);

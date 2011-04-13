@@ -1,6 +1,6 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
-	xmlns:oryx="http://www.b3mn.org/oryx"
+	xmlns:wapama="http://www.wapama.net/diagram"
 	version="1.0">
 	<defs>
 		<marker id="start" refX="1" refY="6" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="12" orient="auto">
@@ -9,10 +9,10 @@
 	</defs>
 	<g id="edge">
 		<path d="M50 50 L100 50" stroke="black" fill="none" stroke-width="2" marker-start="url(#start)" stroke-dasharray="3, 4"/>
-		<text id="cardinalityStart" x="0" y="0" oryx:edgePosition="startTop"/>
-		<text id="roleStart" x="0" y="0" oryx:edgePosition="startBottom"/>
-		<text id="name" x="0" y="0" oryx:edgePosition="midTop"/>
-		<text id="cardinalityEnd" x="0" y="0" oryx:edgePosition="endTop"/>
-		<text id="roleEnd" x="0" y="0" oryx:edgePosition="endBottom"/>
+		<text id="cardinalityStart" x="0" y="0" wapama:edgePosition="startTop"/>
+		<text id="roleStart" x="0" y="0" wapama:edgePosition="startBottom"/>
+		<text id="name" x="0" y="0" wapama:edgePosition="midTop"/>
+		<text id="cardinalityEnd" x="0" y="0" wapama:edgePosition="endTop"/>
+		<text id="roleEnd" x="0" y="0" wapama:edgePosition="endBottom"/>
   </g>
 </svg>

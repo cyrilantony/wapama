@@ -19,7 +19,7 @@
         "id": "BPMNDiagram"
     },
     "childShapes": [{
-        "resourceId": "oryx_950DE923-C875-4201-9091-E85F3B321323",
+        "resourceId": "wapama_950DE923-C875-4201-9091-E85F3B321323",
         "properties": {
             "name": "pull a lever",
             "documentation": "",
@@ -90,5 +90,5 @@
         "url": "/designer/stencilsets/bpmn2.0/bpmn2.0.json",
         "namespace": "http://b3mn.org/stencilset/bpmn2.0#"
     },
-    "ssextensions": ["http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#"]
+    "ssextensions": ["http://www.wapama.net/stencilsets/extensions/bpmncosts-2.0#"]
 }

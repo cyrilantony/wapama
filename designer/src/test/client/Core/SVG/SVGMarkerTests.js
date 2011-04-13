@@ -2,26 +2,26 @@
 /**
  * Init package
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.SVG) {WAPAMA.Core.SVG = {};}
 
-// mocking ORYX.Editor object
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Editor) {ORYX.Editor = {};}
+// mocking WAPAMA.Editor object
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Editor) {WAPAMA.Editor = {};}
 
 //stubs
 
-// stubbing ORYX.Editor.checkClassType
-ORYX.Editor.checkClassType = function( classInst, classType ) {
+// stubbing WAPAMA.Editor.checkClassType
+WAPAMA.Editor.checkClassType = function( classInst, classType ) {
 		return classInst instanceof classType
 }
 
 //tests
 
 function setUp() {
-	// set oryx namespace
-	NAMESPACE_ORYX_TEST = "http://www.b3mn.org/oryx";
+	// set wapama namespace
+	NAMESPACE_WAPAMA_TEST = "http://www.wapama.net/diagram";
 	testChild1 = document.createElementNS('http://www.w3.org/2000/svg', 'svg' )
 	testChild2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect' )
 	testChildChild1 = document.createElementNS('http://www.w3.org/2000/svg', 'path' )
@@ -33,7 +33,7 @@ function setUp() {
  */
 function testFailForAnInvalidSVGMarkerElement() {
 	try {
-		testSVGMarker = new ORYX.Core.SVG.SVGMarker(5);
+		testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(5);
 		fail("SVGMarker test should fail yet.")
 	} catch (e) {
 		if ((e instanceof JsUnitException)) {
@@ -47,7 +47,7 @@ function testFailForAnInvalidSVGMarkerElement() {
  */
 function testCreateSVGMarkerFromDOMElement() {
 	try {
-		testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+		testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 		fail(" ")
 	} catch (e) {
 		if (!(e instanceof JsUnitException)) {
@@ -60,7 +60,7 @@ function testCreateSVGMarkerFromDOMElement() {
  * No further attributes specified. So check if default values are set.
  */
 function testDefaultValues() {
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertNotNaN("Is oldRefX a Number?",Number(testSVGMarker.oldRefX))
 	assertNotNaN("Is oldRefY a Number?",Number(testSVGMarker.oldRefY))
 	assertNotNaN("Is oldMarkerWidth a Number?",Number(testSVGMarker.oldMarkerWidth))
@@ -75,7 +75,7 @@ function testDefaultValues() {
  */
 function testIDValue() {
 	testSVGMarkerElement.setAttributeNS(null, "id", "myMarker")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("ID value should be 'myMarker'", testSVGMarker.id, "myMarker")
 }
 
@@ -84,7 +84,7 @@ function testIDValue() {
  */
 function testRefXValue() {
 	testSVGMarkerElement.setAttributeNS(null, "refX", 89.45)
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks RefX value.", testSVGMarker.refX, 89.45)
 	assertEquals("Checks oldRefX value.", testSVGMarker.oldRefX, 89.45)
 }
@@ -94,7 +94,7 @@ function testRefXValue() {
  */
 function testRefXStringValue() {
 	testSVGMarkerElement.setAttributeNS(null, "refX", "89.45")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks RefX value.", testSVGMarker.refX, 89.45)
 	assertEquals("Checks oldRefX value.", testSVGMarker.oldRefX, 89.45)
 }
@@ -105,7 +105,7 @@ function testRefXStringValue() {
 function testFailForNaNRefXValue() {
 	try {
 		testSVGMarkerElement.setAttributeNS(null, "refX", "two")
-		testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+		testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 		fail("Test should fail yet.")
 	} catch (e) {
 		if ((e instanceof JsUnitException)) {
@@ -119,7 +119,7 @@ function testFailForNaNRefXValue() {
  */
 function testRefYValue() {
 	testSVGMarkerElement.setAttributeNS(null, "refY", 89.45)
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks RefY value.", testSVGMarker.refY, 89.45)
 	assertEquals("Checks oldRefX value.", testSVGMarker.oldRefY, 89.45)
 }
@@ -129,7 +129,7 @@ function testRefYValue() {
  */
 function testRefYStringValue() {
 	testSVGMarkerElement.setAttributeNS(null, "refY", "89.45")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks RefY value.", testSVGMarker.refY, 89.45)
 	assertEquals("Checks oldRefY value.", testSVGMarker.oldRefY, 89.45)
 }
@@ -140,7 +140,7 @@ function testRefYStringValue() {
 function testFailForNaNRefYValue() {
 	try {
 		testSVGMarkerElement.setAttributeNS(null, "refY", "two")
-		testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+		testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 		fail("Test should fail yet.")
 	} catch (e) {
 		if ((e instanceof JsUnitException)) {
@@ -154,7 +154,7 @@ function testFailForNaNRefYValue() {
  */
 function testMarkerWidthValue() {
 	testSVGMarkerElement.setAttributeNS(null, "markerWidth", 4.45)
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks MarkerWidth value.", testSVGMarker.markerWidth, 4.45)
 }
 
@@ -163,7 +163,7 @@ function testMarkerWidthValue() {
  */
 function testMarkerWidthStringValue() {
 	testSVGMarkerElement.setAttributeNS(null, "markerWidth", "4.45")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks markerWidth value.", testSVGMarker.markerWidth, 4.45)
 }
 
@@ -173,7 +173,7 @@ function testMarkerWidthStringValue() {
 function testFailForNaNMarkerWidthValue() {
 	try {
 		testSVGMarkerElement.setAttributeNS(null, "markerWidth", "two")
-		testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+		testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 		fail("Test should fail yet.")
 	} catch (e) {
 		if ((e instanceof JsUnitException)) {
@@ -187,7 +187,7 @@ function testFailForNaNMarkerWidthValue() {
  */
 function testMarkerHeightValue() {
 	testSVGMarkerElement.setAttributeNS(null, "markerHeight", 4.45)
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks MarkerHeight value.", testSVGMarker.markerHeight, 4.45)
 }
 
@@ -196,7 +196,7 @@ function testMarkerHeightValue() {
  */
 function testMarkerHeightStringValue() {
 	testSVGMarkerElement.setAttributeNS(null, "markerHeight", "4.45")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("Checks markerHeight value.", testSVGMarker.markerHeight, 4.45)
 }
 
@@ -206,7 +206,7 @@ function testMarkerHeightStringValue() {
 function testFailForNaNMarkerHeightValue() {
 	try {
 		testSVGMarkerElement.setAttributeNS(null, "markerHeight", "two")
-		testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+		testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 		fail("Test should fail yet.")
 	} catch (e) {
 		if ((e instanceof JsUnitException)) {
@@ -216,84 +216,84 @@ function testFailForNaNMarkerHeightValue() {
 }
 
 /**
- * Test parsing of oryx:optional attribute
+ * Test parsing of wapama:optional attribute
  */
-function testMarkerOryxOptionalValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "optional", "yes")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertTrue("Checks oryx:optional value.", testSVGMarker.optional)
+function testMarkerWapamaOptionalValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "optional", "yes")
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertTrue("Checks wapama:optional value.", testSVGMarker.optional)
 }
 
 /**
- * Test parsing of oryx:optional with a "no" value
+ * Test parsing of wapama:optional with a "no" value
  */
-function testMarkerOryxOptionalNoValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "optional", "")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertFalse("Checks oryx:optional value.", testSVGMarker.optional)
+function testMarkerWapamaOptionalNoValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "optional", "")
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertFalse("Checks wapama:optional value.", testSVGMarker.optional)
 }
 
 /**
- * Test parsing of oryx:enabled attribute
+ * Test parsing of wapama:enabled attribute
  */
-function testMarkerOryxEnabledValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "enabled", "yes")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertTrue("Checks oryx:enabled value.", testSVGMarker.enabled)
+function testMarkerWapamaEnabledValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "enabled", "yes")
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertTrue("Checks wapama:enabled value.", testSVGMarker.enabled)
 }
 
 /**
- * Test parsing of oryx:optional with a "no" value
+ * Test parsing of wapama:optional with a "no" value
  */
-function testMarkerOryxEnabledNoValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "enabled", "nO")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertFalse("Checks oryx:enabled value.", testSVGMarker.optional)
+function testMarkerWapamaEnabledNoValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "enabled", "nO")
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertFalse("Checks wapama:enabled value.", testSVGMarker.optional)
 }
 
 /**
- * Test parsing of oryx:resize attribute
+ * Test parsing of wapama:resize attribute
  */
-function testMarkerOryxResizeValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "yes")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertTrue("Checks oryx:resize value.", testSVGMarker.resize)
+function testMarkerWapamaResizeValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "yes")
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertTrue("Checks wapama:resize value.", testSVGMarker.resize)
 }
 
 /**
- * Test parsing of oryx:resize with a "no" value
+ * Test parsing of wapama:resize with a "no" value
  */
-function testMarkerOryxOptionalNoValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertFalse("Checks oryx:resize value.", testSVGMarker.resize)
+function testMarkerWapamaOptionalNoValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "")
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertFalse("Checks wapama:resize value.", testSVGMarker.resize)
 }
 
 /**
- * Test parsing of oryx:minimumLength attribute as string
+ * Test parsing of wapama:minimumLength attribute as string
  */
-function testMarkerOryxMinimumLengthAsStringValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "minimumLength", "51.8")
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertEquals("Checks oryx:minimumLength value.", testSVGMarker.minimumLength, 51.8)
+function testMarkerWapamaMinimumLengthAsStringValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "minimumLength", "51.8")
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertEquals("Checks wapama:minimumLength value.", testSVGMarker.minimumLength, 51.8)
 }
 
 /**
- * Test parsing of oryx:minimumLength attribute
+ * Test parsing of wapama:minimumLength attribute
  */
-function testMarkerOryxMinimumLengthValue() {
-	testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "minimumLength", 51.8)
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
-	assertEquals("Checks oryx:minimumLength value.", testSVGMarker.minimumLength, 51.8)
+function testMarkerWapamaMinimumLengthValue() {
+	testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "minimumLength", 51.8)
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
+	assertEquals("Checks wapama:minimumLength value.", testSVGMarker.minimumLength, 51.8)
 }
 
 /**
- * If oryx:minimumLength is not a number, it should throw an Exception.
+ * If wapama:minimumLength is not a number, it should throw an Exception.
  */
-function testFailForNaNMarkerOryxMinimumLengthtValue() {
+function testFailForNaNMarkerWapamaMinimumLengthtValue() {
 	try {
-		testSVGMarkerElement.setAttributeNS(NAMESPACE_ORYX_TEST, "minimumLength", "two")
-		testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+		testSVGMarkerElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "minimumLength", "two")
+		testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 		fail("Test should fail yet.")
 	} catch (e) {
 		if ((e instanceof JsUnitException)) {
@@ -308,12 +308,12 @@ function testFailForNaNMarkerOryxMinimumLengthtValue() {
  * 
  */
 function testReturnEmptyArrayForNonNestedElement() {
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	assertEquals("_getSVGShape() without child nodes should return an empty array.", testSVGMarker._getSVGShapes(testSVGMarkerElement), [])
 }
 
 /**
- * There are two rectagle shape added to the SVGMarker. So you should retrieve two ORYX.Core.SVG.SVGShape 
+ * There are two rectagle shape added to the SVGMarker. So you should retrieve two WAPAMA.Core.SVG.SVGShape 
  * instances from the _getSVGShapes method
  */
 function testGetSVGShapes() {
@@ -332,18 +332,18 @@ function testGetSVGShapes() {
 	testSVGMarkerElement.appendChild(testSVGRectElement1)
 	testSVGMarkerElement.appendChild(testSVGRectElement2)
 	
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	var childShapes = testSVGMarker._getSVGShapes(testSVGMarkerElement)
 	
-	assertTrue("SVGShape instance in array", childShapes[0] instanceof ORYX.Core.SVG.SVGShape)
-	assertTrue("SVGShape instance in array", childShapes[1] instanceof ORYX.Core.SVG.SVGShape)
+	assertTrue("SVGShape instance in array", childShapes[0] instanceof WAPAMA.Core.SVG.SVGShape)
+	assertTrue("SVGShape instance in array", childShapes[1] instanceof WAPAMA.Core.SVG.SVGShape)
 }
 
 /**
  * Test the update method
  */
 function testUpdate() {
-	testSVGMarker = new ORYX.Core.SVG.SVGMarker(testSVGMarkerElement);
+	testSVGMarker = new WAPAMA.Core.SVG.SVGMarker(testSVGMarkerElement);
 	testSVGMarker.refX = 66
 	testSVGMarker.refY = 88
 	testSVGMarker.markerWidth = 9

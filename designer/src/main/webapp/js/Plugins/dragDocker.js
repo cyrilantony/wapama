@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.DragDocker = Clazz.extend({
+WAPAMA.Plugins.DragDocker = Clazz.extend({
 
 	/**
 	 *	Constructor
@@ -34,8 +34,8 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 		this.facade = facade;
 		
 		// Set the valid and invalid color
-		this.VALIDCOLOR 	= ORYX.CONFIG.SELECTION_VALID_COLOR;
-		this.INVALIDCOLOR 	= ORYX.CONFIG.SELECTION_INVALID_COLOR;
+		this.VALIDCOLOR 	= WAPAMA.CONFIG.SELECTION_VALID_COLOR;
+		this.INVALIDCOLOR 	= WAPAMA.CONFIG.SELECTION_INVALID_COLOR;
 		
 		// Define Variables 
 		this.shapeSelection = undefined;
@@ -53,13 +53,13 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 		
 		// For the Drag and Drop
 		// Register on MouseDown-Event on a Docker
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_DOCKERDRAG, this.handleDockerDrag.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_DOCKERDRAG, this.handleDockerDrag.bind(this));
 
 		
 		// Register on over/out to show / hide a docker
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEOVER, this.handleMouseOver.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEOUT, this.handleMouseOut.bind(this));		
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEOVER, this.handleMouseOver.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEOUT, this.handleMouseOut.bind(this));		
 		
 		
 	},
@@ -70,9 +70,9 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 	 */
 	handleMouseOut: function(event, uiObj) {
 		// If there is a Docker, hide this
-		if(!this.docker && uiObj instanceof ORYX.Core.Controls.Docker) {
+		if(!this.docker && uiObj instanceof WAPAMA.Core.Controls.Docker) {
 			uiObj.hide()	
-		} else if(!this.docker && uiObj instanceof ORYX.Core.Edge) {
+		} else if(!this.docker && uiObj instanceof WAPAMA.Core.Edge) {
 			uiObj.dockers.each(function(docker){
 				docker.hide();
 			})
@@ -85,9 +85,9 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 	 */
 	handleMouseOver: function(event, uiObj) {
 		// If there is a Docker, show this		
-		if(!this.docker && uiObj instanceof ORYX.Core.Controls.Docker) {
+		if(!this.docker && uiObj instanceof WAPAMA.Core.Controls.Docker) {
 			uiObj.show()	
-		} else if(!this.docker && uiObj instanceof ORYX.Core.Edge) {
+		} else if(!this.docker && uiObj instanceof WAPAMA.Core.Edge) {
 			uiObj.dockers.each(function(docker){
 				docker.show();
 			})
@@ -107,7 +107,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 	 */	
 	handleMouseDown: function(event, uiObj) {
 		// If there is a Docker
-		if(uiObj instanceof ORYX.Core.Controls.Docker && uiObj.isMovable) {
+		if(uiObj instanceof WAPAMA.Core.Controls.Docker && uiObj.isMovable) {
 			
 			/* Buffering shape selection and clear selection*/
 			this.shapeSelection = this.facade.getSelection();
@@ -126,7 +126,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 			
 			// If the Dockers Parent is an Edge, 
 			//  and the Docker is either the first or last Docker of the Edge
-			if(uiObj.parent instanceof ORYX.Core.Edge && 
+			if(uiObj.parent instanceof WAPAMA.Core.Edge && 
 			   	(uiObj.parent.dockers.first() == uiObj || uiObj.parent.dockers.last() == uiObj)) {
 				
 				// Get the Edge Source or Target
@@ -170,7 +170,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 			var option = {movedCallback: this.dockerMoved.bind(this), upCallback: this.dockerMovedFinished.bind(this)}
 				
 			// Enable the Docker for Drag'n'Drop, give the mouseMove and mouseUp-Callback with
-			ORYX.Core.UIEnableDrag(event, uiObj, option);
+			WAPAMA.Core.UIEnableDrag(event, uiObj, option);
 		}
 	},
 	
@@ -191,7 +191,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 				if(this.docker.isDocked()) {
 					/* Only consider start/end dockers if they are moved over a treshold */
 					var distanceDockerPointer = 
-						ORYX.Core.Math.getDistancePointToPoint(evPos, this.initialDockerPosition);
+						WAPAMA.Core.Math.getDistancePointToPoint(evPos, this.initialDockerPosition);
 					if(distanceDockerPointer < this.undockTreshold) {
 						this.outerDockerNotMoved = true;
 						return;
@@ -221,19 +221,19 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 				// If the top level uiObj instance of Shape and this isn't the parent of the docker 
 				}
 				else 
-					if (uiObj instanceof ORYX.Core.Shape) {
+					if (uiObj instanceof WAPAMA.Core.Shape) {
 					
 						// Get the StencilSet of the Edge
 						var sset = this.docker.parent.getStencil().stencilSet();
 						
 						// Ask by the StencilSet if the source, the edge and the target valid connections.
-						if (this.docker.parent instanceof ORYX.Core.Edge) {
+						if (this.docker.parent instanceof WAPAMA.Core.Edge) {
 							
 							var highestParent = this.getHighestParentBeforeCanvas(uiObj);
 							/* Ensure that the shape to dock is not a child shape 
 							 * of the same edge.
 							 */
-							if(highestParent instanceof ORYX.Core.Edge 
+							if(highestParent instanceof WAPAMA.Core.Edge 
 									&& this.docker.parent === highestParent) {
 								this.isValid = false;
 								this.dockerParent._update();
@@ -241,7 +241,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 							}
 							this.isValid = false;
 							var curObj = uiObj, orgObj = uiObj;
-							while(!this.isValid && curObj && !(curObj instanceof ORYX.Core.Canvas)){
+							while(!this.isValid && curObj && !(curObj instanceof WAPAMA.Core.Canvas)){
 								uiObj = curObj;
 								this.isValid = this.facade.getRules().canConnect({
 											sourceShape: this.dockerSource ? // Is there a docked source 
@@ -313,7 +313,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 		}
 		// Snap to on the nearest Docker of the same parent
 		if(!(event.shiftKey || event.ctrlKey) && !snapToMagnet) {
-			var minOffset = ORYX.CONFIG.DOCKER_SNAP_OFFSET;
+			var minOffset = WAPAMA.CONFIG.DOCKER_SNAP_OFFSET;
 			var nearestX = minOffset + 1
 			var nearestY = minOffset + 1
 			
@@ -353,7 +353,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 						var cd = this.docker.bounds.center();
 						
 						// Checks if the point is on the line between previous and next
-						if (ORYX.Core.Math.isPointInLine(cd.x, cd.y, cp.x, cp.y, cn.x, cn.y, 10)) {
+						if (WAPAMA.Core.Math.isPointInLine(cd.x, cd.y, cp.x, cp.y, cn.x, cn.y, 10)) {
 							// Get the rise
 							var raise = (Number(cn.y)-Number(cp.y))/(Number(cn.x)-Number(cp.x));
 							// Calculate the intersection point
@@ -399,7 +399,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 				this.docker.setDockedShape(this.lastUIObj);	
 				
 				this.facade.raiseEvent({
-					type 	:ORYX.CONFIG.EVENT_DRAGDOCKER_DOCKED, 
+					type 	:WAPAMA.CONFIG.EVENT_DRAGDOCKER_DOCKED, 
 					docker	: this.docker,
 					parent	: this.docker.parent,
 					target	: this.lastUIObj
@@ -419,13 +419,13 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 			
 			/* Remove edges from selection */
 			var shapeWithoutEdges = shapes.findAll(function(node) {
-				return node instanceof ORYX.Core.Node;
+				return node instanceof WAPAMA.Core.Node;
 			});
 			shapes = shapeWithoutEdges.length ? shapeWithoutEdges : shapes;
 			this.facade.setSelection(shapes);
 		} else {
 			//Command-Pattern for dragging one docker
-			var dragDockerCommand = ORYX.Core.Command.extend({
+			var dragDockerCommand = WAPAMA.Core.Command.extend({
 				construct: function(docker, newPos, oldPos, newDockedShape, oldDockedShape, facade){
 					this.docker 		= docker;
 					this.index			= docker.parent.dockers.indexOf(docker);
@@ -500,7 +500,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 	 * Hide the highlighting
 	 */
 	hideHighlight: function() {
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'validDockedShape'});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'validDockedShape'});
 	},
 
 	/**
@@ -510,7 +510,7 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 	showHighlight: function(uiObj, color) {
 		
 		this.facade.raiseEvent({
-										type:		ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW, 
+										type:		WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW, 
 										highlightId:'validDockedShape',
 										elements:	[uiObj],
 										color:		color
@@ -530,10 +530,10 @@ ORYX.Plugins.DragDocker = Clazz.extend({
 	},
 	
 	getHighestParentBeforeCanvas: function(shape) {
-		if(!(shape instanceof ORYX.Core.Shape)) {return undefined;}
+		if(!(shape instanceof WAPAMA.Core.Shape)) {return undefined;}
 		
 		var parent = shape.parent;
-		while(parent && !(parent.parent instanceof ORYX.Core.Canvas)) {
+		while(parent && !(parent.parent instanceof WAPAMA.Core.Canvas)) {
 			parent = parent.parent;
 		}	
 		

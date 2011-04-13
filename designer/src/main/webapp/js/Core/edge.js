@@ -21,23 +21,23 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 NAMESPACE_SVG = "http://www.w3.org/2000/svg";
-NAMESPACE_ORYX = "http://www.b3mn.org/oryx";
+NAMESPACE_WAPAMA = "http://www.wapama.net/diagram";
 
 
 /**
  * Init namespaces
  */
-if (!ORYX) {
-    var ORYX = {};
+if (!WAPAMA) {
+    var WAPAMA = {};
 }
-if (!ORYX.Core) {
-    ORYX.Core = {};
+if (!WAPAMA.Core) {
+    WAPAMA.Core = {};
 }
 
 
 /**
  * @classDescription Abstract base class for all connections.
- * @extends {ORYX.Core.Shape}
+ * @extends {WAPAMA.Core.Shape}
  * @param options {Object}
  *
  * TODO da die verschiebung der Edge nicht ueber eine
@@ -46,7 +46,7 @@ if (!ORYX.Core) {
  *  Das sollte ueberarbeitet werden.
  *
  */
-ORYX.Core.Edge = {
+WAPAMA.Core.Edge = {
     /**
      * Constructor
      * @param {Object} options
@@ -71,7 +71,7 @@ ORYX.Core.Edge = {
         
         //TODO was muss hier initial erzeugt werden?
         var stencilNode = this.node.childNodes[0].childNodes[0];
-        stencilNode = ORYX.Editor.graft("http://www.w3.org/2000/svg", stencilNode, ['g', {
+        stencilNode = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", stencilNode, ['g', {
             "pointer-events": "painted"
         }]);
         
@@ -326,7 +326,7 @@ ORYX.Core.Edge = {
 			}.bind(this));
 
 			this.children.each(function(value) {
-				if(value instanceof ORYX.Core.Node) {
+				if(value instanceof WAPAMA.Core.Node) {
 					this.calculatePositionOfAttachedChildNode.call(this, value);
 				}
 			}.bind(this));
@@ -348,7 +348,7 @@ ORYX.Core.Edge = {
 	 *  
 	 *  @param {point} point
 	 *  	The point to move
-	 *  @param {ORYX.Core.Bounds} bounds
+	 *  @param {WAPAMA.Core.Bounds} bounds
 	 *  	The Bounds of the related noe
 	 */
 	movePointToUpperLeftOfNode: function(point, bounds) {
@@ -423,7 +423,7 @@ ORYX.Core.Edge = {
 	 * Finds the appropriate edge segement for a node.
 	 * The segment is choosen, which has the smallest distance to the node.
 	 * 
-	 * @param {ORYX.Core.Node} node
+	 * @param {WAPAMA.Core.Node} node
 	 * 		The concerning node
 	 */
 	findEdgeSegmentForNode: function(node) {
@@ -437,7 +437,7 @@ ORYX.Core.Edge = {
 			this.relativizePoint(lineP2);
 			//position übergeben hier
 			var nodeCenterPoint = node.bounds.center();
-			var distance = ORYX.Core.Math.distancePointLinie(
+			var distance = WAPAMA.Core.Math.distancePointLinie(
 															lineP1,
 															lineP2, 
 															nodeCenterPoint, 
@@ -462,8 +462,8 @@ ORYX.Core.Edge = {
 			 * 
 			 */
 			if(!distance && !smallestDistance && smallestDistance != 0) {
-				(ORYX.Core.Math.getDistancePointToPoint(nodeCenterPoint, lineP1)
-					< ORYX.Core.Math.getDistancePointToPoint(nodeCenterPoint, lineP2)) ?
+				(WAPAMA.Core.Math.getDistancePointToPoint(nodeCenterPoint, lineP1)
+					< WAPAMA.Core.Math.getDistancePointToPoint(nodeCenterPoint, lineP2)) ?
 					this.attachedNodePositionData[node.getId()].relativDistanceFromDocker1 = 0 :
 					this.attachedNodePositionData[node.getId()].relativDistanceFromDocker1 = 1;
 				this.attachedNodePositionData[node.getId()].segment.docker1 = 
@@ -491,7 +491,7 @@ ORYX.Core.Edge = {
 	 * 		The docker that defines the start of the line segment
 	 * @param {point} docker2
 	 * 		The docker that defines the end of the line segment
-	 * @param {ORYX.Core.Node} node
+	 * @param {WAPAMA.Core.Node} node
 	 * 		The concerning node
 	 * 
 	 * @return {float} positionParameter
@@ -503,7 +503,7 @@ ORYX.Core.Edge = {
 		this.relativizePoint(dockerPoint1);
 		this.relativizePoint(dockerPoint2);
 		
-		var intersectionPoint = ORYX.Core.Math.getPointOfIntersectionPointLine(
+		var intersectionPoint = WAPAMA.Core.Math.getPointOfIntersectionPointLine(
 									dockerPoint1,
 									dockerPoint2,
 									node.bounds.center(), true);
@@ -512,8 +512,8 @@ ORYX.Core.Edge = {
 		}
 		
 		var relativeDistance = 
-			ORYX.Core.Math.getDistancePointToPoint(intersectionPoint, dockerPoint1) /
-			ORYX.Core.Math.getDistancePointToPoint(dockerPoint1, dockerPoint2);
+			WAPAMA.Core.Math.getDistancePointToPoint(intersectionPoint, dockerPoint1) /
+			WAPAMA.Core.Math.getDistancePointToPoint(dockerPoint1, dockerPoint2);
 		
 		return relativeDistance;
 	},
@@ -580,7 +580,7 @@ ORYX.Core.Edge = {
     
         var length = Math.floor(this.dockers.length / 2)
         
-        return ORYX.Core.Math.midPoint(this.dockers[length - 1].bounds.center(), this.dockers[length].bounds.center())
+        return WAPAMA.Core.Math.midPoint(this.dockers[length - 1].bounds.center(), this.dockers[length].bounds.center())
     },
     
     
@@ -592,7 +592,7 @@ ORYX.Core.Edge = {
     isPointIncluded: function(pointX, pointY){
     
         var isbetweenAB = this.absoluteBounds().isIncluded(pointX, pointY, 
-												ORYX.CONFIG.OFFSET_EDGE_BOUNDS);
+												WAPAMA.CONFIG.OFFSET_EDGE_BOUNDS);
         
 		var isPointIncluded = undefined;
 		
@@ -607,10 +607,10 @@ ORYX.Core.Edge = {
 				point1 = this.dockers[i].bounds.center();
 				point2 = this.dockers[++i].bounds.center();
 				
-				isPointIncluded = ORYX.Core.Math.isPointInLine(pointX, pointY, 
+				isPointIncluded = WAPAMA.Core.Math.isPointInLine(pointX, pointY, 
 											point1.x, point1.y, 
 											point2.x, point2.y, 
-											ORYX.CONFIG.OFFSET_EDGE_BOUNDS);
+											WAPAMA.CONFIG.OFFSET_EDGE_BOUNDS);
 				
 			} while (!isPointIncluded && i < this.dockers.length - 1)
 			
@@ -679,7 +679,7 @@ ORYX.Core.Edge = {
         arguments.callee.$.add.apply(this, arguments);
 		
 		// If the new shape is a Docker which is not contained
-		if (shape instanceof ORYX.Core.Controls.Docker && this.dockers.include(shape)){
+		if (shape instanceof WAPAMA.Core.Controls.Docker && this.dockers.include(shape)){
 			// Add it to the dockers list ordered by paths		
 			var pathArray = this._dockersByPath.values()[0];
 			if (pathArray) {
@@ -694,12 +694,12 @@ ORYX.Core.Edge = {
 	/**
 	 * Performs nessary adjustments on the edge's child shapes.
 	 * 
-	 * @param {ORYX.Core.Controls.Docker} docker
+	 * @param {WAPAMA.Core.Controls.Docker} docker
 	 * 		The added docker
 	 */
 	handleChildShapesAfterAddDocker: function(docker) {
 		/* Ensure type of Docker */
-		if(!docker instanceof ORYX.Core.Controls.Docker) {return undefined;}
+		if(!docker instanceof WAPAMA.Core.Controls.Docker) {return undefined;}
 		
 		var index = this.dockers.indexOf(docker);
 		if(!(0 < index && index < this.dockers.length - 1)) {
@@ -715,10 +715,10 @@ ORYX.Core.Edge = {
 		var segmentElements = 
 			this.getAttachedNodePositionDataForSegment(startDocker, endDocker);
 		
-		var lengthSegmentPart1 = ORYX.Core.Math.getDistancePointToPoint(
+		var lengthSegmentPart1 = WAPAMA.Core.Math.getDistancePointToPoint(
 										startDocker.bounds.center(),
 										docker.bounds.center());
-		var lengthSegmentPart2 = ORYX.Core.Math.getDistancePointToPoint(
+		var lengthSegmentPart2 = WAPAMA.Core.Math.getDistancePointToPoint(
 										endDocker.bounds.center(),
 										docker.bounds.center());
 										
@@ -755,9 +755,9 @@ ORYX.Core.Edge = {
 	 *	Returns elements from {@link attachedNodePositiondata} that match the
 	 *  segement defined by startDocker and endDocker.
 	 *  
-	 *  @param {ORYX.Core.Controls.Docker} startDocker
+	 *  @param {WAPAMA.Core.Controls.Docker} startDocker
 	 *  	The docker defining the begin of the segment.
-	 *  @param {ORYX.Core.Controls.Docker} endDocker
+	 *  @param {WAPAMA.Core.Controls.Docker} endDocker
 	 *  	The docker defining the begin of the segment.
 	 *  
 	 *  @return {Hash} attachedNodePositionData
@@ -765,8 +765,8 @@ ORYX.Core.Edge = {
 	 */
 	getAttachedNodePositionDataForSegment: function(startDocker, endDocker) {
 		/* Ensure that the segment is defined correctly */
-		if(!((startDocker instanceof ORYX.Core.Controls.Docker) 
-			&& (endDocker instanceof ORYX.Core.Controls.Docker))) {
+		if(!((startDocker instanceof WAPAMA.Core.Controls.Docker) 
+			&& (endDocker instanceof WAPAMA.Core.Controls.Docker))) {
 				return [];
 			}
 			
@@ -794,7 +794,7 @@ ORYX.Core.Edge = {
 		}
 		
 		/* Adjust child shapes if neccessary */
-		if(shape instanceof ORYX.Core.Controls.Docker) {
+		if(shape instanceof WAPAMA.Core.Controls.Docker) {
 			this.handleChildShapesAfterRemoveDocker(shape);
 		}
 	},
@@ -802,12 +802,12 @@ ORYX.Core.Edge = {
 	/**
 	 * 	Adjusts the child shapes of an edges after a docker was removed.
 	 * 	
-	 *  @param{ORYX.Core.Controls.Docker} docker
+	 *  @param{WAPAMA.Core.Controls.Docker} docker
 	 *  	The removed docker.
 	 */
 	handleChildShapesAfterRemoveDocker: function(docker) {
 		/* Ensure docker type */
-		if(!(docker instanceof ORYX.Core.Controls.Docker)) {return;}
+		if(!(docker instanceof WAPAMA.Core.Controls.Docker)) {return;}
 		
 		this.attachedNodePositionData.each(function(nodePositionData) {
 			if(nodePositionData.value.segment.docker1 === docker) {
@@ -844,12 +844,12 @@ ORYX.Core.Edge = {
                     var point1 = lastDocker.bounds.center();
                     var point2 = docker.bounds.center();
                     
-                    if (ORYX.Core.Math.isPointInLine(position.x, position.y, point1.x, point1.y, point2.x, point2.y, 10)) {
+                    if (WAPAMA.Core.Math.isPointInLine(position.x, position.y, point1.x, point1.y, point2.x, point2.y, 10)) {
                         var path = this._paths.find(function(path){
                             return path.id === pair.key;
                         });
                         if (path) {
-                            var allowAttr = path.getAttributeNS(NAMESPACE_ORYX, 'allowDockers');
+                            var allowAttr = path.getAttributeNS(NAMESPACE_WAPAMA, 'allowDockers');
                             if (allowAttr && allowAttr.toLowerCase() === "no") {
                                 return true;
                             }
@@ -921,7 +921,7 @@ ORYX.Core.Edge = {
 			var cn = next.getDockedShape() && next.referencePoint ? next.getAbsoluteReferencePoint() : next.bounds.center();
 			var cd = docker.bounds.center();
 			
-			if (ORYX.Core.Math.isPointInLine(cd.x, cd.y, cp.x, cp.y, cn.x, cn.y, 1)){
+			if (WAPAMA.Core.Math.isPointInLine(cd.x, cd.y, cp.x, cp.y, cn.x, cn.y, 1)){
 				marked[i] = docker;
 			}
 		}.bind(this))
@@ -955,12 +955,12 @@ ORYX.Core.Edge = {
             var me = this;
             markerElements.each(function(markerElement){
                 try {
-                    marker = new ORYX.Core.SVG.SVGMarker(markerElement.cloneNode(true));
+                    marker = new WAPAMA.Core.SVG.SVGMarker(markerElement.cloneNode(true));
                     me._markers[marker.id] = marker;
                     var textElements = $A(marker.element.getElementsByTagNameNS(NAMESPACE_SVG, "text"));
                     var label;
                     textElements.each(function(textElement){
-                        label = new ORYX.Core.SVG.Label({
+                        label = new WAPAMA.Core.SVG.Label({
                             textElement: textElement,
 							shapeId: this.id
                         });
@@ -985,7 +985,7 @@ ORYX.Core.Edge = {
         var isFirst = true;
         
         $A(g.childNodes).each((function(path, index){
-            if (ORYX.Editor.checkClassType(path, SVGPathElement)) {
+            if (WAPAMA.Editor.checkClassType(path, SVGPathElement)) {
                 path = path.cloneNode(false);
                 
                 var pathId = this.id + "_" + index;
@@ -1031,7 +1031,7 @@ ORYX.Core.Edge = {
                 
                 //init dockers
                 var parser = new PathParser();
-                var handler = new ORYX.Core.SVG.PointsPathHandler();
+                var handler = new WAPAMA.Core.SVG.PointsPathHandler();
                 parser.setHandler(handler);
                 parser.parsePath(path);
                 
@@ -1046,7 +1046,7 @@ ORYX.Core.Edge = {
 					var x = handler.points[i];
 					var y = handler.points[i+1];
 					if (isFirst || i > 0) {
-						var docker = new ORYX.Core.Controls.Docker({
+						var docker = new WAPAMA.Core.Controls.Docker({
 							eventHandlerCallback: this.eventHandlerCallback
 						});
 						docker.bounds.centerMoveTo(x,y);
@@ -1122,10 +1122,10 @@ ORYX.Core.Edge = {
         this._interactionPaths.reverse();
 		
 		/**initialize labels*/
-        var textElems = svgDocument.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'text');
+        var textElems = svgDocument.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'text');
         
 		$A(textElems).each((function(textElem){
-            var label = new ORYX.Core.SVG.Label({
+            var label = new WAPAMA.Core.SVG.Label({
                 textElement: textElem,
 				shapeId: this.id
             });
@@ -1200,7 +1200,7 @@ ORYX.Core.Edge = {
         }).bind(this));
         result.push({
             name: 'dockers',
-            prefix: 'oryx',
+            prefix: 'wapama',
             value: value,
             type: 'literal'
         });
@@ -1214,7 +1214,7 @@ ORYX.Core.Edge = {
             //get shared parent
             while (source.parent) {
                 source = source.parent;
-                if (source instanceof ORYX.Core.Canvas) {
+                if (source instanceof WAPAMA.Core.Canvas) {
                     sharedParent = source;
                     break;
                 }
@@ -1341,7 +1341,7 @@ ORYX.Core.Edge = {
 					// If this is an edge, set the last docker to the next shape
 					this.dockers.last().setDockedShape(next);
 					this.dockers.last().setReferencePoint({x: next.bounds.width() / 2.0, y: next.bounds.height() / 2.0});
-				} else if(next instanceof ORYX.Core.Edge) {
+				} else if(next instanceof WAPAMA.Core.Edge) {
 					//Set the first docker of the next shape
 					next.dockers.first().setDockedShape(this);
 					//next.dockers.first().setReferencePoint({x: this.bounds.width() / 2.0, y: this.bounds.height() / 2.0});
@@ -1355,13 +1355,13 @@ ORYX.Core.Edge = {
 		
         arguments.callee.$.deserialize.apply(this, [data]);
         
-        var oryxDockers = data.find(function(obj){
-            return (obj.prefix === "oryx" &&
+        var wapamaDockers = data.find(function(obj){
+            return (obj.prefix === "wapama" &&
             obj.name === "dockers");
         });
 		
-        if (oryxDockers) {
-            var dataByPath = oryxDockers.value.split("#").without("").without(" ");
+        if (wapamaDockers) {
+            var dataByPath = wapamaDockers.value.split("#").without("").without(" ");
             
             dataByPath.each((function(data, index){
                 var values = data.replace(/,/g, " ").split(" ").without("");
@@ -1441,14 +1441,14 @@ ORYX.Core.Edge = {
     },
     
     /**
-     * @return {ORYX.Core.Shape} Returns last docked shape or null.
+     * @return {WAPAMA.Core.Shape} Returns last docked shape or null.
      */
     getTarget: function(){
         return this.dockers.last() ? this.dockers.last().getDockedShape() : null;
     },
 	
 	/**
-	 * @return {ORYX.Core.Shape} Returns the first docked shape or null
+	 * @return {WAPAMA.Core.Shape} Returns the first docked shape or null
 	 */
 	getSource: function() {
 		return this.dockers.first() ? this.dockers.first().getDockedShape() : null;
@@ -1471,7 +1471,7 @@ ORYX.Core.Edge = {
 	},
     
     /**
-     * Calls {@link ORYX.Core.AbstractShape#toJSON} and add a some stencil set information.
+     * Calls {@link WAPAMA.Core.AbstractShape#toJSON} and add a some stencil set information.
      */
     toJSON: function() {
         var json = arguments.callee.$.toJSON.apply(this, arguments);
@@ -1485,4 +1485,4 @@ ORYX.Core.Edge = {
         return json;
     }
 };
-ORYX.Core.Edge = ORYX.Core.Shape.extend(ORYX.Core.Edge);
+WAPAMA.Core.Edge = WAPAMA.Core.Shape.extend(WAPAMA.Core.Edge);

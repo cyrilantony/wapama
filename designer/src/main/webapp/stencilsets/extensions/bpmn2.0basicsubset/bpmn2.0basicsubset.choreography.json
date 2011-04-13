@@ -1,7 +1,7 @@
 {
 	"title":"Choreography Core Elements",
 	"title_de":"Choreographie Kernelemente",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/bpmn2.0basicsubset/choreography#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/bpmn2.0basicsubset/choreography#",
 	"description":"A basic subset of BPMN 2.0 Choreography containing only choreography task, sequence flow, start event, end event, parallel gateway and data-based XOR.",
 	"extends":"http://b3mn.org/stencilset/bpmn2.0#",
 	"stencils":[],

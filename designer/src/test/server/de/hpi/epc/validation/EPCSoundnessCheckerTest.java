@@ -66,9 +66,9 @@ public class EPCSoundnessCheckerTest extends AbstractEPCTest {
 		//assertEquals(1, epcWithLoopAndOrSC.goodInitialMarkings.size());
 		//Collection<IControlFlow> goodInitialMarkingArcs = epcWithLoopAndOrSC.goodInitialMarkings.get(0).filterByState(epcWithLoopAndOr.getControlFlow(), Marking.State.POS_TOKEN); 
 		//assertEquals(1, goodInitialMarkingArcs.size());
-		//assertTrue(goodInitialMarkingArcs.iterator().next().getId().equals("oryx_9C3AB1F0-3B7A-4BDD-8824-D76EC9CA8A12"));
+		//assertTrue(goodInitialMarkingArcs.iterator().next().getId().equals("wapama_9C3AB1F0-3B7A-4BDD-8824-D76EC9CA8A12"));
 		//assertEquals(1, epcWithLoopAndOrSC.badStartArcs.size());
-		//assertTrue(epcWithLoopAndOrSC.badStartArcs.get(0).getId().equals("oryx_717CDF61-44E4-45C1-AE9D-29EEE6637AD3"));
+		//assertTrue(epcWithLoopAndOrSC.badStartArcs.get(0).getId().equals("wapama_717CDF61-44E4-45C1-AE9D-29EEE6637AD3"));
 		//assertEquals(2, epcWithLoopAndOrSC.goodFinalMarkings.size());
 	}
 }

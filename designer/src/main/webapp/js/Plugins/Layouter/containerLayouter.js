@@ -23,23 +23,23 @@
  **/
 
 /**
-   @namespace Oryx name space for plugins
-   @name ORYX.Plugins
+   @namespace Wapama name space for plugins
+   @name WAPAMA.Plugins
 */
- if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+ if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 	
 
 /**
  * This plugin provides methods to layout elements that typically contain 
  * a bunch of child elements, such as subprocesses or lanes.
  * 
- * @class ORYX.Plugins.ContainerLayouter
- * @extends ORYX.Plugins.AbstractPlugin
+ * @class WAPAMA.Plugins.ContainerLayouter
+ * @extends WAPAMA.Plugins.AbstractPlugin
  * @param {Object} facade
  * 		The facade of the Editor
  */
-ORYX.Plugins.ContainerLayouter = {
+WAPAMA.Plugins.ContainerLayouter = {
 
 	/**
 	 *	Constructor
@@ -323,7 +323,7 @@ ORYX.Plugins.ContainerLayouter = {
 //		var absUl = ulShape.absoluteBounds().upperLeft();
 //		
 //		this.hashedContainers[shape.getId()].childsBounds = 
-//						new ORYX.Core.Bounds(absUl.x, 
+//						new WAPAMA.Core.Bounds(absUl.x, 
 //											absUl.y,
 //											absUl.x + childsBounds.width(),
 //											absUl.y + childsBounds.height());
@@ -400,4 +400,4 @@ ORYX.Plugins.ContainerLayouter = {
 	}
 }
 
-ORYX.Plugins.ContainerLayouter = ORYX.Plugins.AbstractPlugin.extend(ORYX.Plugins.ContainerLayouter);
+WAPAMA.Plugins.ContainerLayouter = WAPAMA.Plugins.AbstractPlugin.extend(WAPAMA.Plugins.ContainerLayouter);

@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="162"
    height="82"
@@ -10,33 +10,33 @@
 	
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="0" 
-  		oryx:cy="40" 
-  		oryx:anchors="left" />
-  	<oryx:magnet 
-  		oryx:cx="80" 
-  		oryx:cy="80" 
-  		oryx:anchors="bottom" />
-  	<oryx:magnet 
-  		oryx:cx="160" 
-  		oryx:cy="40" 
-  		oryx:anchors="right" />
-  	<oryx:magnet 
-  		oryx:cx="80" 
-  		oryx:cy="0" 
-  		oryx:anchors="top" />
-  	<oryx:magnet 
-  		oryx:cx="80" 
-  		oryx:cy="40" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="0" 
+  		wapama:cy="40" 
+  		wapama:anchors="left" />
+  	<wapama:magnet 
+  		wapama:cx="80" 
+  		wapama:cy="80" 
+  		wapama:anchors="bottom" />
+  	<wapama:magnet 
+  		wapama:cx="160" 
+  		wapama:cy="40" 
+  		wapama:anchors="right" />
+  	<wapama:magnet 
+  		wapama:cx="80" 
+  		wapama:cy="0" 
+  		wapama:anchors="top" />
+  	<wapama:magnet 
+  		wapama:cx="80" 
+  		wapama:cy="40" 
+  		wapama:default="yes" />
+  </wapama:magnets>
 
 
   <g 
   	pointer-events="fill" 
-    oryx:minimumSize="50 40">
+    wapama:minimumSize="50 40">
 	   <rect
 	     width="160"
 	     height="80"
@@ -48,7 +48,7 @@
 	     stroke="#f9770d" 
 	     fill="white" 
 	     stroke-width="1"
-	     oryx:resize="vertical horizontal"
+	     wapama:resize="vertical horizontal"
 	     style="fill-opacity:1;stroke-opacity:1;stroke-linejoin:round;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:3,3;stroke-dashoffset:0"/>	  
 	  
 	  <g id="documentation"
@@ -61,7 +61,7 @@
     		height="16" 
     		stroke="black" 
     		stroke-width="1"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		fill="none" />
     	<path 
     		d="	M 138 58 L 150 58
@@ -69,7 +69,7 @@
     			M 138 66 L 150 66
     			M 138 70 L 150 70" 
     		fill="none"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		stroke="black" />
   	</g>
 	  
@@ -82,7 +82,7 @@
 	        L 25.56833,50.461539 z "
 	     style="opacity:1;fill:#000000;stroke:#000000;stroke-width:1.10074639;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:32.20000076;stroke-dasharray:none;stroke-opacity:1"
  		 transform="translate(0,-33)"
-	     oryx:anchors="top left"/>
+	     wapama:anchors="top left"/>
 	  <path
 	     d="M 17.09375,49.3125 
 	        C 16.92709,49.333642 16.77773,49.436447 16.71875,49.59375 
@@ -111,7 +111,7 @@
 	        L 19.6459,46.493977 z "
 	     style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.93541437px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
 	     transform="translate(0,-33)" 
-	     oryx:anchors="top left"/>
+	     wapama:anchors="top left"/>
 	  <path
 	     d="M 14.79796,46.914145 
 	        C 14.79796,47.411205 14.39502,47.814155 13.89796,47.814155 
@@ -121,7 +121,7 @@
 	        L 14.79796,46.914145 z "
 	     style="fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:1.00034392;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:32.20000076;stroke-opacity:1"
 	     transform="translate(0,-33)" 
-	     oryx:anchors="top left"/>
+	     wapama:anchors="top left"/>
 	  <path
 	     d="M 10.40307,48.846535 
 	        L 11.2819,47.810055 
@@ -142,9 +142,9 @@
 	        C 11.75316,50.035698 11.75316,50.035698 11.75316,50.035698"
 	     style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.90100002;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
 	     transform="translate(-0,-33)"
-	     oryx:anchors="top left"/>
+	     wapama:anchors="top left"/>
   <text 
-    	oryx:anchors="top left"
+    	wapama:anchors="top left"
     	x="30" 
     	y="20" 
     	style="font-family:Arial; font-size: 10pt; fill:black;">terminationHandler</text>

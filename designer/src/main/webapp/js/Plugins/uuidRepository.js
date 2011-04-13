@@ -21,12 +21,12 @@
  * DEALINGS IN THE SOFTWARE.
 */
 
-if (!ORYX.Plugins) {
-	ORYX.Plugins = {};
+if (!WAPAMA.Plugins) {
+	WAPAMA.Plugins = {};
 }  
 
-if (!ORYX.Config) {
-	ORYX.Config = {};
+if (!WAPAMA.Config) {
+	WAPAMA.Config = {};
 } 
 
 // needed to change icons dynamically:
@@ -50,7 +50,7 @@ Ext.Button.override({
     }
 });
 
-ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 	
     facade: undefined,
     // true to enable the "Autosave" button, disable while autosaving
@@ -62,28 +62,28 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade = facade;
 		
 		//capability to set autosave on or off
-		if (ORYX.CONFIG.UUID_AUTOSAVE_DEFAULT === undefined) {
-			ORYX.CONFIG.UUID_AUTOSAVE_DEFAULT = true;
+		if (WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT === undefined) {
+			WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT = true;
 		}
-		autosaveicon = ORYX.PATH + "images/disk_multiple_disabled.png";
-		autosavetip = ORYX.I18N.Save.autosaveDesc_off;
+		autosaveicon = WAPAMA.PATH + "images/disk_multiple_disabled.png";
+		autosavetip = WAPAMA.I18N.Save.autosaveDesc_off;
 
-		if (ORYX.CONFIG.UUID_AUTOSAVE_DEFAULT) {
-			autosaveicon = ORYX.PATH + "images/disk_multiple.png";
-			autosavetip = ORYX.I18N.Save.autosaveDesc_on;
+		if (WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT) {
+			autosaveicon = WAPAMA.PATH + "images/disk_multiple.png";
+			autosavetip = WAPAMA.I18N.Save.autosaveDesc_on;
 		}
 					
 		autosavecfg = {
-			'name': ORYX.I18N.Save.autosave,
-			'group': ORYX.I18N.Save.group,
+			'name': WAPAMA.I18N.Save.autosave,
+			'group': WAPAMA.I18N.Save.group,
 			'functionality': function(context) {
-			   this.setautosave(ORYX.CONFIG.UUID_AUTOSAVE_INTERVAL);
+			   this.setautosave(WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL);
 			   if (this.autosaving) {
-				   context.setIcon(ORYX.PATH + "images/disk_multiple.png"); 
-				   context.setTooltip(ORYX.I18N.Save.autosaveDesc_on);
+				   context.setIcon(WAPAMA.PATH + "images/disk_multiple.png"); 
+				   context.setTooltip(WAPAMA.I18N.Save.autosaveDesc_on);
 			   } else {
-				   context.setIcon(ORYX.PATH + "images/disk_multiple_disabled.png");
-				   context.setTooltip(ORYX.I18N.Save.autosaveDesc_off);
+				   context.setIcon(WAPAMA.PATH + "images/disk_multiple_disabled.png");
+				   context.setTooltip(WAPAMA.I18N.Save.autosaveDesc_off);
 			   }
 			   context.hide();
 			   context.show();
@@ -98,19 +98,19 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade.offer(autosavecfg);
 		
 		// ask before closing the window
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_UNDO_EXECUTE, function(){ this.HOOKS.onCanvasChange(true); });
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(){ this.HOOKS.onCanvasChange(true); });
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_UNDO_ROLLBACK, function(){ this.HOOKS.onCanvasChange(false); });
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_EXECUTE, function(){ this.HOOKS.onCanvasChange(true); });
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_EXECUTE_COMMANDS, function(){ this.HOOKS.onCanvasChange(true); });
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_ROLLBACK, function(){ this.HOOKS.onCanvasChange(false); });
 		
 		window.onbeforeunload = function(){
 			if (HOOKS.changeDifference > 0){
-				return ORYX.I18N.Save.unsavedData;
+				return WAPAMA.I18N.Save.unsavedData;
 			}
 		}.bind(this);
 		
 		// let's set autosave on.
 		this.autosaveFunction = function() { if (/*savePlugin.changeDifference != 0*/true) { this._save(this, true); }}.bind(this, autosavecfg);
-		this.setautosave(ORYX.CONFIG.UUID_AUTOSAVE_INTERVAL);
+		this.setautosave(WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL);
 	},
 	
 	/**
@@ -119,7 +119,7 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
 	 */
 	setautosave: function(interval) {
 		if (this.autosaving === undefined) {
-			this.autosaving = !ORYX.CONFIG.UUID_AUTOSAVE_DEFAULT;
+			this.autosaving = !WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT;
 		}
 		
 		value = !this.autosaving;
@@ -163,12 +163,12 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
 		//var rdf = this.getRDFFromDOM();
 
 		// Send the request to the server.
-		new Ajax.Request(ORYX.CONFIG.UUID_URL(), {
+		new Ajax.Request(WAPAMA.CONFIG.UUID_URL(), {
                 method: 'POST',
                 asynchronous: true,
                 contentType: "text/json; charset=UTF-8",
-                postBody: Ext.encode({data: serializedDOM, svg : svgDOM, uuid: ORYX.UUID, //rdf: rdf, 
-                    profile: ORYX.PROFILE, savetype: asave}),
+                postBody: Ext.encode({data: serializedDOM, svg : svgDOM, uuid: WAPAMA.UUID, //rdf: rdf, 
+                    profile: WAPAMA.PROFILE, savetype: asave}),
 				onSuccess : (function(transport) {
 					// end saving, the "loading" icon return to normal
 					this.hideSaveStatus(asave);
@@ -180,23 +180,23 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
 							if (errorMsgs != undefined) {
 								// raise loading disable event.
 								this.facade.raiseEvent({
-									type : ORYX.CONFIG.EVENT_LOADING_DISABLE
+									type : WAPAMA.CONFIG.EVENT_LOADING_DISABLE
 								});
 								this.showMessages(jsonObj);
 								return;
 							}
 						} catch (err) {
-							ORYX.Log.error(err);
+							WAPAMA.Log.error(err);
 						}
 					} else {
 						// show saved status
 						this.facade.raiseEvent({
-							type : ORYX.CONFIG.EVENT_LOADING_STATUS,
-							text : ORYX.I18N.Save.saved
+							type : WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+							text : WAPAMA.I18N.Save.saved
 						});
 					}
 					if (!asave) {
-						Ext.example.msg(ORYX.I18N.Save.successTitle, ORYX.I18N.Save.successMsg);
+						Ext.example.msg(WAPAMA.I18N.Save.successTitle, WAPAMA.I18N.Save.successMsg);
 						// clear the dirty data flag after saving
 						HOOKS.changeDifference = 0;
 						// clear the last dirty value
@@ -205,7 +205,7 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
 					// if the save function is invoked by "Save_n_Close" or "Window Close"
 					if (onClose) {
 						// close the window after saving succeed
-						var instanceWindow = top.Ext.getCmp(ORYX.UUID + "_win");
+						var instanceWindow = top.Ext.getCmp(WAPAMA.UUID + "_win");
 						instanceWindow.initialConfig.tools[5].handler.call(null, instanceWindow.tools.close, instanceWindow);
 					}
 				}).bind(this),
@@ -214,7 +214,7 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
 				this.hideSaveStatus(asave);
 				// raise loading disable event.
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
                 // if it's autosaving, ignore errors
                 if (asave) {
@@ -226,19 +226,19 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
                     frame: true,
                     autoHeight: true,
                     html : '<table><tr><td class="x-table-layout-cell"><img src="/crm/img/alerts/error.png"/></td><td class="x-table-layout-cell">' + 
-                           ORYX.I18N.Save.failedMsg + '</td></tr></table>',
+                           WAPAMA.I18N.Save.failedMsg + '</td></tr></table>',
                     buttons : [ {
-                        text : ORYX.I18N.Save.failedOKBtn,
+                        text : WAPAMA.I18N.Save.failedOKBtn,
                         handler : function() {
                             faildWin.hide();
                         }
                         },
                         {
-                        text : ORYX.I18N.Save.failedDetailsBtn,
+                        text : WAPAMA.I18N.Save.failedDetailsBtn,
                         handler : function() {
                             var errWin=window.open('about:blank','_blank','menubar=no,toolbar=no,location=no,scrollbars=yes,resizable=yes,top=0,left=0,width='+
                                        (screen.availWidth-10)+',height='+(screen.availHeight-100));
-                            errWin.document.write('<h3>' + ORYX.I18N.Save.failedThereWas + '</h3>'+ transport.responseText);
+                            errWin.document.write('<h3>' + WAPAMA.I18N.Save.failedThereWas + '</h3>'+ transport.responseText);
                             errWin.document.close();				
                             faildWin.hide();
                         }
@@ -247,7 +247,7 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
                 })
                 // create save failed window
                 var faildWin = new Ext.Window({
-                    title : ORYX.I18N.Save.failedTitle,
+                    title : WAPAMA.I18N.Save.failedTitle,
                     layout : 'fit',
                     frame: true,
                     width : 334,
@@ -258,19 +258,19 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
                     items: [panel]
                 });
                 faildWin.show(this);
-                ORYX.Log.warn("Saving failed: " + transport.responseText);
+                WAPAMA.Log.warn("Saving failed: " + transport.responseText);
             }).bind(this),
 			on403: (function(transport) {
 				// end saving, the "loading" icon return to normal
 				this.hideSaveStatus(asave);
 				// raise loading disable event.
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
 
-				Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.Save.noRights);
+				Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Save.noRights);
 				
-				ORYX.log.warn("Saving failed (403): " + transport.responseText);
+				WAPAMA.log.warn("Saving failed (403): " + transport.responseText);
 			}).bind(this)
 		});
 		return true;
@@ -285,12 +285,12 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
             // disable the "Autoave" button.
             this.autosaveEnabled = false;
             //show an icon and a message in the toolbar
-            autosavecfg.buttonInstance.setIcon(ORYX.PATH + "images/ajax-loader.gif");
+            autosavecfg.buttonInstance.setIcon(WAPAMA.PATH + "images/ajax-loader.gif");
             // raise event, make toolbar refresh.
-            this.facade.raiseEvent({type : ORYX.CONFIG.EVENT_TOOLBAR_REFRESH});
+            this.facade.raiseEvent({type : WAPAMA.CONFIG.EVENT_TOOLBAR_REFRESH});
         } else {
             this.saveModal = top.Ext.MessageBox.show({
-                msg      : '<div style="color:#15428B"><br><b>' + ORYX.I18N.Save.savingMsg + '<b></div>',
+                msg      : '<div style="color:#15428B"><br><b>' + WAPAMA.I18N.Save.savingMsg + '<b></div>',
                 closable : false,
                 width    : 275,
                 icon     : 'ext-mb-saving'
@@ -308,18 +308,18 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
                 // disable the "Autoave" button.
                 this.autosaveEnabled = true;
                 // show an icon and a message in the toolbar
-                autosavecfg.buttonInstance.setIcon(ORYX.PATH 
+                autosavecfg.buttonInstance.setIcon(WAPAMA.PATH 
                     + "images/disk_multiple.png");
             } else {
                 // disable the "Autoave" button.
                 this.autosaveEnabled = true;
                 // show an icon and a message in the toolbar
-                autosavecfg.buttonInstance.setIcon(ORYX.PATH 
+                autosavecfg.buttonInstance.setIcon(WAPAMA.PATH 
                     + "images/disk_multiple_disabled.png");
             }
             // raise event, make toolbar refresh.
             this.facade.raiseEvent({
-                type : ORYX.CONFIG.EVENT_TOOLBAR_REFRESH
+                type : WAPAMA.CONFIG.EVENT_TOOLBAR_REFRESH
             });
         } else {
             // remove the saving mask
@@ -399,18 +399,18 @@ ORYX.Plugins.UUIDRepositorySave = ORYX.Plugins.AbstractPlugin.extend({
  * Method to load model or create new one
  * (moved from editor handler)
  */
-window.onOryxResourcesLoaded = function() {
-	var stencilset = ORYX.Utils.getParamFromUrl('stencilset') || ORYX.CONFIG.SSET;
+window.onWapamaResourcesLoaded = function() {
+	var stencilset = WAPAMA.Utils.getParamFromUrl('stencilset') || WAPAMA.CONFIG.SSET;
 	var editor_parameters = {
-		id: ORYX.UUID,
+		id: WAPAMA.UUID,
 		stencilset: {
 			url: stencilset
 		}
 	};
-	if(!(ORYX.UUID === undefined)) {
+	if(!(WAPAMA.UUID === undefined)) {
 		editor_parameters.contentLoadedCallback = function(editorCallback) {
 	 		//load the model from the repository from its uuid
-			new Ajax.Request(ORYX.CONFIG.UUID_URL() + "&time=" +(new Date()).getTime(), {
+			new Ajax.Request(WAPAMA.CONFIG.UUID_URL() + "&time=" +(new Date()).getTime(), {
 				asynchronous: true,
 				method: 'get',
 				onSuccess: function(transport) {
@@ -422,7 +422,7 @@ window.onOryxResourcesLoaded = function() {
 							model = response.evalJSON();
 							editor_parameters.model = model;
 						} catch(err) {
-							ORYX.Log.error(err);
+							WAPAMA.Log.error(err);
 						}
 					}
 					editorCallback(model);
@@ -430,7 +430,7 @@ window.onOryxResourcesLoaded = function() {
 					enableSaveButton();
 				},
 				onFailure: function(transport) {
-					ORYX.Log.error("Could not load the model for uuid " + ORYX.UUID);
+					WAPAMA.Log.error("Could not load the model for uuid " + WAPAMA.UUID);
 					editorCallback(null);
 					// make the save button enabled after load finished
 					enableSaveButton();
@@ -439,7 +439,7 @@ window.onOryxResourcesLoaded = function() {
 		};
 	}
 	// finally open the editor:
-	new ORYX.Editor(editor_parameters);
+	new WAPAMA.Editor(editor_parameters);
 };
 
 /**
@@ -447,7 +447,7 @@ window.onOryxResourcesLoaded = function() {
  */
 function enableSaveButton() {
     // get Ext.Component of Save button
-    var saveButton = top.Ext.getCmp(ORYX.UUID + 'sv');
+    var saveButton = top.Ext.getCmp(WAPAMA.UUID + 'sv');
     // make it enabled if it's disabled
     if (saveButton.disabled) {
         saveButton.enable();

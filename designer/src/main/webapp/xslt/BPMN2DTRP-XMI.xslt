@@ -23,7 +23,7 @@ THE SOFTWARE.
 <xsl:stylesheet version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:oryx="http://oryx-editor.org/"
+    xmlns:wapama="http://www.wapama.net/diagram/"
     xmlns:raziel="http://raziel.org/"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:de.hpi.sam.dtrp.model="http://ExchangeFormatModel/1.0"
@@ -32,17 +32,17 @@ THE SOFTWARE.
     <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
     <xsl:template match="/">
-        <xsl:for-each select="//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram']">
-            <de.hpi.sam.dtrp.model:Process xmi:version="2.0" name="{oryx:name}" description="{oryx:documentation}" id="{@rdf:about}">
-            <xsl:for-each select="//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#Pool' and raziel:parent/@rdf:resource = current()/@rdf:about]">
-                <xsl:for-each select="//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#Lane' and raziel:parent/@rdf:resource = current()/@rdf:about]">
-                    <roles name="{oryx:name}" description="{oryx:documentation}" id="{@rdf:about}">
-                    <xsl:for-each select="//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#Task' and raziel:parent/@rdf:resource = current()/@rdf:about]">
-                        <activities name="{oryx:name}" description="{oryx:documentation}" id="{@rdf:about}" goals="{oryx:goals}" end="{//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow' and raziel:target/@rdf:resource = current()/@rdf:about][1]/@rdf:about}">
+        <xsl:for-each select="//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram']">
+            <de.hpi.sam.dtrp.model:Process xmi:version="2.0" name="{wapama:name}" description="{wapama:documentation}" id="{@rdf:about}">
+            <xsl:for-each select="//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#Pool' and raziel:parent/@rdf:resource = current()/@rdf:about]">
+                <xsl:for-each select="//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#Lane' and raziel:parent/@rdf:resource = current()/@rdf:about]">
+                    <roles name="{wapama:name}" description="{wapama:documentation}" id="{@rdf:about}">
+                    <xsl:for-each select="//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#Task' and raziel:parent/@rdf:resource = current()/@rdf:about]">
+                        <activities name="{wapama:name}" description="{wapama:documentation}" id="{@rdf:about}" goals="{wapama:goals}" end="{//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow' and raziel:target/@rdf:resource = current()/@rdf:about][1]/@rdf:about}">
                         
                         <xsl:for-each select="
                             //rdf:Description [
-                                oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
+                                wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
                                 and
                                 current()/raziel:outgoing/@rdf:resource = @rdf:about
                             ]
@@ -52,7 +52,7 @@ THE SOFTWARE.
                                     //rdf:Description [
                                         @rdf:about = current()/raziel:target/@rdf:resource
                                         and
-                                        oryx:type='http://b3mn.org/stencilset/bpmn1.1#Task'
+                                        wapama:type='http://b3mn.org/stencilset/bpmn1.1#Task'
                                     ][ 1 ]/@rdf:about
                                 }"
                                 artifacts="{
@@ -60,26 +60,26 @@ THE SOFTWARE.
                                         @rdf:about = //rdf:Description [
                                             @rdf:about = current()/raziel:outgoing/@rdf:resource
                                             and
-                                            oryx:type='http://b3mn.org/stencilset/bpmn1.1#Association_Undirected'
+                                            wapama:type='http://b3mn.org/stencilset/bpmn1.1#Association_Undirected'
                                         ][ 1 ]/raziel:target/@rdf:resource
                                         and
-                                        oryx:type='http://b3mn.org/stencilset/bpmn1.1#DataObject'
+                                        wapama:type='http://b3mn.org/stencilset/bpmn1.1#DataObject'
                                     ][ 1 ]/@rdf:about
                                 }"
                             >
                                 <xsl:choose>
-                                    <xsl:when test="string-length(oryx:conditionexpression) &gt; 0">
+                                    <xsl:when test="string-length(wapama:conditionexpression) &gt; 0">
                                         <xsl:attribute name="name">
-                                            <xsl:value-of select="oryx:conditionexpression"/>
+                                            <xsl:value-of select="wapama:conditionexpression"/>
                                         </xsl:attribute>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:attribute name="name">
-                                            <xsl:value-of select="oryx:name"/>
+                                            <xsl:value-of select="wapama:name"/>
                                         </xsl:attribute>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                                <type><xsl:value-of select="oryx:communicationchanneltype"/></type>
+                                <type><xsl:value-of select="wapama:communicationchanneltype"/></type>
                             </start>
                         </xsl:for-each>
                         </activities>
@@ -87,7 +87,7 @@ THE SOFTWARE.
                     </roles>
                 </xsl:for-each>
             </xsl:for-each>
-            <xsl:for-each select="//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#DataObject']">
+            <xsl:for-each select="//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#DataObject']">
                 <!-- TODO: check that DataObject is in current Diagram
                 (the following doesn't work: raziel:parent/@rdf:resource = current()/@rdf:about )
                 => could be done via parrent of sequence flow
@@ -95,22 +95,22 @@ THE SOFTWARE.
                 which is not current practice -->
                 <!-- TODO: ensure that it is impossible to have an undirected
                 association going from a data object to a sequence flow -->
-                <artifacts  name="{oryx:name}" description="{oryx:documentation}" id="{@rdf:about}" picture="{oryx:picture}"
+                <artifacts  name="{wapama:name}" description="{wapama:documentation}" id="{@rdf:about}" picture="{wapama:picture}"
                     revArtifacts="{
                         //rdf:Description[
-                            oryx:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
+                            wapama:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
                             and
                             raziel:outgoing/@rdf:resource = //rdf:Description[
-                                oryx:type='http://b3mn.org/stencilset/bpmn1.1#Association_Undirected'
+                                wapama:type='http://b3mn.org/stencilset/bpmn1.1#Association_Undirected'
                                 and
                                 raziel:target/@rdf:resource = current()/@rdf:about
                             ][1]/@rdf:about
                         ]/@rdf:about
                     }"/>
 <!--
-oryx:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow' and 
-//rdf:Description[@rdf:about=//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#Association_Undirected']/raziel:target/@rdf:resource]
-//rdf:Description[@rdf:about=//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow']/raziel:outgoing/@rdf:resource]/oryx:type
+wapama:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow' and 
+//rdf:Description[@rdf:about=//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#Association_Undirected']/raziel:target/@rdf:resource]
+//rdf:Description[@rdf:about=//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#SequenceFlow']/raziel:outgoing/@rdf:resource]/wapama:type
 -->
             </xsl:for-each>
             </de.hpi.sam.dtrp.model:Process>

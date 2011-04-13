@@ -73,7 +73,7 @@ import org.wapama.web.profile.impl.ProfileServiceImpl;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
- * Servlet to load plugin and Oryx stencilset
+ * Servlet to load plugin and Wapama stencilset
  */
 public class EditorHandler extends HttpServlet {
 
@@ -106,7 +106,7 @@ public class EditorHandler extends HttpServlet {
      * The base path under which the application will be made available at runtime.
      * This constant should be used throughout the application.
      */
-    public static final String oryx_path = "/designer/";
+    public static final String wapama_path = "/designer/";
     
     /**
      * The designer DEV flag.
@@ -253,10 +253,10 @@ public class EditorHandler extends HttpServlet {
         //output env javascript files
         if (System.getProperty(DEV) != null) {
             for (String jsFile : _envFiles) {
-                addScript(doc, oryx_path + jsFile, true);
+                addScript(doc, wapama_path + jsFile, true);
             }
         } else {
-            addScript(doc, oryx_path + "jsc/env_combined.js", true);
+            addScript(doc, wapama_path + "jsc/env_combined.js", true);
         }
         
      // get language from cookie
@@ -284,7 +284,7 @@ public class EditorHandler extends HttpServlet {
             i18nJsFile = "i18n/translation_en_us.js";
         }
         // generate script to setup the languages
-        addScript(doc, oryx_path + i18nJsFile, true);
+        addScript(doc, wapama_path + i18nJsFile, true);
 
         
         // generate script tags for plugins.
@@ -328,18 +328,18 @@ public class EditorHandler extends HttpServlet {
         
         if (System.getProperty(DEV) != null) {
             for (IDiagramPlugin jsFile : _pluginfiles.get(profileName)) {
-                addScript(doc, oryx_path + "plugin/" + jsFile.getName() 
+                addScript(doc, wapama_path + "plugin/" + jsFile.getName() 
                         + ".js", true);
             }
         } else {
             addScript(doc, 
-                    oryx_path + "jsc/plugins_" + profileName + ".js", 
+                    wapama_path + "jsc/plugins_" + profileName + ".js", 
                     false);
         }
         
         for (IDiagramPlugin uncompressed : 
                 _uncompressedPlugins.get(profileName)) {
-            addScript(doc, oryx_path + "plugin/" + uncompressed.getName() 
+            addScript(doc, wapama_path + "plugin/" + uncompressed.getName() 
                     + ".js", false);
         }
         

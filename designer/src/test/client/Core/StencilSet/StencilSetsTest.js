@@ -1,14 +1,14 @@
 // mocks
 
-// mocking ORYX.Log
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Log) {ORYX.Log = {};}
+// mocking WAPAMA.Log
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Log) {WAPAMA.Log = {};}
 
-// mocking ORYX.StencilSet.StencilSet
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
-ORYX.Core.StencilSet.StencilSet = Clazz.extend({
+// mocking WAPAMA.StencilSet.StencilSet
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.StencilSet) {WAPAMA.Core.StencilSet = {};}
+WAPAMA.Core.StencilSet.StencilSet = Clazz.extend({
 	construct : function(namespace) {
 		arguments.callee.$.construct.apply(this, arguments);
 		this._namespace = namespace
@@ -23,11 +23,11 @@ ORYX.Core.StencilSet.StencilSet = Clazz.extend({
 	}
 })
 
-// mocking ORYX.StencilSet.Rules
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
-ORYX.Core.StencilSet.Rules = Clazz.extend({
+// mocking WAPAMA.StencilSet.Rules
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.StencilSet) {WAPAMA.Core.StencilSet = {};}
+WAPAMA.Core.StencilSet.Rules = Clazz.extend({
 	construct : function(name) {
 		arguments.callee.$.construct.apply(this, arguments);
 		this._name = name
@@ -42,29 +42,29 @@ ORYX.Core.StencilSet.Rules = Clazz.extend({
 	}
 })
 
-// mocking ORYX.I18N.Language
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.I18N) {ORYX.I18N = {};}
-ORYX.I18N.Language = "de_at"
+// mocking WAPAMA.I18N.Language
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.I18N) {WAPAMA.I18N = {};}
+WAPAMA.I18N.Language = "de_at"
 
 // stubs
 
-// stubing ORYX.Log.trace()
-ORYX.Log.trace = function(){return}
+// stubing WAPAMA.Log.trace()
+WAPAMA.Log.trace = function(){return}
 
 // Test Cases
 function setUp() {
 	// storage for loaded stencil sets by namespace
-	ORYX.Core.StencilSet._stencilSetsByNamespace = new Hash();
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace = new Hash();
 
 	// storage for stencil sets by url
-	ORYX.Core.StencilSet._stencilSetsByUrl = new Hash();
+	WAPAMA.Core.StencilSet._stencilSetsByUrl = new Hash();
 
 	// storage for stencil set namespaces by editor instances
-	ORYX.Core.StencilSet._StencilSetNSByEditorInstance = new Hash();
+	WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance = new Hash();
 
 	// storage for rules by editor instances
-	ORYX.Core.StencilSet._rulesByEditorInstance = new Hash();
+	WAPAMA.Core.StencilSet._rulesByEditorInstance = new Hash();
 }
 
 
@@ -74,20 +74,20 @@ function setUp() {
  */
 function testGetStencilSetByNamespace() {
 
-	ORYX.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/stencilset#"] =  "with#"
-	ORYX.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/Stencilset#"] =  "With#"
-	ORYX.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/stencilset"] =  "without#"
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/stencilset#"] =  "with#"
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/Stencilset#"] =  "With#"
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/stencilset"] =  "without#"
 	
-	var stencilset = ORYX.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset#")
+	var stencilset = WAPAMA.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset#")
 	assertEquals("Checks, if the correct StencilSet is delivered by namespace", stencilset, "with#")
 	
-	var stencilset = ORYX.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset")
+	var stencilset = WAPAMA.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset")
 	assertEquals("Checks, if the correct StencilSet is delivered by namespace", stencilset, "with#")
 	
-	var stencilset = ORYX.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset#aaaaa")
+	var stencilset = WAPAMA.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset#aaaaa")
 	assertEquals("Checks, if the correct StencilSet is delivered by namespace", stencilset, "with#")
 	
-	var stencilset = ORYX.Core.StencilSet.stencilSet("http://www.firstexample.org/Stencilset")
+	var stencilset = WAPAMA.Core.StencilSet.stencilSet("http://www.firstexample.org/Stencilset")
 	assertEquals("Checks, if the correct StencilSet is delivered by namespace", stencilset, "With#")
 
 }
@@ -96,12 +96,12 @@ function testGetStencilSetByNamespace() {
  * Tests, if non existing stencil set namespaces are handled correctly.
  */
 function testWrongStencilSetNamespaces() {
-	ORYX.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/stencilset#"] =  "with#"
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace["http://www.firstexample.org/stencilset#"] =  "with#"
 	
-	var stencilset = ORYX.Core.StencilSet.stencilSet("##")
+	var stencilset = WAPAMA.Core.StencilSet.stencilSet("##")
 	assertEquals("Checks, if the wrong namespace syntax is handled correctly", stencilset, undefined)
 	
-	var stencilset = ORYX.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset2")
+	var stencilset = WAPAMA.Core.StencilSet.stencilSet("http://www.firstexample.org/stencilset2")
 	assertEquals("Checks, if the wrong namespace syntax is handled correctly", stencilset, undefined)
 }
 
@@ -109,9 +109,9 @@ function testWrongStencilSetNamespaces() {
  * It is expected that numbers as namespace are not a
  */
 function testFailForNumberAsStencilSetNamespace() {
-	ORYX.Core.StencilSet._stencilSetsByNamespace[3] =  "testStencil";
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace[3] =  "testStencil";
 	try {
-		var stencilset = ORYX.Core.StencilSet.stencilSet(3)
+		var stencilset = WAPAMA.Core.StencilSet.stencilSet(3)
 		fail("Test should fail yet for number used as namespace.")
 	}catch(e) {
 		if(!( e instanceof JsUnitException)) {
@@ -125,21 +125,21 @@ function testFailForNumberAsStencilSetNamespace() {
  */
 function testGetStencilSetsForEditorInstance() {
 	// prepare stencil sets
-	var stencilset1 = new ORYX.Core.StencilSet.StencilSet("http://www.firstexample.org/stencilset1#")
-	var stencilset2 = new ORYX.Core.StencilSet.StencilSet("http://www.firstexample.org/stencilset2#")
+	var stencilset1 = new WAPAMA.Core.StencilSet.StencilSet("http://www.firstexample.org/stencilset1#")
+	var stencilset2 = new WAPAMA.Core.StencilSet.StencilSet("http://www.firstexample.org/stencilset2#")
 	
 	// prepare Hashes
-	ORYX.Core.StencilSet._stencilSetsByNamespace[stencilset1.namespace()] =  stencilset1
-	ORYX.Core.StencilSet._stencilSetsByNamespace[stencilset2.namespace()] =  stencilset2
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace[stencilset1.namespace()] =  stencilset1
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace[stencilset2.namespace()] =  stencilset2
 	
-	ORYX.Core.StencilSet._StencilSetNSByEditorInstance["editor1"] = new Array();
-	ORYX.Core.StencilSet._StencilSetNSByEditorInstance["editor2"] = new Array();
+	WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance["editor1"] = new Array();
+	WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance["editor2"] = new Array();
 	
-	ORYX.Core.StencilSet._StencilSetNSByEditorInstance["editor1"].push(stencilset1.namespace())
-	ORYX.Core.StencilSet._StencilSetNSByEditorInstance["editor1"].push(stencilset2.namespace())
-	ORYX.Core.StencilSet._StencilSetNSByEditorInstance["editor2"].push(stencilset1.namespace())
+	WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance["editor1"].push(stencilset1.namespace())
+	WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance["editor1"].push(stencilset2.namespace())
+	WAPAMA.Core.StencilSet._StencilSetNSByEditorInstance["editor2"].push(stencilset1.namespace())
 	
-	var stencilsets = ORYX.Core.StencilSet.stencilSets("editor1")
+	var stencilsets = WAPAMA.Core.StencilSet.stencilSets("editor1")
 	var compareStencilSets = new Hash()
 	compareStencilSets[stencilset1.namespace()] = stencilset1
 	compareStencilSets[stencilset2.namespace()] = stencilset2
@@ -150,7 +150,7 @@ function testGetStencilSetsForEditorInstance() {
 	assertEquals("Checks, if the appropriate stencil sets are loaded.", stencilsets[stencilset2.namespace()], compareStencilSets[stencilset2.namespace()])
 	
 	// tests for second editor instance
-	var stencilsets = ORYX.Core.StencilSet.stencilSets("editor2")
+	var stencilsets = WAPAMA.Core.StencilSet.stencilSets("editor2")
 	var compareStencilSets = new Hash()
 	compareStencilSets[stencilset1.namespace()] = stencilset1
 	
@@ -163,34 +163,34 @@ function testGetStencilSetsForEditorInstance() {
  * It should return an empty Hash.
  */
 function testNotExistingEditorInstances() {
-	assertEquals("A not existing editor instance should not have any reference to a stencil set", 0, $A(ORYX.Core.StencilSet.stencilSets("editorXX")).length)
+	assertEquals("A not existing editor instance should not have any reference to a stencil set", 0, $A(WAPAMA.Core.StencilSet.stencilSets("editorXX")).length)
 }
 
 /**
  * Tests if undefined is returned if the stencilset or stencil does not exists.
  */
 function testGetUndefindedStencil() {
-	assertUndefined(ORYX.Core.StencilSet.stencil("http://notexistingStencilSet.com#ANode"))
+	assertUndefined(WAPAMA.Core.StencilSet.stencil("http://notexistingStencilSet.com#ANode"))
 	
 	// preparation for not existing stencil in existing stencil set
-	var stencilset1 = new ORYX.Core.StencilSet.StencilSet("http://www.firstexample.org/stencilset1#")
-	ORYX.Core.StencilSet._stencilSetsByNamespace[stencilset1.namespace()] =  stencilset1
+	var stencilset1 = new WAPAMA.Core.StencilSet.StencilSet("http://www.firstexample.org/stencilset1#")
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace[stencilset1.namespace()] =  stencilset1
 	
-	assertUndefined(ORYX.Core.StencilSet.stencil("http://www.firstexample.org/stencilset1#ANotNode"))
+	assertUndefined(WAPAMA.Core.StencilSet.stencil("http://www.firstexample.org/stencilset1#ANotNode"))
 }
 
 /**
  * Test if the appropriated rules for an editor instance are returned
  */
 function testRulesForEditorInstance() {
-	var rules1 = new ORYX.Core.StencilSet.Rules("rule1")
+	var rules1 = new WAPAMA.Core.StencilSet.Rules("rule1")
 	
 	// prepare Hash
-	ORYX.Core.StencilSet._rulesByEditorInstance["first"] = rules1
+	WAPAMA.Core.StencilSet._rulesByEditorInstance["first"] = rules1
 	
 	// test
-	assertEquals("Rules of first editor should be rules1", rules1, ORYX.Core.StencilSet.rules("first"))
-	assertTrue("Rules should be created for a new editor instance", ORYX.Core.StencilSet.rules("second") instanceof ORYX.Core.StencilSet.Rules)
+	assertEquals("Rules of first editor should be rules1", rules1, WAPAMA.Core.StencilSet.rules("first"))
+	assertTrue("Rules should be created for a new editor instance", WAPAMA.Core.StencilSet.rules("second") instanceof WAPAMA.Core.StencilSet.Rules)
 }
 
 /**
@@ -199,17 +199,17 @@ function testRulesForEditorInstance() {
 function testGetStencilFromStencilSet() {
 	// prepare stencil set
 	
-	var stencilset = new ORYX.Core.StencilSet.StencilSet("http://example.com#")
+	var stencilset = new WAPAMA.Core.StencilSet.StencilSet("http://example.com#")
 	
 	// prepare Hash
-	ORYX.Core.StencilSet._stencilSetsByNamespace[stencilset.namespace()] =  stencilset
+	WAPAMA.Core.StencilSet._stencilSetsByNamespace[stencilset.namespace()] =  stencilset
 	
 	// node
-	var stencil = ORYX.Core.StencilSet.stencil("http://example.com#ANode")
+	var stencil = WAPAMA.Core.StencilSet.stencil("http://example.com#ANode")
 	assertTrue("Verify return value from stubed stencil method.", stencil["stencil"])
 	
 	// edge
-	var stencil = ORYX.Core.StencilSet.stencil("http://example.com#AnEdge")
+	var stencil = WAPAMA.Core.StencilSet.stencil("http://example.com#AnEdge")
 	assertTrue("Verify return value from stubed stencil method.", stencil["stencil"])
 }
 
@@ -217,14 +217,14 @@ function testGetStencilFromStencilSet() {
  * The test loads a new stencilset.
  */
 function testLoadNewStencilSet() {
-	ORYX.Core.StencilSet.loadStencilSet("http://example.com#", "myId")
+	WAPAMA.Core.StencilSet.loadStencilSet("http://example.com#", "myId")
 	
 	//test if the new stencil set exists
-	assertTrue("Test existence of stencil set.",ORYX.Core.StencilSet._stencilSetsByNamespace["http://example.com#"] instanceof ORYX.Core.StencilSet.StencilSet)
+	assertTrue("Test existence of stencil set.",WAPAMA.Core.StencilSet._stencilSetsByNamespace["http://example.com#"] instanceof WAPAMA.Core.StencilSet.StencilSet)
 	
-	assertTrue("Test existence of stencil set in stencil set by url hash.",ORYX.Core.StencilSet._stencilSetsByUrl["http://example.com#"] instanceof ORYX.Core.StencilSet.StencilSet)
+	assertTrue("Test existence of stencil set in stencil set by url hash.",WAPAMA.Core.StencilSet._stencilSetsByUrl["http://example.com#"] instanceof WAPAMA.Core.StencilSet.StencilSet)
 	
-	assertTrue("Test if rules are set correctly.", ORYX.Core.StencilSet._rulesByEditorInstance["myId"] instanceof ORYX.Core.StencilSet.Rules)
+	assertTrue("Test if rules are set correctly.", WAPAMA.Core.StencilSet._rulesByEditorInstance["myId"] instanceof WAPAMA.Core.StencilSet.Rules)
 }
 
 /**
@@ -233,7 +233,7 @@ function testLoadNewStencilSet() {
 function testFailForInvalidJSONInTranslation() {
 	
 	try {
-		ORYX.Core.StencilSet.getTranslation("invalidjsonObject", "title")
+		WAPAMA.Core.StencilSet.getTranslation("invalidjsonObject", "title")
 		fail("Test should fail yet for invalid JSON.")
 	} catch (e) {
 		if((e instanceof JsUnitException)) {
@@ -254,7 +254,7 @@ function testNotExistingAttributeTranslationInJSON() {
 			"title_de_at": "Diagram_de_at"
 			}
 			
-	assertUndefined("Test not existing Attribute.",ORYX.Core.StencilSet.getTranslation(json, "name"))
+	assertUndefined("Test not existing Attribute.",WAPAMA.Core.StencilSet.getTranslation(json, "name"))
 }
 
 /**
@@ -271,20 +271,20 @@ function testgetTranslationOfJSONAttr() {
 			}
 	
 	// get title with lang de
-	ORYX.I18N.Language = "de"		
-	assertEquals("Get title_de",ORYX.Core.StencilSet.getTranslation(json, "title"), "Diagram_de")
+	WAPAMA.I18N.Language = "de"		
+	assertEquals("Get title_de",WAPAMA.Core.StencilSet.getTranslation(json, "title"), "Diagram_de")
 	
 	// get title with lang de_at
-	ORYX.I18N.Language = "de_at"		
-	assertEquals("Get title_de_at",ORYX.Core.StencilSet.getTranslation(json, "title"), "Diagram_de_at")
+	WAPAMA.I18N.Language = "de_at"		
+	assertEquals("Get title_de_at",WAPAMA.Core.StencilSet.getTranslation(json, "title"), "Diagram_de_at")
 	
 	// get title default
-	ORYX.I18N.Language = "ar"		
-	assertEquals("Get title default",ORYX.Core.StencilSet.getTranslation(json, "title"), "Diagram")
+	WAPAMA.I18N.Language = "ar"		
+	assertEquals("Get title default",WAPAMA.Core.StencilSet.getTranslation(json, "title"), "Diagram")
 	
 	// get title_ch with lang ch_zz
-	ORYX.I18N.Language = "ch_zz"		
-	assertEquals("Get title_de",ORYX.Core.StencilSet.getTranslation(json, "title"), "Diagram_ch")
+	WAPAMA.I18N.Language = "ch_zz"		
+	assertEquals("Get title_de",WAPAMA.Core.StencilSet.getTranslation(json, "title"), "Diagram_ch")
 }
 
 

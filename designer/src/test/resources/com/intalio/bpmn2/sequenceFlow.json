@@ -19,7 +19,7 @@
         "id": "BPMNDiagram"
     },
     "childShapes": [{
-        "resourceId": "oryx_184F4C7E-5453-4A28-82B2-2AF044E88FF9",
+        "resourceId": "wapama_184F4C7E-5453-4A28-82B2-2AF044E88FF9",
         "properties": {
             "name": "task1",
             "documentation": "",
@@ -64,7 +64,7 @@
         },
         "childShapes": [],
         "outgoing": [{
-            "resourceId": "oryx_1AAA8C9A-39A5-42FC-8ED1-507A7F3728EA"
+            "resourceId": "wapama_1AAA8C9A-39A5-42FC-8ED1-507A7F3728EA"
         }],
         "bounds": {
             "lowerRight": {
@@ -79,7 +79,7 @@
         "dockers": []
     },
     {
-        "resourceId": "oryx_A75E7546-DF71-48EA-84D3-2A8FD4A47568",
+        "resourceId": "wapama_A75E7546-DF71-48EA-84D3-2A8FD4A47568",
         "properties": {
             "name": "task2",
             "documentation": "",
@@ -137,7 +137,7 @@
         "dockers": []
     },
     {
-        "resourceId": "oryx_1AAA8C9A-39A5-42FC-8ED1-507A7F3728EA",
+        "resourceId": "wapama_1AAA8C9A-39A5-42FC-8ED1-507A7F3728EA",
         "properties": {
             "name": "seqFlow",
             "documentation": "",
@@ -153,7 +153,7 @@
         },
         "childShapes": [],
         "outgoing": [{
-            "resourceId": "oryx_A75E7546-DF71-48EA-84D3-2A8FD4A47568"
+            "resourceId": "wapama_A75E7546-DF71-48EA-84D3-2A8FD4A47568"
         }],
         "bounds": {
             "lowerRight": {
@@ -182,7 +182,7 @@
             "y": 40
         }],
         "target": {
-            "resourceId": "oryx_A75E7546-DF71-48EA-84D3-2A8FD4A47568"
+            "resourceId": "wapama_A75E7546-DF71-48EA-84D3-2A8FD4A47568"
         }
     }],
     "bounds": {
@@ -199,5 +199,5 @@
         "url": "/designer/stencilsets/bpmn2.0/bpmn2.0.json",
         "namespace": "http://b3mn.org/stencilset/bpmn2.0#"
     },
-    "ssextensions": ["http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#"]
+    "ssextensions": ["http://www.wapama.net/stencilsets/extensions/bpmncosts-2.0#"]
 }

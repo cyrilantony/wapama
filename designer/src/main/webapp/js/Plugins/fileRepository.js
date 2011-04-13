@@ -21,17 +21,17 @@
  * DEALINGS IN THE SOFTWARE.
 */
 
-if (!ORYX.Plugins) {
-	ORYX.Plugins = {};
+if (!WAPAMA.Plugins) {
+	WAPAMA.Plugins = {};
 }  
 
-if (!ORYX.Config) {
-	ORYX.Config = {};
+if (!WAPAMA.Config) {
+	WAPAMA.Config = {};
 }
 
-ORYX.Config.SignavioFileRepositoryModelHandler = "/signavio/p/model/"; 
+WAPAMA.Config.SignavioFileRepositoryModelHandler = "/signavio/p/model/"; 
 
-ORYX.Plugins.FileRepositorySave = Clazz.extend({
+WAPAMA.Plugins.FileRepositorySave = Clazz.extend({
 	
     facade: undefined,
 	modelUri: window.location.hash.substring(1).strip() || undefined,
@@ -40,22 +40,22 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 		this.facade = facade;
 
 		this.facade.offer({
-			'name': ORYX.I18N.Save.save,
+			'name': WAPAMA.I18N.Save.save,
 			'functionality': this.save.bind(this, false),
-			'group': ORYX.I18N.Save.group,
-			'icon': ORYX.PATH + "images/disk.png",
-			'description': ORYX.I18N.Save.saveDesc,
+			'group': WAPAMA.I18N.Save.group,
+			'icon': WAPAMA.PATH + "images/disk.png",
+			'description': WAPAMA.I18N.Save.saveDesc,
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0
 		});
 		
 		this.facade.offer({
-			'name': ORYX.I18N.Save.saveAs,
+			'name': WAPAMA.I18N.Save.saveAs,
 			'functionality': this.save.bind(this, true),
-			'group': ORYX.I18N.Save.group,
-			'icon': ORYX.PATH + "images/disk_multi.png",
-			'description': ORYX.I18N.Save.saveAsDesc,
+			'group': WAPAMA.I18N.Save.group,
+			'icon': WAPAMA.PATH + "images/disk_multi.png",
+			'description': WAPAMA.I18N.Save.saveAsDesc,
 			'index': 2,
 			'minShape': 0,
 			'maxShape': 0
@@ -64,13 +64,13 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 
 		// ask before closing the window
 		this.changeDifference = 0;		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_UNDO_EXECUTE, function(){ this.changeDifference++; });
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(){this.changeDifference++; });
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_UNDO_ROLLBACK, function(){this.changeDifference--; });
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_EXECUTE, function(){ this.changeDifference++; });
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_EXECUTE_COMMANDS, function(){this.changeDifference++; });
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_ROLLBACK, function(){this.changeDifference--; });
 		
 		window.onbeforeunload = function(){
 			if (this.changeDifference > 0){
-				return ORYX.I18N.Save.unsavedData;
+				return WAPAMA.I18N.Save.unsavedData;
 			}
 		}.bind(this);
 	},
@@ -100,7 +100,7 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 		
 		// try to load available information
 		if (this.modelUri) {
-			var request = new Ajax.Request(ORYX.Config.SignavioFileRepositoryModelHandler + this.modelUri.replace(/^\/?/,"") + "/info", {
+			var request = new Ajax.Request(WAPAMA.Config.SignavioFileRepositoryModelHandler + this.modelUri.replace(/^\/?/,"") + "/info", {
 				method: "GET",
 				asynchronous: false
 			});
@@ -142,13 +142,13 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 		}
 			
 		var form = new Ext.XTemplate(		
-			'<form class="oryx_repository_edit_model" action="#" id="edit_model" onsubmit="return false;">',
+			'<form class="wapama_repository_edit_model" action="#" id="edit_model" onsubmit="return false;">',
 				'<fieldset>',
-					'<p class="description">' + ORYX.I18N.Save.dialogDesciption + '</p>',
+					'<p class="description">' + WAPAMA.I18N.Save.dialogDesciption + '</p>',
 					'<input type="hidden" name="namespace" value="{namespace}" />',
-					'<p><label for="edit_model_title">' + ORYX.I18N.Save.dialogLabelTitle + '</label><input type="text" class="text" name="title" value="{name}" id="edit_model_title" onfocus="this.className = \'text activated\'" onblur="this.className = \'text\'"/></p>',
-					'<p><label for="edit_model_summary">' + ORYX.I18N.Save.dialogLabelDesc + '</label><textarea rows="5" name="summary" id="edit_model_summary" onfocus="this.className = \'activated\'" onblur="this.className = \'\'">{description}</textarea></p>',
-					'<p><label for="edit_model_type">' + ORYX.I18N.Save.dialogLabelType + '</label><input type="text" name="type" class="text disabled" value="{type}" disabled="disabled" id="edit_model_type" /></p>',
+					'<p><label for="edit_model_title">' + WAPAMA.I18N.Save.dialogLabelTitle + '</label><input type="text" class="text" name="title" value="{name}" id="edit_model_title" onfocus="this.className = \'text activated\'" onblur="this.className = \'text\'"/></p>',
+					'<p><label for="edit_model_summary">' + WAPAMA.I18N.Save.dialogLabelDesc + '</label><textarea rows="5" name="summary" id="edit_model_summary" onfocus="this.className = \'activated\'" onblur="this.className = \'\'">{description}</textarea></p>',
+					'<p><label for="edit_model_type">' + WAPAMA.I18N.Save.dialogLabelType + '</label><input type="text" name="type" class="text disabled" value="{type}" disabled="disabled" id="edit_model_type" /></p>',
 				'</fieldset>',
 			'</form>'
 		);
@@ -157,14 +157,14 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 			// id:		'Propertie_Window',
 	        width:	'auto',
 	        height:	'auto',
-		    title:	(_saveAs ? ORYX.I18N.Save.saveAsTitle : ORYX.I18N.Save.save),
+		    title:	(_saveAs ? WAPAMA.I18N.Save.saveAsTitle : WAPAMA.I18N.Save.save),
 	        modal:	true,
 			bodyStyle: 'background:#FFFFFF',
 	        html: 	form.apply(modelData),
 	        
 			buttons:[
 			    {
-			    	text: ORYX.I18N.Save.saveBtn,
+			    	text: WAPAMA.I18N.Save.saveBtn,
 			    	handler: function(){
 			    	
 			    		modelData.name = $("edit_model_title").value.strip(); 
@@ -175,7 +175,7 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 						
 					}.bind(this)
 			    },{
-			    	text: ORYX.I18N.Save.close,
+			    	text: WAPAMA.I18N.Save.close,
 			    	handler: function(){
 			    		win.close();
             		}
@@ -197,12 +197,12 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 	submit: function(params, _saveAs) {
 		
 		this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE,
-			text: ORYX.I18N.Save.saving
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE,
+			text: WAPAMA.I18N.Save.saving
         });
 		
 		if (_saveAs) {
-			new Ajax.Request(ORYX.Config.SignavioFileRepositoryModelHandler, {
+			new Ajax.Request(WAPAMA.Config.SignavioFileRepositoryModelHandler, {
 				method: "POST",
 				parameters: params,
 				asynchronous: true,
@@ -212,8 +212,8 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 					this.changeDifference = 0;
 					
 					this.facade.raiseEvent({
-						type:ORYX.CONFIG.EVENT_LOADING_STATUS,
-						text:ORYX.I18N.Save.saved
+						type:WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+						text:WAPAMA.I18N.Save.saved
 					});
 					
 					
@@ -228,15 +228,15 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 			});
 		}
 		else {			
-			new Ajax.Request(ORYX.Config.SignavioFileRepositoryModelHandler + this.modelUri, {
+			new Ajax.Request(WAPAMA.Config.SignavioFileRepositoryModelHandler + this.modelUri, {
 				method: "PUT",
 				parameters: params,
 				asynchronous: true,
 				onSuccess: function success(transport){
 					this.changeDifference = 0;					
 					this.facade.raiseEvent({
-						type:ORYX.CONFIG.EVENT_LOADING_STATUS,
-						text:ORYX.I18N.Save.saved
+						type:WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+						text:WAPAMA.I18N.Save.saved
 					});
 					
 				}.bind(this),
@@ -251,22 +251,22 @@ ORYX.Plugins.FileRepositorySave = Clazz.extend({
 	}
 });
 
-onOryxResourcesLoaded = function () {
+onWapamaResourcesLoaded = function () {
 	if (location.hash.slice(1).length == 0 || location.hash.slice(1).indexOf('new')!=-1) {
-		var stencilset = ORYX.Utils.getParamFromUrl('stencilset') 
-			? ORYX.Utils.getParamFromUrl('stencilset')
+		var stencilset = WAPAMA.Utils.getParamFromUrl('stencilset') 
+			? WAPAMA.Utils.getParamFromUrl('stencilset')
 			: 'stencilsets/bpmn1.1/bpmn1.1.json';
 
-		new ORYX.Editor({
-			id: 'oryx-canvas123',
+		new WAPAMA.Editor({
+			id: 'wapama-canvas123',
 			stencilset: {
-				url: ORYX.PATH+stencilset
+				url: WAPAMA.PATH+stencilset
 			}
 		});
 	}
 	else {
-		ORYX.Editor.createByUrl(ORYX.Config.SignavioFileRepositoryModelHandler + location.hash.slice(1).replace(/^\/?/,"") + "/json", {
-			id: 'oryx-canvas123'
+		WAPAMA.Editor.createByUrl(WAPAMA.Config.SignavioFileRepositoryModelHandler + location.hash.slice(1).replace(/^\/?/,"") + "/json", {
+			id: 'wapama-canvas123'
 		});
 	};
 };

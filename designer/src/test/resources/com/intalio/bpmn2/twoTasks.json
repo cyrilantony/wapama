@@ -19,7 +19,7 @@
         "id": "BPMNDiagram"
     },
     "childShapes": [{
-        "resourceId": "oryx_4FF57E18-5492-4630-A4A3-F89920E04F65",
+        "resourceId": "wapama_4FF57E18-5492-4630-A4A3-F89920E04F65",
         "properties": {
             "name": "firstTask",
             "documentation": "my task doc",
@@ -77,7 +77,7 @@
         "dockers": []
     },
     {
-        "resourceId": "oryx_0FAC7C02-B54A-489E-9B30-061119A133AE",
+        "resourceId": "wapama_0FAC7C02-B54A-489E-9B30-061119A133AE",
         "properties": {
             "name": "secondTask",
             "documentation": "my task doc too",
@@ -148,5 +148,5 @@
         "url": "/designer/stencilsets/bpmn2.0/bpmn2.0.json",
         "namespace": "http://b3mn.org/stencilset/bpmn2.0#"
     },
-    "ssextensions": ["http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#"]
+    "ssextensions": ["http://www.wapama.net/stencilsets/extensions/bpmncosts-2.0#"]
 }

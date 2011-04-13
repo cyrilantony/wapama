@@ -22,21 +22,21 @@
  **/
 
 
-if(!ORYX.Plugins) {
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins) {
+	WAPAMA.Plugins = new Object();
 }
 
-if (!ORYX.FieldEditors) {
-	ORYX.FieldEditors = {};
+if (!WAPAMA.FieldEditors) {
+	WAPAMA.FieldEditors = {};
 }
 
-if (!ORYX.LabelProviders) {
-    ORYX.LabelProviders = {};
+if (!WAPAMA.LabelProviders) {
+    WAPAMA.LabelProviders = {};
 }
 
 inToggelGroup = false;
 
-ORYX.Plugins.PropertyWindow = {
+WAPAMA.Plugins.PropertyWindow = {
 
 	facade: undefined,
 
@@ -44,15 +44,15 @@ ORYX.Plugins.PropertyWindow = {
 		// Reference to the Editor-Interface
 		this.facade = facade;
 
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_SHOW_PROPERTYWINDOW, this.init.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, this.selectDiagram.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_SHOW_PROPERTYWINDOW, this.init.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LOADED, this.selectDiagram.bind(this));
 		this.init();
 	},
 	
 	init: function(){
 
 		// The parent div-node of the grid
-		this.node = ORYX.Editor.graft("http://www.w3.org/1999/xhtml",
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml",
 			null,
 			['div']);
 
@@ -76,14 +76,14 @@ ORYX.Plugins.PropertyWindow = {
 		this.columnModel = new Ext.grid.ColumnModel([
 			{
 				//id: 'name',
-				header: ORYX.I18N.PropertyWindow.name,
+				header: WAPAMA.I18N.PropertyWindow.name,
 				dataIndex: 'name',
 				width: 90,
 				sortable: true,
 				renderer: this.tooltipRenderer.bind(this)
 			}, {
 				//id: 'value',
-				header: ORYX.I18N.PropertyWindow.value,
+				header: WAPAMA.I18N.PropertyWindow.value,
 				dataIndex: 'value',
 				id: 'propertywindow_column_value',
 				width: 110,
@@ -157,9 +157,9 @@ ORYX.Plugins.PropertyWindow = {
 			// the column model
 			colModel: this.columnModel,
 			enableHdMenu: false,
-			view: new Ext.grid.OryxGroupingView({
+			view: new Ext.grid.WapamaGroupingView({
 				forceFit: true,
-				groupTextTpl: '{[values.rs.first().data.popular ? ORYX.I18N.PropertyWindow.oftenUsed : ORYX.I18N.PropertyWindow.moreProps]}'
+				groupTextTpl: '{[values.rs.first().data.popular ? WAPAMA.I18N.PropertyWindow.oftenUsed : WAPAMA.I18N.PropertyWindow.moreProps]}'
 			}),
 			
 			// the data store
@@ -175,14 +175,14 @@ ORYX.Plugins.PropertyWindow = {
 			items: [
 				this.grid 
 			]
-		}), ORYX.I18N.PropertyWindow.title)
+		}), WAPAMA.I18N.PropertyWindow.title)
 
 		// Register on Events
 		this.grid.on('beforeedit', this.beforeEdit, this, true);
 		this.grid.on('afteredit', this.afterEdit, this, true);
 		this.grid.view.on('refresh', this.hideMoreAttrs, this, true);
 		
-		//this.grid.on(ORYX.CONFIG.EVENT_KEYDOWN, this.keyDown, this, true);
+		//this.grid.on(WAPAMA.CONFIG.EVENT_KEYDOWN, this.keyDown, this, true);
 		
 		// Renderer the Grid
 		this.grid.enableColumnMove = false;
@@ -204,7 +204,7 @@ ORYX.Plugins.PropertyWindow = {
 
 	specialKeyDown: function(field, event) {
 		// If there is a TextArea and the Key is an Enter
-		if(field instanceof Ext.form.TextArea && event.button == ORYX.CONFIG.KEY_Code_enter) {
+		if(field instanceof Ext.form.TextArea && event.button == WAPAMA.CONFIG.KEY_Code_enter) {
 			// Abort the Event
 			return false
 		}
@@ -227,7 +227,7 @@ ORYX.Plugins.PropertyWindow = {
 				
 		if(value instanceof Date) {
 			// TODO: Date-Schema is not generic
-			value = value.dateFormat(ORYX.I18N.PropertyWindow.dateFormat);
+			value = value.dateFormat(WAPAMA.I18N.PropertyWindow.dateFormat);
 		} else if(String(value).search("<a href='") < 0) {
 			// Shows the Value in the Grid in each Line
 			value = String(value).gsub("<", "&lt;");
@@ -235,15 +235,15 @@ ORYX.Plugins.PropertyWindow = {
 			value = String(value).gsub("%", "&#37;");
 			value = String(value).gsub("&", "&amp;");
 
-			if(record.data.gridProperties.type == ORYX.CONFIG.TYPE_COLOR) {
+			if(record.data.gridProperties.type == WAPAMA.CONFIG.TYPE_COLOR) {
 				value = "<div class='prop-background-color' style='background-color:" + value + "' />";
-			} else if (record.data.gridProperties.type == ORYX.CONFIG.TYPE_PASSWORD) {
+			} else if (record.data.gridProperties.type == WAPAMA.CONFIG.TYPE_PASSWORD) {
 				var afterReplaced = "";
 				for (var i=0; i<value.length; i++) {
 					afterReplaced += "*";
 				}
 				return afterReplaced;
-			} else if (record.data.gridProperties.type == ORYX.CONFIG.TYPE_MAPPINGEDITOR) {
+			} else if (record.data.gridProperties.type == WAPAMA.CONFIG.TYPE_MAPPINGEDITOR) {
 				// TODO to be implemented as a Labelprovider.
 				if (value != "") {
 					mappintObj = value.evalJSON();
@@ -272,7 +272,7 @@ ORYX.Plugins.PropertyWindow = {
 
 		if(editorGrid) {
 			// Disable KeyDown
-			this.facade.disableEvent(ORYX.CONFIG.EVENT_KEYDOWN);
+			this.facade.disableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
 
 			option.grid.getColumnModel().setEditor(1, editorGrid);
 			
@@ -309,7 +309,7 @@ ORYX.Plugins.PropertyWindow = {
 		
 
 		// Implement the specific command for property change
-		var commandClass = ORYX.Core.Command.extend({
+		var commandClass = WAPAMA.Core.Command.extend({
 			construct: function(){
 				this.key 		= key;
 				this.selectedElements = selectedElements;
@@ -349,7 +349,7 @@ ORYX.Plugins.PropertyWindow = {
 		// extended by Kerstin (start)
 //
 		this.facade.raiseEvent({
-			type 		: ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, 
+			type 		: WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, 
 			elements	: selectedElements,
 			key			: key,
 			value		: option.value
@@ -371,7 +371,7 @@ ORYX.Plugins.PropertyWindow = {
 		var selectedElements = this.shapeSelection.shapes;
 		
 		this.facade.raiseEvent({
-			type 		: ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, 
+			type 		: WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, 
 			elements	: selectedElements,
 			key			: key,
 			value		: value
@@ -413,12 +413,12 @@ ORYX.Plugins.PropertyWindow = {
 	setPropertyWindowTitle: function() {
 		if(this.shapeSelection.shapes.length == 1) {
 			// add the name of the stencil of the selected shape to the title
-				region.setTitle(ORYX.I18N.PropertyWindow.title +' ('+this.shapeSelection.shapes.first().getStencil().title()+')' );
+				region.setTitle(WAPAMA.I18N.PropertyWindow.title +' ('+this.shapeSelection.shapes.first().getStencil().title()+')' );
 		} else {
-			region.setTitle(ORYX.I18N.PropertyWindow.title +' ('
+			region.setTitle(WAPAMA.I18N.PropertyWindow.title +' ('
 							+ this.shapeSelection.shapes.length
 							+ ' '
-							+ ORYX.I18N.PropertyWindow.selected 
+							+ WAPAMA.I18N.PropertyWindow.selected 
 							+')');
 		}
 	},
@@ -556,7 +556,7 @@ ORYX.Plugins.PropertyWindow = {
 				
 				var refToViewFlag = false;
 
-				var editorClass = ORYX.FieldEditors[pair.type()];
+				var editorClass = WAPAMA.FieldEditors[pair.type()];
 				 
 				if (editorClass !== undefined) {
 					editorGrid = editorClass.init.bind(this, key, pair, icons, index)();
@@ -564,12 +564,12 @@ ORYX.Plugins.PropertyWindow = {
 						return; // don't insist, the editor won't be created this time around.
 					}
 					// Register Event to enable KeyDown
-					editorGrid.on('beforehide', this.facade.enableEvent.bind(this, ORYX.CONFIG.EVENT_KEYDOWN));
+					editorGrid.on('beforehide', this.facade.enableEvent.bind(this, WAPAMA.CONFIG.EVENT_KEYDOWN));
 					editorGrid.on('specialkey', this.specialKeyDown.bind(this));
 				} else {
 					if(!pair.readonly()){
 						switch(pair.type()) {
-						case ORYX.CONFIG.TYPE_STRING:
+						case WAPAMA.CONFIG.TYPE_STRING:
 							// If the Text is MultiLine
 							if(pair.wrapLines()) {
 								// Set the Editor as TextArea
@@ -600,7 +600,7 @@ ORYX.Plugins.PropertyWindow = {
 								editorGrid = new Ext.Editor(editorInput);
 							}
 							break;
-						case ORYX.CONFIG.TYPE_BOOLEAN:
+						case WAPAMA.CONFIG.TYPE_BOOLEAN:
 							// Set the Editor as a CheckBox
 							var editorCheckbox = new Ext.form.Checkbox();
 							editorCheckbox.on('check', function(c,checked) {
@@ -609,7 +609,7 @@ ORYX.Plugins.PropertyWindow = {
 
 							editorGrid = new Ext.Editor(editorCheckbox);
 							break;
-						case ORYX.CONFIG.TYPE_INTEGER:
+						case WAPAMA.CONFIG.TYPE_INTEGER:
 							// Set as an Editor for Integers
 							var numberField = new Ext.form.NumberField({allowBlank: pair.optional(), allowDecimals:false, msgTarget:'title', minValue: pair.min(), maxValue: pair.max()});
 							numberField.on('keyup', function(input, event) {
@@ -618,7 +618,7 @@ ORYX.Plugins.PropertyWindow = {
 
 							editorGrid = new Ext.Editor(numberField);
 							break;
-						case ORYX.CONFIG.TYPE_FLOAT:
+						case WAPAMA.CONFIG.TYPE_FLOAT:
 							// Set as an Editor for Float
 							var numberField = new Ext.form.NumberField({ allowBlank: pair.optional(), allowDecimals:true, msgTarget:'title', minValue: pair.min(), maxValue: pair.max()});
 							numberField.on('keyup', function(input, event) {
@@ -628,20 +628,20 @@ ORYX.Plugins.PropertyWindow = {
 							editorGrid = new Ext.Editor(numberField);
 
 							break;
-						case ORYX.CONFIG.TYPE_COLOR:
+						case WAPAMA.CONFIG.TYPE_COLOR:
 							// Set as a ColorPicker
 							// Ext1.0 editorGrid = new gEdit(new form.ColorField({ allowBlank: pair.optional(),  msgTarget:'title' }));
 
 							var editorPicker = new Ext.ux.ColorField({ allowBlank: pair.optional(),  msgTarget:'title', facade: this.facade });
 
-							/*this.facade.registerOnEvent(ORYX.CONFIG.EVENT_COLOR_CHANGE, function(option) {
+							/*this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_COLOR_CHANGE, function(option) {
 								this.editDirectly(key, option.value);
 							}.bind(this));*/
 
 							editorGrid = new Ext.Editor(editorPicker);
 
 							break;
-						case ORYX.CONFIG.TYPE_CHOICE:
+						case WAPAMA.CONFIG.TYPE_CHOICE:
 							var items = pair.items();
 
 							var options = [];
@@ -688,14 +688,14 @@ ORYX.Plugins.PropertyWindow = {
 							editorGrid = new Ext.Editor(editorCombo);
 
 							break;
-						case ORYX.CONFIG.TYPE_DATE:
-							var currFormat = ORYX.I18N.PropertyWindow.dateFormat
+						case WAPAMA.CONFIG.TYPE_DATE:
+							var currFormat = WAPAMA.I18N.PropertyWindow.dateFormat
 							if(!(attribute instanceof Date))
 								attribute = Date.parseDate(attribute, currFormat)
 								editorGrid = new Ext.Editor(new Ext.form.DateField({ allowBlank: pair.optional(), format:currFormat,  msgTarget:'title'}));
 							break;
 
-						case ORYX.CONFIG.TYPE_TEXT:
+						case WAPAMA.CONFIG.TYPE_TEXT:
 
 							var cf = new Ext.form.ComplexTextField({
 								allowBlank: pair.optional(),
@@ -709,7 +709,7 @@ ORYX.Plugins.PropertyWindow = {
 							break;
 
 							// extended by Kerstin (start)
-						case ORYX.CONFIG.TYPE_COMPLEX:
+						case WAPAMA.CONFIG.TYPE_COMPLEX:
 
 							var cf = new Ext.form.ComplexListField({ allowBlank: pair.optional()}, pair.complexItems(), key, this.facade);
 							cf.on('dialogClosed', this.dialogClosed, {scope:this, row:index, col:1,field:cf});							
@@ -746,10 +746,10 @@ ORYX.Plugins.PropertyWindow = {
 
 
 						// Register Event to enable KeyDown
-						editorGrid.on('beforehide', this.facade.enableEvent.bind(this, ORYX.CONFIG.EVENT_KEYDOWN));
+						editorGrid.on('beforehide', this.facade.enableEvent.bind(this, WAPAMA.CONFIG.EVENT_KEYDOWN));
 						editorGrid.on('specialkey', this.specialKeyDown.bind(this));
 
-					} else if(pair.type() === ORYX.CONFIG.TYPE_URL || pair.type() === ORYX.CONFIG.TYPE_DIAGRAM_LINK){
+					} else if(pair.type() === WAPAMA.CONFIG.TYPE_URL || pair.type() === WAPAMA.CONFIG.TYPE_DIAGRAM_LINK){
 						attribute = String(attribute).search("http") !== 0 ? ("http://" + attribute) : attribute;
 						attribute = "<a href='" + attribute + "' target='_blank'>" + attribute.split("://")[1] + "</a>"
 					}
@@ -805,7 +805,7 @@ ORYX.Plugins.PropertyWindow = {
 	 * according to the id of the label provider registered on the stencil.
 	 */
     getLabelProvider: function(stencil) {
-       lp = ORYX.LabelProviders[stencil.labelProvider()];
+       lp = WAPAMA.LabelProviders[stencil.labelProvider()];
        if (lp) {
            return lp(stencil);
        }
@@ -829,7 +829,7 @@ ORYX.Plugins.PropertyWindow = {
 		this.dataSource.loadData(props);
 	}
 }
-ORYX.Plugins.PropertyWindow = Clazz.extend(ORYX.Plugins.PropertyWindow);
+WAPAMA.Plugins.PropertyWindow = Clazz.extend(WAPAMA.Plugins.PropertyWindow);
 
 
 
@@ -869,7 +869,7 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
      */
     triggerClass:	'x-form-complex-trigger',
 	readOnly:		true,
-	emptyText: 		ORYX.I18N.PropertyWindow.clickIcon,
+	emptyText: 		WAPAMA.I18N.PropertyWindow.clickIcon,
 		
 	/**
 	 * Builds the JSON value from the data source of the grid in the dialog.
@@ -977,8 +977,8 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
     dialogListeners : {
         show : function(){ // retain focus styling
             this.onFocus();	
-			this.facade.registerOnEvent(ORYX.CONFIG.EVENT_KEYDOWN, this.keydownHandler.bind(this));
-			this.facade.disableEvent(ORYX.CONFIG.EVENT_KEYDOWN);
+			this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_KEYDOWN, this.keydownHandler.bind(this));
+			this.facade.disableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
 			return;
         },
         hide : function(){
@@ -992,8 +992,8 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 			delete this.grid;
 			delete this.dialog;
 			
-			this.facade.unregisterOnEvent(ORYX.CONFIG.EVENT_KEYDOWN, this.keydownHandler.bind(this));
-			this.facade.enableEvent(ORYX.CONFIG.EVENT_KEYDOWN);
+			this.facade.unregisterOnEvent(WAPAMA.CONFIG.EVENT_KEYDOWN, this.keydownHandler.bind(this));
+			this.facade.enableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
 			
 			// store data and notify parent about the closed dialog
 			// parent has to handel this event and start editing the text field again
@@ -1039,11 +1039,11 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 			var type 	= this.items[i].type();
 			var editor;
 			
-			if (type == ORYX.CONFIG.TYPE_STRING) {
+			if (type == WAPAMA.CONFIG.TYPE_STRING) {
 				editor = new Ext.form.TextField({ allowBlank : this.items[i].optional(), width : width});
-			} else if (type == ORYX.CONFIG.TYPE_CHOICE) {				
+			} else if (type == WAPAMA.CONFIG.TYPE_CHOICE) {				
 				var items = this.items[i].items();
-				var select = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", parent, ['select', {style:'display:none'}]);
+				var select = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", parent, ['select', {style:'display:none'}]);
 				var optionTmpl = new Ext.Template('<option value="{value}">{value}</option>');
 				items.each(function(value){ 
 					optionTmpl.append(select, {value:value.value()}); 
@@ -1051,11 +1051,11 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 				
 				editor = new Ext.form.ComboBox(
 					{ typeAhead: true, triggerAction: 'all', transform:select, lazyRender:true,  msgTarget:'title', width : width});			
-			} else if (type == ORYX.CONFIG.TYPE_BOOLEAN) {
+			} else if (type == WAPAMA.CONFIG.TYPE_BOOLEAN) {
 				editor = new Ext.form.Checkbox( { width : width } );
-			} else if (type == ORYX.CONFIG.TYPE_XPATH) {
+			} else if (type == WAPAMA.CONFIG.TYPE_XPATH) {
 				// set the editor of xpath type as textarea.
-				editor = new Ext.form.TextArea({ allowBlank : this.items[i].optional(), width : width, blankText : ORYX.I18N.PropertyWindow.xpathTextarea});
+				editor = new Ext.form.TextArea({ allowBlank : this.items[i].optional(), width : width, blankText : WAPAMA.I18N.PropertyWindow.xpathTextarea});
 			}
 					
 			cols.push({
@@ -1138,19 +1138,19 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 			var dialogWidth = 0;
 			var recordType 	= [];
 			// establish the window title
-			var windowTitle = ORYX.I18N.PropertyWindow.complex;
+			var windowTitle = WAPAMA.I18N.PropertyWindow.complex;
 			
 			for (var i = 0; i < this.items.length; i++) {
 				var id 		= this.items[i].id();
 				var width 	= this.items[i].width();
 				var type 	= this.items[i].type();	
 					
-				if (type == ORYX.CONFIG.TYPE_CHOICE) {
-					type = ORYX.CONFIG.TYPE_STRING;
-				} else if (type == ORYX.CONFIG.TYPE_XPATH) {
- 					type = ORYX.CONFIG.TYPE_STRING;
+				if (type == WAPAMA.CONFIG.TYPE_CHOICE) {
+					type = WAPAMA.CONFIG.TYPE_STRING;
+				} else if (type == WAPAMA.CONFIG.TYPE_XPATH) {
+ 					type = WAPAMA.CONFIG.TYPE_STRING;
 					if (id == "from" || id == "to") {
-						windowTitle = ORYX.I18N.PropertyWindow.mappingeditor;
+						windowTitle = WAPAMA.I18N.PropertyWindow.mappingeditor;
 					}
  				}
 						
@@ -1198,7 +1198,7 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 			//var gridHead = this.grid.getView().getHeaderPanel(true);
 			var toolbar = new Ext.Toolbar(
 			[{
-				text: ORYX.I18N.PropertyWindow.add,
+				text: WAPAMA.I18N.PropertyWindow.add,
 				handler: function(){
 					var ds = this.grid.getStore();
 					var index = ds.getCount();
@@ -1209,7 +1209,7 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 					this.grid.startEditing(index, 0);
 				}.bind(this)
 			},{
-				text: ORYX.I18N.PropertyWindow.rem,
+				text: WAPAMA.I18N.PropertyWindow.rem,
 		        handler : function(){
 					var ds = this.grid.getStore();
 					var selection = this.grid.getSelectionModel().getSelectedCell();
@@ -1245,7 +1245,7 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 				items:[toolbar, this.grid],
 				bodyStyle:"background-color:#FFFFFF",
 				buttons: [{
-	                text: ORYX.I18N.PropertyWindow.ok,
+	                text: WAPAMA.I18N.PropertyWindow.ok,
 	                handler: function(){
 	                    this.grid.stopEditing();	
 						// store dialog input
@@ -1253,7 +1253,7 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 						this.dialog.hide()
 	                }.bind(this)
 	            }, {
-	                text: ORYX.I18N.PropertyWindow.cancel,
+	                text: WAPAMA.I18N.PropertyWindow.cancel,
 	                handler: function(){
 	                	this.dialog.hide()
 	                }.bind(this)
@@ -1284,10 +1284,10 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
  * It allows the property value which is being editing in property window
  * can be saved when the GroupingView collapses or expands.
  * 
- * @class Ext.grid.OryxGroupingView
+ * @class Ext.grid.WapamaGroupingView
  * @extends Ext.grid.GroupingView
  */
-Ext.grid.OryxGroupingView = Ext.extend(Ext.grid.GroupingView,  {
+Ext.grid.WapamaGroupingView = Ext.extend(Ext.grid.GroupingView,  {
 
     /**
      * Toggles the specified group.
@@ -1331,7 +1331,7 @@ Ext.form.ComplexTextField = Ext.extend(Ext.form.TriggerField,  {
 			value		: this.value,
 			listeners	: {
 				focus: function(){
-					this.facade.disableEvent(ORYX.CONFIG.EVENT_KEYDOWN);
+					this.facade.disableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
 				}.bind(this)
 			}
 		})
@@ -1341,7 +1341,7 @@ Ext.form.ComplexTextField = Ext.extend(Ext.form.TriggerField,  {
 		var dialog = new Ext.Window({ 
 			layout		: 'anchor',
 			autoCreate	: true, 
-			title		: ORYX.I18N.PropertyWindow.text, 
+			title		: WAPAMA.I18N.PropertyWindow.text, 
 			height		: document.body.clientHeight / 2 < 150 ? 150 : document.body.clientHeight / 2, 
 			width		: document.body.clientWidth / 4 < 200 ? 200 : document.body.clientWidth / 4, 
 			minHeight	: 150,
@@ -1366,7 +1366,7 @@ Ext.form.ComplexTextField = Ext.extend(Ext.form.TriggerField,  {
 				}.bind(this)				
 			},
 			buttons		: [{
-                text: ORYX.I18N.PropertyWindow.ok,
+                text: WAPAMA.I18N.PropertyWindow.ok,
                 handler: function(){	 
 					// store dialog input
 					var value = grid.getValue();
@@ -1378,7 +1378,7 @@ Ext.form.ComplexTextField = Ext.extend(Ext.form.TriggerField,  {
 					dialog.hide()
                 }.bind(this)
             }, {
-                text: ORYX.I18N.PropertyWindow.cancel,
+                text: WAPAMA.I18N.PropertyWindow.cancel,
                 handler: function(){
 					this.setValue(this.value);
                 	dialog.hide()
