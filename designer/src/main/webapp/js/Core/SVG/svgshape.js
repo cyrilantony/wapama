@@ -215,10 +215,10 @@ WAPAMA.Core.SVG.SVGShape = Clazz.extend({
 			} else {
 				throw "Missing attribute in element " + this.element;
 			}
-			this.oldX = Math.min(x1,x2);
-			this.oldY = Math.min(y1,y2);
-			this.oldWidth = Math.abs(x1-x2);
-			this.oldHeight = Math.abs(y1-y2);
+			this.oldX = x1;
+            this.oldY = y1;
+            this.oldWidth = (x2-x1);
+            this.oldHeight = (y2-y1);
 
 		} else if(WAPAMA.Editor.checkClassType(this.element, SVGPolylineElement) || WAPAMA.Editor.checkClassType(this.element, SVGPolygonElement)) {
 			this.type = "Polyline";
