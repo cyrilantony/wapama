@@ -372,7 +372,7 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 					width : 50,
 					dataIndex : 'index'
 				}, {
-					header : "<b>Node Name</b>",
+					header : "<b>Component Name</b>",
 					sortable : true,
 					width : 220,
 					dataIndex : 'nodename'
