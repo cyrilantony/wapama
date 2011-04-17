@@ -1,7 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.wapama</groupId>
-  <artifactId>wapama-designer</artifactId>
+  <groupId>org.wapama</groupId>
+  <artifactId>wapama</artifactId>
   <version>1.0.0.091-SNAPSHOT</version>
     
   <dependencies>
@@ -111,20 +111,6 @@
   </build>
   
   <repositories>
-    <repository>
-      <id>jboss-public-repository-group</id>
-      <name>JBoss Public Maven Repository Group</name>
-      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>never</updatePolicy>
-      </snapshots>
-    </repository>
     <repository>
       <id>intalio</id>
       <url>http://www.intalio.org/public/maven2/</url>
