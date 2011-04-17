@@ -97,20 +97,11 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 		};
 		this.facade.offer(autosavecfg);
 		
-		// ask before closing the window
-		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_EXECUTE, function(){ this.HOOKS.onCanvasChange(true); });
-		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_EXECUTE_COMMANDS, function(){ this.HOOKS.onCanvasChange(true); });
-		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_ROLLBACK, function(){ this.HOOKS.onCanvasChange(false); });
-		
-		window.onbeforeunload = function(){
-			if (HOOKS.changeDifference > 0){
-				return WAPAMA.I18N.Save.unsavedData;
-			}
-		}.bind(this);
-		
 		// let's set autosave on.
 		this.autosaveFunction = function() { if (/*savePlugin.changeDifference != 0*/true) { this._save(this, true); }}.bind(this, autosavecfg);
 		this.setautosave(WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL);
+		
+		this.facade.registerOnEvent(WAPAMA.CONFIG.SAVE_EVENT, function(event){ this._save(false, event.onClose); }.bind(this));
 	},
 	
 	/**
@@ -134,12 +125,11 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 	
 	/**
 	 * Saves data by calling the backend.
-	 * @param savePlugin
 	 * @param asave determine whether the function is invoked by autosave
 	 *              True: by autosave | False: by save
 	 * @param onClose true if it needs to close the window after save success
 	 */
-	_save: function(savePlugin, asave, onClose) {
+	_save: function(asave, onClose) {
 		// show saving status, display a "loading" icon in "Autosave" button.
 		this.showSaveStatus(asave);
 		var svgDOM = DataManager.serialize(this.facade.getCanvas().getSVGRepresentation(true));
@@ -197,10 +187,6 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 					}
 					if (!asave) {
 						Ext.example.msg(WAPAMA.I18N.Save.successTitle, WAPAMA.I18N.Save.successMsg);
-						// clear the dirty data flag after saving
-						HOOKS.changeDifference = 0;
-						// clear the last dirty value
-						HOOKS.lastIframeValue = "";
 					}
 					// if the save function is invoked by "Save_n_Close" or "Window Close"
 					if (onClose) {
@@ -225,7 +211,7 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
                 var panel = new Ext.Panel({
                     frame: true,
                     autoHeight: true,
-                    html : '<table><tr><td class="x-table-layout-cell"><img src="/crm/img/alerts/error.png"/></td><td class="x-table-layout-cell">' + 
+                    html : '<table><tr><td class="x-table-layout-cell"><img src="/designer/images/error.png"/></td><td class="x-table-layout-cell">' + 
                            WAPAMA.I18N.Save.failedMsg + '</td></tr></table>',
                     buttons : [ {
                         text : WAPAMA.I18N.Save.failedOKBtn,

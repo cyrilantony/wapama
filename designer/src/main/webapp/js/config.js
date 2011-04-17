@@ -232,6 +232,7 @@ WAPAMA.CONFIG.EVENT_SHOW_PROPERTYWINDOW =		"propertywindow.show";
 WAPAMA.CONFIG.EVENT_DRAG_TRACKER_DRAG =       "dragTracker.drag";
 WAPAMA.CONFIG.EVENT_DRAG_TRACKER_RESIZE =     "dragTracker.resize";
 WAPAMA.CONFIG.EVENT_DROP_SHAPE =				"drop.shape";
+WAPAMA.CONFIG.SAVE_EVENT =                      "menu.save";
 	
 	/* Selection Shapes Highlights */
 WAPAMA.CONFIG.SELECTION_HIGHLIGHT_SIZE =				5;

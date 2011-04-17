@@ -46,71 +46,6 @@ function init() {
 }
 
 /**
- * HOOKS, allow crm access the inner iFrame functionalities
- * 
- */
-HOOKS = {
-    /**
-     * called on object save. 
-     * @param onClose true if invoked by "save-close" or "close window"
-     */
-    onSave: function(onClose) {
-        if (HOOKS.savePlugin) {
-            // save the editor, and close the window after saving
-            HOOKS.savePlugin._save(this, false, onClose);
-        }
-    },
-    /**
-     * return a boolean value: true if it's ok to close, false otherwise.
-     * @type {Boolean}
-     */ 
-    isDirty: function() {
-        if (HOOKS.changeDifference == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    },
-    
-    /**
-     * increase or decrease the dirty count.
-     * update last-click time of session
-     * @param isRedo true to increase the dirty count
-     *               false to decrease the dirty count
-     */
-    onCanvasChange : function(isRedo) {
-        if (isRedo) {
-            HOOKS.changeDifference++;
-        } else {
-            HOOKS.changeDifference--;
-        }
-
-        // communicate with CRM, update the sesson/@last-click time.
-        var paramArray = window.frameElement.src.split("session-id=");
-        var sessionId = paramArray.length > 1 ? paramArray[1] : "";
-        if (sessionId == "") {
-             return;
-        }
-        var lastclickServerUrl = window.location.protocol + "//" + window.location.host 
-                                + "/crm/services/js-lastclick-update.xsp";
-        new Ajax.Request(lastclickServerUrl, {
-            asynchronous: true,
-            method: 'post',
-            parameters: {sessionid : sessionId}
-        });
-    },
-    
-    // UUIDRepositorySave Plugin
-    savePlugin: undefined,
-    
-    // a counter to determin canvas dirty
-    changeDifference : 0,
-    
-    // a counter to determin canvas dirty
-    lastIframeValue : ""
-};
-
-/**
    @namespace Global Wapama name space
    @name WAPAMA
 */
@@ -591,9 +526,6 @@ WAPAMA.Editor = {
 						var plugin		= new className(facade, value);
 						plugin.type		= value.name;
 						newPlugins.push( plugin );
-						if ("WAPAMA.Plugins.UUIDRepositorySave" == value.name) {
-							HOOKS.savePlugin = plugin;
-						}
 						plugin.engaged=true;
 					}
 				} catch(e) {
