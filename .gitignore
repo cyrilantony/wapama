@@ -1,6 +1,4 @@
-build
-dist
-**/**/.DS_Store
+bin
 reports
 .DS_Store
 target

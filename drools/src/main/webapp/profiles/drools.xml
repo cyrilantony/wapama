@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <profiles>
-  <!-- name default is reserved for the standard profile -->
-  <profile name="default" stencilset="bpmn2.0" title="Wapama" extension="bpmn">
-    <plugin name="WAPAMA.Plugins.Toolbar" />
+  <profile name="drools" stencilset="bpmn2.0" title="Drools Process Designer" extension="bpmn">
+    <!--  <plugin name="WAPAMA.Plugins.Toolbar" /> -->
     <plugin name="WAPAMA.Plugins.UUIDRepositorySave" />
     <plugin name="WAPAMA.Plugins.ShapeMenuPlugin" />
     <plugin name="WAPAMA.Plugins.ShapeRepository" />

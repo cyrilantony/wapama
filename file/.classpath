@@ -1,0 +1,8 @@
+<classpath>
+  <classpathentry path="src/main/java" excluding="**/.svn/|**/CVS/" kind="src"/>
+  <classpathentry path="/wapama-api" kind="src" combineaccessrules="false"/>
+  <classpathentry path="target/classes" kind="output"/>
+  <classpathentry path="M2_REPO/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar" kind="var" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8-sources.jar" javadocpath="M2_REPO/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8-javadoc.jar"/>
+  <classpathentry path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" kind="var" sourcepath="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar" javadocpath="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5-javadoc.jar"/>
+  <classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
+</classpath>

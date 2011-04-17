@@ -21,9 +21,7 @@
 ****************************************/
 package org.wapama.web.plugin.impl;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,9 +31,6 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleReference;
@@ -88,76 +83,15 @@ public class PluginServiceImpl implements IDiagramPluginService {
     public static Map<String, IDiagramPlugin> 
         getLocalPluginsRegistry(ServletContext context) {
         if (LOCAL == null) {
-            LOCAL = initializeLocalPlugins(context);
+        	File rootFolder = new File(context.getRealPath("/"), "/js/Plugins");
+        	File plugins = new File(rootFolder, "plugins.xml");
+            LOCAL = DiagramPluginReader.initializeLocalPlugins(rootFolder, plugins);
         }
         return LOCAL;
     }
 
-    private static Logger _logger = LoggerFactory.getLogger(PluginServiceImpl.class);
-
-    private static Map<String, IDiagramPlugin> initializeLocalPlugins(ServletContext context) {
-        Map<String, IDiagramPlugin> local = new HashMap<String, IDiagramPlugin>();
-        //we read the plugins.xml file and make sense of it.
-        FileInputStream fileStream = null;
-        try {
-            try {
-                fileStream = new FileInputStream(new StringBuilder(context.getRealPath("/")).append("/").
-                        append("js").append("/").append("Plugins").append("/").
-                        append("plugins.xml").toString());
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            XMLInputFactory factory = XMLInputFactory.newInstance();
-            XMLStreamReader reader = factory.createXMLStreamReader(fileStream);
-            while(reader.hasNext()) {
-                if (reader.next() == XMLStreamReader.START_ELEMENT) {
-                    if ("plugin".equals(reader.getLocalName())) {
-                        String source = null, name = null;
-                        boolean core = false;
-                        for (int i = 0 ; i < reader.getAttributeCount() ; i++) {
-                            if ("source".equals(reader.getAttributeLocalName(i))) {
-                                source = reader.getAttributeValue(i);
-                            } else if ("name".equals(reader.getAttributeLocalName(i))) {
-                                name = reader.getAttributeValue(i);
-                            } else if ("core".equals(reader.getAttributeLocalName(i))) {
-                                core = Boolean.parseBoolean(reader.getAttributeValue(i));
-                            }
-                        }
-                        Map<String, Object> props = new HashMap<String, Object>();
-                        while(reader.hasNext()) {
-                            int ev = reader.next();
-                            if (ev == XMLStreamReader.START_ELEMENT) {
-                                if ("property".equals(reader.getLocalName())) {
-                                    String key = null, value = null;
-                                    for (int i = 0 ; i < reader.getAttributeCount() ; i++) {
-                                        if ("name".equals(reader.getAttributeLocalName(i))) {
-                                            key = reader.getAttributeValue(i);
-                                        } else if ("value".equals(reader.getAttributeLocalName(i))) {
-                                            value = reader.getAttributeValue(i);
-                                        }
-                                    }
-                                    if(key != null & value != null)
-                                        props.put(key, value);
-                                }
-                            } else if (ev == XMLStreamReader.END_ELEMENT) {
-                                if ("plugin".equals(reader.getLocalName())) {
-                                    break;
-                                }
-                            }
-                        }
-                        local.put(name, new LocalPluginImpl(name, source, context, core, props));
-                    }
-                }
-            }
-        } catch (XMLStreamException e) {
-            _logger.error(e.getMessage(), e);
-            throw new RuntimeException(e); // stop initialization
-        } finally {
-            if (fileStream != null) { try { fileStream.close(); } catch(IOException e) {}};
-        }
-        return local;
-    }
     
+
     private Map<String, IDiagramPlugin> _registry = new HashMap<String, IDiagramPlugin>();
     private Set<IDiagramPluginFactory> _factories = new HashSet<IDiagramPluginFactory>();
 

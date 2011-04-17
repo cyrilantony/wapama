@@ -21,6 +21,7 @@
 ****************************************/
 package org.wapama.web.profile.impl;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,11 +56,14 @@ public class ProfileServiceImpl implements IDiagramProfileService {
      * @param context the servlet context to initialize the profile.
      */
     public void init(ServletContext context) {
-        //TODO look in the profiles folder and load profiles from there ?
-        //TODO we could abstract the file-based profile impl
-        _registry.put("default", new DefaultProfileImpl(context));
-        _registry.put("drools", new DroolsProfileImpl(context));
-        
+    	File profilesFolder = new File(context.getRealPath("/profiles"));
+    	for (File f : profilesFolder.listFiles()) {
+    		if (f.getName().endsWith(".xml")) {
+    			String name = f.getName().substring(f.getName().lastIndexOf('.'));
+    			FileBasedProfileImpl profile = new FileBasedProfileImpl(context, name);
+    			_registry.put(profile.getName(), profile);
+    		}
+    	}
     }
     
     private Map<String, IDiagramProfile> assembleProfiles(HttpServletRequest request) {

@@ -42,12 +42,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wapama.web.profile.IDiagramProfile;
 import org.wapama.web.profile.IDiagramProfileService;
-import org.wapama.web.profile.impl.DefaultProfileImpl;
+import org.wapama.web.profile.impl.FileBasedProfileImpl;
 import org.wapama.web.profile.impl.ProfileServiceImpl;
 import org.wapama.web.repository.DiagramValidationException;
 import org.wapama.web.repository.IUUIDBasedRepository;
 import org.wapama.web.repository.IUUIDBasedRepositoryService;
-import org.wapama.web.repository.impl.UUIDBasedFileRepository;
 
 
 
@@ -73,7 +72,7 @@ public class UUIDBasedRepositoryServlet extends HttpServlet {
     /**
      * The class name of the default repository.
      */
-    private static final String DEFAULT_REPOSITORY = UUIDBasedFileRepository.class.getName();
+    private static final String DEFAULT_REPOSITORY = "org.wapama.web.repository.impl.UUIDBasedFileRepository";
     /**
      * The default factory for creation of repositories.
      * 
@@ -206,9 +205,6 @@ public class UUIDBasedRepositoryServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (resp.isCommitted()) {
-        	return;//called twice... need to clean-up the FilterChainImpl that is quite wrong.
-        }
     	String uuid = req.getParameter("uuid");
         if (uuid == null) {
             throw new ServletException("uuid parameter required");
@@ -304,7 +300,7 @@ public class UUIDBasedRepositoryServlet extends HttpServlet {
             IDiagramProfileService service = (IDiagramProfileService) bundleContext.getService(ref);
             profile = service.findProfile(req, profileName);
         } else if ("default".equals(profileName)) {
-            profile = new DefaultProfileImpl(getServletContext(), false);
+            profile = new FileBasedProfileImpl(getServletContext(), false);
         } else {
             // check w/o BundleReference
             IDiagramProfileService service = new ProfileServiceImpl();

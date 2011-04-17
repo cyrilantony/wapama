@@ -24,8 +24,6 @@ package org.wapama.web.plugin.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-
 import org.wapama.web.plugin.IDiagramPlugin;
 
 
@@ -38,9 +36,8 @@ public class LocalPluginImpl extends LocalResource implements IDiagramPlugin {
     private boolean _core;
     private Map<String, Object> _properties = new HashMap<String, Object>();
 
-    public LocalPluginImpl(String name, String path, ServletContext context, 
-            boolean core, Map<String, Object> props) {
-        super(name, path, context);
+    public LocalPluginImpl(String name, String path, boolean core, Map<String, Object> props) {
+        super(name, path);
         StringBuilder localPath = new StringBuilder();
         localPath.append("js").append("/");
         localPath.append("Plugins").append("/").append(path);
