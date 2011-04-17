@@ -43,11 +43,11 @@ import org.wapama.web.profile.IDiagramProfileService;
  * 
  */
 public class ProfileServiceImpl implements IDiagramProfileService {
-	
+    
     /**
      * The singleton instance of ProfileServiceImpl shared between servlets.
      */
-	public static ProfileServiceImpl INSTANCE = new ProfileServiceImpl();
+    public static ProfileServiceImpl INSTANCE = new ProfileServiceImpl();
 
     private Map<String, IDiagramProfile> _registry = 
         new HashMap<String, IDiagramProfile>();
@@ -59,14 +59,14 @@ public class ProfileServiceImpl implements IDiagramProfileService {
      * @param context the servlet context to initialize the profile.
      */
     public void init(ServletContext context) {
-    	File profilesFolder = new File(context.getRealPath("/profiles"));
-    	for (File f : profilesFolder.listFiles()) {
-    		if (f.getName().endsWith(".xml")) {
-    			String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
-    			FileBasedProfileImpl profile = new FileBasedProfileImpl(context, name);
-    			_registry.put(profile.getName(), profile);
-    		}
-    	}
+        File profilesFolder = new File(context.getRealPath("/profiles"));
+        for (File f : profilesFolder.listFiles()) {
+            if (f.getName().endsWith(".xml")) {
+                String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
+                FileBasedProfileImpl profile = new FileBasedProfileImpl(context, name);
+                _registry.put(profile.getName(), profile);
+            }
+        }
     }
     
     private Map<String, IDiagramProfile> assembleProfiles(HttpServletRequest request) {
@@ -90,7 +90,7 @@ public class ProfileServiceImpl implements IDiagramProfileService {
     }
 
     public Set<IDiagramProfileFactory> getFactories() {
-    	return _factories;
+        return _factories;
     }
 
     
