@@ -28,6 +28,7 @@ define "wapama" do
   define "bpmn2" do
     compile.with BPMN2_LIBS, JACKSON, OSGI
     package(:jar)
+    package(:sources)
   end
   
   desc "Wapama Editor"
@@ -53,12 +54,14 @@ define "wapama" do
   define "file" do
     compile.with SLF4J, SERVLET_API, project("api")
     package(:jar)
+    package(:sources)
   end
   
   desc "Wapama Drools Repository"
   define "drools" do
     compile.with SLF4J, SERVLET_API, JACKSON, BPMN2_LIBS, project("api"), project("bpmn2"), project("designer")
     package(:jar)
+    package(:sources)
   end
   
   desc "WAR packaging"
@@ -79,9 +82,17 @@ define "wapama" do
     end
     package(:zip).include _("target/doc"), :as => "doc"
     package(:zip).include _("../LICENSE")
+    package(:zip).include project("api").package(:jar), :path => "distrib"
     package(:zip).include project("designer").package(:jar), :path => "distrib"
+    package(:zip).include project("file").package(:jar), :path => "distrib"
     package(:zip).include project("war").package(:war, :id => "wapama"), :path => "distrib"
     package(:zip).include project("war").package(:war, :id => "wapama", :classifier => "jboss"), :path => "distrib"
+    
+    # Add the sources too
+    package(:zip).include project("api").package(:sources), :path => "src"
+    package(:zip).include project("designer").package(:sources), :path => "src"
+    package(:zip).include project("file").package(:sources), :path => "src"
+    package(:zip).include project("drools").package(:sources), :path => "src"
   end
   
 end

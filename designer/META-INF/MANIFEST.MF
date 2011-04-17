@@ -38,4 +38,4 @@ Eclipse-BundleShape: dir
 Export-Package: org.wapama.web.filter;version="1.0.0",
  org.wapama.web.preference;version="1.0.0"
 Bundle-Activator: org.wapama.web.Activator
-Require-Bundle: org.wapama.api;bundle-version="1.0.0"
+Require-Bundle: org.wapama.web.api;bundle-version="1.0.0"

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Wapama API
-Bundle-SymbolicName: org.wapama.api
+Bundle-SymbolicName: org.wapama.web.api
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.wapama.web.plugin;version="1.0.0",
