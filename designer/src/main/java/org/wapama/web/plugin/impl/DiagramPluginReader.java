@@ -50,7 +50,7 @@ public class DiagramPluginReader {
 	 * @param file
 	 * @return
 	 */
-	public static Map<String, IDiagramPlugin> initializeLocalPlugins(File file, File rootFolder) {
+	public static Map<String, IDiagramPlugin> initializeLocalPlugins(File rootFolder, File file) {
         Map<String, IDiagramPlugin> local = new HashMap<String, IDiagramPlugin>();
         //we read the plugins.xml file and make sense of it.
         FileInputStream fileStream = null;

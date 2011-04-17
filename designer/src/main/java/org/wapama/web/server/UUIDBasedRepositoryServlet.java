@@ -299,12 +299,9 @@ public class UUIDBasedRepositoryServlet extends HttpServlet {
             }
             IDiagramProfileService service = (IDiagramProfileService) bundleContext.getService(ref);
             profile = service.findProfile(req, profileName);
-        } else if ("default".equals(profileName)) {
-            profile = new FileBasedProfileImpl(getServletContext(), false);
         } else {
             // check w/o BundleReference
-            IDiagramProfileService service = new ProfileServiceImpl();
-            service.init(getServletContext());
+            IDiagramProfileService service = ProfileServiceImpl.INSTANCE;
             profile = service.findProfile(req, profileName);
             if(profile == null) {
                 throw new IllegalArgumentException("Cannot determine the profile to use for interpreting models");

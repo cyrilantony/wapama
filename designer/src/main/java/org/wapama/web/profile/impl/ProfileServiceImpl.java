@@ -44,6 +44,9 @@ import org.wapama.web.profile.IDiagramProfileService;
  */
 public class ProfileServiceImpl implements IDiagramProfileService {
 	
+    /**
+     * The singleton instance of ProfileServiceImpl shared between servlets.
+     */
 	public static ProfileServiceImpl INSTANCE = new ProfileServiceImpl();
 
     private Map<String, IDiagramProfile> _registry = 
@@ -59,7 +62,7 @@ public class ProfileServiceImpl implements IDiagramProfileService {
     	File profilesFolder = new File(context.getRealPath("/profiles"));
     	for (File f : profilesFolder.listFiles()) {
     		if (f.getName().endsWith(".xml")) {
-    			String name = f.getName().substring(f.getName().lastIndexOf('.'));
+    			String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
     			FileBasedProfileImpl profile = new FileBasedProfileImpl(context, name);
     			_registry.put(profile.getName(), profile);
     		}

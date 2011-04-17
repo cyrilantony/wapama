@@ -57,9 +57,6 @@ public class FileBasedProfileImpl implements IDiagramProfile {
     private String _stencilSet;
 
 
-    private String _filename;
-
-
     private String _title;
 
 
@@ -69,14 +66,11 @@ public class FileBasedProfileImpl implements IDiagramProfile {
     private String _extension;
     
     public FileBasedProfileImpl(ServletContext servletContext, String filename) {
-        this(servletContext, true);
-        _filename = filename;
+        initializeLocalPlugins(servletContext, filename);
     }
     
-    public FileBasedProfileImpl(ServletContext servletContext, boolean initializeLocalPlugins) {
-        if (initializeLocalPlugins) {
-            initializeLocalPlugins(servletContext);
-        }
+    public FileBasedProfileImpl() {
+  
     }
 
     public String getTitle() {
@@ -95,13 +89,13 @@ public class FileBasedProfileImpl implements IDiagramProfile {
         return Collections.unmodifiableCollection(_plugins.keySet());
     }
     
-    private void initializeLocalPlugins(ServletContext context) {
+    private void initializeLocalPlugins(ServletContext context, String filename) {
         Map<String, IDiagramPlugin> registry = PluginServiceImpl.getLocalPluginsRegistry(context);
         //we read the default.xml file and make sense of it.
         FileInputStream fileStream = null;
         try {
             try {
-                fileStream = new FileInputStream(context.getRealPath("/") + "/profiles/" + _filename + ".xml");
+                fileStream = new FileInputStream(context.getRealPath("/") + "/profiles/" + filename + ".xml");
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
