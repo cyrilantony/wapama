@@ -3,11 +3,11 @@
  * Armin Zamani
  **/
 
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
-	stencilSetExtensionNamespace: "http://oryx-editor.org/stencilsets/extensions/bpmn4yawlSubset#",
+WAPAMA.Plugins.BPMN2YAWLMapper = WAPAMA.Plugins.AbstractPlugin.extend({
+	stencilSetExtensionNamespace: "http://www.wapama.net/stencilsets/extensions/bpmn4yawlSubset#",
 
 	construct: function(){
 		arguments.callee.$.construct.apply(this, arguments);
@@ -16,12 +16,12 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
         this.raisedEventIds = [];
 		
 		this.facade.offer({
-			'name': ORYX.I18N.BPMN2YAWLMapper.name,
+			'name': WAPAMA.I18N.BPMN2YAWLMapper.name,
 			'functionality': this.perform.bind(this),
-			'group': ORYX.I18N.BPMN2YAWLMapper.group,
-			'icon': ORYX.PATH + 'images/door.png',
-			'description': ORYX.I18N.BPMN2YAWLMapper.desc,
-            dropDownGroupIcon: ORYX.PATH + "images/export2.png",
+			'group': WAPAMA.I18N.BPMN2YAWLMapper.group,
+			'icon': WAPAMA.PATH + 'images/door.png',
+			'description': WAPAMA.I18N.BPMN2YAWLMapper.desc,
+            dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0,
@@ -29,8 +29,8 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
 
 		});
 		
-        this.facade.registerOnEvent(ORYX.Plugins.BPMN2YAWLMapper.RESET_ERRORS_EVENT, this.resetErrors.bind(this));
-        this.facade.registerOnEvent(ORYX.Plugins.BPMN2YAWLMapper.SHOW_ERRORS_EVENT, this.doShowErrors.bind(this));
+        this.facade.registerOnEvent(WAPAMA.Plugins.BPMN2YAWLMapper.RESET_ERRORS_EVENT, this.resetErrors.bind(this));
+        this.facade.registerOnEvent(WAPAMA.Plugins.BPMN2YAWLMapper.SHOW_ERRORS_EVENT, this.doShowErrors.bind(this));
 	},
 	_isStencilSetExtensionLoaded: function() {
 		return this.isStencilSetExtensionLoaded(this.stencilSetExtensionNamespace);
@@ -73,8 +73,8 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
 	        });
 		
 		var data = this.getRDFFromDOM();
-		this.openDownload(ORYX.CONFIG.BPMN2YAWL_URL,data);
-//		new Ajax.Request(ORYX.CONFIG.BPMN2YAWL_URL, {
+		this.openDownload(WAPAMA.CONFIG.BPMN2YAWL_URL,data);
+//		new Ajax.Request(WAPAMA.CONFIG.BPMN2YAWL_URL, {
 //			method: 'POST',
 //			asynchronous: false,
 //			parameters : {
@@ -118,7 +118,7 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
     
     /**
      * Shows overlays for each given error
-     * @methodOf ORYX.Plugins.BPMN2YAWLMapper.prototype
+     * @methodOf WAPAMA.Plugins.BPMN2YAWLMapper.prototype
      * @param {Hash|Object} errors
      * @example
      * showErrors({
@@ -144,12 +144,12 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
     
     /**
      * Resets all (displayed) errors
-     * @methodOf ORYX.Plugins.BPMN2YAWLMapper.prototype
+     * @methodOf WAPAMA.Plugins.BPMN2YAWLMapper.prototype
      */
     resetErrors: function(){
         this.raisedEventIds.each(function(id){
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+                type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
                 id: id
             });
         }.bind(this))
@@ -160,8 +160,8 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
     
     raiseOverlay: function(shape, errorMsg){
         var id = "syntaxchecker." + this.raisedEventIds.length;
-        var crossId = ORYX.Editor.provideId();
-        var cross = ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
+        var crossId = WAPAMA.Editor.provideId();
+        var cross = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
         	"id":crossId,
         	"title": errorMsg,
             "stroke-width": 5.0,
@@ -171,11 +171,11 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
         }]);
         
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+            type: WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
             id: id,
             shapes: [shape],
             node: cross,
-            nodePosition: shape instanceof ORYX.Core.Edge ? "START" : "NW"
+            nodePosition: shape instanceof WAPAMA.Core.Edge ? "START" : "NW"
         });
         
         this.raisedEventIds.push(id);
@@ -214,5 +214,5 @@ ORYX.Plugins.BPMN2YAWLMapper = ORYX.Plugins.AbstractPlugin.extend({
 });
 
 //Define the events
-ORYX.Plugins.BPMN2YAWLMapper.RESET_ERRORS_EVENT = "resetErrors";
-ORYX.Plugins.BPMN2YAWLMapper.SHOW_ERRORS_EVENT = "showErrors";
+WAPAMA.Plugins.BPMN2YAWLMapper.RESET_ERRORS_EVENT = "resetErrors";
+WAPAMA.Plugins.BPMN2YAWLMapper.SHOW_ERRORS_EVENT = "showErrors";

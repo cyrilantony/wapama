@@ -24,16 +24,16 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.StencilSet) {WAPAMA.Core.StencilSet = {};}
 
 /**
  * Class Rules uses Prototpye 1.5.0 uses Inheritance
  * 
  * This class implements the API to check the stencil sets' rules.
  */
-ORYX.Core.StencilSet.Rules = {
+WAPAMA.Core.StencilSet.Rules = {
 
 	/**
 	 * Constructor
@@ -439,8 +439,8 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args sourceStencil: ORYX.Core.StencilSet.Stencil | undefined
-	 *            sourceShape: ORYX.Core.Shape | undefined
+	 *            args sourceStencil: WAPAMA.Core.StencilSet.Stencil | undefined
+	 *            sourceShape: WAPAMA.Core.Shape | undefined
 	 * 
 	 * At least sourceStencil or sourceShape has to be specified
 	 * 
@@ -477,8 +477,8 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args targetStencil: ORYX.Core.StencilSet.Stencil | undefined
-	 *            targetShape: ORYX.Core.Shape | undefined
+	 *            args targetStencil: WAPAMA.Core.StencilSet.Stencil | undefined
+	 *            targetShape: WAPAMA.Core.Shape | undefined
 	 * 
 	 * At least targetStencil or targetShape has to be specified
 	 * 
@@ -515,10 +515,10 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args edgeStencil: ORYX.Core.StencilSet.Stencil | undefined
-	 *            edgeShape: ORYX.Core.Edge | undefined targetStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined targetShape:
-	 *            ORYX.Core.Node | undefined
+	 *            args edgeStencil: WAPAMA.Core.StencilSet.Stencil | undefined
+	 *            edgeShape: WAPAMA.Core.Edge | undefined targetStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined targetShape:
+	 *            WAPAMA.Core.Node | undefined
 	 * 
 	 * At least edgeStencil or edgeShape has to be specified!!!
 	 * 
@@ -558,10 +558,10 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args edgeStencil: ORYX.Core.StencilSet.Stencil | undefined
-	 *            edgeShape: ORYX.Core.Edge | undefined sourceStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined sourceShape:
-	 *            ORYX.Core.Node | undefined
+	 *            args edgeStencil: WAPAMA.Core.StencilSet.Stencil | undefined
+	 *            edgeShape: WAPAMA.Core.Edge | undefined sourceStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined sourceShape:
+	 *            WAPAMA.Core.Node | undefined
 	 * 
 	 * At least edgeStencil or edgeShape has to be specified!!!
 	 * 
@@ -601,12 +601,12 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args edgeStencil: ORYX.Core.StencilSet.Stencil edgeShape:
-	 *            ORYX.Core.Edge |undefined sourceStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined sourceShape:
-	 *            ORYX.Core.Node |undefined targetStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined targetShape:
-	 *            ORYX.Core.Node |undefined
+	 *            args edgeStencil: WAPAMA.Core.StencilSet.Stencil edgeShape:
+	 *            WAPAMA.Core.Edge |undefined sourceStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined sourceShape:
+	 *            WAPAMA.Core.Node |undefined targetStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined targetShape:
+	 *            WAPAMA.Core.Node |undefined
 	 * 
 	 * At least source or target has to be specified!!!
 	 * 
@@ -749,12 +749,12 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args edgeStencil: ORYX.Core.StencilSet.Stencil edgeShape:
-	 *            ORYX.Core.Edge |undefined sourceStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined sourceShape:
-	 *            ORYX.Core.Node |undefined targetStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined targetShape:
-	 *            ORYX.Core.Node |undefined
+	 *            args edgeStencil: WAPAMA.Core.StencilSet.Stencil edgeShape:
+	 *            WAPAMA.Core.Edge |undefined sourceStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined sourceShape:
+	 *            WAPAMA.Core.Node |undefined targetStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined targetShape:
+	 *            WAPAMA.Core.Node |undefined
 	 * 
 	 * At least source or target has to be specified!!!
 	 * 
@@ -825,9 +825,9 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args containingStencil: ORYX.Core.StencilSet.Stencil
-	 *            containingShape: ORYX.Core.AbstractShape containedStencil:
-	 *            ORYX.Core.StencilSet.Stencil containedShape: ORYX.Core.Shape
+	 *            args containingStencil: WAPAMA.Core.StencilSet.Stencil
+	 *            containingShape: WAPAMA.Core.AbstractShape containedStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil containedShape: WAPAMA.Core.Shape
 	 */
 	canContain: function(args) {
 		if(!args ||
@@ -887,9 +887,9 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args containingStencil: ORYX.Core.StencilSet.Stencil
-	 *            containingShape: ORYX.Core.AbstractShape containedStencil:
-	 *            ORYX.Core.StencilSet.Stencil containedShape: ORYX.Core.Shape
+	 *            args containingStencil: WAPAMA.Core.StencilSet.Stencil
+	 *            containingShape: WAPAMA.Core.AbstractShape containedStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil containedShape: WAPAMA.Core.Shape
 	 */
 	_canContain: function(args) {
 		if(!args ||
@@ -908,7 +908,7 @@ ORYX.Core.StencilSet.Rules = {
 		}
 		
 //		if(args.containingShape) {
-//			if(args.containingShape instanceof ORYX.Core.Edge) {
+//			if(args.containingShape instanceof WAPAMA.Core.Edge) {
 //				// edges cannot contain other shapes
 //				return false;
 //			}
@@ -941,8 +941,8 @@ ORYX.Core.StencilSet.Rules = {
 	 * 
 	 * @param {Object}
 	 *           args 
-	 *            stencil: ORYX.Core.StencilSet.Stencil | undefined 
-	 *            shape: ORYX.Core.Shape | undefined
+	 *            stencil: WAPAMA.Core.StencilSet.Stencil | undefined 
+	 *            shape: WAPAMA.Core.Shape | undefined
 	 * 
 	 * At least stencil or shape has to be specified
 	 * 
@@ -996,13 +996,13 @@ ORYX.Core.StencilSet.Rules = {
 	 * @param {Object}
 	 *            args 
 	 *            sourceStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined 
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined 
 	 *            sourceShape:
-	 *            ORYX.Core.Node |undefined 
+	 *            WAPAMA.Core.Node |undefined 
 	 *            targetStencil:
-	 *            ORYX.Core.StencilSet.Stencil | undefined 
+	 *            WAPAMA.Core.StencilSet.Stencil | undefined 
 	 *            targetShape:
-	 *            ORYX.Core.Node |undefined
+	 *            WAPAMA.Core.Node |undefined
 	 * 
 	 * 
 	 * @return {Stencil} Returns, the stencil for the connecting edge 
@@ -1040,7 +1040,7 @@ ORYX.Core.StencilSet.Rules = {
 	
 	/**
 	 * Return true if the stencil should be located in the shape menu
-	 * @param {ORYX.Core.StencilSet.Stencil} morph
+	 * @param {WAPAMA.Core.StencilSet.Stencil} morph
 	 * @return {Boolean} Returns true if the morphs in the morph group of the
 	 * specified morph shall be displayed in the shape menu
 	 */
@@ -1078,7 +1078,7 @@ ORYX.Core.StencilSet.Rules = {
 	 */
 	getLayoutingRules : function(shape, edgeShape){
 		
-		if (!shape||!(shape instanceof ORYX.Core.Shape)){ return }
+		if (!shape||!(shape instanceof WAPAMA.Core.Shape)){ return }
 		
 		var layout = {"in":{},"out":{}};
 		
@@ -1092,7 +1092,7 @@ ORYX.Core.StencilSet.Rules = {
 				["t","r","b","l"].each(function(d){
 					var defaultRule = o[v+"s"].find(function(e){ return !e.edgeRole });
 					var edgeRule;
-					if (edgeShape instanceof ORYX.Core.Edge) {
+					if (edgeShape instanceof WAPAMA.Core.Edge) {
 						edgeRule = o[v + "s"].find(function(e){return this._hasRole(edgeShape, e.edgeRole) }.bind(this));
 					}
 					layout[v][d]=Math.max(edgeRule?edgeRule[d]:defaultRule[d],layout[v][d]||0);
@@ -1127,11 +1127,11 @@ ORYX.Core.StencilSet.Rules = {
 
 	/**
 	 * Checks wether a shape contains the given role or the role is equal the stencil id 
-	 * @param {ORYX.Core.Shape} shape
+	 * @param {WAPAMA.Core.Shape} shape
 	 * @param {String} role
 	 */
 	_hasRole: function(shape, role){
-		if (!(shape instanceof ORYX.Core.Shape)||!role){ return }
+		if (!(shape instanceof WAPAMA.Core.Shape)||!role){ return }
 		var isRole = shape.getStencil().roles().any(function(r){ return r == role});
 		
 		return isRole || shape.getStencil().id() == (shape.getStencil().namespace()+role);
@@ -1180,9 +1180,9 @@ ORYX.Core.StencilSet.Rules = {
 
 	/**
 	 * 
-	 * @param {ORYX.Core.StencilSet.Stencil}
+	 * @param {WAPAMA.Core.StencilSet.Stencil}
 	 *            parent
-	 * @param {ORYX.Core.StencilSet.Stencil}
+	 * @param {WAPAMA.Core.StencilSet.Stencil}
 	 *            child
 	 * 
 	 * @returns {Boolean} Returns the maximum occurrence of shapes of the
@@ -1208,8 +1208,8 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args sourceStencil: ORYX.Core.Node edgeStencil:
-	 *            ORYX.Core.StencilSet.Stencil
+	 *            args sourceStencil: WAPAMA.Core.Node edgeStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil
 	 * 
 	 * @return {Boolean} Returns, the maximum number of outgoing edges of the
 	 *         type specified by edgeStencil of the sourceShape.
@@ -1246,8 +1246,8 @@ ORYX.Core.StencilSet.Rules = {
 	/**
 	 * 
 	 * @param {Object}
-	 *            args targetStencil: ORYX.Core.StencilSet.Stencil edgeStencil:
-	 *            ORYX.Core.StencilSet.Stencil
+	 *            args targetStencil: WAPAMA.Core.StencilSet.Stencil edgeStencil:
+	 *            WAPAMA.Core.StencilSet.Stencil
 	 * 
 	 * @return {Boolean} Returns the maximum number of incoming edges of the
 	 *         type specified by edgeStencil of the targetShape.
@@ -1281,7 +1281,7 @@ ORYX.Core.StencilSet.Rules = {
 	
 	/**
 	 * 
-	 * @param {ORYX.Core.StencilSet.Stencil}
+	 * @param {WAPAMA.Core.StencilSet.Stencil}
 	 *            edgeStencil
 	 * 
 	 * @return {Hash} Returns a hash map of all connection rules for
@@ -1310,4 +1310,4 @@ ORYX.Core.StencilSet.Rules = {
 
 	toString: function() { return "Rules"; }
 }
-ORYX.Core.StencilSet.Rules = Clazz.extend(ORYX.Core.StencilSet.Rules);
+WAPAMA.Core.StencilSet.Rules = Clazz.extend(WAPAMA.Core.StencilSet.Rules);

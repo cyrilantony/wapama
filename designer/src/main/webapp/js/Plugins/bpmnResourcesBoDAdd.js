@@ -19,10 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
+WAPAMA.Plugins.ResourcesBoDAdd = Clazz.extend({
 
     facade: undefined,
     
@@ -34,12 +34,12 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 		this.raisedEventIds = [];
 		
         this.facade.offer({
-            'name': ORYX.I18N.ResourcesBoDAdd.name,
+            'name': WAPAMA.I18N.ResourcesBoDAdd.name,
             'functionality': this.defineBoD.bind(this),
-            'group': ORYX.I18N.ResourcesBoDAdd.group,
-            'dropDownGroupIcon': ORYX.PATH + "images/bod.png",
-            'icon': ORYX.PATH + "images/bod+.png",
-            'description': ORYX.I18N.ResourcesBoDAdd.desc,
+            'group': WAPAMA.I18N.ResourcesBoDAdd.group,
+            'dropDownGroupIcon': WAPAMA.PATH + "images/bod.png",
+            'icon': WAPAMA.PATH + "images/bod+.png",
+            'description': WAPAMA.I18N.ResourcesBoDAdd.desc,
             'index': 3,
             'toggle': false,
             'minShape': 2,
@@ -59,15 +59,15 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
     	//get only selected tasks
     	for (var index = 0; index < len; index++) {
     		var item = selectedElements[index];
-    		if(item.properties["oryx-activitytype"] == "Task") {
+    		if(item.properties["wapama-activitytype"] == "Task") {
     			taskElements[i] = item;
-				if(taskElements[i].properties["oryx-id"] == "") {
-					taskElements[i].setProperty("oryx-id", taskElements[i].id);
+				if(taskElements[i].properties["wapama-id"] == "") {
+					taskElements[i].setProperty("wapama-id", taskElements[i].id);
 				}
     			if(i == 0) { //get ids of tasks to be bound
-    				selectedTasks = taskElements[i].properties["oryx-id"];
+    				selectedTasks = taskElements[i].properties["wapama-id"];
     			} else {
-    				selectedTasks = selectedTasks + "; " + taskElements[i].properties["oryx-id"];
+    				selectedTasks = selectedTasks + "; " + taskElements[i].properties["wapama-id"];
     			}
     			i++;
     		}
@@ -80,7 +80,7 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 				var savedSeparationsData = false; //already saved separations
 				
 				//check whether other bindings are defined for current task
-				if (taskElements[taskCounter].properties["oryx-bindingsofduties"] != "") {
+				if (taskElements[taskCounter].properties["wapama-bindingsofduties"] != "") {
 					savedBindingsData = this.bindingsCheck(taskElements[taskCounter], selectedTasks);
 					if (savedBindingsData[3] == true) {
 						break;
@@ -91,7 +91,7 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 				}
 				
 				//check whether a contradicting separation is defined for current task
-				if (taskElements[taskCounter].properties["oryx-separationofduties"] != ("")) {
+				if (taskElements[taskCounter].properties["wapama-separationofduties"] != ("")) {
 					savedSeparationsData = this.separationsCheck(taskElements[taskCounter], selectedTasks);
 					if (savedSeparationsData == true) {
 						break;
@@ -116,7 +116,7 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
     	var j = 0; //counter
     	var m = 0; //counter
     	var n = 0; //counter
-		var bindings = taskElement.properties["oryx-bindingsofduties"]; //get saved bindings
+		var bindings = taskElement.properties["wapama-bindingsofduties"]; //get saved bindings
     	bindings = bindings.toString();
     	//store saved bindings including task ids
     	var savedBindings = bindings.substring(0,bindings.indexOf(']'));
@@ -244,7 +244,7 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 		var boundTaskIds = []; //collection of saved task ids
     	var l = 0; //counter
     	var q = 0; //counter
-		var separations = taskElement.properties["oryx-separationofduties"]; //get saved separations
+		var separations = taskElement.properties["wapama-separationofduties"]; //get saved separations
     	separations = separations.toString();
     	//extract number of entries and element ids of these entries
     	while(separations.indexOf(',') > -1) {
@@ -352,12 +352,12 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
     		savedBindingsData[2]++; //highestId needs to be higher than all found ids
     		savedBindingsData[0] = "{'totalCount':" + savedBindingsData[1] + ", 'items':[{bodId:\"" + savedBindingsData[2] + "\", BoundTasks:\"" + selectedTasks + "\"}]}";
     	}
-    	taskElement.setProperty("oryx-bindingsofduties", savedBindingsData[0]);
+    	taskElement.setProperty("wapama-bindingsofduties", savedBindingsData[0]);
     },
 	
 	deleteBindingEntry: function(taskElement, elementId) { //delete given entry from given task from binding contraints
 		var returnValue = [];
-		var bindings = taskElement.properties["oryx-bindingsofduties"]; //get saved separations
+		var bindings = taskElement.properties["wapama-bindingsofduties"]; //get saved separations
 		var keptBindings;
 		var temp;
 		var totalCount = parseInt(bindings.substring((bindings.indexOf(':')) + 1));
@@ -376,14 +376,14 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 			}
 			bindings = bindings.substring((bindings.indexOf('}'))+3); //'bodId'", BoundTasks:"task_c; task_d; task_e"} or //{bodId:"'id'", BoundTasks:"task_c; task_d; task_e"},_
 			var entry = "{'totalCount':" + totalCount + ", 'items':" + keptBindings + bindings + "]}";
-			taskElement.setProperty("oryx-bindingsofduties", entry);
+			taskElement.setProperty("wapama-bindingsofduties", entry);
 			
 			entry = entry.toString();
 			entry = entry.substring(0,entry.indexOf(']'));
 		
 		} else {
 			var entry = "";
-			taskElement.setProperty("oryx-bindingsofduties", entry);
+			taskElement.setProperty("wapama-bindingsofduties", entry);
 		}
 		
 		returnValue[0] = entry;
@@ -407,7 +407,7 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 		taskIdsCopy = taskIds + ";";
 		for (var m = 0; m < singleTaskIds.length; m++) { //go through all affected tasks
 			var currentTask = this.getTaskById(singleTaskIds[m]);
-			var separations = currentTask.properties["oryx-separationofduties"]; //get saved separations
+			var separations = currentTask.properties["wapama-separationofduties"]; //get saved separations
 			var separatedTaskIds = [];
 			var totalCount = 0;
 			var i = 0; //counter
@@ -469,7 +469,7 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 	},
 	
 	deleteSeparationEntry: function(taskElement, elementId) { //delete defined entry in given task
-		var separations = taskElement.properties["oryx-separationofduties"]; //get saved separations
+		var separations = taskElement.properties["wapama-separationofduties"]; //get saved separations
 		var keptSeparations;
 		var temp;
 		var totalCount = parseInt(separations.substring((separations.indexOf(':')) + 1));
@@ -488,14 +488,14 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 			}
 			separations = separations.substring((separations.indexOf('}'))+3); //'sodId'", SeparatedTasks:"task_c; task_d; task_e"} or //{sodId:"'id'", SeparatedTasks:"task_c; task_d; task_e"},_
 			var entry = "{'totalCount':" + totalCount + ", 'items':" + keptSeparations + separations + "]}";
-			taskElement.setProperty("oryx-separationofduties", entry);
+			taskElement.setProperty("wapama-separationofduties", entry);
 			
 			entry = entry.toString();
 			entry = entry.substring(0,entry.indexOf(']'));
 		
 		} else { //remove last entry 
 			var entry = "";
-			taskElement.setProperty("oryx-separationofduties", entry);
+			taskElement.setProperty("wapama-separationofduties", entry);
 		}
 	},
 	
@@ -503,8 +503,8 @@ ORYX.Plugins.ResourcesBoDAdd = Clazz.extend({
 		var shapes = this.facade.getCanvas().getChildShapes(true);
 		var task;
 		for (var index = 0; index < shapes.length; index++) {
-    		if (shapes[index].properties["oryx-activitytype"] == "Task") {
-				if (shapes[index].properties["oryx-id"] == taskId) {
+    		if (shapes[index].properties["wapama-activitytype"] == "Task") {
+				if (shapes[index].properties["wapama-id"] == taskId) {
 					task = shapes[index];
 					break;
 				}

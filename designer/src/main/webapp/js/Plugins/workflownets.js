@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.Workflownets = {
+WAPAMA.Plugins.Workflownets = {
 
 	/**
 	 *	Constructor
@@ -42,7 +42,7 @@ ORYX.Plugins.Workflownets = {
 		var numOfOutgoings = shape.getOutgoingShapes().length;
 		data.push({
 				  name:"numOfOutgoings",
-				  prefix:"oryx",
+				  prefix:"wapama",
 				  value:numOfOutgoings,
 				  type:"literal"
 				  });
@@ -51,4 +51,4 @@ ORYX.Plugins.Workflownets = {
 	},
 };
 
-ORYX.Plugins.Workflownets = Clazz.extend(ORYX.Plugins.Workflownets);
+WAPAMA.Plugins.Workflownets = Clazz.extend(WAPAMA.Plugins.Workflownets);

@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="162"
    height="82"
@@ -10,31 +10,31 @@
 	
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="0" 
-  		oryx:cy="40" 
-  		oryx:anchors="left" />
-  	<oryx:magnet 
-  		oryx:cx="80" 
-  		oryx:cy="80" 
-  		oryx:anchors="bottom" />
-  	<oryx:magnet 
-  		oryx:cx="160" 
-  		oryx:cy="40" 
-  		oryx:anchors="right" />
-  	<oryx:magnet 
-  		oryx:cx="80" 
-  		oryx:cy="0" 
-  		oryx:anchors="top" />
-  	<oryx:magnet 
-  		oryx:cx="80" 
-  		oryx:cy="40" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="0" 
+  		wapama:cy="40" 
+  		wapama:anchors="left" />
+  	<wapama:magnet 
+  		wapama:cx="80" 
+  		wapama:cy="80" 
+  		wapama:anchors="bottom" />
+  	<wapama:magnet 
+  		wapama:cx="160" 
+  		wapama:cy="40" 
+  		wapama:anchors="right" />
+  	<wapama:magnet 
+  		wapama:cx="80" 
+  		wapama:cy="0" 
+  		wapama:anchors="top" />
+  	<wapama:magnet 
+  		wapama:cx="80" 
+  		wapama:cy="40" 
+  		wapama:default="yes" />
+  </wapama:magnets>
 
   <g pointer-events="fill" 
-     oryx:minimumSize="50 40">
+     wapama:minimumSize="50 40">
     <rect
        y="0"
        x="0"
@@ -43,7 +43,7 @@
        id="mainBody"
        rx="10" 
        ry="10" 
-       oryx:resize="vertical horizontal"
+       wapama:resize="vertical horizontal"
 	   fill="white"
        stroke="#0024fd" 
        stroke-width="1"
@@ -59,7 +59,7 @@
     		height="16" 
     		stroke="black" 
     		stroke-width="1"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		fill="none" />
     	<path 
     		d="	M 138 58 L 150 58
@@ -67,12 +67,12 @@
     			M 138 66 L 150 66
     			M 138 70 L 150 70" 
     		fill="none"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		stroke="black" />
   	</g>
   	
     <polygon 
-		oryx:anchors="top left" 
+		wapama:anchors="top left" 
 		stroke="black" 
 		fill="black" 
 		stroke-width="1" 
@@ -82,7 +82,7 @@
       	transform="translate(0,-33)"
       	stroke-miterlimit="10" /> 
     <polygon 
-		oryx:anchors="top left" 
+		wapama:anchors="top left" 
 		stroke="black" 
 		fill="black" 
 		stroke-width="1" 
@@ -92,7 +92,7 @@
       	transform="translate(0,-33)"
       	stroke-miterlimit="10" />
   <text 
-    	oryx:anchors="top left"
+    	wapama:anchors="top left"
     	x="20" 
     	y="20" 
     	style="font-family:Arial; font-size: 10pt; fill:black;">compensationHandler</text>

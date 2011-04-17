@@ -46,9 +46,9 @@ import org.wapama.web.plugin.IDiagramPluginService;
  * 
  * The servlet has this contract:
  * /plugins will return the information about the registered plugins in json format:
- *  [{"name":ORYX.Save, "core":false}]
- * /plugin?name=ORYX.Save
- * will return the contents of the ORYX.Save plugin. 
+ *  [{"name":WAPAMA.Save, "core":false}]
+ * /plugin?name=WAPAMA.Save
+ * will return the contents of the WAPAMA.Save plugin. 
  * 
  * @author Antoine Toulme
  */
@@ -71,7 +71,7 @@ public class PluginServiceServlet extends HttpServlet {
             HttpServletResponse resp) 
     throws ServletException, IOException {
         try {
-        if ((EditorHandler.oryx_path +  "plugins").equals(req.getRequestURI())) {
+        if ((EditorHandler.wapama_path +  "plugins").equals(req.getRequestURI())) {
             listAllPlugins(req, resp);
         } else {
             retrievePluginContents(req, resp);

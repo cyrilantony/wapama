@@ -22,11 +22,11 @@
  **/
 
 
-if(!ORYX.Plugins) {
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins) {
+	WAPAMA.Plugins = new Object();
 }
 
-ORYX.Plugins.Toolbar = Clazz.extend({
+WAPAMA.Plugins.Toolbar = Clazz.extend({
 
 	facade: undefined,
 	plugs:	[],
@@ -37,8 +37,8 @@ ORYX.Plugins.Toolbar = Clazz.extend({
 		this.groupIndex = new Hash();
 		
 		
-		if (ORYX.CONFIG.MENU_INDEX) {
-		  this.groupIndex = ORYX.CONFIG.MENU_INDEX;
+		if (WAPAMA.CONFIG.MENU_INDEX) {
+		  this.groupIndex = WAPAMA.CONFIG.MENU_INDEX;
 		} else {
 		  ownPluginData.properties.each((function(value){
 		    if(value.group && value.index != undefined) {
@@ -50,16 +50,16 @@ ORYX.Plugins.Toolbar = Clazz.extend({
 		Ext.QuickTips.init();
 
 		this.buttons = [];
-        this.facade.registerOnEvent(ORYX.CONFIG.EVENT_BUTTON_UPDATE, this.onButtonUpdate.bind(this));
-        this.facade.registerOnEvent(ORYX.CONFIG.EVENT_STENCIL_SET_LOADED, this.onSelectionChanged.bind(this));
-        this.facade.registerOnEvent(ORYX.CONFIG.EVENT_TOOLBAR_REFRESH, this.onSelectionChanged.bind(this));
+        this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_BUTTON_UPDATE, this.onButtonUpdate.bind(this));
+        this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED, this.onSelectionChanged.bind(this));
+        this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_TOOLBAR_REFRESH, this.onSelectionChanged.bind(this));
 	},
     
     /**
      * Can be used to manipulate the state of a button.
      * @example
      * this.facade.raiseEvent({
-     *   type: ORYX.CONFIG.EVENT_BUTTON_UPDATE,
+     *   type: WAPAMA.CONFIG.EVENT_BUTTON_UPDATE,
      *   id: this.buttonId, // have to be generated before and set in the offer method
      *   pressed: true
      * });
@@ -88,7 +88,7 @@ ORYX.Plugins.Toolbar = Clazz.extend({
 
 		this.buttons = [];
 
-		ORYX.Log.trace("Creating a toolbar.")
+		WAPAMA.Log.trace("Creating a toolbar.")
 		if(!this.toolbar){
 			this.toolbar = new Ext.ux.SlicedToolbar({
 			height: 24
@@ -333,7 +333,7 @@ Ext.ux.SlicedToolbar = Ext.extend(Ext.Toolbar, {
         
         var button = new Ext.Toolbar.Button({
             cls: "x-btn-icon",
-            icon: ORYX.CONFIG.ROOT_PATH + "images/toolbar_"+type+".png",
+            icon: WAPAMA.CONFIG.ROOT_PATH + "images/toolbar_"+type+".png",
             handler: (type === "next") ? nextHandler : prevHandler
         });
         

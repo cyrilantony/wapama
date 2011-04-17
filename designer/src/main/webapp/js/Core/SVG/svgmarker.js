@@ -25,12 +25,12 @@
  *
  * Config variables
  */
-NAMESPACE_ORYX = "http://www.b3mn.org/oryx";
+NAMESPACE_WAPAMA = "http://www.wapama.net/diagram";
 NAMESPACE_SVG = "http://www.w3.org/2000/svg/";
 
 /**
  * @classDescription This class wraps the manipulation of a SVG marker.
- * @namespace ORYX.Core.SVG
+ * @namespace WAPAMA.Core.SVG
  * uses Inheritance (Clazz)
  * uses Prototype 1.5.0
  *
@@ -39,11 +39,11 @@ NAMESPACE_SVG = "http://www.w3.org/2000/svg/";
 /**
  * Init package
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.SVG) {WAPAMA.Core.SVG = {};}
 
-ORYX.Core.SVG.SVGMarker = Clazz.extend({
+WAPAMA.Core.SVG.SVGMarker = Clazz.extend({
 
 	/**
 	 * Constructor
@@ -114,8 +114,8 @@ ORYX.Core.SVG.SVGMarker = Clazz.extend({
 		this.oldMarkerWidth = this.markerWidth;
 		this.oldMarkerHeight = this.markerHeight;
 
-		//init oryx attributes
-		var optionalAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "optional");
+		//init wapama attributes
+		var optionalAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "optional");
 		if(optionalAttr) {
 			optionalAttr = optionalAttr.strip();
 			this.optional = (optionalAttr.toLowerCase() === "yes");
@@ -123,7 +123,7 @@ ORYX.Core.SVG.SVGMarker = Clazz.extend({
 			this.optional = false;
 		}
 
-		var enabledAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "enabled");
+		var enabledAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "enabled");
 		if(enabledAttr) {
 			enabledAttr = enabledAttr.strip();
 			this.enabled = !(enabledAttr.toLowerCase() === "no");
@@ -131,12 +131,12 @@ ORYX.Core.SVG.SVGMarker = Clazz.extend({
 			this.enabled = true;
 		}
 
-		var minLengthAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "minimumLength");
+		var minLengthAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "minimumLength");
 		if(minLengthAttr) {
 			this.minimumLength = parseFloat(minLengthAttr);
 		}
 
-		var resizeAttr = this.element.getAttributeNS(NAMESPACE_ORYX, "resize");
+		var resizeAttr = this.element.getAttributeNS(NAMESPACE_WAPAMA, "resize");
 		if(resizeAttr) {
 			resizeAttr = resizeAttr.strip();
 			this.resize = (resizeAttr.toLowerCase() === "yes");
@@ -157,7 +157,7 @@ ORYX.Core.SVG.SVGMarker = Clazz.extend({
 			var me = this;
 			$A(svgElement.childNodes).each(function(svgChild) {
 				try {
-					var svgShape = new ORYX.Core.SVG.SVGShape(svgChild);
+					var svgShape = new WAPAMA.Core.SVG.SVGShape(svgChild);
 					svgShapes.push(svgShape);
 				} catch (e) {
 					svgShapes = svgShapes.concat(me._getSVGShapes(svgChild));

@@ -1,6 +1,6 @@
 {
 	"title":"jBPM Stencils",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/jbpm#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/jbpm#",
 	"description":"A subset of BPMN 1.2 for execution with jBPM",
 	"extends":"http://b3mn.org/stencilset/bpmn1.1#",
 	"stencils":[

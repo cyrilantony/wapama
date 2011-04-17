@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="102"
    height="82"
@@ -10,35 +10,35 @@
 	
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="0" 
-  		oryx:cy="40" 
-  		oryx:anchors="left" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="80" 
-  		oryx:anchors="bottom" />
-  	<oryx:magnet 
-  		oryx:cx="100" 
-  		oryx:cy="40" 
-  		oryx:anchors="right" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="0" 
-  		oryx:anchors="top" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="40" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="0" 
+  		wapama:cy="40" 
+  		wapama:anchors="left" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="80" 
+  		wapama:anchors="bottom" />
+  	<wapama:magnet 
+  		wapama:cx="100" 
+  		wapama:cy="40" 
+  		wapama:anchors="right" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="0" 
+  		wapama:anchors="top" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="40" 
+  		wapama:default="yes" />
+  </wapama:magnets>
   
   <g 
   	pointer-events="fill" 
-    oryx:minimumSize="50 40">
+    wapama:minimumSize="50 40">
     <rect 
     	id="mainBody" 
-    	oryx:resize="vertical horizontal" 
+    	wapama:resize="vertical horizontal" 
     	x="0" 
     	y="0" 
     	width="100" 
@@ -59,7 +59,7 @@
     		height="16" 
     		stroke="black" 
     		stroke-width="1"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		fill="none" />
     	<path 
     		d="	M 78 58 L 90 58
@@ -67,7 +67,7 @@
     			M 78 66 L 90 66
     			M 78 70 L 90 70" 
     		fill="none"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		stroke="black" />
   	</g>	
   	 
@@ -77,7 +77,7 @@
        height="10"
        width="30"
        id="rect11259"
-	   oryx:anchors="top left"
+	   wapama:anchors="top left"
 	   fill="white"
    	   stroke="black" 
    	   stroke-width="1"  />
@@ -87,7 +87,7 @@
        height="10"
        width="30"
        id="rect11263"
-	   oryx:anchors="top left"
+	   wapama:anchors="top left"
 	   fill="white"
        stroke="black" 
        stroke-width="1" />
@@ -97,25 +97,25 @@
        height="10"
        width="30"
        id="rect11265"
-	   oryx:anchors="top left"
+	   wapama:anchors="top left"
 	   fill="white"
        stroke="black" 
        stroke-width="1" />
     <path
        id="path11269"
        d="M 25,20 L 25,30"
-	   oryx:anchors="top left"
+	   wapama:anchors="top left"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <path
        id="path11271"
        d="M 25,40 L 25,50"
-	   oryx:anchors="top left"
+	   wapama:anchors="top left"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
      <text
        id="label"
 	   x="42" 
 	   y="20" 
-	   oryx:anchors="top left"
+	   wapama:anchors="top left"
 	   style="font-family:Arial; font-size: 10pt; fill:black;"></text>
   </g>
 </svg>

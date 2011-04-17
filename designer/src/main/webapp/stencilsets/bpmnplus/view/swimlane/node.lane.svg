@@ -2,14 +2,14 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="500"
    height="300"
    version="1.0">
   <defs></defs>
   <g pointer-events="fill" >
-	 <rect id="frame" oryx:resize="vertical horizontal" x="0" y="0" width="500" height="300" stroke="black" stroke-width="1" fill="white" />
-	 <text x="10" y="125" oryx:rotate="270" font-size="14" id="text_v" oryx:align="middle center" oryx:anchors="left" fill="black" stroke="black"></text>
+	 <rect id="frame" wapama:resize="vertical horizontal" x="0" y="0" width="500" height="300" stroke="black" stroke-width="1" fill="white" />
+	 <text x="10" y="125" wapama:rotate="270" font-size="14" id="text_v" wapama:align="middle center" wapama:anchors="left" fill="black" stroke="black"></text>
   </g>
 </svg>

@@ -2,16 +2,16 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="52"
    height="18"
    version="1.0">
   <defs></defs>
-   <g oryx:minimumSize="50 16" oryx:maximumSize="50 16">
-    <rect oryx:anchor="top" x="0" y="0" width="50" height="16" stroke="#000000" stroke-width="1" fill="#FF5C5C" />
+   <g wapama:minimumSize="50 16" wapama:maximumSize="50 16">
+    <rect wapama:anchor="top" x="0" y="0" width="50" height="16" stroke="#000000" stroke-width="1" fill="#FF5C5C" />
     	<g id="b">
-		<text font-size="9" font-weight="normal" x="25" y="6" oryx:align="middle center" stroke="black">dispatch</text>
+		<text font-size="9" font-weight="normal" x="25" y="6" wapama:align="middle center" stroke="black">dispatch</text>
 	</g>
   </g>
 </svg>

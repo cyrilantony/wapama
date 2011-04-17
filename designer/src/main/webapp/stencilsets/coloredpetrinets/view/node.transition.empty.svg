@@ -2,18 +2,18 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="52"
    height="12"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-	<oryx:magnet oryx:cx="25" oryx:cy="5" oryx:default="yes" />
-  </oryx:magnets>
-  <g pointer-events="fill" oryx:minimumSize="20 5" oryx:maximumSize="50 20" >
-    <rect id="taskrect" oryx:resize="vertical horizontal" x="0" y="0" width="50" height="10" stroke="black" stroke-width="1" fill="white" />
-    	<text font-size="12" id="text" x="40" y="20" oryx:align="middle center" stroke="black" oryx:fittoelem="taskrect"></text>
-    	<text font-size="12" id="guardtext" x="-30" y="-20" oryx:align="top left" oryx:anchors="left top" stroke="black" oryx:fittoelem="taskrect"></text>
+  <wapama:magnets>
+	<wapama:magnet wapama:cx="25" wapama:cy="5" wapama:default="yes" />
+  </wapama:magnets>
+  <g pointer-events="fill" wapama:minimumSize="20 5" wapama:maximumSize="50 20" >
+    <rect id="taskrect" wapama:resize="vertical horizontal" x="0" y="0" width="50" height="10" stroke="black" stroke-width="1" fill="white" />
+    	<text font-size="12" id="text" x="40" y="20" wapama:align="middle center" stroke="black" wapama:fittoelem="taskrect"></text>
+    	<text font-size="12" id="guardtext" x="-30" y="-20" wapama:align="top left" wapama:anchors="left top" stroke="black" wapama:fittoelem="taskrect"></text>
   </g>
 </svg>

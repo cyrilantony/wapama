@@ -13,7 +13,7 @@
                "creationdate":"",
                "modificationdate":""},
  "stencil":{"id":"BPMNDiagram"},
- "childShapes":[{"resourceId":"oryx_44F9FA48-C1EF-4D24-AC07-105079E08EF8",
+ "childShapes":[{"resourceId":"wapama_44F9FA48-C1EF-4D24-AC07-105079E08EF8",
                  "properties":{"name":"oneTask","documentation":"my task doc","auditing":"","monitoring":"","categories":"","startquantity":1,"completionquantity":1,"isforcompensation":"","assignments":"","callacitivity":"","tasktype":"None","implementation":"webService","resources":"","messageref":"","operationref":"","instantiate":"","script":"","script_language":"","bgcolor":"#b1c2d6","looptype":"None","testbefore":"","loopcondition":"","loopmaximum":"","loopcardinality":"","loopdatainput":"","loopdataoutput":"","inputdataitem":"","outputdataitem":"","behavior":"all","complexbehaviordefinition":"","completioncondition":"","onebehavioreventref:":"signal","nonebehavioreventref":"signal","properties":"","datainputset":"","dataoutputset":"","cost":""},
                  "stencil":{"id":"Task"},
                  "childShapes":[],
@@ -24,4 +24,4 @@
  "bounds":{"lowerRight":{"x":1485,"y":1050},"upperLeft":{"x":0,"y":0}},
  "stencilset":{"url":"/designer/stencilsets/bpmn2.0/bpmn2.0.json",
  "namespace":"http://b3mn.org/stencilset/bpmn2.0#"},
- "ssextensions":["http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#"]}
+ "ssextensions":["http://www.wapama.net/stencilsets/extensions/bpmncosts-2.0#"]}

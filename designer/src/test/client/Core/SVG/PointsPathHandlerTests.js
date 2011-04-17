@@ -9,11 +9,11 @@ var pathQuadraticBezierRelD = "M50,50 q-30,100 50,150 100,230 160,170";
 var pathEllipticArcRelD = "M10,150 a15 15 180 0 1 70 140 a15 25 180 0 0 130 130";
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a line path with absolute coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a line path with absolute coordinates
  */
 function testPointsLineAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathLineAbsD);
 
@@ -27,11 +27,11 @@ function testPointsLineAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a cubic Bezier path with absolute coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a cubic Bezier path with absolute coordinates
  */
 function testPointsCubicBezierAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathCubicBezierAbsD);
 
@@ -47,11 +47,11 @@ function testPointsCubicBezierAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a quadratic Bezier path with absolute coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a quadratic Bezier path with absolute coordinates
  */
 function testPointsQuadraticBezierAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathQuadraticBezierAbsD);
 
@@ -65,11 +65,11 @@ function testPointsQuadraticBezierAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a elliptic arc path with absolute coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a elliptic arc path with absolute coordinates
  */
 function testPointsEllipticArcAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathEllipticArcAbsD);
 
@@ -83,11 +83,11 @@ function testPointsEllipticArcAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a line path with relative coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a line path with relative coordinates
  */
 function testPointsLineRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathLineRelD);
 
@@ -101,11 +101,11 @@ function testPointsLineRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a cubic Bezier path with relative coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a cubic Bezier path with relative coordinates
  */
 function testPointsCubicBezierRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathCubicBezierRelD);
 
@@ -121,11 +121,11 @@ function testPointsCubicBezierRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a quadratic Bezier path with relative coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a quadratic Bezier path with relative coordinates
  */
 function testPointsQuadraticBezierRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathQuadraticBezierRelD);
 
@@ -139,11 +139,11 @@ function testPointsQuadraticBezierRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.PointsPathHandler for a elliptic arc path with relative coordinates
+ * Test WAPAMA.Core.SVG.PointsPathHandler for a elliptic arc path with relative coordinates
  */
 function testPointsEllipticArcRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.PointsPathHandler();
+	var handler = new WAPAMA.Core.SVG.PointsPathHandler();
 	parser.setHandler(handler);
 	parser.parseData(pathEllipticArcRelD);
 

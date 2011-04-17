@@ -21,11 +21,11 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins) {
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins) {
+	WAPAMA.Plugins = new Object();
 }
 
-ORYX.Plugins.ShapeMenuPlugin = {
+WAPAMA.Plugins.ShapeMenuPlugin = {
 
 	construct: function(facade) {
 		this.facade = facade;
@@ -34,17 +34,17 @@ ORYX.Plugins.ShapeMenuPlugin = {
 
 		var containerNode = this.facade.getCanvas().getHTMLContainer();
 
-		this.shapeMenu = new ORYX.Plugins.ShapeMenu(containerNode);
+		this.shapeMenu = new WAPAMA.Plugins.ShapeMenu(containerNode);
 		this.currentShapes = [];
 
 		// Register on dragging and resizing events for show/hide of ShapeMenu
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_DRAGDROP_START, this.hideShapeMenu.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_DRAGDROP_END,  this.showShapeMenu.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_RESIZE_START,  (function(){
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_DRAGDROP_START, this.hideShapeMenu.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_DRAGDROP_END,  this.showShapeMenu.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_RESIZE_START,  (function(){
 			this.hideShapeMenu();
 			this.hideMorphMenu();
 		}).bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_RESIZE_END,  this.showShapeMenu.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_RESIZE_END,  this.showShapeMenu.bind(this));
 		
 		// Enable DragZone
 		var DragZone = new Ext.dd.DragZone(containerNode.parentNode, {shadow: !Ext.isMac});
@@ -54,7 +54,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 		// Memory of created Buttons
 		this.createdButtons = {};
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_STENCIL_SET_LOADED, (function(){ this.registryChanged() }).bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED, (function(){ this.registryChanged() }).bind(this));
 
 		this.timer = null;
 		
@@ -111,7 +111,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 		}		
 		
 		this.shapeMenu.removeAllButtons();
-		this.shapeMenu.setNumberOfButtonsPerLevel(ORYX.CONFIG.SHAPEMENU_RIGHT, 2);
+		this.shapeMenu.setNumberOfButtonsPerLevel(WAPAMA.CONFIG.SHAPEMENU_RIGHT, 2);
 		this.createdButtons = {};
 		
 		this.createMorphMenu();
@@ -136,13 +136,13 @@ ORYX.Plugins.ShapeMenuPlugin = {
 				}
 				// Create a button for each node
 				var option = {type: stencil.id(), namespace: stencil.namespace(), connectingType: true};
-				var button = new ORYX.Plugins.ShapeMenuButton({
+				var button = new WAPAMA.Plugins.ShapeMenuButton({
 					callback: 	this.newShape.bind(this, option),
 					icon: 		stencil.icon(),
-					align: 		ORYX.CONFIG.SHAPEMENU_RIGHT,
+					align: 		WAPAMA.CONFIG.SHAPEMENU_RIGHT,
 					group:		0,
 					//dragcallback: this.hideShapeMenu.bind(this),
-					msg:		stencil.title() + " - " + ORYX.I18N.ShapeMenuPlugin.clickDrag
+					msg:		stencil.title() + " - " + WAPAMA.I18N.ShapeMenuPlugin.clickDrag
 					});
 				// Add button to shape menu
 				this.shapeMenu.addButton(button); 
@@ -156,14 +156,14 @@ ORYX.Plugins.ShapeMenuPlugin = {
 			edges.each((function(stencil) {
 				// Create a button for each edge
 				var option = {type: stencil.id(), namespace: stencil.namespace()};
-				var button = new ORYX.Plugins.ShapeMenuButton({
+				var button = new WAPAMA.Plugins.ShapeMenuButton({
 					callback: 	this.newShape.bind(this, option),
-					// icon: 		isMorphing ? ORYX.PATH + "images/edges.png" : stencil.icon(),
+					// icon: 		isMorphing ? WAPAMA.PATH + "images/edges.png" : stencil.icon(),
 					icon: 		stencil.icon(),
-					align: 		ORYX.CONFIG.SHAPEMENU_RIGHT,
+					align: 		WAPAMA.CONFIG.SHAPEMENU_RIGHT,
 					group:		1,
 					//dragcallback: this.hideShapeMenu.bind(this),
-					msg:		(isMorphing ? ORYX.I18N.Edge : stencil.title()) + " - " + ORYX.I18N.ShapeMenuPlugin.drag
+					msg:		(isMorphing ? WAPAMA.I18N.Edge : stencil.title()) + " - " + WAPAMA.I18N.ShapeMenuPlugin.drag
 				});
 				
 				// Add button to shape menu
@@ -184,7 +184,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 	createMorphMenu: function() {
 		
 		this.morphMenu = new Ext.menu.Menu({
-			id: 'Oryx_morph_menu',
+			id: 'Wapama_morph_menu',
 			items: []
 		});
 		
@@ -197,17 +197,17 @@ ORYX.Plugins.ShapeMenuPlugin = {
 		
 		
 		// Create the button to show the morph menu
-		var button = new ORYX.Plugins.ShapeMenuButton({
-			hovercallback: 	(ORYX.CONFIG.ENABLE_MORPHMENU_BY_HOVER ? this.showMorphMenu.bind(this) : undefined), 
-			resetcallback: 	(ORYX.CONFIG.ENABLE_MORPHMENU_BY_HOVER ? this.hideMorphMenu.bind(this) : undefined), 
-			callback:		(ORYX.CONFIG.ENABLE_MORPHMENU_BY_HOVER ? undefined : this.toggleMorphMenu.bind(this)), 
-			icon: 			ORYX.PATH + 'images/wrench_orange.png',
-			align: 			ORYX.CONFIG.SHAPEMENU_BOTTOM,
+		var button = new WAPAMA.Plugins.ShapeMenuButton({
+			hovercallback: 	(WAPAMA.CONFIG.ENABLE_MORPHMENU_BY_HOVER ? this.showMorphMenu.bind(this) : undefined), 
+			resetcallback: 	(WAPAMA.CONFIG.ENABLE_MORPHMENU_BY_HOVER ? this.hideMorphMenu.bind(this) : undefined), 
+			callback:		(WAPAMA.CONFIG.ENABLE_MORPHMENU_BY_HOVER ? undefined : this.toggleMorphMenu.bind(this)), 
+			icon: 			WAPAMA.PATH + 'images/wrench_orange.png',
+			align: 			WAPAMA.CONFIG.SHAPEMENU_BOTTOM,
 			group:			0,
-			msg:			ORYX.I18N.ShapeMenuPlugin.morphMsg
+			msg:			WAPAMA.I18N.ShapeMenuPlugin.morphMsg
 		});				
 		
-		this.shapeMenu.setNumberOfButtonsPerLevel(ORYX.CONFIG.SHAPEMENU_BOTTOM, 1)
+		this.shapeMenu.setNumberOfButtonsPerLevel(WAPAMA.CONFIG.SHAPEMENU_BOTTOM, 1)
 		this.shapeMenu.addButton(button);
 		this.morphMenu.getEl().appendTo(button.node);
 		this.morphButton = button;
@@ -279,7 +279,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 				text: morph.title(), 
 				icon: morph.icon(), 
 				disabled: morph.id()==elements[0].getStencil().id(),
-				disabledClass: ORYX.CONFIG.MORPHITEM_DISABLED,
+				disabledClass: WAPAMA.CONFIG.MORPHITEM_DISABLED,
 				handler: (function() { this.morphShape(elements[0], morph); }).bind(this) 
 			});
 			this.morphMenu.add(menuItem);
@@ -371,7 +371,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 				}
 			}
 			// make the shape menu contains at most 6 stencil buttons.
-			if (addedTargets.length >= ORYX.CONFIG.MAX_NUM_STENCIL_BUTTONS) {
+			if (addedTargets.length >= WAPAMA.CONFIG.MAX_NUM_STENCIL_BUTTONS) {
 				return;
 			}
 			// if this is reached the button shall appear in the shape menu:
@@ -447,7 +447,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 			
 				var curCan = candidate, orgCan = candidate;
 				var canConnect = false;
-				while(!canConnect && curCan && !(curCan instanceof ORYX.Core.Canvas)){
+				while(!canConnect && curCan && !(curCan instanceof WAPAMA.Core.Canvas)){
 					candidate = curCan;
 					//check connection rules
 					canConnect = this.facade.getRules().canConnect({
@@ -466,7 +466,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 					for(var i=0; i<possibleMorphs.size(); i++) {
 						var curCan = candidate;
 						var canConnect = false;
-						while(!canConnect && curCan && !(curCan instanceof ORYX.Core.Canvas)){
+						while(!canConnect && curCan && !(curCan instanceof WAPAMA.Core.Canvas)){
 							candidate = curCan;
 							//check connection rules
 							canConnect = this.facade.getRules().canConnect({
@@ -492,10 +492,10 @@ ORYX.Plugins.ShapeMenuPlugin = {
 			}	
 
 			this.facade.raiseEvent({
-											type:		ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW, 
+											type:		WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW, 
 											highlightId:'shapeMenu',
 											elements:	[candidate],
-											color:		this._currentReference ? ORYX.CONFIG.SELECTION_VALID_COLOR : ORYX.CONFIG.SELECTION_INVALID_COLOR
+											color:		this._currentReference ? WAPAMA.CONFIG.SELECTION_VALID_COLOR : WAPAMA.CONFIG.SELECTION_INVALID_COLOR
 										});
 												
 			var pr = dragZone.getProxy();
@@ -519,7 +519,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 		this._lastOverElement = undefined;
 		
 		// Hide the highlighting
-		this.facade.raiseEvent({type: ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'shapeMenu'});
+		this.facade.raiseEvent({type: WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'shapeMenu'});
 		
 		// Check if drop is allowed
 		var proxy = dragZone.getProxy()
@@ -572,16 +572,16 @@ ORYX.Plugins.ShapeMenuPlugin = {
 			option['connectingType'] = this.facade.getRules().connectMorph(args).id();
 		}
 		
-		if (ORYX.CONFIG.SHAPEMENU_DISABLE_CONNECTED_EDGE===true) {
+		if (WAPAMA.CONFIG.SHAPEMENU_DISABLE_CONNECTED_EDGE===true) {
 			delete option['connectingType'];
 		}
 			
-		var command = new ORYX.Plugins.ShapeMenuPlugin.CreateCommand(Object.clone(option), this._currentReference, pos, this);
+		var command = new WAPAMA.Plugins.ShapeMenuPlugin.CreateCommand(Object.clone(option), this._currentReference, pos, this);
 		
 		this.facade.executeCommands([command]);
 		
 		// Inform about completed Drag 
-		this.facade.raiseEvent({type: ORYX.CONFIG.EVENT_SHAPE_MENU_CLOSE, source:sourceShape, destination:this.currentShapes});
+		this.facade.raiseEvent({type: WAPAMA.CONFIG.EVENT_SHAPE_MENU_CLOSE, source:sourceShape, destination:this.currentShapes});
 		
 		// revert to original options if these were modified
 		if(option.backupOptions) {
@@ -612,11 +612,11 @@ ORYX.Plugins.ShapeMenuPlugin = {
 			if (!targetStencil){ return }// Check if there can be a target shape
 			option['connectingType'] = targetStencil.id();
 
-			if (ORYX.CONFIG.SHAPEMENU_DISABLE_CONNECTED_EDGE===true) {
+			if (WAPAMA.CONFIG.SHAPEMENU_DISABLE_CONNECTED_EDGE===true) {
 				delete option['connectingType'];
 			}
 			
-			var command = new ORYX.Plugins.ShapeMenuPlugin.CreateCommand(option, undefined, undefined, this);
+			var command = new WAPAMA.Plugins.ShapeMenuPlugin.CreateCommand(option, undefined, undefined, this);
 		
 			this.facade.executeCommands([command]);
 		}
@@ -630,7 +630,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 	 */
 	morphShape: function(shape, stencil) {
 		
-		var MorphTo = ORYX.Core.Command.extend({
+		var MorphTo = WAPAMA.Core.Command.extend({
 			construct: function(shape, stencil, facade){
 				this.shape = shape;
 				this.stencil = stencil;
@@ -666,7 +666,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 				
 				// calculate new bounds using old shape's upperLeft and new shape's width/height
 				var boundsObj = serialized.find(function(serProp){
-					return (serProp.prefix === "oryx" && serProp.name === "bounds");
+					return (serProp.prefix === "wapama" && serProp.name === "bounds");
 				});
 				
 				var changedBounds = null;
@@ -749,11 +749,11 @@ ORYX.Plugins.ShapeMenuPlugin = {
 				 * Change color to default if unchanged
 				 * 23.04.2010
 				 */
-				if(shape.getStencil().property("oryx-bgcolor") 
-						&& shape.properties["oryx-bgcolor"]
-						&& shape.getStencil().property("oryx-bgcolor").value().toUpperCase()== shape.properties["oryx-bgcolor"].toUpperCase()){
-						if(newShape.getStencil().property("oryx-bgcolor")){
-							newShape.setProperty("oryx-bgcolor", newShape.getStencil().property("oryx-bgcolor").value());
+				if(shape.getStencil().property("wapama-bgcolor") 
+						&& shape.properties["wapama-bgcolor"]
+						&& shape.getStencil().property("wapama-bgcolor").value().toUpperCase()== shape.properties["wapama-bgcolor"].toUpperCase()){
+						if(newShape.getStencil().property("wapama-bgcolor")){
+							newShape.setProperty("wapama-bgcolor", newShape.getStencil().property("wapama-bgcolor").value());
 						}
 				}	
 				if(changedBounds !== null) {
@@ -821,7 +821,7 @@ ORYX.Plugins.ShapeMenuPlugin = {
 									docker.setDockedShape(newShape);
 									// Set reference point and center to new position
 									docker.setReferencePoint(rPointNew);
-									if(i instanceof ORYX.Core.Edge) {
+									if(i instanceof WAPAMA.Core.Edge) {
 										docker.bounds.centerMoveTo(rPointNew);
 									} else {
 										var absXY = shape.absoluteXY();
@@ -852,9 +852,9 @@ ORYX.Plugins.ShapeMenuPlugin = {
 		this.facade.executeCommands([command]);
 	}
 }
-ORYX.Plugins.ShapeMenuPlugin = ORYX.Plugins.AbstractPlugin.extend(ORYX.Plugins.ShapeMenuPlugin);
+WAPAMA.Plugins.ShapeMenuPlugin = WAPAMA.Plugins.AbstractPlugin.extend(WAPAMA.Plugins.ShapeMenuPlugin);
 
-ORYX.Plugins.ShapeMenu = {
+WAPAMA.Plugins.ShapeMenu = {
 
 	/***
 	 * Constructor.
@@ -866,8 +866,8 @@ ORYX.Plugins.ShapeMenu = {
 		this.buttons = [];
 		this.isVisible = false;
 
-		this.node = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", $(parentNode),
-			['div', {id: ORYX.Editor.provideId(), 'class':'Oryx_ShapeMenu'}]);
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", $(parentNode),
+			['div', {id: WAPAMA.Editor.provideId(), 'class':'Wapama_ShapeMenu'}]);
 		
 		this.alignContainers = new Hash();
 		this.numberOfButtonsPerLevel = new Hash();
@@ -877,15 +877,15 @@ ORYX.Plugins.ShapeMenu = {
 		this.buttons.push(button);
 		// lazy grafting of the align containers
 		if(!this.alignContainers[button.align]) {
-			this.alignContainers[button.align] = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", this.node,
+			this.alignContainers[button.align] = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", this.node,
 					['div', {'class':button.align}]);
 			this.node.appendChild(this.alignContainers[button.align]);
 			
 			// add event listeners for hover effect
 			var onBubble = false;
-			this.alignContainers[button.align].addEventListener(ORYX.CONFIG.EVENT_MOUSEOVER, this.hoverAlignContainer.bind(this, button.align), onBubble);
-			this.alignContainers[button.align].addEventListener(ORYX.CONFIG.EVENT_MOUSEOUT, this.resetAlignContainer.bind(this, button.align), onBubble);
-			this.alignContainers[button.align].addEventListener(ORYX.CONFIG.EVENT_MOUSEUP, this.hoverAlignContainer.bind(this, button.align), onBubble);
+			this.alignContainers[button.align].addEventListener(WAPAMA.CONFIG.EVENT_MOUSEOVER, this.hoverAlignContainer.bind(this, button.align), onBubble);
+			this.alignContainers[button.align].addEventListener(WAPAMA.CONFIG.EVENT_MOUSEOUT, this.resetAlignContainer.bind(this, button.align), onBubble);
+			this.alignContainers[button.align].addEventListener(WAPAMA.CONFIG.EVENT_MOUSEUP, this.hoverAlignContainer.bind(this, button.align), onBubble);
 		}
 		this.alignContainers[button.align].appendChild(button.node);
 	},
@@ -930,9 +930,9 @@ ORYX.Plugins.ShapeMenu = {
 			var upL = value.absoluteXY();
 			a.e = a.a*upL.x;
 			a.f = a.d*upL.y;
-			tmpBounds = new ORYX.Core.Bounds(a.e, a.f, a.e+a.a*value.bounds.width(), a.f+a.d*value.bounds.height());
+			tmpBounds = new WAPAMA.Core.Bounds(a.e, a.f, a.e+a.a*value.bounds.width(), a.f+a.d*value.bounds.height());
 
-			/*if(value instanceof ORYX.Core.Edge) {
+			/*if(value instanceof WAPAMA.Core.Edge) {
 				tmpBounds.moveBy(value.bounds.upperLeft())
 			}*/
 
@@ -968,7 +968,7 @@ ORYX.Plugins.ShapeMenu = {
 			
 			var numOfButtonsPerLevel = this.getNumberOfButtonsPerLevel(button.align);
 
-			if (button.align == ORYX.CONFIG.SHAPEMENU_LEFT) {
+			if (button.align == WAPAMA.CONFIG.SHAPEMENU_LEFT) {
 				// vertical levels
 				if(button.group!=leftButtonGroup) {
 					left = 0;
@@ -984,7 +984,7 @@ ORYX.Plugins.ShapeMenu = {
 				
 				//button.setPosition(a.x-22, a.y+left*size);
 				left++;
- 			} else if (button.align == ORYX.CONFIG.SHAPEMENU_TOP) {
+ 			} else if (button.align == WAPAMA.CONFIG.SHAPEMENU_TOP) {
  				// horizontal levels
  				if(button.group!=topButtonGroup) {
 					top = 0;
@@ -998,7 +998,7 @@ ORYX.Plugins.ShapeMenu = {
  				button.setPosition(a.x+numOfButtonsPerLevel*button.group*size + button.group*0.3*size + x*size,
  						a.y-5 - (y+1)*size);
 				top++;
- 			} else if (button.align == ORYX.CONFIG.SHAPEMENU_BOTTOM) {
+ 			} else if (button.align == WAPAMA.CONFIG.SHAPEMENU_BOTTOM) {
  				// horizontal levels
  				if(button.group!=bottomButtonGroup) {
 					bottom = 0;
@@ -1081,7 +1081,7 @@ ORYX.Plugins.ShapeMenu = {
 	
 	/**
 	 * Set the number of buttons to display on each level of the shape menu in the specified align group.
-	 * Example: setNumberOfButtonsPerLevel(ORYX.CONFIG.SHAPEMENU_RIGHT, 2) causes that the buttons of the right align group 
+	 * Example: setNumberOfButtonsPerLevel(WAPAMA.CONFIG.SHAPEMENU_RIGHT, 2) causes that the buttons of the right align group 
 	 * will be rendered in 2 rows.
 	 */
 	setNumberOfButtonsPerLevel: function(align, number) {
@@ -1100,9 +1100,9 @@ ORYX.Plugins.ShapeMenu = {
 	}
 
 }
-ORYX.Plugins.ShapeMenu = Clazz.extend(ORYX.Plugins.ShapeMenu);
+WAPAMA.Plugins.ShapeMenu = Clazz.extend(WAPAMA.Plugins.ShapeMenu);
 
-ORYX.Plugins.ShapeMenuButton = {
+WAPAMA.Plugins.ShapeMenuButton = {
 	
 	/**
 	 * Constructor
@@ -1133,8 +1133,8 @@ ORYX.Plugins.ShapeMenuButton = {
 		this.parentId = this.option.id ? this.option.id : null;
 
 		// graft the button.
-		var buttonClassName = this.option.caption ? "Oryx_button_with_caption" : "Oryx_button";
-		this.node = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", $(this.parentId),
+		var buttonClassName = this.option.caption ? "Wapama_button_with_caption" : "Wapama_button";
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", $(this.parentId),
 			['div', {'class':buttonClassName}]);
 
 		var imgOptions = {src:this.option.icon};
@@ -1145,24 +1145,24 @@ ORYX.Plugins.ShapeMenuButton = {
 		// graft and update icon (not in grafting for ns reasons).
 		//TODO Enrich graft()-function to do this in one of the above steps.
 		if(this.option.icon)
-			ORYX.Editor.graft("http://www.w3.org/1999/xhtml", this.node,
+			WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", this.node,
 				['img', imgOptions]);
 		
 		if(this.option.caption) {
-			var captionNode = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", this.node, ['span']);
-			ORYX.Editor.graft("http://www.w3.org/1999/xhtml", captionNode, this.option.caption);
+			var captionNode = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", this.node, ['span']);
+			WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", captionNode, this.option.caption);
 		}
 
 		var onBubble = false;
 
-		this.node.addEventListener(ORYX.CONFIG.EVENT_MOUSEOVER, this.hover.bind(this), onBubble);
-		this.node.addEventListener(ORYX.CONFIG.EVENT_MOUSEOUT, this.reset.bind(this), onBubble);
-		this.node.addEventListener(ORYX.CONFIG.EVENT_MOUSEDOWN, this.activate.bind(this), onBubble);
-		this.node.addEventListener(ORYX.CONFIG.EVENT_MOUSEUP, this.hover.bind(this), onBubble);
+		this.node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEOVER, this.hover.bind(this), onBubble);
+		this.node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEOUT, this.reset.bind(this), onBubble);
+		this.node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this.activate.bind(this), onBubble);
+		this.node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEUP, this.hover.bind(this), onBubble);
 		this.node.addEventListener('click', this.trigger.bind(this), onBubble);
-		this.node.addEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, this.move.bind(this), onBubble);
+		this.node.addEventListener(WAPAMA.CONFIG.EVENT_MOUSEMOVE, this.move.bind(this), onBubble);
 
-		this.align = this.option.align ? this.option.align : ORYX.CONFIG.SHAPEMENU_RIGHT;
+		this.align = this.option.align ? this.option.align : WAPAMA.CONFIG.SHAPEMENU_RIGHT;
 		this.group = this.option.group ? this.option.group : 0;
 
 		this.hide();
@@ -1231,22 +1231,22 @@ ORYX.Plugins.ShapeMenuButton = {
 	
 	doReset: function() {
 		
-		if(this.node.hasClassName('Oryx_down'))
-			this.node.removeClassName('Oryx_down');
+		if(this.node.hasClassName('Wapama_down'))
+			this.node.removeClassName('Wapama_down');
 
-		if(this.node.hasClassName('Oryx_hover'))
-			this.node.removeClassName('Oryx_hover');
+		if(this.node.hasClassName('Wapama_hover'))
+			this.node.removeClassName('Wapama_hover');
 
 	},
 
 	activate: function(evt) {
-		this.node.addClassName('Oryx_down');
+		this.node.addClassName('Wapama_down');
 		//Event.stop(evt);
 		this.dragStart = true;
 	},
 
 	isHover: function() {
-		return this.node.hasClassName('Oryx_hover') ? true: false;
+		return this.node.hasClassName('Wapama_hover') ? true: false;
 	},
 
 	hover: function(evt) {
@@ -1254,7 +1254,7 @@ ORYX.Plugins.ShapeMenuButton = {
 		window.clearTimeout( this.resetTimer )
 		this.resetTimer = null;
 		
-		this.node.addClassName('Oryx_hover');
+		this.node.addClassName('Wapama_hover');
 		this.dragStart = false;
 		
 		if(this.option.hovercallback) {
@@ -1286,10 +1286,10 @@ ORYX.Plugins.ShapeMenuButton = {
 		return "HTML-Button " + this.id;
 	}
 }
-ORYX.Plugins.ShapeMenuButton = Clazz.extend(ORYX.Plugins.ShapeMenuButton);
+WAPAMA.Plugins.ShapeMenuButton = Clazz.extend(WAPAMA.Plugins.ShapeMenuButton);
 
 //create command for undo/redo
-ORYX.Plugins.ShapeMenuPlugin.CreateCommand = ORYX.Core.Command.extend({
+WAPAMA.Plugins.ShapeMenuPlugin.CreateCommand = WAPAMA.Core.Command.extend({
 	construct: function(option, currentReference, position, plugin){
 		this.option = option;
 		this.currentReference = currentReference;
@@ -1316,7 +1316,7 @@ ORYX.Plugins.ShapeMenuPlugin.CreateCommand = ORYX.Core.Command.extend({
 		var resume = false;
 		
 		if (this.shape) {
-			if (this.shape instanceof ORYX.Core.Node) {
+			if (this.shape instanceof WAPAMA.Core.Node) {
 				this.parent.add(this.shape);
 				if (this.edge) {
 					this.plugin.facade.getCanvas().add(this.edge);
@@ -1328,7 +1328,7 @@ ORYX.Plugins.ShapeMenuPlugin.CreateCommand = ORYX.Core.Command.extend({
 				
 				this.plugin.facade.setSelection([this.shape]);
 				
-			} else if (this.shape instanceof ORYX.Core.Edge) {
+			} else if (this.shape instanceof WAPAMA.Core.Edge) {
 				this.plugin.facade.getCanvas().add(this.shape);
 				this.shape.dockers.first().setDockedShape(this.connectedShape);
 				this.shape.dockers.first().setReferencePoint(this.sourceRefPos);
@@ -1337,14 +1337,14 @@ ORYX.Plugins.ShapeMenuPlugin.CreateCommand = ORYX.Core.Command.extend({
 		}
 		else {
 			this.shape = this.plugin.facade.createShape(this.option);
-			this.edge = (!(this.shape instanceof ORYX.Core.Edge)) ? this.shape.getIncomingShapes().first() : undefined;
+			this.edge = (!(this.shape instanceof WAPAMA.Core.Edge)) ? this.shape.getIncomingShapes().first() : undefined;
 		}
 		
 		if (this.currentReference && this.position) {
 			
-			if (this.shape instanceof ORYX.Core.Edge) {
+			if (this.shape instanceof WAPAMA.Core.Edge) {
 			
-				if (!(this.currentReference instanceof ORYX.Core.Canvas)) {
+				if (!(this.currentReference instanceof WAPAMA.Core.Canvas)) {
 					this.shape.dockers.last().setDockedShape(this.currentReference);
 					
 					// @deprecated It now uses simply the midpoint
@@ -1375,32 +1375,32 @@ ORYX.Plugins.ShapeMenuPlugin.CreateCommand = ORYX.Core.Command.extend({
 			
 			var pos = bc.center();
 			if(containedStencil.defaultAlign()==="north") {
-				pos.y -= (bc.height() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.height()/2);
+				pos.y -= (bc.height() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.height()/2);
 			} else if(containedStencil.defaultAlign()==="northeast") {
-				pos.x += (bc.width() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
-				pos.y -= (bc.height() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
+				pos.x += (bc.width() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
+				pos.y -= (bc.height() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
 			} else if(containedStencil.defaultAlign()==="southeast") {
-				pos.x += (bc.width() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
-				pos.y += (bc.height() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
+				pos.x += (bc.width() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
+				pos.y += (bc.height() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
 			} else if(containedStencil.defaultAlign()==="south") {
-				pos.y += (bc.height() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.height()/2);
+				pos.y += (bc.height() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.height()/2);
 			} else if(containedStencil.defaultAlign()==="southwest") {
-				pos.x -= (bc.width() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
-				pos.y += (bc.height() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
+				pos.x -= (bc.width() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
+				pos.y += (bc.height() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
 			} else if(containedStencil.defaultAlign()==="west") {
-				pos.x -= (bc.width() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.width()/2);
+				pos.x -= (bc.width() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.width()/2);
 			} else if(containedStencil.defaultAlign()==="northwest") {
-				pos.x -= (bc.width() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
-				pos.y -= (bc.height() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
+				pos.x -= (bc.width() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.width()/2);
+				pos.y -= (bc.height() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET_CORNER + (bs.height()/2);
 			} else {
-				pos.x += (bc.width() / 2) + ORYX.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.width()/2);
+				pos.x += (bc.width() / 2) + WAPAMA.CONFIG.SHAPEMENU_CREATE_OFFSET + (bs.width()/2);
 			}
 			
 			// Move shape to the new position
 			this.shape.bounds.centerMoveTo(pos);
 			
 			// Move all dockers of a node to the position
-			if (this.shape instanceof ORYX.Core.Node){
+			if (this.shape instanceof WAPAMA.Core.Node){
 				(this.shape.dockers||[]).each(function(docker){
 					docker.bounds.centerMoveTo(pos);
 				})
@@ -1418,7 +1418,7 @@ ORYX.Plugins.ShapeMenuPlugin.CreateCommand = ORYX.Core.Command.extend({
 		this.plugin.facade.getCanvas().update();
 		
 		// make the node (been hidden since created) visible after update
-		if (this.shape instanceof ORYX.Core.Node) {
+		if (this.shape instanceof WAPAMA.Core.Node) {
 			this.shape.setVisible(true);
 		}
 		this.plugin.facade.updateSelection();
@@ -1428,7 +1428,7 @@ ORYX.Plugins.ShapeMenuPlugin.CreateCommand = ORYX.Core.Command.extend({
 			if (this.edge){
 				// Try to layout it
 				this.plugin.doLayout(this.edge);
-			} else if (this.shape instanceof ORYX.Core.Edge){
+			} else if (this.shape instanceof WAPAMA.Core.Edge){
 				// Try to layout it
 				this.plugin.doLayout(this.shape);
 			}

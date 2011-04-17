@@ -1,6 +1,6 @@
 {
 	"title":"BPEL4Chor grounding Extension",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/bpel4chor#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/bpel4chor#",
 	"description":"BPEL4Chor grounding extension.",
 	"extends":"http://b3mn.org/stencilset/bpel4chor#",
 	"stencils":[
@@ -53,7 +53,7 @@
 			"properties": [
 				{
 					"id":"WSDLproperty",
-					"prefix":"oryx",
+					"prefix":"wapama",
 					"type":"String",
 					"title":"WSDLproperty",
 					"title_de":"WSDLproperty",
@@ -76,7 +76,7 @@
 			"properties": [
 				{
 					"id":"portType",
-					"prefix":"oryx",
+					"prefix":"wapama",
 					"type":"String",
 					"title":"portType",
 					"title_de":"portType",
@@ -90,7 +90,7 @@
 				},
 				{
 					"id":"operation",
-					"prefix":"oryx",
+					"prefix":"wapama",
 					"type":"String",
 					"title":"operation",
 					"title_de":"Operation",

@@ -2,19 +2,19 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="102"
    height="52"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="2" oryx:cy="25" oryx:anchors="left" oryx:default="yes"/>
-  </oryx:magnets>
-  <g pointer-events="all" oryx:minimumSize="10 20" oryx:maximumSize="" >
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="2" wapama:cy="25" wapama:anchors="left" wapama:default="yes"/>
+  </wapama:magnets>
+  <g pointer-events="all" wapama:minimumSize="10 20" wapama:maximumSize="" >
   <rect 
 	id="textannotationrect"
-	oryx:resize="vertical horizontal"
+	wapama:resize="vertical horizontal"
 	x="1" 
 	y="1"
 	width="100"
@@ -23,7 +23,7 @@
 	fill="none" />
   <path 
 	d="M20,1 L1,1 L1,50 L20,50" 
-	oryx:anchors="top bottom left" 
+	wapama:anchors="top bottom left" 
 	fill="none" 
 	stroke-width="1"
     stroke="#4d4d4d"
@@ -34,9 +34,9 @@
 		id="text" 
 		x="5" 
 		y="25" 
-		oryx:align="middle left"
-		oryx:fittoelem="textannotationrect"
-		oryx:anchors="left"
+		wapama:align="middle left"
+		wapama:fittoelem="textannotationrect"
+		wapama:anchors="left"
 		stroke="#4d4d4d"
         fill="#4d4d4d">
         Text Annotation

@@ -2,13 +2,13 @@
 <xsl:stylesheet version="1.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:oryx="http://oryx-editor.org/"
+	xmlns:wapama="http://www.wapama.net/diagram/"
 	xmlns:raziel="http://raziel.org/">
 
 	<xsl:output method="xml" />
 	
 	<xsl:template match="rdf:Description">	
-		<xsl:variable name="typeString" select="./oryx:type" />	
+		<xsl:variable name="typeString" select="./wapama:type" />	
 		<xsl:variable name="type">
 			<xsl:call-template name="get-exact-type">
 				<xsl:with-param name="typeString" select="$typeString" />
@@ -33,7 +33,7 @@
 			<xsl:variable name="currentParentID"><xsl:value-of select="(./raziel:parent/@rdf:resource)" /></xsl:variable>         
 			<xsl:if test="$currentParentID = $searchedParentID">
       		  	<xsl:variable name="currentID"><xsl:value-of select="@rdf:about" /></xsl:variable>
-				<xsl:variable name="typeString" select="./oryx:type" />	
+				<xsl:variable name="typeString" select="./wapama:type" />	
 				<xsl:variable name="type">
 					<xsl:call-template name="get-exact-type">
 						<xsl:with-param name="typeString" select="$typeString" />
@@ -43,7 +43,7 @@
 				<!--process-->
 				<xsl:if test="$type='process'">
 					
-					<xsl:variable name="existsAbstractProcessProfileElement" select="count(./oryx:abstractprocessprofile)" />
+					<xsl:variable name="existsAbstractProcessProfileElement" select="count(./wapama:abstractprocessprofile)" />
 					
 					<!-- bpel4chor editor -->
 					<xsl:if test="$existsAbstractProcessProfileElement=0">
@@ -56,7 +56,7 @@
 					
 					<!-- bpel editor -->
 					<xsl:if test="$existsAbstractProcessProfileElement!=0">
-						<xsl:variable name="abstractProcessProfile" select="./oryx:abstractprocessprofile" />
+						<xsl:variable name="abstractProcessProfile" select="./wapama:abstractprocessprofile" />
 						
 						<xsl:if test="$abstractProcessProfile='' or $abstractProcessProfile='null'">
 							<process xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
@@ -99,14 +99,14 @@
 
 						<xsl:call-template name="add-partnerLink-portType-operation-attributes"/>
 						
-						<xsl:variable name="inputVariable" select="./oryx:inputvariable" />
+						<xsl:variable name="inputVariable" select="./wapama:inputvariable" />
 						<xsl:if test="$inputVariable!=''">
 							<xsl:attribute name="inputVariable">
 								<xsl:value-of select="$inputVariable" />
 							</xsl:attribute>
 						</xsl:if>	
 						
-						<xsl:variable name="outputVariable" select="./oryx:outputvariable" />
+						<xsl:variable name="outputVariable" select="./wapama:outputvariable" />
 						<xsl:if test="$outputVariable!=''">
 							<xsl:attribute name="outputVariable">
 								<xsl:value-of select="$outputVariable" />
@@ -186,7 +186,7 @@
 						
 						<xsl:call-template name="add-bounds-attribute"/>
 						
-						<xsl:variable name="validate" select="./oryx:validate" />
+						<xsl:variable name="validate" select="./wapama:validate" />
 						<xsl:if test="$validate!=''">
 							<xsl:attribute name="validate">
 								<xsl:value-of select="$validate" />
@@ -212,14 +212,14 @@
 						
 						<xsl:call-template name="add-bounds-attribute"/>
 
-						<xsl:variable name="keepSrcElementName" select="./oryx:keepsrcelementname" />
+						<xsl:variable name="keepSrcElementName" select="./wapama:keepsrcelementname" />
 						<xsl:if test="$keepSrcElementName!=''">
 							<xsl:attribute name="keepSrcElementName">
 								<xsl:value-of select="$keepSrcElementName" />
 							</xsl:attribute>
 						</xsl:if>
 						
-						<xsl:variable name="ignoreMissingFromData" select="./oryx:ignoremissingfromdata" />
+						<xsl:variable name="ignoreMissingFromData" select="./wapama:ignoremissingfromdata" />
 						<xsl:if test="$ignoreMissingFromData!=''">
 							<xsl:attribute name="ignoreMissingFromData">
 								<xsl:value-of select="$ignoreMissingFromData" />
@@ -262,7 +262,7 @@
 						<xsl:call-template name="add-standard-attributes"/>
 						<xsl:call-template name="add-bounds-attribute"/>
 
-						<xsl:variable name="variables" select="./oryx:variables" />
+						<xsl:variable name="variables" select="./wapama:variables" />
 						<xsl:if test="$variables!=''">
 							<xsl:attribute name="variables">
 								<xsl:value-of select="$variables" />
@@ -280,7 +280,7 @@
 					<extensionActivity>
 						<xsl:call-template name="add-bounds-attribute"/>
 						
-						<xsl:variable name="elementName" select="./oryx:elementname" />
+						<xsl:variable name="elementName" select="./wapama:elementname" />
 						<xsl:if test="$elementName!=''">
 							<xsl:element name="{$elementName}">
 								<xsl:call-template name="add-standard-attributes"/>
@@ -478,14 +478,14 @@
 						<xsl:call-template name="add-standard-attributes"/>
 						<xsl:call-template name="add-bounds-attribute"/>
 
-						<xsl:variable name="counterName" select="./oryx:countername" />
+						<xsl:variable name="counterName" select="./wapama:countername" />
 						<xsl:if test="$counterName!=''">
 							<xsl:attribute name="counterName">
 								<xsl:value-of select="$counterName" />
 							</xsl:attribute>
 						</xsl:if>	
 						
-						<xsl:variable name="parallel" select="./oryx:parallel" />
+						<xsl:variable name="parallel" select="./wapama:parallel" />
 						<xsl:if test="$parallel!=''">
 							<xsl:attribute name="parallel">
 								<xsl:value-of select="$parallel" />
@@ -521,7 +521,7 @@
 						<xsl:call-template name="add-standard-attributes"/>						
 						<xsl:call-template name="add-bounds-attribute"/>
 					
-						<xsl:variable name="target" select="./oryx:target" />
+						<xsl:variable name="target" select="./wapama:target" />
 						<xsl:if test="$target!=''">
 							<xsl:attribute name="target">
 								<xsl:value-of select="$target" />
@@ -658,7 +658,7 @@
 
 		
 	<xsl:template name="add-bounds-attribute">	
-		<xsl:variable name="bounds" select="./oryx:bounds" />
+		<xsl:variable name="bounds" select="./wapama:bounds" />
 		<xsl:if test="$bounds!=''">
 			<xsl:attribute name="bounds">
 				<xsl:value-of select="$bounds" />
@@ -676,21 +676,21 @@
 		
      	<xsl:call-template name="add-bounds-attribute"/>
 
-		<xsl:variable name="targetNamespace" select="./oryx:targetnamespace" />
+		<xsl:variable name="targetNamespace" select="./wapama:targetnamespace" />
 		<xsl:if test="$targetNamespace!=''">
 			<xsl:attribute name="targetNamespace">
 				<xsl:value-of select="$targetNamespace" />
 			</xsl:attribute>	
 		</xsl:if>		
 		
-		<xsl:variable name="queryLanguage" select="./oryx:querylanguage" />
+		<xsl:variable name="queryLanguage" select="./wapama:querylanguage" />
 		<xsl:if test="$queryLanguage!=''">
 			<xsl:attribute name="queryLanguage">
 				<xsl:value-of select="$queryLanguage" />
 			</xsl:attribute>
 		</xsl:if>	
 		
-		<xsl:variable name="expressionLanguage" select="./oryx:expressionlanguage" />
+		<xsl:variable name="expressionLanguage" select="./wapama:expressionlanguage" />
 		<xsl:if test="$expressionLanguage!=''">
 			<xsl:attribute name="expressionLanguage">
 				<xsl:value-of select="$expressionLanguage" />
@@ -720,10 +720,10 @@
 	
 	
 	<xsl:template name="add-completionCondition-element">
-		<xsl:variable name="expressionLanguage" select="./oryx:branches_explang" />
-		<xsl:variable name="successfulBranchesOnly" select="./oryx:successfulbranchesonly" />
-		<xsl:variable name="branches_counter" select="./oryx:branches_intexp" />
-		<xsl:variable name="opaque" select="./oryx:branches_opaque" />
+		<xsl:variable name="expressionLanguage" select="./wapama:branches_explang" />
+		<xsl:variable name="successfulBranchesOnly" select="./wapama:successfulbranchesonly" />
+		<xsl:variable name="branches_counter" select="./wapama:branches_intexp" />
+		<xsl:variable name="opaque" select="./wapama:branches_opaque" />
 		
 		<xsl:if test="$expressionLanguage!='' or $successfulBranchesOnly!='' or $branches_counter!=''">
 			<completionCondition>
@@ -750,8 +750,8 @@
 	
 	<xsl:template name="add-condition-element">
 		<xsl:variable name="expressionLanguage" select="./condition_expressionlanguage" />
-		<xsl:variable name="expression" select="./oryx:condition_booleanexpression" />
-		<xsl:variable name="opaque" select="./oryx:condition_opaque" />
+		<xsl:variable name="expression" select="./wapama:condition_booleanexpression" />
+		<xsl:variable name="opaque" select="./wapama:condition_opaque" />
 		
 		<condition>
 			<xsl:if test="$expressionLanguage!=''">
@@ -768,7 +768,7 @@
 	
 	
 	<xsl:template name="add-correlations-element">
-		<xsl:variable name="correlations" select="./oryx:correlations" />
+		<xsl:variable name="correlations" select="./wapama:correlations" />
 		<xsl:if test="$correlations!=''">
 			<correlations>
 				<xsl:variable name="count">
@@ -788,7 +788,7 @@
 	
 	
 	<xsl:template name="add-correlationSets-element">
-		<xsl:variable name="correlationSets" select="./oryx:correlationsets" />
+		<xsl:variable name="correlationSets" select="./wapama:correlationsets" />
 		<xsl:if test="$correlationSets!=''">
 			<correlationSets>
 				<xsl:variable name="count">
@@ -808,9 +808,9 @@
 	
 
 	<xsl:template name="add-counterValue-elements">
-		<xsl:variable name="s_expressionLanguage" select="./oryx:start_explang" />
-		<xsl:variable name="s_expression" select="./oryx:start_intexp" />
-		<xsl:variable name="s_opaque" select="./oryx:start_opaque" />		
+		<xsl:variable name="s_expressionLanguage" select="./wapama:start_explang" />
+		<xsl:variable name="s_expression" select="./wapama:start_intexp" />
+		<xsl:variable name="s_opaque" select="./wapama:start_opaque" />		
 		
 		<startCounterValue>
 			<xsl:if test="$s_expressionLanguage!=''">
@@ -824,9 +824,9 @@
 			<xsl:value-of select="$s_expression" />
 		</startCounterValue>
 		
-		<xsl:variable name="f_expressionLanguage" select="./oryx:final_explang" />
-		<xsl:variable name="f_expression" select="./oryx:final_intexp" />
-		<xsl:variable name="f_opaque" select="./oryx:final_opaque" />		
+		<xsl:variable name="f_expressionLanguage" select="./wapama:final_explang" />
+		<xsl:variable name="f_expression" select="./wapama:final_intexp" />
+		<xsl:variable name="f_opaque" select="./wapama:final_opaque" />		
 		
 		<finalCounterValue>
 			<xsl:if test="$f_expressionLanguage!=''">
@@ -844,7 +844,7 @@
 
 
 	<xsl:template name="add-createInstance-attribute">
-		<xsl:variable name="createInstance" select="./oryx:createinstance" />
+		<xsl:variable name="createInstance" select="./wapama:createinstance" />
 
 		<xsl:if test="$createInstance!=''">
 			<xsl:attribute name="createInstance">
@@ -855,7 +855,7 @@
 	
 			
 	<xsl:template name="add-documentation-element">
-		<xsl:variable name="documentation" select="./oryx:documentation" />
+		<xsl:variable name="documentation" select="./wapama:documentation" />
 		<xsl:if test="$documentation!=''">
 			<documentation>
 				<xsl:value-of select="$documentation" />
@@ -865,7 +865,7 @@
 		
 
 	<xsl:template name="add-exitOnStandardFault-attribute">
-		<xsl:variable name="exitOnStandardFault" select="./oryx:exitonstandardfault" />
+		<xsl:variable name="exitOnStandardFault" select="./wapama:exitonstandardfault" />
 		<xsl:if test="$exitOnStandardFault!=''">
 			<xsl:attribute name="exitOnStandardFault">
 				<xsl:value-of select="$exitOnStandardFault" />
@@ -875,7 +875,7 @@
 	
 
 	<xsl:template name="add-extension-declaration">
-		<xsl:variable name="extensions" select="./oryx:extensions" />
+		<xsl:variable name="extensions" select="./wapama:extensions" />
 		<xsl:if test="$extensions!=''">
 			<extensions>
 				<xsl:variable name="count">
@@ -895,7 +895,7 @@
 	
 
 	<xsl:template name="add-faultElement-attribute">
-		<xsl:variable name="faultElement" select="./oryx:faultelement" />
+		<xsl:variable name="faultElement" select="./wapama:faultelement" />
 
 		<xsl:if test="$faultElement!=''">
 			<xsl:attribute name="faultElement">
@@ -906,8 +906,8 @@
 	
 	
 	<xsl:template name="add-faultMessageOrFaultElement-attribute">
-		<xsl:variable name="type" select="./oryx:choicetype" />
-		<xsl:variable name="value" select="./oryx:choicevalue" />
+		<xsl:variable name="type" select="./wapama:choicetype" />
+		<xsl:variable name="value" select="./wapama:choicevalue" />
 		
 		<xsl:if test="$type='messageType'">
 			<xsl:attribute name="faultMessageType">
@@ -923,7 +923,7 @@
 	</xsl:template>
 
 	<xsl:template name="add-faultMessageType-attribute">
-		<xsl:variable name="faultMessageType" select="./oryx:faultmessagetype" />
+		<xsl:variable name="faultMessageType" select="./wapama:faultmessagetype" />
 
 		<xsl:if test="$faultMessageType!=''">
 			<xsl:attribute name="faultMessageType">
@@ -934,7 +934,7 @@
 	
 	
 	<xsl:template name="add-faultName-attribute">
-		<xsl:variable name="faultName" select="./oryx:faultname" />
+		<xsl:variable name="faultName" select="./wapama:faultname" />
 
 		<xsl:if test="$faultName!=''">
 			<xsl:attribute name="faultName">
@@ -945,7 +945,7 @@
 	
 
 	<xsl:template name="add-faultVariable-attribute">
-		<xsl:variable name="faultVariable" select="./oryx:faultvariable" />
+		<xsl:variable name="faultVariable" select="./wapama:faultvariable" />
 
 		<xsl:if test="$faultVariable!=''">
 			<xsl:attribute name="faultVariable">
@@ -956,10 +956,10 @@
 	
 	
 	<xsl:template name="add-ForOrUntil-element">
-		<xsl:variable name="expressionLanguage" select="./oryx:comum_expressionlanguage" />
-		<xsl:variable name="expression" select="./oryx:expressionfororuntil" />
-		<xsl:variable name="opaque" select="./oryx:foruntil_opaque" />
-		<xsl:variable name="ForOrUntil" select="./oryx:fororuntil" />
+		<xsl:variable name="expressionLanguage" select="./wapama:comum_expressionlanguage" />
+		<xsl:variable name="expression" select="./wapama:expressionfororuntil" />
+		<xsl:variable name="opaque" select="./wapama:foruntil_opaque" />
+		<xsl:variable name="ForOrUntil" select="./wapama:fororuntil" />
 		
 		<xsl:if test="$ForOrUntil='for'">
 			<for>
@@ -992,17 +992,17 @@
 	
 	
 	<xsl:template name="add-from-spec-elements">
-		<xsl:variable name="fromspectype" select="./oryx:fromspectype" />
-		<xsl:variable name="fromspecvariablename" select="./oryx:fromspecvariablename" />
-		<xsl:variable name="fromspecpart" select="./oryx:fromspecpart" />
-		<xsl:variable name="fromspecpartnerLink" select="./oryx:fromspecpartnerlink" />
-		<xsl:variable name="fromspecendpointReference" select="./oryx:fromspecendpointreference" />
-		<xsl:variable name="fromspecquerylanguage" select="./oryx:fromspecquerylanguage" />
-		<xsl:variable name="fromspecquery" select="./oryx:fromspecquery" />
-		<xsl:variable name="fromspecproperty" select="./oryx:fromspecproperty" />
-		<xsl:variable name="fromspecexpressionlanguage" select="./oryx:fromspecexpressionlanguage" />
-		<xsl:variable name="fromspecexpression" select="./oryx:fromspecexpression" />
-		<xsl:variable name="fromspecliteral" select="./oryx:fromspecliteral" />	
+		<xsl:variable name="fromspectype" select="./wapama:fromspectype" />
+		<xsl:variable name="fromspecvariablename" select="./wapama:fromspecvariablename" />
+		<xsl:variable name="fromspecpart" select="./wapama:fromspecpart" />
+		<xsl:variable name="fromspecpartnerLink" select="./wapama:fromspecpartnerlink" />
+		<xsl:variable name="fromspecendpointReference" select="./wapama:fromspecendpointreference" />
+		<xsl:variable name="fromspecquerylanguage" select="./wapama:fromspecquerylanguage" />
+		<xsl:variable name="fromspecquery" select="./wapama:fromspecquery" />
+		<xsl:variable name="fromspecproperty" select="./wapama:fromspecproperty" />
+		<xsl:variable name="fromspecexpressionlanguage" select="./wapama:fromspecexpressionlanguage" />
+		<xsl:variable name="fromspecexpression" select="./wapama:fromspecexpression" />
+		<xsl:variable name="fromspecliteral" select="./wapama:fromspecliteral" />	
 		
 		<from>
 		
@@ -1058,7 +1058,7 @@
 	
 		
 	<xsl:template name="add-fromParts-element">
-		<xsl:variable name="fromParts" select="./oryx:fromparts" />
+		<xsl:variable name="fromParts" select="./wapama:fromparts" />
 		<xsl:if test="$fromParts!=''">
 			<fromParts>
 				<xsl:variable name="count">
@@ -1078,7 +1078,7 @@
 	
 	
 	<xsl:template name="add-import-element">
-		<xsl:variable name="import" select="./oryx:import" />
+		<xsl:variable name="import" select="./wapama:import" />
 		<xsl:if test="$import!=''">
 			
 			<xsl:variable name="count">
@@ -1096,7 +1096,7 @@
 	</xsl:template>
 				
 	<xsl:template name="add-messageExchange-attribute">
-		<xsl:variable name="messageExchange" select="./oryx:messageexchange" />
+		<xsl:variable name="messageExchange" select="./wapama:messageexchange" />
 
 		<xsl:if test="$messageExchange!=''">
 			<xsl:attribute name="messageExchange">
@@ -1107,7 +1107,7 @@
 	
 	
 	<xsl:template name="add-messageExchanges-element">
-		<xsl:variable name="messageExchanges" select="./oryx:messageexchanges" />
+		<xsl:variable name="messageExchanges" select="./wapama:messageexchanges" />
 		<xsl:if test="$messageExchanges!=''">
 			<messageExchanges>
 				<xsl:variable name="count">
@@ -1127,7 +1127,7 @@
 	
 	
 	<xsl:template name="add-otherxmlns-attribute">
-		<xsl:variable name="otherxmlns" select="./oryx:otherxmlns" />
+		<xsl:variable name="otherxmlns" select="./wapama:otherxmlns" />
 		<xsl:if test="$otherxmlns!=''">
 			<xsl:variable name="count">
 				<xsl:call-template name="get-number-of-elements-in-complex-type">
@@ -1156,7 +1156,7 @@
 	
 
 	<xsl:template name="add-partnerLinks-element">
-		<xsl:variable name="partnerLinks" select="./oryx:partnerlinks" />
+		<xsl:variable name="partnerLinks" select="./wapama:partnerlinks" />
 		<xsl:if test="$partnerLinks!=''">
 			<partnerLinks>
 				<xsl:variable name="count">
@@ -1176,9 +1176,9 @@
 	
 
 	<xsl:template name="add-partnerLink-portType-operation-attributes">
-		<xsl:variable name="partnerLink" select="./oryx:partnerlink" />
-		<xsl:variable name="portType" select="./oryx:porttype" />
-		<xsl:variable name="operation" select="./oryx:operation" />
+		<xsl:variable name="partnerLink" select="./wapama:partnerlink" />
+		<xsl:variable name="portType" select="./wapama:porttype" />
+		<xsl:variable name="operation" select="./wapama:operation" />
 		
 		<xsl:if test="$partnerLink!=''">
 			<xsl:attribute name="partnerLink">
@@ -1201,9 +1201,9 @@
 	
 
 	<xsl:template name="add-repeatEvery-element">
-		<xsl:variable name="expressionLanguage" select="./oryx:repeatexpressionlanguage" />
-		<xsl:variable name="expression" select="./oryx:repeattimeexpression" />
-		<xsl:variable name="opaque" select="./oryx:repeat_opaque" />
+		<xsl:variable name="expressionLanguage" select="./wapama:repeatexpressionlanguage" />
+		<xsl:variable name="expression" select="./wapama:repeattimeexpression" />
+		<xsl:variable name="opaque" select="./wapama:repeat_opaque" />
 		
 		<xsl:if test="$expressionLanguage!='' or $opaque!='' or $expression!=''">
 			<repeatEvery>
@@ -1222,14 +1222,14 @@
 	
 							
 	<xsl:template name="add-standard-attributes">			
-		<xsl:variable name="name" select="./oryx:name" />
+		<xsl:variable name="name" select="./wapama:name" />
 		<xsl:if test="$name!=''">
 			<xsl:attribute name="name">
 				<xsl:value-of select="$name" />
 			</xsl:attribute>
 		</xsl:if>
 		
-		<xsl:variable name="suppressJoinFailure" select="./oryx:suppressjoinfailure" />
+		<xsl:variable name="suppressJoinFailure" select="./wapama:suppressjoinfailure" />
 		<xsl:if test="$suppressJoinFailure!=''">
 			<xsl:attribute name="suppressJoinFailure">
 				<xsl:value-of select="$suppressJoinFailure" />
@@ -1247,9 +1247,9 @@
 	
 	
 	<xsl:template name="add-standard-elements">		
-		<xsl:variable name="JC_expLang" select="./oryx:joincond_explang" />
-		<xsl:variable name="JC_boolExp" select="./oryx:joincond_boolexp" />
-		<xsl:variable name="JC_opaque" select="./oryx:joincond_opaque" />
+		<xsl:variable name="JC_expLang" select="./wapama:joincond_explang" />
+		<xsl:variable name="JC_boolExp" select="./wapama:joincond_boolexp" />
+		<xsl:variable name="JC_opaque" select="./wapama:joincond_opaque" />
 		
 		<xsl:if test=" $JC_expLang!='' or $JC_boolExp!=''">
 	    	<targets>
@@ -1268,15 +1268,15 @@
 	
 
 	<xsl:template name="add-to-spec-elements">
-		<xsl:variable name="tospectype" select="./oryx:tospectype" />
-		<xsl:variable name="tospecvariablename" select="./oryx:tospecvariablename" />
-		<xsl:variable name="tospecpart" select="./oryx:tospecpart" />
-		<xsl:variable name="tospecpartnerLink" select="./oryx:tospecpartnerlink" />
-		<xsl:variable name="tospecquerylanguage" select="./oryx:tospecquerylanguage" />
-		<xsl:variable name="tospecquery" select="./oryx:tospecquery" />
-		<xsl:variable name="tospecproperty" select="./oryx:tospecproperty" />
-		<xsl:variable name="tospecexpressionlanguage" select="./oryx:tospecexpressionlanguage" />
-		<xsl:variable name="tospecexpression" select="./oryx:tospecexpression" />
+		<xsl:variable name="tospectype" select="./wapama:tospectype" />
+		<xsl:variable name="tospecvariablename" select="./wapama:tospecvariablename" />
+		<xsl:variable name="tospecpart" select="./wapama:tospecpart" />
+		<xsl:variable name="tospecpartnerLink" select="./wapama:tospecpartnerlink" />
+		<xsl:variable name="tospecquerylanguage" select="./wapama:tospecquerylanguage" />
+		<xsl:variable name="tospecquery" select="./wapama:tospecquery" />
+		<xsl:variable name="tospecproperty" select="./wapama:tospecproperty" />
+		<xsl:variable name="tospecexpressionlanguage" select="./wapama:tospecexpressionlanguage" />
+		<xsl:variable name="tospecexpression" select="./wapama:tospecexpression" />
 		
 		<to>
 					
@@ -1323,7 +1323,7 @@
 	
 	
 	<xsl:template name="add-toParts-element">
-		<xsl:variable name="toParts" select="./oryx:toparts" />
+		<xsl:variable name="toParts" select="./wapama:toparts" />
 		<xsl:if test="$toParts!=''">
 			<toParts>
 				<xsl:variable name="count">
@@ -1343,7 +1343,7 @@
 	
 
 	<xsl:template name="add-variable-attribute">
-		<xsl:variable name="variable" select="./oryx:variable" />
+		<xsl:variable name="variable" select="./wapama:variable" />
 
 		<xsl:if test="$variable!=''">
 			<xsl:attribute name="variable">
@@ -1354,7 +1354,7 @@
 	
 			
 	<xsl:template name="add-variables-element">
-		<xsl:variable name="variables" select="./oryx:variables" />
+		<xsl:variable name="variables" select="./wapama:variables" />
 		<xsl:if test="$variables!=''">
 			<variables>
 				<xsl:variable name="count">
@@ -1593,7 +1593,7 @@
 				<xsl:variable name="ID"><xsl:value-of select="@rdf:about" /></xsl:variable>
 				<xsl:if test="$linkID = $ID">
 					
-					<xsl:variable name="typeString" select="./oryx:type" />	
+					<xsl:variable name="typeString" select="./wapama:type" />	
 					<xsl:variable name="type">
 						<xsl:call-template name="get-exact-type">
 							<xsl:with-param name="typeString" select="$typeString" />
@@ -1804,7 +1804,7 @@
 	
 	<xsl:template name="record-link-nodes">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="type">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -1814,11 +1814,11 @@
 			<xsl:if test="$type='link'">
 				<linkInfoSet>
 					<xsl:variable name="id" select="@rdf:about " />
- 					<xsl:variable name="linkName" select="./oryx:linkname" />
+ 					<xsl:variable name="linkName" select="./wapama:linkname" />
 					<xsl:variable name="targetID" select="./raziel:outgoing/@rdf:resource" />
- 					<xsl:variable name="transCond_expLang" select="./oryx:tc_expressionlanguage" />
-		 			<xsl:variable name="transCond_boolExp" select="./oryx:transition_expression " />
-		 			<xsl:variable name="transCond_opaque" select="./oryx:tc_opaque" />
+ 					<xsl:variable name="transCond_expLang" select="./wapama:tc_expressionlanguage" />
+		 			<xsl:variable name="transCond_boolExp" select="./wapama:transition_expression " />
+		 			<xsl:variable name="transCond_opaque" select="./wapama:tc_opaque" />
 					
 					<xsl:if test="$id!=''">
 						<xsl:attribute name="id">

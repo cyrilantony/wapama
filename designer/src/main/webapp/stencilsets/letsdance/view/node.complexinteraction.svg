@@ -2,31 +2,31 @@
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    version="1.0">
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="150" oryx:cy="0" oryx:default="yes"/>
-  	<oryx:magnet oryx:cx="150" oryx:cy="150"/>
-  	<oryx:magnet oryx:cx="300" oryx:cy="75"/>
-  	<oryx:magnet oryx:cx="0" oryx:cy="75"/>
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="150" wapama:cy="0" wapama:default="yes"/>
+  	<wapama:magnet wapama:cx="150" wapama:cy="150"/>
+  	<wapama:magnet wapama:cx="300" wapama:cy="75"/>
+  	<wapama:magnet wapama:cx="0" wapama:cy="75"/>
+  </wapama:magnets>
   <g>
     <rect
        id="border"
-       oryx:anchor="top bottom left right"
-       oryx:resize="vertical horizontal"
+       wapama:anchor="top bottom left right"
+       wapama:resize="vertical horizontal"
        width="300"
        height="150"
        x="0" y="0"
        stroke="black" fill="white" stroke-width="2" /> 
     <rect
        id="guardConditionBorder"
-       oryx:anchor="top bottom left right"
-       oryx:resize="vertical horizontal"
+       wapama:anchor="top bottom left right"
+       wapama:resize="vertical horizontal"
        width="300"
        height="25"
        x="0" y="-25"
        stroke="black" fill="white" stroke-width="2" />   
-    <text id="guardConditionText" x="150" y="-12" oryx:align="middle center"></text> 
+    <text id="guardConditionText" x="150" y="-12" wapama:align="middle center"></text> 
   </g>
 </svg>

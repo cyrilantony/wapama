@@ -81,12 +81,12 @@ table-layout:fixed;
 	padding-left:10px; 
 }
 
-#oryxcanvas {
+#wapamacanvas {
 	width:1200px;
 	height:600px;
 }
 
-.ORYX_Editor {
+.WAPAMA_Editor {
 	background: #EEF1FE;
 	border:0px double #99BBE8;
 }
@@ -280,7 +280,7 @@ table-layout:fixed;
 /** End Resizer **/
 
 
-.Oryx_ShapeMenu .Oryx_MorphItem_disabled {
+.Wapama_ShapeMenu .Wapama_MorphItem_disabled {
 	font-weight: bold;
 	cursor:default;
 	opacity:.3;
@@ -289,15 +289,15 @@ table-layout:fixed;
 	border: 1px solid #000;
 }
 
-.Oryx_hover {
+.Wapama_hover {
 	background: url(../images/shapemenu_highlight.png) no-repeat 1px 1px;
 }
 
-.Oryx_down {
+.Wapama_down {
 	
 }
 
-.Oryx_button img {
+.Wapama_button img {
 	position:relative;
 	width:16px;
 	height:16px;
@@ -305,14 +305,14 @@ table-layout:fixed;
 	left:1px;
 }
 
-.Oryx_ShapeMenu > .Oryx_Right {
+.Wapama_ShapeMenu > .Wapama_Right {
 	margin-top:2px;
 	margin-left:2px;
 	padding-left:0px;
 	padding-right:0px;	
 }
 
-.Oryx_ShapeMenu > .Oryx_Left {
+.Wapama_ShapeMenu > .Wapama_Left {
 	border-right-width:2px;
 	margin-top:2px;
 	margin-left:13px;
@@ -320,7 +320,7 @@ table-layout:fixed;
 	padding-right:0px;		
 }
 
-.Oryx_ShapeMenu > .Oryx_Top {
+.Wapama_ShapeMenu > .Wapama_Top {
 	border-bottom-width:2px;
 	margin-top:13px;
 	margin-left:2px;
@@ -328,7 +328,7 @@ table-layout:fixed;
 	padding-bottom:0px;
 }
 
-.Oryx_ShapeMenu > .Oryx_Bottom {
+.Wapama_ShapeMenu > .Wapama_Bottom {
 	border-top-width:2px;
 	margin-top:2px;
 	margin-left:2px;
@@ -337,22 +337,22 @@ table-layout:fixed;
 }
 
 
-.Oryx_button img {
+.Wapama_button img {
 	top:1px;
 }
 
-.Oryx_Left img {
+.Wapama_Left img {
 	top:0px;
 }
 
-.Oryx_button {
+.Wapama_button {
 	width:16px;
 	height:16px;
 	padding:4px;
 	position:absolute;
 }
 
-.Oryx_button_with_caption {
+.Wapama_button_with_caption {
 	width:inherit;
 	height:16px;
 	padding:4px;
@@ -381,7 +381,7 @@ table-layout:fixed;
 
 /*** Selection Frame ***/
 
-.Oryx_SelectionFrame{
+.Wapama_SelectionFrame{
 	position:absolute;
 	border:1px dotted gray;
 	background:none;

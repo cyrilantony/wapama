@@ -21,37 +21,37 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
 /**
  * Enables exporting and importing current model in JSON.
  */
-ORYX.Plugins.JSONSupport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.JSONSupport = WAPAMA.Plugins.AbstractPlugin.extend({
 
     construct: function(){
         // Call super class constructor
         arguments.callee.$.construct.apply(this, arguments);
         
         this.facade.offer({
-            'name': ORYX.I18N.JSONSupport.exp.name,
+            'name': WAPAMA.I18N.JSONSupport.exp.name,
             'functionality': this.exportJSON.bind(this),
-            'group': ORYX.I18N.JSONSupport.exp.group,
-            dropDownGroupIcon: ORYX.PATH + "images/export2.png",
-			'icon': ORYX.PATH + "images/page_white_javascript.png",
-            'description': ORYX.I18N.JSONSupport.exp.desc,
+            'group': WAPAMA.I18N.JSONSupport.exp.group,
+            dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
+			'icon': WAPAMA.PATH + "images/page_white_javascript.png",
+            'description': WAPAMA.I18N.JSONSupport.exp.desc,
             'index': 0,
             'minShape': 0,
             'maxShape': 0
         });
         
         this.facade.offer({
-            'name': ORYX.I18N.JSONSupport.imp.name,
+            'name': WAPAMA.I18N.JSONSupport.imp.name,
             'functionality': this.showImportDialog.bind(this),
-            'group': ORYX.I18N.JSONSupport.imp.group,
-            dropDownGroupIcon: ORYX.PATH + "images/import.png",
-			'icon': ORYX.PATH + "images/page_white_javascript.png",
-            'description': ORYX.I18N.JSONSupport.imp.desc,
+            'group': WAPAMA.I18N.JSONSupport.imp.group,
+            dropDownGroupIcon: WAPAMA.PATH + "images/import.png",
+			'icon': WAPAMA.PATH + "images/page_white_javascript.png",
+            'description': WAPAMA.I18N.JSONSupport.imp.desc,
             'index': 1,
             'minShape': 0,
             'maxShape': 0
@@ -74,12 +74,12 @@ ORYX.Plugins.JSONSupport = ORYX.Plugins.AbstractPlugin.extend({
             labelWidth: 50,
             defaultType: 'textfield',
             items: [{
-                text: ORYX.I18N.JSONSupport.imp.selectFile,
+                text: WAPAMA.I18N.JSONSupport.imp.selectFile,
                 style: 'font-size:12px;margin-bottom:10px;display:block;',
                 anchor: '100%',
                 xtype: 'label'
             }, {
-                fieldLabel: ORYX.I18N.JSONSupport.imp.file,
+                fieldLabel: WAPAMA.I18N.JSONSupport.imp.file,
                 name: 'subject',
                 inputType: 'file',
                 style: 'margin-bottom:10px;display:block;',
@@ -98,7 +98,7 @@ ORYX.Plugins.JSONSupport = ORYX.Plugins.AbstractPlugin.extend({
             layout: 'fit',
             plain: true,
             bodyStyle: 'padding:5px;',
-            title: ORYX.I18N.JSONSupport.imp.name,
+            title: WAPAMA.I18N.JSONSupport.imp.name,
             height: 350,
             width: 500,
             modal: true,
@@ -108,11 +108,11 @@ ORYX.Plugins.JSONSupport = ORYX.Plugins.AbstractPlugin.extend({
             resizable: true,
             items: [form],
             buttons: [{
-                text: ORYX.I18N.JSONSupport.imp.btnImp,
+                text: WAPAMA.I18N.JSONSupport.imp.btnImp,
                 handler: function(){
                 
                     var loadMask = new Ext.LoadMask(Ext.getBody(), {
-                        msg: ORYX.I18N.JSONSupport.imp.progress
+                        msg: WAPAMA.I18N.JSONSupport.imp.progress
                     });
                     loadMask.show();
                     
@@ -123,7 +123,7 @@ ORYX.Plugins.JSONSupport = ORYX.Plugins.AbstractPlugin.extend({
                             dialog.close();
                         } 
                         catch (error) {
-                            Ext.Msg.alert(ORYX.I18N.JSONSupport.imp.syntaxError, error.message);
+                            Ext.Msg.alert(WAPAMA.I18N.JSONSupport.imp.syntaxError, error.message);
                         }
                         finally {
                             loadMask.hide();
@@ -132,7 +132,7 @@ ORYX.Plugins.JSONSupport = ORYX.Plugins.AbstractPlugin.extend({
                     
                 }.bind(this)
             }, {
-                text: ORYX.I18N.JSONSupport.imp.btnClose,
+                text: WAPAMA.I18N.JSONSupport.imp.btnClose,
                 handler: function(){
                     dialog.close();
                 }.bind(this)

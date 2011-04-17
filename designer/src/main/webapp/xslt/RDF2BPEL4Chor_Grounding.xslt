@@ -2,12 +2,12 @@
 <xsl:stylesheet version="1.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:oryx="http://oryx-editor.org/">
+	xmlns:wapama="http://www.wapama.net/diagram/">
 
 	<xsl:output method="xml" />
 	
 	<xsl:template match="rdf:Description">	
-		<xsl:variable name="typeString" select="./oryx:type" />	
+		<xsl:variable name="typeString" select="./wapama:type" />	
 		<xsl:variable name="type">
 			<xsl:call-template name="get-exact-type">
 				<xsl:with-param name="typeString" select="$typeString" />
@@ -17,7 +17,7 @@
 		<xsl:if test="$type='worksheet'">
 			<!-- root element -->
 			<grounding xmlns="urn:HPI_IAAS:choreography:schemas:choreography:grounding:2006/12">
-				<xsl:variable name="name" select="./oryx:name" />
+				<xsl:variable name="name" select="./wapama:name" />
 				<xsl:if test="$name!=''">
 					<xsl:attribute name="topology">
 						<xsl:value-of select="concat($name,'topology') " />
@@ -45,7 +45,7 @@
 	
 	<xsl:template name="find-all-messageLinks">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="type">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -55,21 +55,21 @@
 			<!--messageLink-->
 			<xsl:if test="$type='messageLink'">
 				<messageLink>
-					<xsl:variable name="name" select="./oryx:name" />
+					<xsl:variable name="name" select="./wapama:name" />
 					<xsl:if test="$name!=''">
 						<xsl:attribute name="name">
 							<xsl:value-of select="$name" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="portType" select="./oryx:porttype" />
+					<xsl:variable name="portType" select="./wapama:porttype" />
 					<xsl:if test="$portType!=''">
 						<xsl:attribute name="portType">
 							<xsl:value-of select="$portType" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="operation" select="./oryx:operation" />
+					<xsl:variable name="operation" select="./wapama:operation" />
 					<xsl:if test="$operation!=''">
 						<xsl:attribute name="operation">
 							<xsl:value-of select="$operation" />
@@ -84,7 +84,7 @@
 	
 	<xsl:template name="find-all-participantRefs">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="type">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -94,14 +94,14 @@
 		
 			<xsl:if test="$type='participant'">
 				<participantRef>
-					<xsl:variable name="name" select="./oryx:name" />
+					<xsl:variable name="name" select="./wapama:name" />
 					<xsl:if test="$name!=''">
 						<xsl:attribute name="name">
 							<xsl:value-of select="$name" />
 						</xsl:attribute>
 					</xsl:if>
 					
-					<xsl:variable name="WSDLproperty" select="./oryx:wsdlproperty" />
+					<xsl:variable name="WSDLproperty" select="./wapama:wsdlproperty" />
 					<xsl:if test="$WSDLproperty!=''">
 						<xsl:attribute name="WSDLproperty">
 							<xsl:value-of select="$WSDLproperty" />
@@ -115,7 +115,7 @@
 	
 	<xsl:template name="find-all-properties">
         <xsl:for-each select="//rdf:Description">
-			<xsl:variable name="typeString" select="./oryx:type" />	
+			<xsl:variable name="typeString" select="./wapama:type" />	
 			<xsl:variable name="type">
 				<xsl:call-template name="get-exact-type">
 					<xsl:with-param name="typeString" select="$typeString" />
@@ -131,7 +131,7 @@
 
 	
 	<xsl:template name="add-otherxmlns-attribute">
-		<xsl:variable name="otherxmlns" select="./oryx:otherxmlns" />
+		<xsl:variable name="otherxmlns" select="./wapama:otherxmlns" />
 		<xsl:if test="$otherxmlns!=''">
 			<xsl:variable name="count">
 				<xsl:call-template name="get-number-of-elements-in-complex-type">
@@ -170,7 +170,7 @@
 	
 
 	<xsl:template name="add-property-attribute">
-		<xsl:variable name="property" select="./oryx:property" />
+		<xsl:variable name="property" select="./wapama:property" />
 		<xsl:if test="$property!=''">
 			<xsl:variable name="count">
 				<xsl:call-template name="get-number-of-elements-in-complex-type">

@@ -1,6 +1,6 @@
 {
 	"title":"BPMN Extension for XForms User Interfaces",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/bpmn-xforms-user-interfaces#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/bpmn-xforms-user-interfaces#",
 	"description":"Extension for adding XForms user interface attributes to BPMN Tasks.",
 	"extends":"http://b3mn.org/stencilset/bpmn1.1#",
 	"stencils":[],

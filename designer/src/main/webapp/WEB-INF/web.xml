@@ -84,7 +84,7 @@
 	
 	<!--
 		jBoss' default mapping is to "image/svg", which causes the client not to
-		parse the SVG content as XML. However, the Oryx Editor client relies on
+		parse the SVG content as XML. However, the Wapama Editor client relies on
 		that behaviour. The mimetype as per W3C specification must be
 		"image/svg+xml". See http://www.w3.org/TR/SVG/intro.html#MIMEType.
 	-->

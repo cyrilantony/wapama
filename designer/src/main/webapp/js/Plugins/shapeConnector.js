@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.ShapeConnector = Clazz.extend({
+WAPAMA.Plugins.ShapeConnector = Clazz.extend({
 
 	/**
 	 *	Constructor
@@ -36,18 +36,18 @@ ORYX.Plugins.ShapeConnector = Clazz.extend({
 		this.sourceNode = null;
 
 		this.facade.offer({
-			name:			ORYX.I18N.ShapeConnector.add,
+			name:			WAPAMA.I18N.ShapeConnector.add,
 			functionality: 	this.enableConnector.bind(this),
-			group: 			ORYX.I18N.ShapeConnector.group,
-            toolbarGroup: 	ORYX.I18N.ShapeConnector.toolbarGroup,
-			icon: 			ORYX.PATH + "images/pencil_go.png",
-			description: 	ORYX.I18N.ShapeConnector.addDesc,
+			group: 			WAPAMA.I18N.ShapeConnector.group,
+            toolbarGroup: 	WAPAMA.I18N.ShapeConnector.toolbarGroup,
+			icon: 			WAPAMA.PATH + "images/pencil_go.png",
+			description: 	WAPAMA.I18N.ShapeConnector.addDesc,
 			index: 			1,
             toggle: 		true,
 			minShape: 		0,
 			maxShape: 		0});
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, this.handleMouseDown.bind(this));
 	},
 	
 	enableConnector: function(button, pressed) {
@@ -64,7 +64,7 @@ ORYX.Plugins.ShapeConnector = Clazz.extend({
 	 *
 	 */	
 	handleMouseDown: function(event, uiObj) {
-		if (this.active && uiObj instanceof ORYX.Core.Node) {
+		if (this.active && uiObj instanceof WAPAMA.Core.Node) {
             if (this.sourceNode){	
             	this.createEdge( this.sourceNode, uiObj)
             }
@@ -81,10 +81,10 @@ ORYX.Plugins.ShapeConnector = Clazz.extend({
 
 		// Create a new Stencil		
 		var ssn 	= this.facade.getStencilSets().keys()[0];						
-		var stencil = ORYX.Core.StencilSet.stencil(ssn + "SequenceFlow");
+		var stencil = WAPAMA.Core.StencilSet.stencil(ssn + "SequenceFlow");
 			
 		// Create a new Shape
-		var edge = new ORYX.Core.Edge({'eventHandlerCallback':this.facade.raiseEvent }, stencil);
+		var edge = new WAPAMA.Core.Edge({'eventHandlerCallback':this.facade.raiseEvent }, stencil);
 		edge.dockers.first().setDockedShape( source );
 		edge.dockers.first().setReferencePoint({x: source.bounds.width() / 2.0, y: source.bounds.height() / 2.0});
 		//shape.dockers.first().update()

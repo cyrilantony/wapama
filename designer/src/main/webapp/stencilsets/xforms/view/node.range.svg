@@ -2,19 +2,19 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="152"
    height="26"
    version="1.0">
   <defs></defs>
-   <g oryx:minimumSize="30 24" oryx:maximumSize="350 24" >
+   <g wapama:minimumSize="30 24" wapama:maximumSize="350 24" >
 
 	<g>
-		<rect oryx:anchors="top" oryx:resize="horizontal" x="0" y="0" width="150" height="24" stroke="none" fill="#ffffff"/>
+		<rect wapama:anchors="top" wapama:resize="horizontal" x="0" y="0" width="150" height="24" stroke="none" fill="#ffffff"/>
 		<g>
-			<rect oryx:resize="horizontal" x="0" y="6" width="150" height="1" stroke="none" fill="#000000"/>
-			<rect oryx:resize="horizontal" x="0" y="7" width="150" height="1" stroke="none" fill="#888888"/>
+			<rect wapama:resize="horizontal" x="0" y="6" width="150" height="1" stroke="none" fill="#000000"/>
+			<rect wapama:resize="horizontal" x="0" y="7" width="150" height="1" stroke="none" fill="#888888"/>
 			
 		</g>
 	</g>

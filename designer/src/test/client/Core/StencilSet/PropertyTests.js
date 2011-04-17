@@ -1,7 +1,7 @@
-// Mock ORYX.CONFIG
-ORYX.CONFIG = {};
-ORYX.CONFIG.TYPE_CHOICE = "choice";
-ORYX.CONFIG.TYPE_COMPLEX = "complex";
+// Mock WAPAMA.CONFIG
+WAPAMA.CONFIG = {};
+WAPAMA.CONFIG.TYPE_CHOICE = "choice";
+WAPAMA.CONFIG.TYPE_COMPLEX = "complex";
 
 // Mock Stencil object
 var stencil = {};
@@ -12,7 +12,7 @@ var stencil = {};
 var jsonPropString = {
 	id: "testId",
 	type: "String",
-	prefix: "oryx",
+	prefix: "wapama",
 	title: "testTitle",
 	value: "testValue",
 	description: "testDescription",
@@ -26,7 +26,7 @@ var jsonPropString = {
 var jsonPropInt = {
 	id: "testId2",
 	type: "Integer",
-	prefix: "oryx",
+	prefix: "wapama",
 	title: "testTitle2",
 	value: 11,
 	description: "testDescription2",
@@ -39,7 +39,7 @@ var jsonPropInt = {
 var jsonPropChoice = {
 	id: "testId3",
 	type: "Choice",
-	prefix: "oryx",
+	prefix: "wapama",
 	title: "testTitle3",
 	value: 0,
 	description: "testDescription3",
@@ -62,7 +62,7 @@ var jsonPropChoice = {
 var jsonPropComplex = {
 	id: "testId4",
 	type: "Complex",
-	prefix: "oryx",
+	prefix: "wapama",
 	title: "testTitle4",
 	value: "",
 	description: "testDescription4",
@@ -99,7 +99,7 @@ var jsonPropComplex = {
 }
 
 //Stub for StencilSet.getTranslation
-ORYX.Core.StencilSet.getTranslation = function(jsonProp, prop) {
+WAPAMA.Core.StencilSet.getTranslation = function(jsonProp, prop) {
 	return jsonProp[prop];
 }
 
@@ -107,10 +107,10 @@ ORYX.Core.StencilSet.getTranslation = function(jsonProp, prop) {
  * Test constructor function for property with type string 
  */
 function testConstructString() {
-	var prop1 = new ORYX.Core.StencilSet.Property(jsonPropString, "testNS", stencil);
+	var prop1 = new WAPAMA.Core.StencilSet.Property(jsonPropString, "testNS", stencil);
 	assertEquals("testid", prop1.id());
 	assertEquals("string", prop1.type());
-	assertEquals("oryx", prop1.prefix());
+	assertEquals("wapama", prop1.prefix());
 	assertEquals("testTitle", prop1.title());
 	assertEquals("testValue", prop1.value());
 	assertEquals("testDescription", prop1.description());
@@ -125,10 +125,10 @@ function testConstructString() {
  * Test constructor function for property with type integer 
  */
 function testConstructInteger() {
-	var prop1 = new ORYX.Core.StencilSet.Property(jsonPropInt, "testNS", stencil);
+	var prop1 = new WAPAMA.Core.StencilSet.Property(jsonPropInt, "testNS", stencil);
 	assertEquals("testid2", prop1.id());
 	assertEquals("integer", prop1.type());
-	assertEquals("oryx", prop1.prefix());
+	assertEquals("wapama", prop1.prefix());
 	assertEquals("testTitle2", prop1.title());
 	assertEquals(11, prop1.value());
 	assertEquals("testDescription2", prop1.description());
@@ -142,7 +142,7 @@ function testConstructInteger() {
  * Test constructor function for property with type choice 
  */
 function testConstructChoice() {
-	var prop1 = new ORYX.Core.StencilSet.Property(jsonPropChoice, "testNS", stencil);
+	var prop1 = new WAPAMA.Core.StencilSet.Property(jsonPropChoice, "testNS", stencil);
 	assertEquals(true, prop1.readonly());
 	assertEquals(true, prop1.optional());
 	assertEquals("vc1", prop1.item("vc1").value());
@@ -153,7 +153,7 @@ function testConstructChoice() {
  * Test constructor function for property with type complex 
  */
 function testConstructComplex() {
-	var prop1 = new ORYX.Core.StencilSet.Property(jsonPropComplex, "testNS", stencil);
+	var prop1 = new WAPAMA.Core.StencilSet.Property(jsonPropComplex, "testNS", stencil);
 	assertEquals(false, prop1.readonly());
 	assertEquals(true, prop1.optional());
 	

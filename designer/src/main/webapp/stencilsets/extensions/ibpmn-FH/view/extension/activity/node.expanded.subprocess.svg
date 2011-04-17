@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -56,36 +56,36 @@
        inkscape:persp3d-origin="51 : 27.333333 : 1"
        id="perspective26" />
   </defs>
-  <oryx:magnets>
-    <oryx:magnet
-       oryx:cx="2"
-       oryx:cy="80"
-       oryx:anchors="left" />
-    <oryx:magnet
-       oryx:cx="100"
-       oryx:cy="158"
-       oryx:anchors="bottom" />
-    <oryx:magnet
-       oryx:cx="198"
-       oryx:cy="80"
-       oryx:anchors="right" />
-    <oryx:magnet
-       oryx:cx="100"
-       oryx:cy="2"
-       oryx:anchors="top" />
-    <oryx:magnet
-       oryx:cx="100"
-       oryx:cy="80"
-       oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+    <wapama:magnet
+       wapama:cx="2"
+       wapama:cy="80"
+       wapama:anchors="left" />
+    <wapama:magnet
+       wapama:cx="100"
+       wapama:cy="158"
+       wapama:anchors="bottom" />
+    <wapama:magnet
+       wapama:cx="198"
+       wapama:cy="80"
+       wapama:anchors="right" />
+    <wapama:magnet
+       wapama:cx="100"
+       wapama:cy="2"
+       wapama:anchors="top" />
+    <wapama:magnet
+       wapama:cx="100"
+       wapama:cy="80"
+       wapama:default="yes" />
+  </wapama:magnets>
   <g
      pointer-events="fill"
-     oryx:minimumSize="120 100"
-     oryx:maximumSize=""
+     wapama:minimumSize="120 100"
+     wapama:maximumSize=""
      id="g6">
     <rect
        id="border"
-       oryx:resize="vertical horizontal"
+       wapama:resize="vertical horizontal"
        x="-1.5"
        y="-1.5"
        width="203"
@@ -100,16 +100,16 @@
        id="acttext"
        x="8"
        y="10"
-       oryx:align="top left"
-       oryx:fittoelem="taskrect"
-       oryx:anchors="left top"
+       wapama:align="top left"
+       wapama:fittoelem="taskrect"
+       wapama:anchors="left top"
        stroke="black" />
     <text
        font-size="11"
        id="text_roles"
        x="205"
        y="165"
-       oryx:align="top center"
+       wapama:align="top center"
        stroke="black" />
     <g
        id="none" />

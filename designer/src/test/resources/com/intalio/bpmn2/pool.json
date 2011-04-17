@@ -19,7 +19,7 @@
         "id": "BPMNDiagram"
     },
     "childShapes": [{
-        "resourceId": "oryx_B4F97D75-9CC1-42F7-9CA5-3FC08F8EFF87",
+        "resourceId": "wapama_B4F97D75-9CC1-42F7-9CA5-3FC08F8EFF87",
         "properties": {
             "name": "pool",
             "documentation": "",
@@ -44,7 +44,7 @@
             "id": "Pool"
         },
         "childShapes": [{
-            "resourceId": "oryx_5169F124-A8E9-4B7B-A260-96397A532761",
+            "resourceId": "wapama_5169F124-A8E9-4B7B-A260-96397A532761",
             "properties": {
                 "name": "my first lane",
                 "documentation": "",
@@ -98,5 +98,5 @@
         "url": "/designer/stencilsets/bpmn2.0/bpmn2.0.json",
         "namespace": "http://b3mn.org/stencilset/bpmn2.0#"
     },
-    "ssextensions": ["http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#"]
+    "ssextensions": ["http://www.wapama.net/stencilsets/extensions/bpmncosts-2.0#"]
 }

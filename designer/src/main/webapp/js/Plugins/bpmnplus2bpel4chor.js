@@ -21,15 +21,15 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * Transforms a BPMNplus diagram to its XPDL4Chor representation and
  * calls a transformation web service to generate BPEL4Chor from the XPDL4Chor
  * representation.
  */
-ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.Bpel4ChorTransformation = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	dialogSupport: undefined,
 	
@@ -38,40 +38,40 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 	 * 	- generation of XPDL4Chor
 	 * 	- generation of BPEL4Chor
 	 * 
-	 * Registers for a ORYX.CONFIG.EVENT_PROPERTY_CHANGED event to react to changed
+	 * Registers for a WAPAMA.CONFIG.EVENT_PROPERTY_CHANGED event to react to changed
 	 * element properties.
 	 */
 	construct: function() {
         // Call super class constructor
         arguments.callee.$.construct.apply(this, arguments);
 		
-		this.dialogSupport = new ORYX.Plugins.TransformationDownloadDialog();
+		this.dialogSupport = new WAPAMA.Plugins.TransformationDownloadDialog();
 		
         this.raisedEventIds = [];
 
 		this.facade.offer({
-			'name':ORYX.I18N.Bpel4ChorTransformation.exportBPEL,
+			'name':WAPAMA.I18N.Bpel4ChorTransformation.exportBPEL,
 			'functionality': this.transformBPEL4Chor.bind(this),
-			'group': ORYX.I18N.Bpel4ChorTransformation.group,
-			dropDownGroupIcon: ORYX.PATH + "images/export2.png",
-			'icon': ORYX.PATH + "images/export_multi.png",
-			'description': ORYX.I18N.Bpel4ChorTransformation.exportBPELDesc,
+			'group': WAPAMA.I18N.Bpel4ChorTransformation.group,
+			dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
+			'icon': WAPAMA.PATH + "images/export_multi.png",
+			'description': WAPAMA.I18N.Bpel4ChorTransformation.exportBPELDesc,
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0});
 			
 		this.facade.offer({
-			'name':ORYX.I18N.Bpel4ChorTransformation.exportXPDL,
+			'name':WAPAMA.I18N.Bpel4ChorTransformation.exportXPDL,
 			'functionality': this.transformXPDL4Chor.bind(this),
-			'group': ORYX.I18N.Bpel4ChorTransformation.group,
-            dropDownGroupIcon: ORYX.PATH + "images/export2.png",
-			'icon': ORYX.PATH + "images/export.png",
-			'description': ORYX.I18N.Bpel4ChorTransformation.exportXPDLDesc,
+			'group': WAPAMA.I18N.Bpel4ChorTransformation.group,
+            dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
+			'icon': WAPAMA.PATH + "images/export.png",
+			'description': WAPAMA.I18N.Bpel4ChorTransformation.exportXPDLDesc,
 			'index': 0,
 			'minShape': 0,
 			'maxShape': 0});
 			
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.propertyChanged.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.propertyChanged.bind(this));
 	},
 	
 	// check if changed property does affect the transformability
@@ -100,7 +100,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 		
 		shapes.each(function(shape){
 			var stencil = shape.getStencil();
-			if (args.propId == "oryx-name") {
+			if (args.propId == "wapama-name") {
 				if ((stencil.id() == stencil.namespace() + "ReceiveTask") || 
 				 (stencil.id() == stencil.namespace() + "IntermediateMessageEvent") || 
 				 (stencil.id() == stencil.namespace() + "StartMessageEvent")) {
@@ -133,16 +133,16 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 						for (var j = 0; j < list.length; j++) {
 							var shape = list[j];
 							if (name == undefined) {
-								name = list[j].properties["oryx-name"];
-							} else if (name != list[j].properties["oryx-name"]) {
-								this.dialogSupport.openMessageDialog(ORYX.I18N.Bpel4ChorTransformation.warning,
-									ORYX.I18N.Bpel4ChorTransformation.wrongValue.replace(/1/, name));
+								name = list[j].properties["wapama-name"];
+							} else if (name != list[j].properties["wapama-name"]) {
+								this.dialogSupport.openMessageDialog(WAPAMA.I18N.Bpel4ChorTransformation.warning,
+									WAPAMA.I18N.Bpel4ChorTransformation.wrongValue.replace(/1/, name));
 								return;
 							}
 						}
 					}
 				}
-			} else if (args.propId == "oryx-looptype") {
+			} else if (args.propId == "wapama-looptype") {
 			
 				// if parent of receive task is event-based decision gateway
 				// the loop type should be None to be transformable to BPEL4Chor
@@ -154,8 +154,8 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 							var sources = edge.getIncomingShapes();
 							sources.each(function(source) {
 								if (source.getStencil().id() == stencil.namespace() + "Exclusive_Eventbased_Gateway") {
-									if (shape.properties["oryx-looptype"] != "None") {
-										this.dialogSupport.openMessageDialog(ORYX.I18N.Bpel4ChorTransformation.warning, ORYX.I18N.Bpel4ChorTransformation.loopNone);
+									if (shape.properties["wapama-looptype"] != "None") {
+										this.dialogSupport.openMessageDialog(WAPAMA.I18N.Bpel4ChorTransformation.warning, WAPAMA.I18N.Bpel4ChorTransformation.loopNone);
 										 return;
 									}
 								}
@@ -185,13 +185,13 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 			var id = edge.id;
 			// TODO: highlight shapes
 			if (edge.getIncomingShapes().size() == 0) {
-				//this.dialogSupport.openMessageDialog(ORYX.I18N.Bpel4ChorTransformation.error, ORYX.I18N.Bpel4ChorTransformation.noSource.replace(/1/, name).replace(/2/, id));
-				this.showOverlay(edge, ORYX.I18N.Bpel4ChorTransformation.noSource.replace(/1/, name).replace(/2/, id));
+				//this.dialogSupport.openMessageDialog(WAPAMA.I18N.Bpel4ChorTransformation.error, WAPAMA.I18N.Bpel4ChorTransformation.noSource.replace(/1/, name).replace(/2/, id));
+				this.showOverlay(edge, WAPAMA.I18N.Bpel4ChorTransformation.noSource.replace(/1/, name).replace(/2/, id));
 				valid = false;
 			} else if (edge.getOutgoingShapes().size() == 0) {
 //				this.dialogSupport.openMessageDialog(
-//					ORYX.I18N.Bpel4ChorTransformation.error, ORYX.I18N.Bpel4ChorTransformation.noTarget.replace(/1/, name).replace(/2/, id));
-				this.showOverlay(edge, ORYX.I18N.Bpel4ChorTransformation.noTarget.replace(/1/, name).replace(/2/, id));
+//					WAPAMA.I18N.Bpel4ChorTransformation.error, WAPAMA.I18N.Bpel4ChorTransformation.noTarget.replace(/1/, name).replace(/2/, id));
+				this.showOverlay(edge, WAPAMA.I18N.Bpel4ChorTransformation.noTarget.replace(/1/, name).replace(/2/, id));
 				valid = false;
 			}	
 		}
@@ -209,17 +209,17 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 		// chor:TargetNamespace
 		var canvas = this.facade.getCanvas();
 		var targetNamespace = xpdl4chor.createAttribute("chor:TargetNamespace");
-		targetNamespace.value = canvas.properties["oryx-targetNamespace"];
+		targetNamespace.value = canvas.properties["wapama-targetNamespace"];
 		xpdl4chor.documentElement.setAttributeNode(targetNamespace);
 		
 		// Name
 		var name = xpdl4chor.createAttribute("Name");
-		name.value = canvas.properties["oryx-name"];
+		name.value = canvas.properties["wapama-name"];
 		xpdl4chor.documentElement.setAttributeNode(name);
 		
 		// Id
 		var idAttr = xpdl4chor.createAttribute("Id");
-		var id = canvas.properties["oryx-id"];
+		var id = canvas.properties["wapama-id"];
 		if (id == "") {
 			id = DataManager.__provideId();
 		}
@@ -228,14 +228,14 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 		
 		// PackageHeader.Created
 		var created = xpdl4chor.createElement("xpdl:Created");
-		var createdText = document.createTextNode(canvas.properties["oryx-creationdate"]);
+		var createdText = document.createTextNode(canvas.properties["wapama-creationdate"]);
 		created.appendChild(createdText);
 		var parent = xpdl4chor.documentElement.firstChild;
 		parent.appendChild(created);
 		
 		// RedefinableHeader
-		var expressionLanguage = canvas.properties["oryx-expressionlanguage"];
-		var queryLanguage = canvas.properties["oryx-querylanguage"];
+		var expressionLanguage = canvas.properties["wapama-expressionlanguage"];
+		var queryLanguage = canvas.properties["wapama-querylanguage"];
 		
 		var header = xpdl4chor.createElement("xpdl:RedefinableHeader");
 		if (queryLanguage != "") {
@@ -340,7 +340,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 	 * @param {Object} result - the result of the transformation servlet (JSON)
 	 */
 	displayResult: function(result) {
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 
 		var resultString = '(' + result + ')';
 		var resultObject;
@@ -356,7 +356,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 			Ext.Msg.alert("Wrong version " + version + ". Converting nevertheless.");
 		
 		if ((!resultObject.res) || (resultObject.res.length == 0)) {
-			this.dialogSupport.openMessageDialog(ORYX.I18N.TransformationDownloadDialog.error,ORYX.I18N.TransformationDownloadDialog.noResult);
+			this.dialogSupport.openMessageDialog(WAPAMA.I18N.TransformationDownloadDialog.error,WAPAMA.I18N.TransformationDownloadDialog.noResult);
 	    } else {
 			var displayData = this.buildDisplayData(resultObject.res);
             displayData.errors.each(function(error){
@@ -367,7 +367,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
                 if (!sh) {
                 	// id was not found. It is possible that the element is a process with its own id
             		sh = this.facade.getCanvas().getChildShapes(true).find(function(shape) {
-            			processId = shape.properties["oryx-processid"]; 
+            			processId = shape.properties["wapama-processid"]; 
             			if (processId == "") {
             				return (shape.resourceId + "_process" == error.id);
             			} else {
@@ -397,13 +397,13 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 		
 		var valid = this.validate();
 	   	if (!valid) {
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 			Ext.Msg.alert("Transformation","input not valid");
 			// TODO: store the validation result and display it using this.displayResult(response.responseText);
 			return null;
 		}
 		var xsl = "";
-		source = ORYX.PATH + "xslt/BPMNplus2XPDL4Chor.xslt";
+		source = WAPAMA.PATH + "xslt/BPMNplus2XPDL4Chor.xslt";
 			new Ajax.Request(source, {
 				asynchronous: false,
 				method: 'get',
@@ -411,7 +411,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 					xsl = transport.responseText
 				}.bind(this),
 				onFailure: (function(transport){
-					ORYX.Log.error("XSL load failed" + transport);
+					WAPAMA.Log.error("XSL load failed" + transport);
 				}).bind(this)
 			});
 		var xsltProcessor = new XSLTProcessor();		
@@ -425,8 +425,8 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 		try {
 			var xpdl4chor = xsltProcessor.transformToDocument(doc, document);
 		} catch (error) {
-			this.dialogSupport.openMessageDialog(ORYX.I18N.Bpel4ChorTransformation.error, ORYX.I18N.Bpel4ChorTransformation.noGen.replace(/1/, error.name).replace(/2/, error.message));
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+			this.dialogSupport.openMessageDialog(WAPAMA.I18N.Bpel4ChorTransformation.error, WAPAMA.I18N.Bpel4ChorTransformation.noGen.replace(/1/, error.name).replace(/2/, error.message));
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 			return null;
 		}
 			
@@ -436,12 +436,12 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 		serialized = serialized.startsWith("<?xml") ? serialized : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized;
 
 		if (xpdlOnly) {
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 				
 			var data = this.buildXPDL4ChorData(serialized);
 			this.dialogSupport.openResultDialog(data);
 		} else {
-			var target = "http://" + location.host + ORYX.CONFIG.XPDL4CHOR2BPEL4CHOR_TRANSFORMATION_URL;
+			var target = "http://" + location.host + WAPAMA.CONFIG.XPDL4CHOR2BPEL4CHOR_TRANSFORMATION_URL;
 			try {
 				Ext.Ajax.request({
 					method : "POST",
@@ -461,7 +461,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
 	 * Transform the model to its XPDL4Chor representation.
 	 */
 	transformXPDL4Chor: function() { 		
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_ENABLE, text:ORYX.I18N.Bpel4ChorTransformation.loadingXPDL4ChorExport});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_ENABLE, text:WAPAMA.I18N.Bpel4ChorTransformation.loadingXPDL4ChorExport});
 		this.transform(true);
 	},
 
@@ -469,7 +469,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
   	 * Transform the model to its BPELChor representation.
   	 */
 	transformBPEL4Chor: function(){ 	   
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_ENABLE, text:ORYX.I18N.Bpel4ChorTransformation.loadingBPEL4ChorExport});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_ENABLE, text:WAPAMA.I18N.Bpel4ChorTransformation.loadingBPEL4ChorExport});
 		this.transform(false);		
 	},
 
@@ -480,7 +480,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
     
         var id = "syntaxchecker." + this.raisedEventIds.length;
         
-        var cross = ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
+        var cross = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
             "title": errorMsg,
             "stroke-width": 5.0,
             "stroke": "red",
@@ -489,11 +489,11 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
         }]);
         
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+            type: WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
             id: id,
             shapes: [shape],
             node: cross,
-            nodePosition: shape instanceof ORYX.Core.Edge ? "START" : "NW"
+            nodePosition: shape instanceof WAPAMA.Core.Edge ? "START" : "NW"
         });
         
         this.raisedEventIds.push(id);
@@ -505,7 +505,7 @@ ORYX.Plugins.Bpel4ChorTransformation = ORYX.Plugins.AbstractPlugin.extend({
     hideOverlays: function(){
         this.raisedEventIds.each(function(id){
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+                type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
                 id: id
             });
         }

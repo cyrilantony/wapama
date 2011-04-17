@@ -4,43 +4,43 @@
  * 
  **/
 
-if(!ORYX){ var ORYX = {} }
-if(!ORYX.Plugins){ ORYX.Plugins = {} }
+if(!WAPAMA){ var WAPAMA = {} }
+if(!WAPAMA.Plugins){ WAPAMA.Plugins = {} }
 
 /**
    This abstract plugin implements the core behaviour of layout
    
-   @class ORYX.Plugins.AbstractLayouter
+   @class WAPAMA.Plugins.AbstractLayouter
    @constructor Creates a new instance
    @author Willi Tscheschner
 */
-ORYX.Plugins.AbstractLayouter = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.AbstractLayouter = WAPAMA.Plugins.AbstractPlugin.extend({
 	
 	/**
 	 * 'layouted' defined all types of shapes which will be layouted. 
 	 * It can be one value or an array of values. The value
 	 * can be a Stencil ID (as String) or an class type of either 
-	 * a ORYX.Core.Node or ORYX.Core.Edge
+	 * a WAPAMA.Core.Node or WAPAMA.Core.Edge
      * @type Array|String|Object
-     * @memberOf ORYX.Plugins.AbstractLayouter.prototype
+     * @memberOf WAPAMA.Plugins.AbstractLayouter.prototype
 	 */
 	layouted : [],
 	
 	/**
 	 * Constructor
 	 * @param {Object} facade
-	 * @memberOf ORYX.Plugins.AbstractLayouter.prototype
+	 * @memberOf WAPAMA.Plugins.AbstractLayouter.prototype
 	 */
 	construct: function( facade ){
 		arguments.callee.$.construct.apply(this, arguments);
 			
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LAYOUT, this._initLayout.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LAYOUT, this._initLayout.bind(this));
 	},
 	
 	/**
 	 * Proofs if this shape should be layouted or not
 	 * @param {Object} shape
-     * @memberOf ORYX.Plugins.AbstractLayouter.prototype
+     * @memberOf WAPAMA.Plugins.AbstractLayouter.prototype
 	 */
 	isIncludedInLayout: function(shape){
 		if (!(this.layouted instanceof Array)){
@@ -68,7 +68,7 @@ ORYX.Plugins.AbstractLayouter = ORYX.Plugins.AbstractPlugin.extend({
 	 * Callback to start the layouting
 	 * @param {Object} event Layout event
 	 * @param {Object} shapes Given shapes
-     * @memberOf ORYX.Plugins.AbstractLayouter.prototype
+     * @memberOf WAPAMA.Plugins.AbstractLayouter.prototype
 	 */
 	_initLayout: function(event){
 		
@@ -90,7 +90,7 @@ ORYX.Plugins.AbstractLayouter = ORYX.Plugins.AbstractPlugin.extend({
 	/**
 	 * Implementation of layouting a set on shapes
 	 * @param {Object} shapes Given shapes
-     * @memberOf ORYX.Plugins.AbstractLayouter.prototype
+     * @memberOf WAPAMA.Plugins.AbstractLayouter.prototype
 	 */
 	layout: function(shapes){
 		throw new Error("Layouter has to implement the layout function.")

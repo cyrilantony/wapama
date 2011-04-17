@@ -21,7 +21,7 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-//TODO: better svg for modifying access (I tried with 'view/edge.modifyingaccess.2.svg' and 'view/edge.modifyingaccess.3.edit.svg' but they don't work in Oryx)
+//TODO: better svg for modifying access (I tried with 'view/edge.modifyingaccess.2.svg' and 'view/edge.modifyingaccess.3.edit.svg' but they don't work in Wapama)
 //TODO: L and U agents and storages
 //TODO: bing protocol boundary to background
 //TODO: two and three dot shapes
@@ -30,7 +30,7 @@
 //TODO: attach request symbols to channels
 //TODO: rounded edges (like in the universal communication channel in Viso stencils)
 //TODO: nicer arrows for request symbols
-//TODO: prefix for properties (raziel, oryx or fmc)?
+//TODO: prefix for properties (raziel, wapama or fmc)?
 
 {
 	"title":"FMC Block Diagram",

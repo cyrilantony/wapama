@@ -1,7 +1,7 @@
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.CpnSupport = Clazz.extend({
+WAPAMA.Plugins.CpnSupport = Clazz.extend({
 
 	/**
 	 *	Constructor
@@ -11,7 +11,7 @@ ORYX.Plugins.CpnSupport = Clazz.extend({
 	{
 		this.facade = facade;
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_RESIZE_END, this.resetTokenPosition.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_RESIZE_END, this.resetTokenPosition.bind(this));
 	},
 	
 	resetTokenPosition: function()

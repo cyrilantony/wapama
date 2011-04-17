@@ -21,34 +21,34 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
 /**
  * Enables exporting and importing current model in JSON.
  */
-ORYX.Plugins.TBPMSupport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.TBPMSupport = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	facade: undefined,
 	
-	tbpmImportServletURL: ORYX.CONFIG.TBPMIMPORT,
+	tbpmImportServletURL: WAPAMA.CONFIG.TBPMIMPORT,
 	
 	canvasId: "ext-gen56",
 	
-	TMP_FOLDER: ORYX.PATH + "/tmp/",
+	TMP_FOLDER: WAPAMA.PATH + "/tmp/",
 	
     construct: function(){
         // Call super class constructor
         arguments.callee.$.construct.apply(this, arguments);
         
         this.facade.offer({
-            'name': ORYX.I18N.TBPMSupport.imp.name,
+            'name': WAPAMA.I18N.TBPMSupport.imp.name,
             'functionality': this.showImportDialog.bind(this),
-            'group': ORYX.I18N.TBPMSupport.imp.group,
-            'toolbarGroup': ORYX.I18N.TBPMSupport.toolbarGroup,
-            'dropDownGroupIcon': ORYX.PATH + "images/import.png",
-			'icon': ORYX.PATH + "images/page_white_picture.png",
-            'description': ORYX.I18N.TBPMSupport.imp.desc,
+            'group': WAPAMA.I18N.TBPMSupport.imp.group,
+            'toolbarGroup': WAPAMA.I18N.TBPMSupport.toolbarGroup,
+            'dropDownGroupIcon': WAPAMA.PATH + "images/import.png",
+			'icon': WAPAMA.PATH + "images/page_white_picture.png",
+            'description': WAPAMA.I18N.TBPMSupport.imp.desc,
             'index': 3,
             'minShape': 0,
             'maxShape': 0
@@ -67,12 +67,12 @@ ORYX.Plugins.TBPMSupport = ORYX.Plugins.AbstractPlugin.extend({
             fileUpload : true,
 		  	enctype : 'multipart/form-data',
             items: [{
-                text: ORYX.I18N.TBPMSupport.imp.selectFile,
+                text: WAPAMA.I18N.TBPMSupport.imp.selectFile,
                 style: 'font-size:12px;margin-bottom:10px;display:block;',
                 anchor: '100%',
                 xtype: 'label'
             }, {
-                fieldLabel: ORYX.I18N.TBPMSupport.imp.file,
+                fieldLabel: WAPAMA.I18N.TBPMSupport.imp.file,
                 name: 'subject',
                 inputType: 'file',
                 style: 'margin-bottom:10px;display:block;width:95%',
@@ -86,7 +86,7 @@ ORYX.Plugins.TBPMSupport = ORYX.Plugins.AbstractPlugin.extend({
             layout: 'fit',
             plain: true,
             bodyStyle: 'padding:5px;',
-            title: ORYX.I18N.TBPMSupport.imp.name,
+            title: WAPAMA.I18N.TBPMSupport.imp.name,
             height: 150,
             width: 500,
             modal: true,
@@ -96,10 +96,10 @@ ORYX.Plugins.TBPMSupport = ORYX.Plugins.AbstractPlugin.extend({
             resizable: true,
             items: [this.form],
             buttons: [{
-                text: ORYX.I18N.TBPMSupport.imp.btnImp,
+                text: WAPAMA.I18N.TBPMSupport.imp.btnImp,
                 handler: this.uploadImage.bind(this)
             }, {
-                text: ORYX.I18N.TBPMSupport.imp.btnClose,
+                text: WAPAMA.I18N.TBPMSupport.imp.btnClose,
                 handler: function(){
                     this.dialog.close();
                 }.bind(this)
@@ -120,7 +120,7 @@ ORYX.Plugins.TBPMSupport = ORYX.Plugins.AbstractPlugin.extend({
     	var imageName = this.form.items.items[1].getValue().replace("png", "jpg");
     	
 		var loadMask = new Ext.LoadMask(Ext.getBody(), {
-		    msg: ORYX.I18N.TBPMSupport.imp.progress
+		    msg: WAPAMA.I18N.TBPMSupport.imp.progress
 		});
 		loadMask.show();
     	
@@ -148,7 +148,7 @@ ORYX.Plugins.TBPMSupport = ORYX.Plugins.AbstractPlugin.extend({
     			    	
     			    	//this.dialog.hide();
     			    	//loadMask.hide();
-    					//Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.TBPMSupport.imp.impFailed);
+    					//Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.TBPMSupport.imp.impFailed);
     				}.bind(this)
     	});
         
@@ -172,19 +172,19 @@ ORYX.Plugins.TBPMSupport = ORYX.Plugins.AbstractPlugin.extend({
             shadow: true,
             proxyDrag: true,
             resizable: true,
-    	    title: ORYX.I18N.TBPMSupport.imp.confirm,
+    	    title: WAPAMA.I18N.TBPMSupport.imp.confirm,
     	    html: '<div style="width:100%;">' +
             			'<img src="'+ this.TMP_FOLDER + imageName + '" style="width:550px;"></img>'+
             		'</div>',
     	    
     	    buttons: [{
-                text: ORYX.I18N.TBPMSupport.imp.btnImp,
+                text: WAPAMA.I18N.TBPMSupport.imp.btnImp,
                 handler: function() {
     	    		confirmDialog.close();
     	    		this.processImport(imageName, json);
     	    	}.bind(this)
             }, {
-                text: ORYX.I18N.TBPMSupport.imp.btnClose,
+                text: WAPAMA.I18N.TBPMSupport.imp.btnClose,
                 handler: function(){
                     confirmDialog.close();
                 }.bind(this)

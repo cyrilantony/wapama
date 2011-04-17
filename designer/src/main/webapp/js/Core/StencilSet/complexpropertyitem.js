@@ -24,16 +24,16 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.StencilSet) {WAPAMA.Core.StencilSet = {};}
 
 /**
  * Class Stencil
  * uses Prototpye 1.5.0
  * uses Inheritance
  */
-ORYX.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
+WAPAMA.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
 
 	/**
 	 * Constructor
@@ -42,13 +42,13 @@ ORYX.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
 		arguments.callee.$.construct.apply(this, arguments);
 
 		if(!jsonItem) {
-			throw "ORYX.Core.StencilSet.ComplexPropertyItem(construct): Parameter jsonItem is not defined.";
+			throw "WAPAMA.Core.StencilSet.ComplexPropertyItem(construct): Parameter jsonItem is not defined.";
 		}
 		if(!namespace) {
-			throw "ORYX.Core.StencilSet.ComplexPropertyItem(construct): Parameter namespace is not defined.";
+			throw "WAPAMA.Core.StencilSet.ComplexPropertyItem(construct): Parameter namespace is not defined.";
 		}
 		if(!property) {
-			throw "ORYX.Core.StencilSet.ComplexPropertyItem(construct): Parameter property is not defined.";
+			throw "WAPAMA.Core.StencilSet.ComplexPropertyItem(construct): Parameter property is not defined.";
 		}
 		
 		this._jsonItem = jsonItem;
@@ -58,28 +58,28 @@ ORYX.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
 		
 		//init all values
 		if(!jsonItem.name) {
-			throw "ORYX.Core.StencilSet.ComplexPropertyItem(construct): Name is not defined.";
+			throw "WAPAMA.Core.StencilSet.ComplexPropertyItem(construct): Name is not defined.";
 		}
 		
 		if(!jsonItem.type) {
-			throw "ORYX.Core.StencilSet.ComplexPropertyItem(construct): Type is not defined.";
+			throw "WAPAMA.Core.StencilSet.ComplexPropertyItem(construct): Type is not defined.";
 		} else {
 			jsonItem.type = jsonItem.type.toLowerCase();
 		}
 		
-		if(jsonItem.type === ORYX.CONFIG.TYPE_CHOICE) {
+		if(jsonItem.type === WAPAMA.CONFIG.TYPE_CHOICE) {
 			if(jsonItem.items && jsonItem.items instanceof Array) {
 				jsonItem.items.each((function(item) {
-					this._items[item.value] = new ORYX.Core.StencilSet.PropertyItem(item, namespace, this);
+					this._items[item.value] = new WAPAMA.Core.StencilSet.PropertyItem(item, namespace, this);
 				}).bind(this));
 			} else {
-				throw "ORYX.Core.StencilSet.Property(construct): No property items defined."
+				throw "WAPAMA.Core.StencilSet.Property(construct): No property items defined."
 			}
 		}
 	},
 
 	/**
-	 * @param {ORYX.Core.StencilSet.PropertyItem} item
+	 * @param {WAPAMA.Core.StencilSet.PropertyItem} item
 	 * @return {Boolean} True, if item has the same namespace and id.
 	 */
 	equals: function(item) {
@@ -96,7 +96,7 @@ ORYX.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
 	},
 
 	name: function() {
-		return ORYX.Core.StencilSet.getTranslation(this._jsonItem, "name");
+		return WAPAMA.Core.StencilSet.getTranslation(this._jsonItem, "name");
 	},
 	
 	id: function() {

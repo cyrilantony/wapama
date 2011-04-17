@@ -21,15 +21,15 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * Supports EPCs by offering a syntax check and export and import ability..
  * 
  * 
  */
-ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.EPCSupport = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	facade: undefined,
 
@@ -41,21 +41,21 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 		this.facade = facade;
 		
 		this.facade.offer({
-			'name':ORYX.I18N.EPCSupport.exp,
+			'name':WAPAMA.I18N.EPCSupport.exp,
 			'functionality': this.exportEPC.bind(this),
-			'group': ORYX.I18N.EPCSupport.group,
-			'icon': ORYX.PATH + "images/epml_export_icon.png",
-			'description': ORYX.I18N.EPCSupport.expDesc,
+			'group': WAPAMA.I18N.EPCSupport.group,
+			'icon': WAPAMA.PATH + "images/epml_export_icon.png",
+			'description': WAPAMA.I18N.EPCSupport.expDesc,
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0});
 			
 		this.facade.offer({
-			'name':ORYX.I18N.EPCSupport.imp,
+			'name':WAPAMA.I18N.EPCSupport.imp,
 			'functionality': this.importEPC.bind(this),
-			'group': ORYX.I18N.EPCSupport.group,
-			'icon': ORYX.PATH + "images/epml_import_icon.png",
-			'description': ORYX.I18N.EPCSupport.impDesc,
+			'group': WAPAMA.I18N.EPCSupport.group,
+			'icon': WAPAMA.PATH + "images/epml_import_icon.png",
+			'description': WAPAMA.I18N.EPCSupport.impDesc,
 			'index': 2,
 			'minShape': 0,
 			'maxShape': 0});
@@ -76,14 +76,14 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 	 */
 	exportEPC: function(){
 
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_ENABLE, text:ORYX.I18N.EPCSupport.progressExp});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_ENABLE, text:WAPAMA.I18N.EPCSupport.progressExp});
 		var xmlSerializer = new XMLSerializer();
 
 		
 		// TODO: a Syntax Syntax-Check should be triggered, here.
 		 
 		// TODO: get process' name
-		var resource = "Oryx-EPC";
+		var resource = "Wapama-EPC";
 		
 		// Force to set all resource IDs
 		var serializedDOM = DataManager.serializeDOM( this.facade );
@@ -99,21 +99,21 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 		'<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />' +
 		'<link rel="schema.dcTerms" href="http://purl.org/dc/terms/ " />' +
 		'<link rel="schema.b3mn" href="http://b3mn.org" />' +
-		'<link rel="schema.oryx" href="http://oryx-editor.org/" />' +
+		'<link rel="schema.wapama" href="http://www.wapama.net/" />' +
 		'<link rel="schema.raziel" href="http://raziel.org/" />' +
 		'<base href="' +
 		location.href.split("?")[0] +
 		'" />' +
 		'</head><body>' +
 		serializedDOM +
-		'<div id="generatedProcessInfos"><span class="oryx-id">' + resource + '</span>' + 
-		'<span class="oryx-name">' + resource + '</span></div>' +
+		'<div id="generatedProcessInfos"><span class="wapama-id">' + resource + '</span>' + 
+		'<span class="wapama-name">' + resource + '</span></div>' +
 		'</body></html>';
 		
 		/*
 		 * Transform eRDF -> RDF
 		 */
-		var erdf2rdfXslt = ORYX.PATH + "/lib/extract-rdf.xsl";
+		var erdf2rdfXslt = WAPAMA.PATH + "/lib/extract-rdf.xsl";
 
 		var rdfResultString;
 		rdfResult = this.transformString(serializedDOM, erdf2rdfXslt, true);
@@ -130,7 +130,7 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 		/*
 		 * Transform RDF -> EPML
 		 */
-		var rdf2epmlXslt = ORYX.PATH + "/xslt/RDF2EPML.xslt";
+		var rdf2epmlXslt = WAPAMA.PATH + "/xslt/RDF2EPML.xslt";
 		
 		var epmlResult = this.transformDOM(rdfResult, rdf2epmlXslt, true);
 		var epmlResultString;
@@ -144,7 +144,7 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 			}
 		}
 		
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 		
 		// At the moment, only EPML is going to be returned.
 		this.openDownloadWindow(resource + ".epml", epmlResultString);
@@ -176,7 +176,7 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 			return new String("Parse Error: \nThe given dom content is null.");
 		}
 		var xsl = "";
-		source=ORYX.PATH + "lib/extract-rdf.xsl";
+		source=WAPAMA.PATH + "lib/extract-rdf.xsl";
 		new Ajax.Request(source, {
 			asynchronous: false,
 			method: 'get',
@@ -184,7 +184,7 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 				xsl = transport.responseText
 			}.bind(this),
 			onFailure: (function(transport){
-				ORYX.Log.error("XSL load failed" + transport);
+				WAPAMA.Log.error("XSL load failed" + transport);
 			}).bind(this)
 		});
 		var result;
@@ -221,11 +221,11 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 		  	enctype : 		'multipart/form-data',
 		  	items : [
 		  	{
-		    	text : 		ORYX.I18N.EPCSupport.selectFile, 
+		    	text : 		WAPAMA.I18N.EPCSupport.selectFile, 
 				style : 	'font-size:12px;margin-bottom:10px;display:block;',
 				xtype : 	'label'
 		  	},{
-		    	fieldLabel : 	ORYX.I18N.EPCSupport.file,
+		    	fieldLabel : 	WAPAMA.I18N.EPCSupport.file,
 		    	inputType : 	'file',
 				labelStyle :	'width:50px;',
 				itemCls :		'ext_specific_window_overflow'
@@ -235,7 +235,7 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 
 		var dialog = new Ext.Window({ 
 			autoCreate: true, 
-			title: 		ORYX.I18N.EPCSupport.impPanel, 
+			title: 		WAPAMA.I18N.EPCSupport.impPanel, 
 			height: 	'auto', 
 			width: 		'auto', 
 			modal:		true,
@@ -247,15 +247,15 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 			items: [form],
 			buttons:[
 				{
-					text:ORYX.I18N.EPCSupport.impBtn,
+					text:WAPAMA.I18N.EPCSupport.impBtn,
 					handler: function(){
 						
 							
-						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:ORYX.I18N.EPCSupport.progressImp});
+						var loadMask = new Ext.LoadMask(Ext.getBody(), {msg:WAPAMA.I18N.EPCSupport.progressImp});
 						loadMask.show();
 												
 						form.form.submit({
-				      		url: ORYX.PATH + '/epc-upload',
+				      		url: WAPAMA.PATH + '/epc-upload',
 				      		success: function(f,a){
 								
 								dialog.hide();
@@ -273,7 +273,7 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 								dialog.hide();
 								loadMask.hide();
 								Ext.MessageBox.show({
-		           					title: ORYX.I18N.EPCSupport.error,
+		           					title: WAPAMA.I18N.EPCSupport.error,
 		          	 				msg: a.response.responseText.substring(a.response.responseText.indexOf("content:'")+9, a.response.responseText.indexOf("'}")),
 		           					buttons: Ext.MessageBox.OK,
 		           					icon: Ext.MessageBox.ERROR
@@ -282,7 +282,7 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 				  		});
 					}.bind(this)
 				},{
-					text:ORYX.I18N.EPCSupport.close,
+					text:WAPAMA.I18N.EPCSupport.close,
 					handler:function(){
 						dialog.hide();
 					}.bind(this)
@@ -353,14 +353,14 @@ ORYX.Plugins.EPCSupport = ORYX.Plugins.AbstractPlugin.extend({
 			submitForm.method = "POST";
 			win.document.write("</body></html>");
 			win.document.close();
-			submitForm.action= ORYX.PATH + "/download";
+			submitForm.action= WAPAMA.PATH + "/download";
 			submitForm.submit();
 		}		
 	},
 	
 	
 	/**
-	 * Loads the imported string into the oryx
+	 * Loads the imported string into the wapama
 	 * 
 	 * @param {Object} content
 	 */

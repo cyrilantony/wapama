@@ -2,15 +2,15 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="800"
    height="600"
    version="1.0">
   <defs></defs>
-  <g oryx:minimumSize="60 30" oryx:maximumSize="">
+  <g wapama:minimumSize="60 30" wapama:maximumSize="">
     
-    <rect id="classBorder" oryx:resize="vertical horizontal" x="0" y="0" width="80" height="40" stroke="black" stroke-width="1.4" fill="white" />
-    	<text font-size="12" id="className" x="40" y="10" oryx:align="top center" stroke="black"></text>
+    <rect id="classBorder" wapama:resize="vertical horizontal" x="0" y="0" width="80" height="40" stroke="black" stroke-width="1.4" fill="white" />
+    	<text font-size="12" id="className" x="40" y="10" wapama:align="top center" stroke="black"></text>
   </g>
 </svg>

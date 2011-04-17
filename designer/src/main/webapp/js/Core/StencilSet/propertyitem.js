@@ -24,16 +24,16 @@
 /**
  * Init namespace
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.StencilSet) {ORYX.Core.StencilSet = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.StencilSet) {WAPAMA.Core.StencilSet = {};}
 
 /**
  * Class Stencil
  * uses Prototpye 1.5.0
  * uses Inheritance
  */
-ORYX.Core.StencilSet.PropertyItem = Clazz.extend({
+WAPAMA.Core.StencilSet.PropertyItem = Clazz.extend({
 
 	/**
 	 * Constructor
@@ -42,13 +42,13 @@ ORYX.Core.StencilSet.PropertyItem = Clazz.extend({
 		arguments.callee.$.construct.apply(this, arguments);
 
 		if(!jsonItem) {
-			throw "ORYX.Core.StencilSet.PropertyItem(construct): Parameter jsonItem is not defined.";
+			throw "WAPAMA.Core.StencilSet.PropertyItem(construct): Parameter jsonItem is not defined.";
 		}
 		if(!namespace) {
-			throw "ORYX.Core.StencilSet.PropertyItem(construct): Parameter namespace is not defined.";
+			throw "WAPAMA.Core.StencilSet.PropertyItem(construct): Parameter namespace is not defined.";
 		}
 		if(!property) {
-			throw "ORYX.Core.StencilSet.PropertyItem(construct): Parameter property is not defined.";
+			throw "WAPAMA.Core.StencilSet.PropertyItem(construct): Parameter property is not defined.";
 		}
 		
 		this._jsonItem = jsonItem;
@@ -57,7 +57,7 @@ ORYX.Core.StencilSet.PropertyItem = Clazz.extend({
 		
 		//init all values
 		if(!jsonItem.value) {
-			throw "ORYX.Core.StencilSet.PropertyItem(construct): Value is not defined.";
+			throw "WAPAMA.Core.StencilSet.PropertyItem(construct): Value is not defined.";
 		}
 		
 		if(this._jsonItem.refToView) {
@@ -70,7 +70,7 @@ ORYX.Core.StencilSet.PropertyItem = Clazz.extend({
 	},
 
 	/**
-	 * @param {ORYX.Core.StencilSet.PropertyItem} item
+	 * @param {WAPAMA.Core.StencilSet.PropertyItem} item
 	 * @return {Boolean} True, if item has the same namespace and id.
 	 */
 	equals: function(item) {
@@ -91,7 +91,7 @@ ORYX.Core.StencilSet.PropertyItem = Clazz.extend({
 	},
 	
 	title: function() {
-		return ORYX.Core.StencilSet.getTranslation(this._jsonItem, "title");
+		return WAPAMA.Core.StencilSet.getTranslation(this._jsonItem, "title");
 	},
 
 	refToView: function() {

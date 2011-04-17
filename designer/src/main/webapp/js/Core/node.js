@@ -25,18 +25,18 @@
 /**
  * Init namespaces
  */
-if (!ORYX) {
-    var ORYX = {};
+if (!WAPAMA) {
+    var WAPAMA = {};
 }
-if (!ORYX.Core) {
-    ORYX.Core = {};
+if (!WAPAMA.Core) {
+    WAPAMA.Core = {};
 }
 
 /**
  * @classDescription Abstract base class for all Nodes.
- * @extends ORYX.Core.Shape
+ * @extends WAPAMA.Core.Shape
  */
-ORYX.Core.Node = {
+WAPAMA.Core.Node = {
 
     /**
      * Constructor
@@ -50,7 +50,7 @@ ORYX.Core.Node = {
         this.isMovable = true;
 		this._dockerUpdated = false;
         
-        this._oldBounds = new ORYX.Core.Bounds(); //init bounds with undefined values
+        this._oldBounds = new WAPAMA.Core.Bounds(); //init bounds with undefined values
         this._svgShapes = []; //array of all SVGShape objects of
         // SVG representation
         
@@ -165,7 +165,7 @@ ORYX.Core.Node = {
 				var widthDifference, heightDifference;
 				if (this.minimumSize) {
 				
-					ORYX.Log.debug("Shape (%0)'s min size: (%1x%2)", this, this.minimumSize.width, this.minimumSize.height);
+					WAPAMA.Log.debug("Shape (%0)'s min size: (%1x%2)", this, this.minimumSize.width, this.minimumSize.height);
 					widthDifference = this.minimumSize.width - bounds.width();
 					if (widthDifference > 0) {
 						p.x += widthDifference;
@@ -177,7 +177,7 @@ ORYX.Core.Node = {
 				}
 				if (this.maximumSize) {
 				
-					ORYX.Log.debug("Shape (%0)'s max size: (%1x%2)", this, this.maximumSize.width, this.maximumSize.height);
+					WAPAMA.Log.debug("Shape (%0)'s max size: (%1x%2)", this, this.maximumSize.width, this.maximumSize.height);
 					widthDifference = bounds.width() - this.maximumSize.width;
 					if (widthDifference > 0) {
 						p.x -= widthDifference;
@@ -287,7 +287,7 @@ ORYX.Core.Node = {
         }
 		
 		this.children.each(function(value) {
-			if(!(value instanceof ORYX.Core.Controls.Docker)) {
+			if(!(value instanceof WAPAMA.Core.Controls.Docker)) {
 				value._update();
 			}
 		});
@@ -299,12 +299,12 @@ ORYX.Core.Node = {
 		}
 		
 		/*this.incoming.each((function(edge) {
-			if(!(this.dockers[0] && this.dockers[0].getDockedShape() instanceof ORYX.Core.Node))
+			if(!(this.dockers[0] && this.dockers[0].getDockedShape() instanceof WAPAMA.Core.Node))
 				edge._update(true);
 		}).bind(this));
 		
 		this.outgoing.each((function(edge) {
-			if(!(this.dockers[0] && this.dockers[0].getDockedShape() instanceof ORYX.Core.Node))
+			if(!(this.dockers[0] && this.dockers[0].getDockedShape() instanceof WAPAMA.Core.Node))
 				edge._update(true);
 		}).bind(this)); */
     },
@@ -321,7 +321,7 @@ ORYX.Core.Node = {
         var y = this.bounds.upperLeft().y;
         
         //set translation in transform attribute
-        /*var attributeTransform = document.createAttributeNS(ORYX.CONFIG.NAMESPACE_SVG, "transform");
+        /*var attributeTransform = document.createAttributeNS(WAPAMA.CONFIG.NAMESPACE_SVG, "transform");
         attributeTransform.nodeValue = "translate(" + x + ", " + y + ")";
         this.node.firstChild.setAttributeNode(attributeTransform);*/
 		// Move owner element
@@ -358,7 +358,7 @@ ORYX.Core.Node = {
     _initSVGShapes: function(svgNode){
         var svgShapes = [];
         try {
-            var svgShape = new ORYX.Core.SVG.SVGShape(svgNode);
+            var svgShape = new WAPAMA.Core.SVG.SVGShape(svgNode);
             svgShapes.push(svgShape);
         } 
         catch (e) {
@@ -382,7 +382,7 @@ ORYX.Core.Node = {
      */
     isPointIncluded: function(pointX, pointY, absoluteBounds){
         // If there is an arguments with the absoluteBounds
-        var absBounds = absoluteBounds && absoluteBounds instanceof ORYX.Core.Bounds ? absoluteBounds : this.absoluteBounds();
+        var absBounds = absoluteBounds && absoluteBounds instanceof WAPAMA.Core.Bounds ? absoluteBounds : this.absoluteBounds();
         
         if (!absBounds.isIncluded(pointX, pointY)) {
 			return false;
@@ -420,7 +420,7 @@ ORYX.Core.Node = {
 						
 	        // If there is an arguments with the absoluteBounds
 	        var absBounds = this.absoluteBounds();
-	        absBounds.widen( - ORYX.CONFIG.BORDER_OFFSET );
+	        absBounds.widen( - WAPAMA.CONFIG.BORDER_OFFSET );
 			
 	        if ( !absBounds.isIncluded( pointX, pointY )) {
 	            return true;
@@ -442,7 +442,7 @@ ORYX.Core.Node = {
 				center = center ? center : docker.bounds.center();
 				result.push({
 					name: 'docker',
-					prefix: 'oryx',
+					prefix: 'wapama',
 					value: $H(center).values().join(','),
 					type: 'literal'
 				});
@@ -514,7 +514,7 @@ ORYX.Core.Node = {
 			var next = this.getCanvas().getChildShapeByResourceId(obj.value);
 																	
 			if(next){
-				if(next instanceof ORYX.Core.Edge) {
+				if(next instanceof WAPAMA.Core.Edge) {
 					//Set the first docker of the next shape
 					next.dockers.first().setDockedShape(this);
 					next.dockers.first().setReferencePoint(next.dockers.first().bounds.center());
@@ -529,7 +529,7 @@ ORYX.Core.Node = {
         if (this.dockers.length === 1) {
             var dockerPos;
             dockerPos = data.find(function(entry){
-                return (entry.prefix + "-" + entry.name === "oryx-dockers");
+                return (entry.prefix + "-" + entry.name === "wapama-dockers");
             });
             
             if (dockerPos) {
@@ -576,7 +576,7 @@ ORYX.Core.Node = {
         this.addEventHandlers(svgNode);
         
         /**set minimum and maximum size*/
-        var minSizeAttr = svgNode.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "minimumSize");
+        var minSizeAttr = svgNode.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "minimumSize");
         if (minSizeAttr) {
             minSizeAttr = minSizeAttr.replace("/,/g", " ");
             var minSizeValues = minSizeAttr.split(" ");
@@ -597,7 +597,7 @@ ORYX.Core.Node = {
             }
         }
         
-        var maxSizeAttr = svgNode.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "maximumSize");
+        var maxSizeAttr = svgNode.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "maximumSize");
         if (maxSizeAttr) {
             maxSizeAttr = maxSizeAttr.replace("/,/g", " ");
             var maxSizeValues = maxSizeAttr.split(" ");
@@ -689,26 +689,26 @@ ORYX.Core.Node = {
         
         /**initialize magnets */
         
-        var magnets = svgDocument.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_ORYX, "magnets");
+        var magnets = svgDocument.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "magnets");
         
         if (magnets && magnets.length > 0) {
         
-            magnets = $A(magnets[0].getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_ORYX, "magnet"));
+            magnets = $A(magnets[0].getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "magnet"));
             
             var me = this;
             magnets.each(function(magnetElem){
-                var magnet = new ORYX.Core.Controls.Magnet({
+                var magnet = new WAPAMA.Core.Controls.Magnet({
                     eventHandlerCallback: me.eventHandlerCallback
                 });
-                var cx = parseFloat(magnetElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cx"));
-                var cy = parseFloat(magnetElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cy"));
+                var cx = parseFloat(magnetElem.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "cx"));
+                var cy = parseFloat(magnetElem.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "cy"));
                 magnet.bounds.centerMoveTo({
                     x: cx - offsetX,
                     y: cy - offsetY
                 });
                 
                 //get anchors
-                var anchors = magnetElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "anchors");
+                var anchors = magnetElem.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "anchors");
                 if (anchors) {
                     anchors = anchors.replace("/,/g", " ");
                     anchors = anchors.split(" ").without("");
@@ -734,7 +734,7 @@ ORYX.Core.Node = {
                 
                 //check, if magnet is default magnet
                 if (!this._defaultMagnet) {
-                    var defaultAttr = magnetElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "default");
+                    var defaultAttr = magnetElem.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "default");
                     if (defaultAttr && defaultAttr.toLowerCase() === "yes") {
                         me._defaultMagnet = magnet;
                     }
@@ -743,26 +743,26 @@ ORYX.Core.Node = {
         }
         else {
             // Add a Magnet in the Center of Shape			
-            var magnet = new ORYX.Core.Controls.Magnet();
+            var magnet = new WAPAMA.Core.Controls.Magnet();
             magnet.bounds.centerMoveTo(this.bounds.width() / 2, this.bounds.height() / 2);
             this.add(magnet);
         }
         
         /**initialize docker */
-        var dockerElem = svgDocument.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_ORYX, "docker");
+        var dockerElem = svgDocument.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "docker");
         
         if (dockerElem && dockerElem.length > 0) {
             dockerElem = dockerElem[0];
             var docker = this.createDocker();
-            var cx = parseFloat(dockerElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cx"));
-            var cy = parseFloat(dockerElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cy"));
+            var cx = parseFloat(dockerElem.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "cx"));
+            var cy = parseFloat(dockerElem.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "cy"));
             docker.bounds.centerMoveTo({
                 x: cx - offsetX,
                 y: cy - offsetY
             });
             
             //get anchors
-            var anchors = dockerElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "anchors");
+            var anchors = dockerElem.getAttributeNS(WAPAMA.CONFIG.NAMESPACE_WAPAMA, "anchors");
             if (anchors) {
                 anchors = anchors.replace("/,/g", " ");
                 anchors = anchors.split(" ").without("");
@@ -788,20 +788,20 @@ ORYX.Core.Node = {
         
         /**initialize labels*/
         // Add a text node in each SVG of Pipe shape.
-        if (this.getStencil().namespace() == ORYX.CONFIG.NAMESPACE_INTALIO_PIPES) {
-            var pipeLabelTextNode = document.createElementNS(ORYX.CONFIG.NAMESPACE_SVG, "text");
+        if (this.getStencil().namespace() == WAPAMA.CONFIG.NAMESPACE_INTALIO_PIPES) {
+            var pipeLabelTextNode = document.createElementNS(WAPAMA.CONFIG.NAMESPACE_SVG, "text");
             pipeLabelTextNode.setAttribute("id", svgNode.id + 'text_label');
             pipeLabelTextNode.setAttribute("font-size", "11");
             pipeLabelTextNode.setAttribute("x", this.bounds.width() / 2 + offsetX);
             pipeLabelTextNode.setAttribute("y", this.bounds.height() + 8 + offsetY);
-            pipeLabelTextNode.setAttributeNS("http://www.b3mn.org/oryx", "oryx:align", "middle center");
-            pipeLabelTextNode.setAttributeNS("http://www.b3mn.org/oryx", "oryx:fittoelem", "unvisibleBorder");
+            pipeLabelTextNode.setAttributeNS("http://www.wapama.net/diagram", "wapama:align", "middle center");
+            pipeLabelTextNode.setAttributeNS("http://www.wapama.net/diagram", "wapama:fittoelem", "unvisibleBorder");
             pipeLabelTextNode.setAttribute("stroke", "black");
             svgNode.appendChild(pipeLabelTextNode);
         }
-        var textElems = svgNode.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'text');
+        var textElems = svgNode.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'text');
         $A(textElems).each((function(textElem){
-            var label = new ORYX.Core.SVG.Label({
+            var label = new WAPAMA.Core.SVG.Label({
                 textElement: textElem,
 				shapeId: this.id
             });
@@ -816,7 +816,7 @@ ORYX.Core.Node = {
 	 *
 	 */
 	createDocker: function() {
-		var docker = new ORYX.Core.Controls.Docker({eventHandlerCallback: this.eventHandlerCallback});
+		var docker = new WAPAMA.Core.Controls.Docker({eventHandlerCallback: this.eventHandlerCallback});
 		docker.bounds.registerCallback(this._dockerChangedCallback);
 		
 		this.dockers.push( docker );
@@ -845,4 +845,4 @@ ORYX.Core.Node = {
         }
     }
 };
-ORYX.Core.Node = ORYX.Core.Shape.extend(ORYX.Core.Node);
+WAPAMA.Core.Node = WAPAMA.Core.Shape.extend(WAPAMA.Core.Node);

@@ -24,7 +24,7 @@ THE SOFTWARE.
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:oryx="http://oryx-editor.org/"
+    xmlns:wapama="http://www.wapama.net/diagram/"
     xmlns:raziel="http://raziel.org/"
     >
 
@@ -51,8 +51,8 @@ THE SOFTWARE.
                 <div class="page">
                     <h1><img src="editor/client/images/HPDTRP_logo.jpg" title="HPI - Stanford Design Thinking Research Program" /></h1>
                     <xsl:apply-templates select="//rdf:Description">
-                        <xsl:sort select="oryx:type"/>
-                        <xsl:sort select="oryx:name"/>
+                        <xsl:sort select="wapama:type"/>
+                        <xsl:sort select="wapama:name"/>
                     </xsl:apply-templates>
                 </div>
             </body>
@@ -60,7 +60,7 @@ THE SOFTWARE.
     </xsl:template>
 
     <!-- Processes -->
-    <xsl:template match="rdf:Description [ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram' ]">
+    <xsl:template match="rdf:Description [ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram' ]">
         <div id="{substring-after(@rdf:about, '#')}" class="screen" style="display: block;">
             <script type="text/javascript">
                 <xsl:text><![CDATA[
@@ -96,60 +96,60 @@ THE SOFTWARE.
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 178)">
 <title>Test&#45;Case3 2009&#45;05&#45;05 13&#45;08&#45;02.812</title>
 <polygon style="fill:white;stroke:white;" points="-4,4 -4,-178 390,-178 390,4 -4,4"/>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C -->
-<g id="node1" class="node"><title>http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C</title>
-<a xlink:href="javascript:jumpToScreen(this, &#39;oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#39;)" xlink:title="Author">
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C -->
+<g id="node1" class="node"><title>http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C</title>
+<a xlink:href="javascript:jumpToScreen(this, &#39;wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#39;)" xlink:title="Author">
 <image xlink:href="human.png" width="26px" height="54px" preserveAspectRatio="xMinYMin meet" x="26" y="-119"/>
 <polygon style="fill:none;stroke:black;stroke-width:2;" points="78,-131 1.93248e-14,-131 5.29438e-15,-53 78,-53 78,-131"/>
 <text text-anchor="middle" x="39" y="-60.9" style="font-family:Verdana;font-size:14.00;">Author</text>
 </a>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F -->
-<g id="node2" class="node"><title>http://localhost:8180/backend/poem/model/205/self#oryx_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F</title>
-<a xlink:href="javascript:jumpToScreen(this, &#39;oryx_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F&#39;);" xlink:title="Reviewer">
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F -->
+<g id="node2" class="node"><title>http://localhost:8180/backend/poem/model/205/self#wapama_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F</title>
+<a xlink:href="javascript:jumpToScreen(this, &#39;wapama_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F&#39;);" xlink:title="Reviewer">
 <image xlink:href="human.png" width="26px" height="54px" preserveAspectRatio="xMinYMin meet" x="180" y="-162"/>
 <polygon style="fill:none;stroke:black;stroke-width:2;" points="233,-174.5 153,-174.5 153,-95.5 233,-95.5 233,-174.5"/>
 <text text-anchor="middle" x="193" y="-103.9" style="font-family:Verdana;font-size:14.00;">Reviewer</text>
 </a>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F -->
-<g id="edge2" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F</title>
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F -->
+<g id="edge2" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F</title>
 <path style="fill:none;stroke:black;" d="M78,-97C98,-101 122,-108 142,-115"/>
 <polygon style="fill:black;stroke:black;" points="141.416,-118.479 152,-118 143.427,-111.774 141.416,-118.479"/>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049 -->
-<g id="node3" class="node"><title>http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049</title>
-<a xlink:href="javascript:jumpToScreen(this, &#39;oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#39;);" xlink:title="Publisher">
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049 -->
+<g id="node3" class="node"><title>http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049</title>
+<a xlink:href="javascript:jumpToScreen(this, &#39;wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#39;);" xlink:title="Publisher">
 <image xlink:href="human.png" width="26px" height="54px" preserveAspectRatio="xMinYMin meet" x="180" y="-66"/>
 <polygon style="fill:none;stroke:black;stroke-width:2;" points="234,-78.5 152,-78.5 152,0.5 234,0.5 234,-78.5"/>
 <text text-anchor="middle" x="193" y="-7.9" style="font-family:Verdana;font-size:14.00;">Publisher</text>
 </a>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049 -->
-<g id="edge6" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049</title>
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049 -->
+<g id="edge6" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049</title>
 <path style="fill:none;stroke:black;" d="M78,-73C98,-65 121,-57 142,-50"/>
 <polygon style="fill:black;stroke:black;" points="143.427,-53.2259 152,-47 141.416,-46.5212 143.427,-53.2259"/>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C -->
-<g id="edge4" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#oryx_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C</title>
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C -->
+<g id="edge4" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#wapama_C6DF5A68&#45;6719&#45;47E5&#45;BD8D&#45;FA2DBD0C229F&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C</title>
 <path style="fill:none;stroke:black;" d="M152,-130C133,-125 109,-118 88,-112"/>
 <polygon style="fill:black;stroke:black;" points="88.584,-108.521 78,-109 86.5725,-115.226 88.584,-108.521"/>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C -->
-<g id="edge10" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C</title>
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C -->
+<g id="edge10" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_F15AEAF4&#45;3AB2&#45;4107&#45;91A9&#45;CDB909AE175C</title>
 <path style="fill:none;stroke:black;" d="M152,-59C132,-67 109,-75 88,-81"/>
 <polygon style="fill:black;stroke:black;" points="86.5725,-77.7741 78,-84 88.584,-84.4788 86.5725,-77.7741"/>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07 -->
-<g id="node4" class="node"><title>http://localhost:8180/backend/poem/model/205/self#oryx_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07</title>
-<a xlink:href="javascript:jumpToScreen(this, &#39;oryx_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07&#39;);" xlink:title="Admin">
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07 -->
+<g id="node4" class="node"><title>http://localhost:8180/backend/poem/model/205/self#wapama_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07</title>
+<a xlink:href="javascript:jumpToScreen(this, &#39;wapama_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07&#39;);" xlink:title="Admin">
 <image xlink:href="human.png" width="26px" height="54px" preserveAspectRatio="xMinYMin meet" x="334" y="-66"/>
 <polygon style="fill:none;stroke:black;stroke-width:2;" points="386,-78 308,-78 308,-1.93248e-14 386,1.72085e-15 386,-78"/>
 <text text-anchor="middle" x="347" y="-7.9" style="font-family:Verdana;font-size:14.00;">Admin</text>
 </a>
 </g>
-<!-- http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07 -->
-<g id="edge8" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#oryx_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#oryx_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07</title>
+<!-- http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07 -->
+<g id="edge8" class="edge"><title>http://localhost:8180/backend/poem/model/205/self#wapama_3D2DFFCA&#45;C894&#45;4D2D&#45;A092&#45;5FDA22D63049&#45;&gt;http://localhost:8180/backend/poem/model/205/self#wapama_86583DCA&#45;1B77&#45;48CB&#45;85BA&#45;2FF5030F5E07</title>
 <path style="fill:none;stroke:black;" d="M234,-39C254,-39 277,-39 298,-39"/>
 <polygon style="fill:black;stroke:black;" points="298,-42.5001 308,-39 298,-35.5001 298,-42.5001"/>
 </g>
@@ -165,10 +165,10 @@ THE SOFTWARE.
                     <p>
                         <xsl:for-each select="
                             //rdf:Description [
-                                oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Lane'
+                                wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Lane'
                             ]
                         ">
-                            <xsl:sort select="oryx:name"/>
+                            <xsl:sort select="wapama:name"/>
                             <xsl:call-template name="linklist"/>
                         </xsl:for-each>
                     </p>
@@ -181,10 +181,10 @@ THE SOFTWARE.
                     <p>
                         <xsl:for-each select="
                             //rdf:Description [
-                                oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
+                                wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
                             ]
                         ">
-                            <xsl:sort select="oryx:name"/>
+                            <xsl:sort select="wapama:name"/>
                             <xsl:call-template name="linklist"/>
                         </xsl:for-each>
                     </p>
@@ -197,10 +197,10 @@ THE SOFTWARE.
                     <p>
                         <xsl:for-each select="
                             //rdf:Description [
-                                oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#DataObject'
+                                wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#DataObject'
                             ]
                         ">
-                            <xsl:sort select="oryx:name"/>
+                            <xsl:sort select="wapama:name"/>
                             <xsl:call-template name="linklist"/>
                         </xsl:for-each>
                     </p>
@@ -210,7 +210,7 @@ THE SOFTWARE.
     </xsl:template>
 
     <!-- Roles -->
-    <xsl:template match="rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Lane' ]">
+    <xsl:template match="rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Lane' ]">
         <div id="{substring-after(@rdf:about, '#')}" class="screen">
             <xsl:call-template name="box">
                 <xsl:with-param name="cssId" select="'role'"/>
@@ -222,7 +222,7 @@ THE SOFTWARE.
                     <strong>Conducted Activities:</strong><br/>
                     <xsl:for-each select="
                         //rdf:Description [
-                            oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
+                            wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
                             and
                             raziel:parent/@rdf:resource = current()/@rdf:about
                         ]
@@ -237,7 +237,7 @@ THE SOFTWARE.
     </xsl:template>
 
     <!-- Activities -->
-    <xsl:template match="rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Task' ]">
+    <xsl:template match="rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Task' ]">
         <div id="{substring-after(@rdf:about, '#')}" class="screen">
             <xsl:call-template name="box">
                 <xsl:with-param name="cssId" select="'activity'"/>
@@ -252,7 +252,7 @@ THE SOFTWARE.
     </xsl:template>
 
     <!-- Artefacts -->
-    <xsl:template match="rdf:Description[ oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#DataObject' ]">
+    <xsl:template match="rdf:Description[ wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#DataObject' ]">
         <div id="{substring-after(@rdf:about, '#')}" class="screen">
             <xsl:call-template name="box">
                 <xsl:with-param name="cssId" select="'artefact'"/>
@@ -270,27 +270,27 @@ THE SOFTWARE.
     <xsl:template name="description">
         <xsl:param name="type"/>
         <a name="{substring-after(@rdf:about, '#')}">
-            <xsl:if test="string-length(oryx:name) &gt; 0">
+            <xsl:if test="string-length(wapama:name) &gt; 0">
                 <h1>
                     <xsl:if test="string-length($type) &gt; 0">
                         <xsl:value-of select="$type"/>
                         <xsl:text>: </xsl:text>
                     </xsl:if>
-                    <xsl:value-of select="oryx:name"/>
+                    <xsl:value-of select="wapama:name"/>
                 </h1>
             </xsl:if>
         </a>
-        <xsl:if test="string-length(oryx:documentation) &gt; 0">
-            <p><xsl:value-of select="oryx:documentation"/></p>
+        <xsl:if test="string-length(wapama:documentation) &gt; 0">
+            <p><xsl:value-of select="wapama:documentation"/></p>
         </xsl:if>
-        <xsl:if test="string-length(oryx:refuri) &gt; 0">
+        <xsl:if test="string-length(wapama:refuri) &gt; 0">
             <p>
-                <a href="{oryx:refuri}" target="_blank"><xsl:text>Detailed Description</xsl:text>
-                    <xsl:if test="string-length(oryx:name) &gt; 0">
+                <a href="{wapama:refuri}" target="_blank"><xsl:text>Detailed Description</xsl:text>
+                    <xsl:if test="string-length(wapama:name) &gt; 0">
                         <xsl:text> of the </xsl:text>
                         <xsl:value-of select="$type"/>
                         <xsl:text> '</xsl:text>
-                        <xsl:value-of select="oryx:name" />
+                        <xsl:value-of select="wapama:name" />
                         <xsl:text>'</xsl:text>
                     </xsl:if>
                 </a>
@@ -301,7 +301,7 @@ THE SOFTWARE.
     <!-- named template for rendering common properties of BPMN elements -->
     <xsl:template name="linklist">
         <a href="#{substring-after(@rdf:about, '#')}" onclick="jumpToScreen(this, '{substring-after(@rdf:about, '#')}'); return false;">
-            <xsl:value-of select="oryx:name" />
+            <xsl:value-of select="wapama:name" />
         </a>
         <br />
     </xsl:template>

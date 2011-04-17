@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:oryx="http://oryx-editor.org/"
+	xmlns:wapama="http://www.wapama.net/diagram/"
 	xmlns:raziel="http://raziel.org/">
 
 	<xsl:output method="xml" />
@@ -13,7 +13,7 @@
 			<coordinates xOrigin="leftToRight" yOrigin="topToBottom" />
 			<definitions>
 				<xsl:for-each select="//rdf:RDF/rdf:Description">
-					<xsl:if test="./oryx:type='http://b3mn.org/stencilset/epc#Event' or ./oryx:type='http://b3mn.org/stencilset/epc#Function' or ./oryx:type='http://b3mn.org/stencilset/epc#ProcessInterface' or ./oryx:type='http://b3mn.org/stencilset/epc#Data' or ./oryx:type='http://b3mn.org/stencilset/epc#System' or ./oryx:type='http://b3mn.org/stencilset/epc#Organization' or ./oryx:type='http://b3mn.org/stencilset/epc#Position' or ./oryx:type='http://b3mn.org/stencilset/epc#OrConnector' or ./oryx:type='http://b3mn.org/stencilset/epc#XorConnector' or ./oryx:type='http://b3mn.org/stencilset/epc#AndConnector'">
+					<xsl:if test="./wapama:type='http://b3mn.org/stencilset/epc#Event' or ./wapama:type='http://b3mn.org/stencilset/epc#Function' or ./wapama:type='http://b3mn.org/stencilset/epc#ProcessInterface' or ./wapama:type='http://b3mn.org/stencilset/epc#Data' or ./wapama:type='http://b3mn.org/stencilset/epc#System' or ./wapama:type='http://b3mn.org/stencilset/epc#Organization' or ./wapama:type='http://b3mn.org/stencilset/epc#Position' or ./wapama:type='http://b3mn.org/stencilset/epc#OrConnector' or ./wapama:type='http://b3mn.org/stencilset/epc#XorConnector' or ./wapama:type='http://b3mn.org/stencilset/epc#AndConnector'">
 						<definition>
 							<xsl:attribute name="defId">
 								<xsl:call-template name="get-id-string">
@@ -25,9 +25,9 @@
 				</xsl:for-each>
 			</definitions>
 			<attributeTypes>
-				<attributeType typeId="AT_ORYX_ParticipantType" />
-				<attributeType typeId="AT_ORYX_InformationFlow" />
-				<attributeType typeId="AT_ORYX_Description" />			
+				<attributeType typeId="AT_WAPAMA_ParticipantType" />
+				<attributeType typeId="AT_WAPAMA_InformationFlow" />
+				<attributeType typeId="AT_WAPAMA_Description" />			
 				<attributeType typeId="AT_FRQ_DAY"/>
 				<attributeType typeId="AT_PROB"/>
 				<attributeType typeId="AT_TIME_AVG_PRCS"/>
@@ -38,7 +38,7 @@
 					<xsl:attribute name="epcId">1</xsl:attribute>
 					<xsl:attribute name="name">
 						<xsl:for-each select="//*[@rdf:about='#generatedProcessInfos']">
-							<xsl:value-of select="./oryx:name" />
+							<xsl:value-of select="./wapama:name" />
 						</xsl:for-each>
 					</xsl:attribute>
 					<xsl:apply-templates />	
@@ -49,8 +49,8 @@
 
 	<!-- Nodes and Egdes   -->
 	<xsl:template match="rdf:Description">
-		<xsl:variable name="type" select="./oryx:type" />
-		<xsl:variable name="title" select="./oryx:title" />
+		<xsl:variable name="type" select="./wapama:type" />
+		<xsl:variable name="title" select="./wapama:title" />
 		<xsl:variable name="realID"><xsl:value-of select="@rdf:about" /></xsl:variable>
 		<xsl:variable name="id">
 			<xsl:call-template name="get-id-string">
@@ -63,9 +63,9 @@
 				<xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute>
 				<xsl:attribute name="defRef"><xsl:value-of select="$id" /></xsl:attribute>
 				<name><xsl:value-of select="$title" /></name>
-				<description><xsl:value-of select="./oryx:description" /></description>
+				<description><xsl:value-of select="./wapama:description" /></description>
 				<xsl:call-template name="node-position" />
-				<xsl:variable name="frequency" select="./oryx:frequency" />
+				<xsl:variable name="frequency" select="./wapama:frequency" />
 				
 				<xsl:if test="$frequency!=''">
 					<attribute typeRef="AT_FRQ_DAY"><xsl:attribute name="value">
@@ -80,9 +80,9 @@
 				<xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute>
 				<xsl:attribute name="defRef"><xsl:value-of select="$id" /></xsl:attribute>
 				<name><xsl:value-of select="$title" /></name>
-				<description><xsl:value-of select="./oryx:description" /></description>
+				<description><xsl:value-of select="./wapama:description" /></description>
 				<xsl:call-template name="node-position" />
-				<xsl:variable name="execTime" select="./oryx:time" />
+				<xsl:variable name="execTime" select="./wapama:time" />
 				<xsl:if test="$execTime!=''">
 					<attribute typeRef="AT_TIME_AVG_PRCS"><xsl:attribute name="value">
 						<xsl:value-of select="$execTime" />
@@ -145,7 +145,7 @@
 					<xsl:with-param name="targetId"><xsl:value-of select="$targetId" /></xsl:with-param>
 				</xsl:call-template>
 				
-				<xsl:variable name="probability" select="./oryx:probability" />
+				<xsl:variable name="probability" select="./wapama:probability" />
 				<xsl:if test="$probability!=''">
 					<attribute typeRef="AT_PROB"><xsl:attribute name="value">
 						<xsl:value-of select="$probability" />
@@ -160,10 +160,10 @@
 				<xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute>
 				<xsl:attribute name="defRef"><xsl:value-of select="$id" /></xsl:attribute>
 				<name><xsl:value-of select="$title" /></name>
-				<description><xsl:value-of select="./oryx:description" /></description>
+				<description><xsl:value-of select="./wapama:description" /></description>
 				<xsl:call-template name="node-position" />
 				<toProcess>
-					<xsl:attribute name="linkToEpcId"><xsl:value-of select="./oryx:refuri" /></xsl:attribute>
+					<xsl:attribute name="linkToEpcId"><xsl:value-of select="./wapama:refuri" /></xsl:attribute>
 				</toProcess>
 			</processInterface>
 	 	</xsl:if>
@@ -173,7 +173,7 @@
 				<xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute>
 				<xsl:attribute name="defRef"><xsl:value-of select="$id" /></xsl:attribute>
 				<name><xsl:value-of select="$title" /></name>
-				<description><xsl:value-of select="./oryx:description" /></description>
+				<description><xsl:value-of select="./wapama:description" /></description>
 				<xsl:call-template name="node-position" />
 			</dataField>
 	 	</xsl:if>
@@ -183,7 +183,7 @@
 				<xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute>
 				<xsl:attribute name="defRef"><xsl:value-of select="$id" /></xsl:attribute>
 				<name><xsl:value-of select="$title" /></name>
-				<description><xsl:value-of select="./oryx:description" /></description>
+				<description><xsl:value-of select="./wapama:description" /></description>
 				<xsl:call-template name="node-position" />
 			</application>
 	 	</xsl:if>
@@ -193,9 +193,9 @@
 				<xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute>
 				<xsl:attribute name="defRef"><xsl:value-of select="$id" /></xsl:attribute>
 				<name><xsl:value-of select="$title" /></name>
-				<description><xsl:value-of select="./oryx:description" /></description>
+				<description><xsl:value-of select="./wapama:description" /></description>
 				<xsl:call-template name="node-position" />
-				<attribute typeRef="AT_ORYX_ParticipantType" value="Organization" />
+				<attribute typeRef="AT_WAPAMA_ParticipantType" value="Organization" />
 			</participant>
 	 	</xsl:if>
 		<!-- Position-->
@@ -204,9 +204,9 @@
 				<xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute>
 				<xsl:attribute name="defRef"><xsl:value-of select="$id" /></xsl:attribute>
 				<name><xsl:value-of select="$title" /></name>
-				<description><xsl:value-of select="./oryx:description" /></description>
+				<description><xsl:value-of select="./wapama:description" /></description>
 				<xsl:call-template name="node-position" />
-				<attribute typeRef="AT_ORYX_ParticipantType" value="Position" />
+				<attribute typeRef="AT_WAPAMA_ParticipantType" value="Position" />
 			</participant>
 	 	</xsl:if>			
 	
@@ -235,11 +235,11 @@
 					<xsl:with-param name="sourceId"><xsl:value-of select="$sourceId" /></xsl:with-param>
 					<xsl:with-param name="targetId"><xsl:value-of select="$targetId" /></xsl:with-param>
 				</xsl:call-template>
-				<attribute typeRef="AT_ORYX_InformationFlow">
-					<xsl:attribute name="value"><xsl:value-of select="./oryx:informationflow" /></xsl:attribute>
+				<attribute typeRef="AT_WAPAMA_InformationFlow">
+					<xsl:attribute name="value"><xsl:value-of select="./wapama:informationflow" /></xsl:attribute>
 				</attribute>
-				<attribute typeRef="AT_ORYX_Description">
-					<xsl:attribute name="value"><xsl:value-of select="./oryx:description" /></xsl:attribute>
+				<attribute typeRef="AT_WAPAMA_Description">
+					<xsl:attribute name="value"><xsl:value-of select="./wapama:description" /></xsl:attribute>
 				</attribute>
 			</relation>
 		</xsl:if>
@@ -247,7 +247,7 @@
 
 	<!-- Node's position -->
 	<xsl:template name="node-position">
-		<xsl:variable name="bounds" select="./oryx:bounds" />
+		<xsl:variable name="bounds" select="./wapama:bounds" />
 		<xsl:variable name="x1" select="3*round(substring-before($bounds, ','))" />
 		<xsl:variable name="y1" select="3*round(substring-before(substring-after($bounds, ','), ','))" />
 		<xsl:variable name="x2" select="3*round(substring-before(substring-after(substring-after($bounds, ','), ','), ','))" />
@@ -279,7 +279,7 @@
 				<xsl:with-param name="start">1</xsl:with-param>
 				<xsl:with-param name="sourceId"><xsl:value-of select="$sourceId" /></xsl:with-param>
 				<xsl:with-param name="targetId"><xsl:value-of select="$targetId" /></xsl:with-param>
-				<xsl:with-param name="dockers"><xsl:value-of select="./oryx:dockers" /></xsl:with-param>
+				<xsl:with-param name="dockers"><xsl:value-of select="./wapama:dockers" /></xsl:with-param>
 			</xsl:call-template>
 		</graphics>
 	</xsl:template>
@@ -363,7 +363,7 @@
 	<xsl:template name="node-upper-left-x">
 		<xsl:param name="id" />
 			<xsl:for-each select="//*[@rdf:about=$id]">
-				<xsl:variable name="bounds" select="./oryx:bounds" />
+				<xsl:variable name="bounds" select="./wapama:bounds" />
 				<xsl:value-of select="3*round(substring-before($bounds, ','))" />
 			</xsl:for-each>
 	</xsl:template>
@@ -372,7 +372,7 @@
 	<xsl:template name="node-upper-left-y">
 		<xsl:param name="id" />
 			<xsl:for-each select="//*[@rdf:about=$id]">
-				<xsl:variable name="bounds" select="./oryx:bounds" />
+				<xsl:variable name="bounds" select="./wapama:bounds" />
 				<xsl:value-of select="3*round(substring-before(substring-after($bounds, ','), ','))" />
 			</xsl:for-each>
 	</xsl:template>

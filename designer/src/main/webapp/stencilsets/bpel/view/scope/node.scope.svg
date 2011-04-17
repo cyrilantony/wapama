@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="102"
    height="82"
@@ -10,35 +10,35 @@
 	
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="0" 
-  		oryx:cy="40" 
-  		oryx:anchors="left" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="80" 
-  		oryx:anchors="bottom" />
-  	<oryx:magnet 
-  		oryx:cx="100" 
-  		oryx:cy="40" 
-  		oryx:anchors="right" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="0" 
-  		oryx:anchors="top" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="40" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="0" 
+  		wapama:cy="40" 
+  		wapama:anchors="left" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="80" 
+  		wapama:anchors="bottom" />
+  	<wapama:magnet 
+  		wapama:cx="100" 
+  		wapama:cy="40" 
+  		wapama:anchors="right" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="0" 
+  		wapama:anchors="top" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="40" 
+  		wapama:default="yes" />
+  </wapama:magnets>
   
   <g 
   	pointer-events="fill" 
-    oryx:minimumSize="50 40">
+    wapama:minimumSize="50 40">
     <rect 
     	id="mainBody" 
-    	oryx:resize="vertical horizontal" 
+    	wapama:resize="vertical horizontal" 
     	x="0" 
     	y="0" 
     	width="100" 
@@ -59,7 +59,7 @@
     		height="16" 
     		stroke="black" 
     		stroke-width="1"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		fill="none" />
     	<path 
     		d="	M 78 58 L 90 58
@@ -67,21 +67,21 @@
     			M 78 66 L 90 66
     			M 78 70 L 90 70" 
     		fill="none"
-    		oryx:anchors="bottom right"
+    		wapama:anchors="bottom right"
     		stroke="black" />
   	</g>
   		
     <text
-       oryx:rotate="270"
+       wapama:rotate="270"
        id="label"
 	   x="16" 
 	   y="40" 
-	   oryx:align="middle center"
-	   oryx:anchors="left"
+	   wapama:align="middle center"
+	   wapama:anchors="left"
 	   style="font-family:Arial; font-size: 12pt; fill:black;"></text>
     <path
        d="M 17.612412,24.97282 C 19.547108,25.1529 21.624473,25.25881 22.447135,23.41477 C 23.257195,21.59896 20.891317,16.04159 25.049115,16.52218 C 20.711064,16.77904 23.330635,10.59124 22.451885,8.6619899 C 21.646732,6.8943204 19.726588,7.0072104 17.915824,7.2020204 M 14.065387,7.1897884 C 12.130691,7.0097084 10.053325,6.9037984 9.2306653,8.7478379 C 8.4205993,10.563638 10.786481,16.121008 6.6286823,15.640418 C 10.966734,15.383558 8.3471663,21.571358 9.2259163,23.500618 C 10.031066,25.268288 11.951211,25.155398 13.761975,24.960588"
-	  oryx:anchors="top left"
+	  wapama:anchors="top left"
        fill="white"    
        stroke="black" 
        stroke-width="2"  /> 

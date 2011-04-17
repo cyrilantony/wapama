@@ -2,36 +2,36 @@
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    version="1.0">
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="75" oryx:cy="0" oryx:default="yes"/>
-  	<oryx:magnet oryx:cx="75" oryx:cy="75"/>
-  	<oryx:magnet oryx:cx="0" oryx:cy="36"/>
-  	<oryx:magnet oryx:cx="150" oryx:cy="36"/>
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="75" wapama:cy="0" wapama:default="yes"/>
+  	<wapama:magnet wapama:cx="75" wapama:cy="75"/>
+  	<wapama:magnet wapama:cx="0" wapama:cy="36"/>
+  	<wapama:magnet wapama:cx="150" wapama:cy="36"/>
+  </wapama:magnets>
   <g>
     <path
        id="receiver"
-       oryx:anchor="top bottom left right"
-       oryx:resize="vertical horizontal"
+       wapama:anchor="top bottom left right"
+       wapama:resize="vertical horizontal"
        d="M60 0 L150 0 L150 50 L60 50 L75 25 z"
        stroke="black" fill="white" stroke-width="2" />
     <path
        id="sender"
-       oryx:anchor="top bottom left right"
-       oryx:resize="vertical horizontal"
+       wapama:anchor="top bottom left right"
+       wapama:resize="vertical horizontal"
        d="M0 0 L60 0 L75 25 L60 50 L0 50 z"
        stroke="black" fill="white" stroke-width="2" />
     <rect
        id="descriptionline"
-       oryx:anchor="top bottom left right"
-       oryx:resize="vertical horizontal"
+       wapama:anchor="top bottom left right"
+       wapama:resize="vertical horizontal"
        width="150" height="25"
        x="0" y="50"
        stroke="black" fill="white" stroke-width="2"/>
-	<text id="messageType" x="75" y="62.5" oryx:align="middle center"></text>		
-	<text id="senderText" x="4" y="25" oryx:align="middle left"></text>
-	<text id="receiverText" x="146" y="25" oryx:align="middle right"></text>	
+	<text id="messageType" x="75" y="62.5" wapama:align="middle center"></text>		
+	<text id="senderText" x="4" y="25" wapama:align="middle left"></text>
+	<text id="receiverText" x="146" y="25" wapama:align="middle right"></text>	
   </g>
 </svg>

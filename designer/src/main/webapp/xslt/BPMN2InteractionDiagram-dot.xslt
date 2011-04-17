@@ -24,21 +24,21 @@ THE SOFTWARE.
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:oryx="http://oryx-editor.org/"
+    xmlns:wapama="http://www.wapama.net/diagram/"
     xmlns:raziel="http://raziel.org/"
     >
 
     <xsl:output method="text" indent="no" encoding="UTF-8"/>
 
     <xsl:template match="/">
-        <xsl:for-each select="//rdf:Description[oryx:type='http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram']">
+        <xsl:for-each select="//rdf:Description[wapama:type='http://b3mn.org/stencilset/bpmn1.1#BPMNDiagram']">
             <xsl:text>digraph "</xsl:text>
-            <xsl:value-of select="oryx:name" />
+            <xsl:value-of select="wapama:name" />
             <xsl:text>" {
 </xsl:text>
             <!-- comment -->
             <xsl:text>    /* Diagram: </xsl:text>
-            <xsl:value-of select="oryx:documentation" />
+            <xsl:value-of select="wapama:documentation" />
             <xsl:text>*/
 </xsl:text>
             <xsl:text>    graph [fontname = Verdana, rankdir = LR]
@@ -50,34 +50,34 @@ THE SOFTWARE.
             <!-- nodes -->
             <xsl:for-each select="
                 //rdf:Description [
-                    oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Pool'
+                    wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Pool'
                     and
                     raziel:parent/@rdf:resource = current()/@rdf:about
                 ]"
             >
                 <xsl:for-each select="
                     //rdf:Description [
-                        oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Lane'
+                        wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Lane'
                         and
                         raziel:parent/@rdf:resource = current()/@rdf:about
                     ]"
                 >
                     <!-- comment -->
                     <xsl:text>    /* Lane: </xsl:text>
-                    <xsl:value-of select="oryx:name" />
+                    <xsl:value-of select="wapama:name" />
                     <xsl:text> (</xsl:text>
-                    <xsl:value-of select="oryx:documentation" />
+                    <xsl:value-of select="wapama:documentation" />
                     <xsl:text>) */
 </xsl:text>
                     <!-- node -->
                     <xsl:text>    "</xsl:text>
                     <xsl:value-of select="@rdf:about" />
                     <xsl:text>" [label = "</xsl:text>
-                    <xsl:value-of select="oryx:name" />
+                    <xsl:value-of select="wapama:name" />
                     <xsl:text>", URL = "javascript:jumpToScreen(this, '</xsl:text>
                     <xsl:value-of select="substring-after(@rdf:about, '#')" />
 <!--
-                    <xsl:value-of select="oryx:refuri" />
+                    <xsl:value-of select="wapama:refuri" />
 -->
                     <xsl:text>');"]
 </xsl:text>
@@ -87,19 +87,19 @@ THE SOFTWARE.
             <!-- edges -->
             <xsl:for-each select="
                 //rdf:Description [
-                    oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
+                    wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#SequenceFlow'
                 ]
             ">
                 <xsl:variable name="sourceTask" select="
                     //rdf:Description [
-                        oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
+                        wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
                         and
                         raziel:outgoing/@rdf:resource = current()/@rdf:about
                     ]
                 " />
                 <xsl:variable name="targetTask" select="
                     //rdf:Description [
-                        oryx:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
+                        wapama:type = 'http://b3mn.org/stencilset/bpmn1.1#Task'
                         and
                         @rdf:about = current()/raziel:target/@rdf:resource
                     ]
@@ -109,9 +109,9 @@ THE SOFTWARE.
                 <xsl:if test="$sourceLane != $targetLane">
                     <!-- comment -->
                     <xsl:text>    /* SquenceFlow from "</xsl:text>
-                    <xsl:value-of select="$sourceTask/oryx:name" />
+                    <xsl:value-of select="$sourceTask/wapama:name" />
                     <xsl:text>" to "</xsl:text>
-                    <xsl:value-of select="$targetTask/oryx:name" />
+                    <xsl:value-of select="$targetTask/wapama:name" />
                     <xsl:text>" */
 </xsl:text>
                     <!-- edge -->
@@ -122,15 +122,15 @@ THE SOFTWARE.
                     <xsl:value-of select="$targetLane" />
                     <xsl:text>" [label = "</xsl:text>
                     <xsl:choose>
-                        <xsl:when test="string-length(oryx:conditionexpression) &gt; 0">
-                            <xsl:value-of select="oryx:conditionexpression" />
+                        <xsl:when test="string-length(wapama:conditionexpression) &gt; 0">
+                            <xsl:value-of select="wapama:conditionexpression" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="oryx:name" />
+                            <xsl:value-of select="wapama:name" />
                         </xsl:otherwise>
                     </xsl:choose>
                     <xsl:text>", URL = "</xsl:text>
-                    <xsl:value-of select="oryx:refuri" />
+                    <xsl:value-of select="wapama:refuri" />
                     <xsl:text>"]
 </xsl:text>
                 </xsl:if>

@@ -22,11 +22,11 @@
  **/
 
 
-if (!ORYX.Plugins) {
-	ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) {
+	WAPAMA.Plugins = new Object();
 }
 
-ORYX.Plugins.ShapeRepository = {
+WAPAMA.Plugins.ShapeRepository = {
 
 	facade: undefined,
 
@@ -49,7 +49,7 @@ ORYX.Plugins.ShapeRepository = {
 			lines: false,
 			anchors: '0, -30'
 		})
-		var region = this.facade.addToRegion("west", panel, ORYX.I18N.ShapeRepository.title);
+		var region = this.facade.addToRegion("west", panel, WAPAMA.I18N.ShapeRepository.title);
 	
 		
 		// Create a Drag-Zone for Drag'n'Drop
@@ -61,7 +61,7 @@ ORYX.Plugins.ShapeRepository = {
 		// Load all Stencilssets
 		this.setStencilSets();
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_STENCIL_SET_LOADED, this.setStencilSets.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_STENCIL_SET_LOADED, this.setStencilSets.bind(this));
 
 	},
 	
@@ -86,7 +86,7 @@ ORYX.Plugins.ShapeRepository = {
 			var typeTitle = sset.title();
 			var extensions = sset.extensions();
 //			if (extensions && extensions.size() > 0) {
-//				typeTitle += " / " + ORYX.Core.StencilSet.getTranslation(extensions.values()[0], "title");
+//				typeTitle += " / " + WAPAMA.Core.StencilSet.getTranslation(extensions.values()[0], "title");
 //			} 
 			
 			this.shapeList.appendChild(stencilSetNode = new Ext.tree.TreeNode({
@@ -108,7 +108,7 @@ ORYX.Plugins.ShapeRepository = {
 			stencils.each((function(value) {
 				
 				// Show stencils in no group if there is less than 10 shapes
-				if(stencils.length <= ORYX.CONFIG.MAX_NUM_SHAPES_NO_GROUP) {
+				if(stencils.length <= WAPAMA.CONFIG.MAX_NUM_SHAPES_NO_GROUP) {
 					this.createStencilTreeNode(stencilSetNode, value);	
 					return;					
 				}
@@ -214,8 +214,8 @@ ORYX.Plugins.ShapeRepository = {
 		this._lastOverElement = undefined;
 		
 		// Hide the highlighting
-		this.facade.raiseEvent({type: ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'shapeRepo.added'});
-		this.facade.raiseEvent({type: ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'shapeRepo.attached'});
+		this.facade.raiseEvent({type: WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'shapeRepo.added'});
+		this.facade.raiseEvent({type: WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE, highlightId:'shapeRepo.attached'});
 		
 		// Check if drop is allowed
 		var proxy = dragZone.getProxy()
@@ -247,14 +247,14 @@ ORYX.Plugins.ShapeRepository = {
 		option['position'] = pos
 		
 		// Set parent
-		if( this._canAttach &&  this._currentParent instanceof ORYX.Core.Node ){
+		if( this._canAttach &&  this._currentParent instanceof WAPAMA.Core.Node ){
 			option['parent'] = undefined;	
 		} else {
 			option['parent'] = this._currentParent;
 		}
 		
 		
-		var commandClass = ORYX.Core.Command.extend({
+		var commandClass = WAPAMA.Core.Command.extend({
 			construct: function(option, currentParent, canAttach, position, facade){
 				this.option = option;
 				this.currentParent = currentParent;
@@ -275,11 +275,11 @@ ORYX.Plugins.ShapeRepository = {
 					
 				
 				
-				if( this.canAttach &&  this.currentParent instanceof ORYX.Core.Node && this.shape.dockers.length > 0){
+				if( this.canAttach &&  this.currentParent instanceof WAPAMA.Core.Node && this.shape.dockers.length > 0){
 					
 					var docker = this.shape.dockers[0];
 		
-					if( this.currentParent.parent instanceof ORYX.Core.Node ) {
+					if( this.currentParent.parent instanceof WAPAMA.Core.Node ) {
 						this.currentParent.parent.add( docker.parent );
 					}
 												
@@ -295,12 +295,12 @@ ORYX.Plugins.ShapeRepository = {
 				this.facade.getCanvas().update();
 				
 				// make the node (been hidden since created) visible after update
-				if (this.shape instanceof ORYX.Core.Node) {
+				if (this.shape instanceof WAPAMA.Core.Node) {
 					this.shape.setVisible(true);
 				}
 				this.facade.updateSelection();
 				
-				this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_DROP_SHAPE, shape:this.shape});
+				this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_DROP_SHAPE, shape:this.shape});
 				
 			},
 			rollback: function(){
@@ -312,7 +312,7 @@ ORYX.Plugins.ShapeRepository = {
 				this.facade.getCanvas().update();
 				
 				// make the node (been hidden since created) visible after update
-				if (this.shape instanceof ORYX.Core.Node) {
+				if (this.shape instanceof WAPAMA.Core.Node) {
 					this.shape.setVisible(true);
 				}
 				this.facade.updateSelection();
@@ -346,7 +346,7 @@ ORYX.Plugins.ShapeRepository = {
 		var el = aShapes.last();
 	
 		
-		if(aShapes.lenght == 1 && aShapes[0] instanceof ORYX.Core.Canvas) {
+		if(aShapes.lenght == 1 && aShapes[0] instanceof WAPAMA.Core.Canvas) {
 			
 			return false;
 			
@@ -361,9 +361,9 @@ ORYX.Plugins.ShapeRepository = {
 			if(stencil.type() === "node") {
 				
 				var parentCandidate = aShapes.reverse().find(function(candidate) {
-					return (candidate instanceof ORYX.Core.Canvas 
-							|| candidate instanceof ORYX.Core.Node
-							|| candidate instanceof ORYX.Core.Edge);
+					return (candidate instanceof WAPAMA.Core.Canvas 
+							|| candidate instanceof WAPAMA.Core.Node
+							|| candidate instanceof WAPAMA.Core.Edge);
 				});
 				
 				if(  parentCandidate !== this._lastOverElement){
@@ -376,7 +376,7 @@ ORYX.Plugins.ShapeRepository = {
 				if( parentCandidate ) {
 					//check containment rule					
 						
-					if (!(parentCandidate instanceof ORYX.Core.Canvas) && parentCandidate.isPointOverOffset(coord.x, coord.y) && this._canAttach == undefined) {
+					if (!(parentCandidate instanceof WAPAMA.Core.Canvas) && parentCandidate.isPointOverOffset(coord.x, coord.y) && this._canAttach == undefined) {
 					
 						this._canAttach = this.facade.getRules().canConnect({
 												sourceShape: parentCandidate,
@@ -387,15 +387,15 @@ ORYX.Plugins.ShapeRepository = {
 						if( this._canAttach ){
 							// Show Highlight
 							this.facade.raiseEvent({
-								type: ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW,
+								type: WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW,
 								highlightId: "shapeRepo.attached",
 								elements: [parentCandidate],
-								style: ORYX.CONFIG.SELECTION_HIGHLIGHT_STYLE_RECTANGLE,
-								color: ORYX.CONFIG.SELECTION_VALID_COLOR
+								style: WAPAMA.CONFIG.SELECTION_HIGHLIGHT_STYLE_RECTANGLE,
+								color: WAPAMA.CONFIG.SELECTION_VALID_COLOR
 							});
 							
 							this.facade.raiseEvent({
-								type: ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+								type: WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 								highlightId: "shapeRepo.added"
 							});
 							
@@ -404,7 +404,7 @@ ORYX.Plugins.ShapeRepository = {
 						
 					}
 					
-					if(!(parentCandidate instanceof ORYX.Core.Canvas) && !parentCandidate.isPointOverOffset(coord.x, coord.y)){
+					if(!(parentCandidate instanceof WAPAMA.Core.Canvas) && !parentCandidate.isPointOverOffset(coord.x, coord.y)){
 						this._canAttach 	= this._canAttach == false ? this._canAttach : undefined;						
 					}
 					
@@ -417,13 +417,13 @@ ORYX.Plugins.ShapeRepository = {
 															
 						// Show Highlight
 						this.facade.raiseEvent({
-															type:		ORYX.CONFIG.EVENT_HIGHLIGHT_SHOW, 
+															type:		WAPAMA.CONFIG.EVENT_HIGHLIGHT_SHOW, 
 															highlightId:'shapeRepo.added',
 															elements:	[parentCandidate],
-															color:		this._canContain ? ORYX.CONFIG.SELECTION_VALID_COLOR : ORYX.CONFIG.SELECTION_INVALID_COLOR
+															color:		this._canContain ? WAPAMA.CONFIG.SELECTION_VALID_COLOR : WAPAMA.CONFIG.SELECTION_INVALID_COLOR
 														});	
 						this.facade.raiseEvent({
-															type: 		ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+															type: 		WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 															highlightId:"shapeRepo.attached"
 														});						
 					}
@@ -450,5 +450,5 @@ ORYX.Plugins.ShapeRepository = {
 	}	
 }
 
-ORYX.Plugins.ShapeRepository = Clazz.extend(ORYX.Plugins.ShapeRepository);
+WAPAMA.Plugins.ShapeRepository = Clazz.extend(WAPAMA.Plugins.ShapeRepository);
 

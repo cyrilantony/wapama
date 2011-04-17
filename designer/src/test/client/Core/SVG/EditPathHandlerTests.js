@@ -9,11 +9,11 @@ var pathQuadraticBezierRelD = "M50,50 q-30,100 50,150 100,230 160,170";
 var pathEllipticArcRelD = "M10,150 a15 15 180 0 1 70 140 a15 25 180 0 0 130 130";
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for a line path with absolute coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for a line path with absolute coordinates
  */
 function testEditLineAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathLineAbsD);
@@ -22,11 +22,11 @@ function testEditLineAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for a cubic Bezier path with absolute coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for a cubic Bezier path with absolute coordinates
  */
 function testEditCubicBezierAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathCubicBezierAbsD);
@@ -35,11 +35,11 @@ function testEditCubicBezierAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for a quadratic Bezier path with absolute coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for a quadratic Bezier path with absolute coordinates
  */
 function testEditQuadraticBezierAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathQuadraticBezierAbsD);
@@ -48,11 +48,11 @@ function testEditQuadraticBezierAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for an elliptic arc path with absolute coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for an elliptic arc path with absolute coordinates
  */
 function testEditEllipticArcAbs() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathEllipticArcAbsD);
@@ -61,11 +61,11 @@ function testEditEllipticArcAbs() {
 }
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for a line path with relative coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for a line path with relative coordinates
  */
 function testEditLineRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathLineRelD);
@@ -74,11 +74,11 @@ function testEditLineRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for a cubic Bezier path with relative coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for a cubic Bezier path with relative coordinates
  */
 function testEditCubicBezierRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathCubicBezierRelD);
@@ -87,11 +87,11 @@ function testEditCubicBezierRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for a quadratic Bezier path with relative coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for a quadratic Bezier path with relative coordinates
  */
 function testEditQuadraticBezierRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathQuadraticBezierRelD);
@@ -100,11 +100,11 @@ function testEditQuadraticBezierRel() {
 }
 
 /**
- * Test ORYX.Core.SVG.EditPathHandler for an elliptic arc path with relative coordinates
+ * Test WAPAMA.Core.SVG.EditPathHandler for an elliptic arc path with relative coordinates
  */
 function testEditEllipticArcRel() {
 	var parser = new PathParser();
-	var handler = new ORYX.Core.SVG.EditPathHandler();
+	var handler = new WAPAMA.Core.SVG.EditPathHandler();
 	handler.init(40, 10, 20, 30, 1.5, 0.1);
 	parser.setHandler(handler);
 	parser.parseData(pathEllipticArcRelD);

@@ -21,14 +21,14 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * Supports creating and editing ad-hoc completion conditions
  * 
  */
-ORYX.Plugins.AdHocCC = Clazz.extend({
+WAPAMA.Plugins.AdHocCC = Clazz.extend({
 
 	facade: undefined,
 	UNSAVED_RESOURCE: "unsaved",
@@ -41,11 +41,11 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		this.facade = facade;
 		
 		this.facade.offer({
-			'name':ORYX.I18N.AdHocCC.compl,
+			'name':WAPAMA.I18N.AdHocCC.compl,
 			'functionality': this.editCC.bind(this),
-			'group': ORYX.I18N.AdHocCC.group,
-			'icon': ORYX.PATH + "images/adhoc.gif",
-			'description': ORYX.I18N.AdHocCC.complDesc,
+			'group': WAPAMA.I18N.AdHocCC.group,
+			'icon': WAPAMA.PATH + "images/adhoc.gif",
+			'description': WAPAMA.I18N.AdHocCC.complDesc,
 			'index': 0,
 			'minShape': 1,
 			'maxShape': 1
@@ -66,19 +66,19 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		var elements = this.facade.getSelection();
 		if (elements.length != 1) {
 			// Should not happen!
-			this.openErroDialog(ORYX.I18N.AdHocCC.notOne);
+			this.openErroDialog(WAPAMA.I18N.AdHocCC.notOne);
 			return ; 
 		}
 		var adHocActivity = elements[0];
-		if (adHocActivity._stencil.id() != "http://b3mn.org/stencilset/bpmnexec#Subprocess" || !adHocActivity.properties['oryx-isadhoc']){
-			this.openErroDialog(ORYX.I18N.AdHocCC.nodAdHocCC); 
+		if (adHocActivity._stencil.id() != "http://b3mn.org/stencilset/bpmnexec#Subprocess" || !adHocActivity.properties['wapama-isadhoc']){
+			this.openErroDialog(WAPAMA.I18N.AdHocCC.nodAdHocCC); 
 			return ;
 		}
 	
 		/*
 		 * 	load relevant data
 		 */ 	
-		var oldCC = adHocActivity.properties['oryx-adhoccompletioncondition'];
+		var oldCC = adHocActivity.properties['wapama-adhoccompletioncondition'];
 		var taskArrayFields = ['resourceID', 'resourceName'];
 		var taskArray = []; 
 		var stateArrayFields = ['state'];
@@ -92,7 +92,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		for (var i = 0; i < childNodes.length; i++) {
 			var child = childNodes[i];
 			if (child._stencil.id() == "http://b3mn.org/stencilset/bpmnexec#Task") {
-				var resourceName = child.properties['oryx-name'];
+				var resourceName = child.properties['wapama-name'];
 				var resourceID = child.resourceId;
 				if (typeof resourceID == "undefined") {
 					DataManager.__persistDOM(this.facade);
@@ -105,7 +105,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 				taskArray.push([resourceID, resourceName]);
 			}
 			else if (child._stencil.id() == "http://b3mn.org/stencilset/bpmnexec#DataObject") {
-				var resourceName = child.properties['oryx-name'];
+				var resourceName = child.properties['wapama-name'];
 				var resourceID = child.resourceId;
 				if (typeof resourceID == "undefined") {
 					DataManager.__persistDOM(this.facade);
@@ -115,7 +115,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 						resourceName = resourceName + " (unsaved)";
 					}
 				}
-				var dataModelString = child.properties['oryx-datamodel'];
+				var dataModelString = child.properties['wapama-datamodel'];
 				var dataModel = parser.parseFromString(dataModelString,"text/xml");
 				var rootXMLNode = dataModel.childNodes[0];
 				if (rootXMLNode != null){
@@ -152,7 +152,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
     		store: taskStore,
 			valueField: taskArrayFields[0],
 			displayField: taskArrayFields[1],
-    		emptyText: ORYX.I18N.AdHocCC.selectTask,
+    		emptyText: WAPAMA.I18N.AdHocCC.selectTask,
 			typeAhead: true,
     		mode: 'local',
     		triggerAction: 'all',
@@ -164,7 +164,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		var stateCombo = new Ext.form.ComboBox({
     		store: stateStore,
     		displayField: stateArrayFields[0],
-    		emptyText: ORYX.I18N.AdHocCC.selectState,
+    		emptyText: WAPAMA.I18N.AdHocCC.selectState,
 			typeAhead: true,
     		mode: 'local',
     		triggerAction: 'all',
@@ -174,7 +174,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		});
 
 		var addStateExprButton = new Ext.Button({
-			text: ORYX.I18N.AdHocCC.addExp,
+			text: WAPAMA.I18N.AdHocCC.addExp,
 			handler: function(){
 				var task = taskCombo.getValue();
 				var state = stateCombo.getValue();
@@ -190,7 +190,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
     		store: dataStore,
 			valueField: dataArrayFields[0],
     		displayField: dataArrayFields[1],
-    		emptyText: ORYX.I18N.AdHocCC.selectDataField,
+    		emptyText: WAPAMA.I18N.AdHocCC.selectDataField,
 			typeAhead: true,
     		mode: 'local',
     		triggerAction: 'all',
@@ -201,11 +201,11 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		
 		var valueField = new Ext.form.TextField({
 			width: 180,
-			emptyText: ORYX.I18N.AdHocCC.enterEqual,
+			emptyText: WAPAMA.I18N.AdHocCC.enterEqual,
 		});
 		
 		var addDataExprButton = new Ext.Button({
-			text: ORYX.I18N.AdHocCC.addExp,
+			text: WAPAMA.I18N.AdHocCC.addExp,
 			handler: function(){
 				var data = dataCombo.getValue();
 				var value = valueField.getValue();
@@ -218,7 +218,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		});
 		
 		var addAndButton = new Ext.Button({
-			text: ORYX.I18N.AdHocCC.and, 
+			text: WAPAMA.I18N.AdHocCC.and, 
 			minWidth: 50,
 			handler: function(){
 				this.addStringToTextArea(textArea, "&");
@@ -226,7 +226,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		});
 					
 		var addOrButton = new Ext.Button({
-			text: ORYX.I18N.AdHocCC.or, 
+			text: WAPAMA.I18N.AdHocCC.or, 
 			minWidth: 50,
 			handler: function(){
 				this.addStringToTextArea(textArea, "|");
@@ -250,7 +250,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		});
 		
 		var addNotButton = new Ext.Button({
-			text: ORYX.I18N.AdHocCC.not, 
+			text: WAPAMA.I18N.AdHocCC.not, 
 			minWidth: 50,
 			handler: function(){
 				this.addStringToTextArea(textArea, "!");
@@ -264,7 +264,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		});
 		
 		var clearButton = new Ext.Button({
-			text: ORYX.I18N.AdHocCC.clearCC,
+			text: WAPAMA.I18N.AdHocCC.clearCC,
 			handler: function(){
 				textArea.setValue("");
 			}
@@ -279,7 +279,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 			minimizable: false,
 			modal: true,
 			autoScroll: true,
-			title: ORYX.I18N.AdHocCC.editCC,
+			title: WAPAMA.I18N.AdHocCC.editCC,
 			layout: 'table',
 			defaults: {
 		        bodyStyle:'padding:3px;background-color:transparent;border-width:0px'
@@ -288,18 +288,18 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		        columns: 7
 		    },
 			items: [
-				{ items: [new Ext.form.Label({text: ORYX.I18N.AdHocCC.addExecState, style: 'font-size:12px;'})], colspan: 7},
+				{ items: [new Ext.form.Label({text: WAPAMA.I18N.AdHocCC.addExecState, style: 'font-size:12px;'})], colspan: 7},
 				{}, {items: [taskCombo], colspan: 6},
 				{}, {items: [stateCombo], colspan: 4}, {items: [addStateExprButton]}, {},
 				{colspan: 7},
-				{ items: [new Ext.form.Label({text: ORYX.I18N.AdHocCC.addDataExp, style: 'font-size:12px;'})], colspan: 7},	
+				{ items: [new Ext.form.Label({text: WAPAMA.I18N.AdHocCC.addDataExp, style: 'font-size:12px;'})], colspan: 7},	
 				{}, {items: [dataCombo], colspan: 6},
 				{}, {items: [valueField], colspan: 4}, {items: [addDataExprButton]}, {},
 				{colspan: 7},
-				{ items: [new Ext.form.Label({text: ORYX.I18N.AdHocCC.addLogOp, style: 'font-size:12px;'})], colspan: 7},	
+				{ items: [new Ext.form.Label({text: WAPAMA.I18N.AdHocCC.addLogOp, style: 'font-size:12px;'})], colspan: 7},	
 				{}, {items: [addAndButton]}, {items: [addOrButton]}, {items: [addLPButton]}, {items: [addRPButton]}, {items: [addNotButton]}, {},
 				{colspan: 7},
-				{ items: [new Ext.form.Label({text: ORYX.I18N.AdHocCC.curCond, style: 'font-size:12px;'})], colspan: 7},
+				{ items: [new Ext.form.Label({text: WAPAMA.I18N.AdHocCC.curCond, style: 'font-size:12px;'})], colspan: 7},
 				{}, {items: [textArea], colspan: 5}, {},
 				{colspan: 5}, {items: [clearButton]}, {}
 			],
@@ -308,7 +308,7 @@ ORYX.Plugins.AdHocCC = Clazz.extend({
 		        	text: 'Apply',
 		        	handler: function(){
 		            	win.hide();
-						adHocActivity.properties['oryx-adhoccompletioncondition'] = textArea.getValue();
+						adHocActivity.properties['wapama-adhoccompletioncondition'] = textArea.getValue();
 						// ISSUE: This might be done more elegant using a refresh-event implemented in the property window plugin
 						this.facade.setSelection([]);
 						this.facade.setSelection(elements);

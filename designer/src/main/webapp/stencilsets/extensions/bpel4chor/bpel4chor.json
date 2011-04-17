@@ -1,6 +1,6 @@
 {
 	"title":"BPEL4Chor Extension",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/bpel4chor#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/bpel4chor#",
 	"description":"BPEL4Chor extension.",
 	"extends":"http://b3mn.org/stencilset/bpel#",
 	"stencils":[
@@ -19,7 +19,7 @@
 			"properties": [
 				{
 					"id":"name",
-					"prefix":"oryx",
+					"prefix":"wapama",
 					"type":"String",
 					"title":"Name",
 					"title_de":"Name",
@@ -33,7 +33,7 @@
 				},
 				{
 					"id":"messageName",
-					"prefix":"oryx",
+					"prefix":"wapama",
 					"type":"String",
 					"title":"messageName",
 					"title_de":"messageName",
@@ -47,7 +47,7 @@
 				},
 				{
 					"id":"participantRefs",
-					"prefix":"oryx",
+					"prefix":"wapama",
 					"type":"String",
 					"title":"participantRefs",
 					"title_de":"participantRefs",

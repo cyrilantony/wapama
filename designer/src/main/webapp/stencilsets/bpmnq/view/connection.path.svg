@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <svg
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    version="1.0"
-   oryx:edge="edge">
+   wapama:edge="edge">
   <defs id="defs2213">
     <marker id="mid" refX="0" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="20" orient="auto">
       <!-- defines the // sign in the middle of an arrow -->
@@ -15,7 +15,7 @@
   </defs>
 
   <g id="edge">
-    <!-- number of commands in d attribute defines the number of dockers that Oryx will show -->
+    <!-- number of commands in d attribute defines the number of dockers that Wapama will show -->
     <path
        d="M10 50 L110 50 L210 50"
        stroke="black"
@@ -27,9 +27,9 @@
        marker-mid="url(#mid)"
        marker-end="url(#end)"
        id="path2221" />
-       <text id="excltext" x="10" y="40" oryx:edgePosition="startTop">Excludes</text>
-       <text id="tempnone" x="10" y="70" oryx:edgePosition="startBottom"/>
-       <text id="tempprecedes" x="10" y="70" oryx:edgePosition="startBottom">&lt;&lt;Precedes&gt;&gt;</text>
-       <text id="templeadsto" x="10" y="70" oryx:edgePosition="startBottom">&lt;&lt;Leads to&gt;&gt;</text>
+       <text id="excltext" x="10" y="40" wapama:edgePosition="startTop">Excludes</text>
+       <text id="tempnone" x="10" y="70" wapama:edgePosition="startBottom"/>
+       <text id="tempprecedes" x="10" y="70" wapama:edgePosition="startBottom">&lt;&lt;Precedes&gt;&gt;</text>
+       <text id="templeadsto" x="10" y="70" wapama:edgePosition="startBottom">&lt;&lt;Leads to&gt;&gt;</text>
   </g>
 </svg>

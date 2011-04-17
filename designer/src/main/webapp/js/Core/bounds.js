@@ -24,14 +24,14 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
 
 
 /**
  * @classDescription With Bounds you can set and get position and size of UIObjects.
  */
-ORYX.Core.Bounds = {
+WAPAMA.Core.Bounds = {
 
 	/**
 	 * Constructor
@@ -408,7 +408,7 @@ ORYX.Core.Bounds = {
 		
 		//Returns a new bounds object without the callback
 		// references of the original bounds
-		return new ORYX.Core.Bounds(this);
+		return new WAPAMA.Core.Bounds(this);
 	},
 	
 	toString: function() {
@@ -422,4 +422,4 @@ ORYX.Core.Bounds = {
 	}
  };
  
-ORYX.Core.Bounds = Clazz.extend(ORYX.Core.Bounds);
+WAPAMA.Core.Bounds = Clazz.extend(WAPAMA.Core.Bounds);

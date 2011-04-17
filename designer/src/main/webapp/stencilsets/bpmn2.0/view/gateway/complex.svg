@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    version="1.0"
    width="40"
    height="40">
-  <oryx:magnets>
-    <oryx:magnet
-       oryx:default="yes"
-       oryx:cy="16"
-       oryx:cx="16" />
-  </oryx:magnets>
+  <wapama:magnets>
+    <wapama:magnet
+       wapama:default="yes"
+       wapama:cy="16"
+       wapama:cx="16" />
+  </wapama:magnets>
   <g>
 
     <defs>
@@ -30,7 +30,7 @@
        d="M 6.25,16 L 25.75,16 M 16,6.25 L 16,25.75 M 8.85,8.85 L 23.15,23.15 M 8.85,23.15 L 23.15,8.85"
        style="fill:#ffffff;stroke:#000000;stroke-width:3.9" />
     
-	<text id="text_name" x="26" y="26" oryx:align="left top"/>
+	<text id="text_name" x="26" y="26" wapama:align="left top"/>
 	
   </g>
 </svg>

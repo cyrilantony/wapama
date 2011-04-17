@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -56,12 +56,12 @@
        inkscape:persp3d-origin="20 : 13.333333 : 1"
        id="perspective21" />
   </defs>
-  <oryx:magnets>
-    <oryx:magnet
-       oryx:cx="16"
-       oryx:cy="16"
-       oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+    <wapama:magnet
+       wapama:cx="16"
+       wapama:cy="16"
+       wapama:default="yes" />
+  </wapama:magnets>
   <g
      pointer-events="fill"
      id="g6">
@@ -96,7 +96,7 @@
        id="text_name"
        x="16"
        y="33"
-       oryx:align="top center"
+       wapama:align="top center"
        style="font-size:11px;stroke:#000000" />
   </g>
 </svg>

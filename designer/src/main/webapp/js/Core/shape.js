@@ -24,14 +24,14 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
 
 /**
  * @classDescription Base class for Shapes.
- * @extends ORYX.Core.AbstractShape
+ * @extends WAPAMA.Core.AbstractShape
  */
-ORYX.Core.Shape = {
+WAPAMA.Core.Shape = {
 
 	/**
 	 * Constructor
@@ -56,7 +56,7 @@ ORYX.Core.Shape = {
 		this._labels = new Hash();
 		
 		// create SVG node
-		this.node = ORYX.Editor.graft("http://www.w3.org/2000/svg",
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/2000/svg",
 			null,
 			['g', {id:this.id},
 				['g', {"class": "stencils"},
@@ -105,7 +105,7 @@ ORYX.Core.Shape = {
 					this.propertiesChanged[propChanged.key] = false;
 
 					//handle choice properties
-					if(property.type() == ORYX.CONFIG.TYPE_CHOICE) {
+					if(property.type() == WAPAMA.CONFIG.TYPE_CHOICE) {
 						//iterate all references to SVG elements
 						property.refToView().each((function(ref) {
 							//if property is referencing a label, update the label
@@ -137,7 +137,7 @@ ORYX.Core.Shape = {
 								}
 								
 								// Reload the href if there is an image-tag
-								if(ORYX.Editor.checkClassType(svgElem, SVGImageElement)) {
+								if(WAPAMA.Editor.checkClassType(svgElem, SVGImageElement)) {
 									svgElem.setAttributeNS('http://www.w3.org/1999/xlink', 'href', svgElem.getAttributeNS('http://www.w3.org/1999/xlink', 'href'));
 								}
 							}).bind(this));
@@ -161,7 +161,7 @@ ORYX.Core.Shape = {
 								//if the referenced SVG element is a SVGAElement, it cannot
 								// be found with getElementById (Firefox bug).
 								// this is a work around
-								if(property.type() === ORYX.CONFIG.TYPE_URL || property.type() === ORYX.CONFIG.TYPE_DIAGRAM_LINK) {
+								if(property.type() === WAPAMA.CONFIG.TYPE_URL || property.type() === WAPAMA.CONFIG.TYPE_DIAGRAM_LINK) {
 									var svgElems = this.node.ownerDocument.getElementsByTagNameNS('http://www.w3.org/2000/svg', 'a');
 									
 									svgElem = $A(svgElems).find(function(elem) {
@@ -190,7 +190,7 @@ ORYX.Core.Shape = {
 							} else {
 
 								switch (property.type()) {
-									case ORYX.CONFIG.TYPE_BOOLEAN:	
+									case WAPAMA.CONFIG.TYPE_BOOLEAN:	
 										
 										if (typeof prop == "string")
 											prop = prop === "true"
@@ -198,14 +198,14 @@ ORYX.Core.Shape = {
 										svgElem.setAttributeNS(null, 'display', (!(prop === property.inverseBoolean())) ? 'inherit' : 'none');
 										
 										break;
-									case ORYX.CONFIG.TYPE_COLOR:
+									case WAPAMA.CONFIG.TYPE_COLOR:
 										if(property.fill()) {
 											if (svgElem.tagName.toLowerCase() === "stop"){
 												svgElem.setAttributeNS(null, "stop-color", prop);
 												
 												// Adjust stop color of the others
 												if (svgElem.parentNode.tagName.toLowerCase() === "radialgradient"){
-													ORYX.Utils.adjustGradient(svgElem.parentNode, svgElem);
+													WAPAMA.Utils.adjustGradient(svgElem.parentNode, svgElem);
 												}
 											} else {
 												svgElem.setAttributeNS(null, 'fill', prop);
@@ -215,19 +215,19 @@ ORYX.Core.Shape = {
 											svgElem.setAttributeNS(null, 'stroke', prop);
 										}
 										break;
-									case ORYX.CONFIG.TYPE_STRING:
+									case WAPAMA.CONFIG.TYPE_STRING:
 										var label = this._labels[refId];
 										if (label) {
 											label.text(prop);
 										}
 										break;
-									case ORYX.CONFIG.TYPE_INTEGER:
+									case WAPAMA.CONFIG.TYPE_INTEGER:
 										var label = this._labels[refId];
 										if (label) {
 											label.text(prop);
 										}
 										break;
-									case ORYX.CONFIG.TYPE_FLOAT:
+									case WAPAMA.CONFIG.TYPE_FLOAT:
 										if(property.fillOpacity()) {
 											svgElem.setAttributeNS(null, 'fill-opacity', prop);
 										} 
@@ -241,8 +241,8 @@ ORYX.Core.Shape = {
 											}
 										}
 										break;
-									case ORYX.CONFIG.TYPE_URL:
-									case ORYX.CONFIG.TYPE_DIAGRAM_LINK:
+									case WAPAMA.CONFIG.TYPE_URL:
+									case WAPAMA.CONFIG.TYPE_DIAGRAM_LINK:
 										//TODO what is the dafault path?
 										var hrefAttr = svgElem.getAttributeNodeNS('http://www.w3.org/1999/xlink', 'xlink:href');
 										if(hrefAttr) {
@@ -271,7 +271,7 @@ ORYX.Core.Shape = {
 	layout: function() {
 		//this.getStencil().layout(this)
 		var layoutEvents = this.getStencil().layout()
-		if(this instanceof ORYX.Core.Node && layoutEvents) {
+		if(this instanceof WAPAMA.Core.Node && layoutEvents) {
 			layoutEvents.each(function(event) {
 				
 				// setup additional attributes
@@ -326,7 +326,7 @@ ORYX.Core.Shape = {
 	
 	getIncomingNodes: function(iterator) {
         return this.incoming.select(function(incoming){
-            var isNode = (incoming instanceof ORYX.Core.Node);
+            var isNode = (incoming instanceof WAPAMA.Core.Node);
             if(isNode && iterator) iterator(incoming);
             return isNode;
         });
@@ -342,7 +342,7 @@ ORYX.Core.Shape = {
     
     getOutgoingNodes: function(iterator) {
         return this.outgoing.select(function(out){
-            var isNode = (out instanceof ORYX.Core.Node);
+            var isNode = (out instanceof WAPAMA.Core.Node);
             if(isNode && iterator) iterator(out);
             return isNode;
         });
@@ -357,9 +357,9 @@ ORYX.Core.Shape = {
 	},
 
 	getCanvas: function() {
-		if(this.parent instanceof ORYX.Core.Canvas) {
+		if(this.parent instanceof WAPAMA.Core.Canvas) {
 			return this.parent;
-		} else if(this.parent instanceof ORYX.Core.Shape) {
+		} else if(this.parent instanceof WAPAMA.Core.Shape) {
 			return this.parent.getCanvas();
 		} else {
 			return undefined;
@@ -383,7 +383,7 @@ ORYX.Core.Shape = {
 				}
 				result.push(uiObject);
 				
-				if(deep && uiObject instanceof ORYX.Core.Shape) {
+				if(deep && uiObject instanceof WAPAMA.Core.Shape) {
 					result = result.concat(uiObject.getChildNodes(deep, iterator));
 				}
 			});
@@ -400,8 +400,8 @@ ORYX.Core.Shape = {
 	add: function(uiObject, index) {
 		//parameter has to be an UIObject, but
 		// must not be an Edge.
-		if(uiObject instanceof ORYX.Core.UIObject 
-			&& !(uiObject instanceof ORYX.Core.Edge)) {
+		if(uiObject instanceof WAPAMA.Core.UIObject 
+			&& !(uiObject instanceof WAPAMA.Core.Edge)) {
 			
 			if (!(this.children.member(uiObject))) {
 				//if uiObject is child of another parent, remove it from that parent.
@@ -420,19 +420,19 @@ ORYX.Core.Shape = {
 
 				//add uiObject.node to this.node depending on the type of uiObject
 				var parent;
-				if(uiObject instanceof ORYX.Core.Node) {
+				if(uiObject instanceof WAPAMA.Core.Node) {
 					parent = this.node.childNodes[0].childNodes[1];
 					this.nodes.push(uiObject);
-				} else if(uiObject instanceof ORYX.Core.Controls.Control) {
+				} else if(uiObject instanceof WAPAMA.Core.Controls.Control) {
 					var ctrls = this.node.childNodes[1];
-					if(uiObject instanceof ORYX.Core.Controls.Docker) {
+					if(uiObject instanceof WAPAMA.Core.Controls.Docker) {
 						parent = ctrls.childNodes[0];
 						if (this.dockers.length >= 2){
 							this.dockers.splice(index!==undefined?Math.min(index, this.dockers.length-1):this.dockers.length-1, 0, uiObject);
 						} else {
 							this.dockers.push(uiObject);
 						}
-					} else if(uiObject instanceof ORYX.Core.Controls.Magnet) {
+					} else if(uiObject instanceof WAPAMA.Core.Controls.Magnet) {
 						parent = ctrls.childNodes[1];
 						this.magnets.push(uiObject);
 					} else {
@@ -452,15 +452,15 @@ ORYX.Core.Shape = {
 				
 				
 				if(this.eventHandlerCallback)
-					this.eventHandlerCallback({type:ORYX.CONFIG.EVENT_SHAPEADDED,shape:uiObject})
+					this.eventHandlerCallback({type:WAPAMA.CONFIG.EVENT_SHAPEADDED,shape:uiObject})
 					
 			} else {
 
-				ORYX.Log.warn("add: ORYX.Core.UIObject is already a child of this object.");
+				WAPAMA.Log.warn("add: WAPAMA.Core.UIObject is already a child of this object.");
 			}
 		} else {
 
-			ORYX.Log.warn("add: Parameter is not of type ORYX.Core.UIObject.");
+			WAPAMA.Log.warn("add: Parameter is not of type WAPAMA.Core.UIObject.");
 		}
 	},
 
@@ -478,19 +478,19 @@ ORYX.Core.Shape = {
 			uiObject.parent = undefined;
 
 			//delete uiObject.node from this.node
-			if(uiObject instanceof ORYX.Core.Shape) {
-				if(uiObject instanceof ORYX.Core.Edge) {
+			if(uiObject instanceof WAPAMA.Core.Shape) {
+				if(uiObject instanceof WAPAMA.Core.Edge) {
 					uiObject.removeMarkers();
 					uiObject.node = this.node.childNodes[0].childNodes[2].removeChild(uiObject.node);
 				} else {
 					uiObject.node = this.node.childNodes[0].childNodes[1].removeChild(uiObject.node);
 					this.nodes = this.nodes.without(uiObject);
 				}
-			} else if(uiObject instanceof ORYX.Core.Controls.Control) {
-				if (uiObject instanceof ORYX.Core.Controls.Docker) {
+			} else if(uiObject instanceof WAPAMA.Core.Controls.Control) {
+				if (uiObject instanceof WAPAMA.Core.Controls.Docker) {
 					uiObject.node = this.node.childNodes[1].childNodes[0].removeChild(uiObject.node);
 					this.dockers = this.dockers.without(uiObject);
-				} else if (uiObject instanceof ORYX.Core.Controls.Magnet) {
+				} else if (uiObject instanceof WAPAMA.Core.Controls.Magnet) {
 					uiObject.node = this.node.childNodes[1].childNodes[1].removeChild(uiObject.node);
 					this.magnets = this.magnets.without(uiObject);
 				} else {
@@ -502,7 +502,7 @@ ORYX.Core.Shape = {
 			//uiObject.bounds.unregisterCallback(this._changedCallback);
 		} else {
 
-			ORYX.Log.warn("remove: ORYX.Core.UIObject is not a child of this object.");
+			WAPAMA.Log.warn("remove: WAPAMA.Core.UIObject is not a child of this object.");
 		}
 	},
 	
@@ -636,7 +636,7 @@ ORYX.Core.Shape = {
 	 *
 	 */
 	createDocker: function(index, position) {
-		var docker = new ORYX.Core.Controls.Docker({eventHandlerCallback: this.eventHandlerCallback});
+		var docker = new WAPAMA.Core.Controls.Docker({eventHandlerCallback: this.eventHandlerCallback});
 		docker.bounds.registerCallback(this._dockerChangedCallback);
 		if(position) {
 			docker.bounds.centerMoveTo(position);
@@ -658,7 +658,7 @@ ORYX.Core.Shape = {
 		var serializedObject = arguments.callee.$.serialize.apply(this);
 
 		// Add the bounds
-		serializedObject.push({name: 'bounds', prefix:'oryx', value: this.bounds.serializeForERDF(), type: 'literal'});
+		serializedObject.push({name: 'bounds', prefix:'wapama', value: this.bounds.serializeForERDF(), type: 'literal'});
 
 		// Add the outgoing shapes
 		this.getOutgoingShapes().each((function(followingShape){
@@ -666,7 +666,7 @@ ORYX.Core.Shape = {
 		}).bind(this));
 
 		// Add the parent shape, if the parent not the canvas
-		//if(this.parent instanceof ORYX.Core.Shape){
+		//if(this.parent instanceof WAPAMA.Core.Shape){
 			serializedObject.push({name: 'parent', prefix:'raziel', value: '#'+ERDF.__stripHashes(this.parent.resourceId), type: 'resource'});	
 		//}			
 		
@@ -678,10 +678,10 @@ ORYX.Core.Shape = {
 		arguments.callee.$.deserialize.apply(this, arguments);
 		
 		// Set the Bounds
-		var bounds = serialze.find(function(ser){ return (ser.prefix+"-"+ser.name) == 'oryx-bounds'});
+		var bounds = serialze.find(function(ser){ return (ser.prefix+"-"+ser.name) == 'wapama-bounds'});
 		if(bounds) {
 			var b = bounds.value.replace(/,/g, " ").split(" ").without("");
-			if(this instanceof ORYX.Core.Edge){
+			if(this instanceof WAPAMA.Core.Edge){
 				this.dockers.first().bounds.centerMoveTo(parseFloat(b[0]), parseFloat(b[1]));
 				this.dockers.last().bounds.centerMoveTo(parseFloat(b[2]), parseFloat(b[3]));
 			} else {
@@ -731,6 +731,6 @@ ORYX.Core.Shape = {
 		return idIndex;
 	},
 
-	toString: function() { return "ORYX.Core.Shape " + this.getId() }
+	toString: function() { return "WAPAMA.Core.Shape " + this.getId() }
 };
-ORYX.Core.Shape = ORYX.Core.AbstractShape.extend(ORYX.Core.Shape);
+WAPAMA.Core.Shape = WAPAMA.Core.AbstractShape.extend(WAPAMA.Core.Shape);

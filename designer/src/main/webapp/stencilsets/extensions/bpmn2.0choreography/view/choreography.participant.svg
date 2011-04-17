@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
 
    width="102"
@@ -10,11 +10,11 @@
    version="1.0">
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="25" oryx:cy="10" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="50" oryx:cy="10" oryx:default="yes" />
-  	<oryx:magnet oryx:cx="75" oryx:cy="10" oryx:anchors="right" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="25" wapama:cy="10" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="50" wapama:cy="10" wapama:default="yes" />
+  	<wapama:magnet wapama:cx="75" wapama:cy="10" wapama:anchors="right" />
+  </wapama:magnets>
  
   <g pointer-events="fill">
      <defs>
@@ -28,26 +28,26 @@
 		</radialGradient>
 	</defs>
     <rect id="roundedBgRect" x="0" y="0" rx="10" ry="10" width="100" height="20" stroke="black" stroke-width="1" fill="url(#background_top) white" 
-    	  	oryx:anchors="top bottom right left" />
+    	  	wapama:anchors="top bottom right left" />
     <path id="roundedOnBottom" stroke="black" stroke-width="1" fill="url(#background) white" d="M0 10 L0 0 L100 0 L100 10" 
-   			oryx:anchors="top right left"
+   			wapama:anchors="top right left"
     	  />
     <path id="roundedOnTop" stroke="black" stroke-width="1" fill="white" d="M0 10 L0 20 L100 20 L100 10" 
-    	  	oryx:anchors="bottom right left"
+    	  	wapama:anchors="bottom right left"
     	  />
 	<text 
 		font-size="12" 
 		id="text_name" 
 		x="50" 
 		y="10" 
-		oryx:align="middle center"
-		oryx:fittoelem="initiating"
-		oryx:anchors="top"
+		wapama:align="middle center"
+		wapama:fittoelem="initiating"
+		wapama:anchors="top"
 		stroke="black" >
 	</text>
 	<g id="mi">
 		<path id="mi_path" fill="none" stroke="black" d="M46 10 v8 M50 10 v8 M54 10 v8" stroke-width="2"
-			  oryx:anchors="bottom" />
+			  wapama:anchors="bottom" />
 	</g>
     
   </g>

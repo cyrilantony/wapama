@@ -22,12 +22,12 @@
  **/
 
 
-if(!ORYX.Plugins) {
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins) {
+	WAPAMA.Plugins = new Object();
 }
 
 
-ORYX.Plugins.TransformationDownloadDialog = {
+WAPAMA.Plugins.TransformationDownloadDialog = {
 
 	construct: function() {
 	},
@@ -83,7 +83,7 @@ ORYX.Plugins.TransformationDownloadDialog = {
 		// Basic Dialog
 		var text = new Ext.form.TextArea({
 			id:'error-field',
-			fieldLabel: ORYX.I18N.TransformationDownloadDialog.error,
+			fieldLabel: WAPAMA.I18N.TransformationDownloadDialog.error,
 			name: 'desc',
 			height: 405,
 			width: 633,
@@ -94,7 +94,7 @@ ORYX.Plugins.TransformationDownloadDialog = {
 		
 		var dialog = new Ext.Window({ 
 			autoCreate: true, 
-			title: ORYX.I18N.TransformationDownloadDialog.errorParsing, 
+			title: WAPAMA.I18N.TransformationDownloadDialog.errorParsing, 
 			modal:true,
 			height: 450,
 			width: 650,
@@ -168,7 +168,7 @@ ORYX.Plugins.TransformationDownloadDialog = {
 		
 		var dialog = new Ext.Window({ 
 			autoCreate: true, 
-			title: ORYX.I18N.TransformationDownloadDialog.transResult, 
+			title: WAPAMA.I18N.TransformationDownloadDialog.transResult, 
 			autoHeight: true, 
 			width: 297, 
 			modal:true,
@@ -191,7 +191,7 @@ ORYX.Plugins.TransformationDownloadDialog = {
 		toolbar.add({
 			icon: 'images/view.png', // icons can also be specified inline
 	        cls: 'x-btn-icon',
-    	    tooltip: ORYX.I18N.TransformationDownloadDialog.showFile,
+    	    tooltip: WAPAMA.I18N.TransformationDownloadDialog.showFile,
 			handler: function() {
 				var ds = grid.getStore();
 				var selection = grid.getSelectionModel().getSelected();
@@ -209,7 +209,7 @@ ORYX.Plugins.TransformationDownloadDialog = {
 		toolbar.add({
 			icon: 'images/disk.png', // icons can also be specified inline
 	        cls: 'x-btn-icon',
-    	    tooltip: ORYX.I18N.TransformationDownloadDialog.downloadFile,
+    	    tooltip: WAPAMA.I18N.TransformationDownloadDialog.downloadFile,
 			handler: function() {
 				var ds = grid.getStore();
 				var selection = grid.getSelectionModel().getSelected();
@@ -222,7 +222,7 @@ ORYX.Plugins.TransformationDownloadDialog = {
 		toolbar.add({
 			icon: 'images/disk_multi.png', // icons can also be specified inline
 	        cls: 'x-btn-icon',
-    	    tooltip: ORYX.I18N.TransformationDownloadDialog.downloadAll,
+    	    tooltip: WAPAMA.I18N.TransformationDownloadDialog.downloadAll,
 			handler: function() {
 				var ds = grid.getStore();				
 				this.openDownloadWindow(ds.getRange(0, ds.getCount()), true);
@@ -300,7 +300,7 @@ ORYX.Plugins.TransformationDownloadDialog = {
 	 * Opens a download window for downloading the given content.
 	 * 
 	 * Creates a submit form to send the contents to the 
-	 * Oryx Legacy File Download Servlet (MultiDownloader).
+	 * Wapama Legacy File Download Servlet (MultiDownloader).
 	 * 
 	 * @param {Object} content The content to be downloaded. If it is a zip 
 	 *                         file, then this should be an array of contents.
@@ -368,4 +368,4 @@ ORYX.Plugins.TransformationDownloadDialog = {
 	}
 }
 
-ORYX.Plugins.TransformationDownloadDialog = Clazz.extend(ORYX.Plugins.TransformationDownloadDialog);
+WAPAMA.Plugins.TransformationDownloadDialog = Clazz.extend(WAPAMA.Plugins.TransformationDownloadDialog);

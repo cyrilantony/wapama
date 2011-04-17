@@ -21,17 +21,17 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins) { ORYX.Plugins = {} }
-if(!ORYX.Plugins.Layouter) { ORYX.Plugins.Layouter = {} }
+if(!WAPAMA.Plugins) { WAPAMA.Plugins = {} }
+if(!WAPAMA.Plugins.Layouter) { WAPAMA.Plugins.Layouter = {} }
 
 new function(){
 	
 	/**
 	 * Edge layouter is an implementation to layout an edge
-	 * @class ORYX.Plugins.Layouter.EdgeLayouter
+	 * @class WAPAMA.Plugins.Layouter.EdgeLayouter
 	 * @author Willi Tscheschner
 	 */
-	ORYX.Plugins.Layouter.EdgeLayouter = ORYX.Plugins.AbstractLayouter.extend({
+	WAPAMA.Plugins.Layouter.EdgeLayouter = WAPAMA.Plugins.AbstractLayouter.extend({
 		
 		/**
 		 * Layout only Edges
@@ -257,7 +257,7 @@ new function(){
 			// Check if there are same incoming edges from 'from'
 			var sameIncomingFrom = from
 								.getIncomingShapes()
-								.findAll(function(a){ return a instanceof ORYX.Core.Edge})
+								.findAll(function(a){ return a instanceof WAPAMA.Core.Edge})
 								.any(function(e){ 
 									return sameDirection(d1, e.dockers[e.dockers.length-2].bounds.center(), e.dockers.last().bounds.center());
 								});
@@ -265,7 +265,7 @@ new function(){
 			// Check if there are same outgoing edges from 'to'
 			var sameOutgoingTo = to
 								.getOutgoingShapes()
-								.findAll(function(a){ return a instanceof ORYX.Core.Edge})
+								.findAll(function(a){ return a instanceof WAPAMA.Core.Edge})
 								.any(function(e){ 
 									return sameDirection(d2, e.dockers[1].bounds.center(), e.dockers.first().bounds.center());
 								});

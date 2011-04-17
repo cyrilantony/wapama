@@ -24,9 +24,9 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.SVG) {WAPAMA.Core.SVG = {};}
 
 
 /**
@@ -38,7 +38,7 @@ if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
  * 
  * @constructor
  */
-ORYX.Core.SVG.PointsPathHandler = Clazz.extend({
+WAPAMA.Core.SVG.PointsPathHandler = Clazz.extend({
 	
 	construct: function() {
 		arguments.callee.$.construct.apply(this, arguments);

@@ -20,10 +20,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.DesynchronizabilityOverlay = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.DesynchronizabilityOverlay = WAPAMA.Plugins.AbstractPlugin.extend({
 
     facade: undefined,
     
@@ -36,11 +36,11 @@ ORYX.Plugins.DesynchronizabilityOverlay = ORYX.Plugins.AbstractPlugin.extend({
 		this.callback = undefined;
 		
         this.facade.offer({
-            'name': ORYX.I18N.DesynchronizabilityOverlay.name,
+            'name': WAPAMA.I18N.DesynchronizabilityOverlay.name,
             'functionality': this.showOverlay.bind(this),
-            'group': ORYX.I18N.DesynchronizabilityOverlay.group,
-            'icon': ORYX.PATH + "images/bpmn2pn.png",
-            'description': ORYX.I18N.DesynchronizabilityOverlay.desc,
+            'group': WAPAMA.I18N.DesynchronizabilityOverlay.group,
+            'icon': WAPAMA.PATH + "images/bpmn2pn.png",
+            'description': WAPAMA.I18N.DesynchronizabilityOverlay.desc,
             'index': 3,
             'minShape': 0,
             'maxShape': 0
@@ -53,7 +53,7 @@ ORYX.Plugins.DesynchronizabilityOverlay = ORYX.Plugins.AbstractPlugin.extend({
 		if (this.active) {
 			
 			this.facade.raiseEvent({
-				type: 	ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+				type: 	WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 				id: 	"desynchronizability"
 			});
 			this.active = !this.active;				
@@ -66,7 +66,7 @@ ORYX.Plugins.DesynchronizabilityOverlay = ORYX.Plugins.AbstractPlugin.extend({
 //			serialized_rdf = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + serialized_rdf;
 			
 			// Send the request to the server.
-			new Ajax.Request(ORYX.CONFIG.DESYNCHRONIZABILITY_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.DESYNCHRONIZABILITY_URL, {
 				method: 'POST',
 				asynchronous: false,
 				parameters: {
@@ -86,7 +86,7 @@ ORYX.Plugins.DesynchronizabilityOverlay = ORYX.Plugins.AbstractPlugin.extend({
 						}.bind(this)).compact();
 	
 						this.facade.raiseEvent({
-							type: 			ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+							type: 			WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
 							id: 			"desynchronizability",
 							shapes: 		transitionshapes,
 							attributes: 	{fill: "red", stroke: "black"}
@@ -96,7 +96,7 @@ ORYX.Plugins.DesynchronizabilityOverlay = ORYX.Plugins.AbstractPlugin.extend({
 	
 					} else {
 	
-						Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.DesynchronizabilityOverlay.sync);
+						Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.DesynchronizabilityOverlay.sync);
 						// var win = window.open('data:text/plain,' +request.responseText, '_blank', "resizable=yes,width=640,height=480,toolbar=0,scrollbars=yes");
 					}
 					} else if (resp.syntaxerrors) {
@@ -104,19 +104,19 @@ ORYX.Plugins.DesynchronizabilityOverlay = ORYX.Plugins.AbstractPlugin.extend({
 						// Get all Valid ResourceIDs and collect all shapes
 	//							var shapes = transitions.collect(function(res){ return this.facade.getCanvas().getChildShapeByResourceId( res ) }.bind(this)).compact();
 	
-						Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.DesynchronizabilityOverlay.error.replace(/1/, resp.syntaxerrors.length));
+						Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.DesynchronizabilityOverlay.error.replace(/1/, resp.syntaxerrors.length));
 	
 	//							this.active = !this.active;				
 	
 					} else {
-						Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.DesynchronizabilityOverlay.invalid);
+						Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.DesynchronizabilityOverlay.invalid);
 					}
 				}.bind(this)
 			});
 			
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 	 	}
 
 		}

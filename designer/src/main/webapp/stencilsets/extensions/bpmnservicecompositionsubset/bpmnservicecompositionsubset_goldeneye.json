@@ -1,6 +1,6 @@
 {
 	"title":"BPMN Subset for GoldenEye project",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/bpmnservicecompositionsubset-goldeneye#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/bpmnservicecompositionsubset-goldeneye#",
 	"description":"A basic subset of BPMN that can be used to model satellit test cases.",
 	"extends":"http://b3mn.org/stencilset/bpmn1.1#",
 	"stencils":[],
@@ -42,7 +42,7 @@
 					"id":"namespace",
 					"title" : "Namespace",
 					"type":"String",
-					"value": "http://oryx.ns"
+					"value": "http://wapama.ns"
 				},
 				{
 					"id":"servicename",

@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="102"
    height="82"
@@ -10,36 +10,36 @@
 	
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="0" 
-  		oryx:cy="40" 
-  		oryx:anchors="left" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="80" 
-  		oryx:anchors="bottom" />
-  	<oryx:magnet 
-  		oryx:cx="100" 
-  		oryx:cy="40" 
-  		oryx:anchors="right" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="0" 
-  		oryx:anchors="top" />
-  	<oryx:magnet 
-  		oryx:cx="50" 
-  		oryx:cy="40" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="0" 
+  		wapama:cy="40" 
+  		wapama:anchors="left" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="80" 
+  		wapama:anchors="bottom" />
+  	<wapama:magnet 
+  		wapama:cx="100" 
+  		wapama:cy="40" 
+  		wapama:anchors="right" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="0" 
+  		wapama:anchors="top" />
+  	<wapama:magnet 
+  		wapama:cx="50" 
+  		wapama:cy="40" 
+  		wapama:default="yes" />
+  </wapama:magnets>
   
   <g 
   	pointer-events="fill" 
-    oryx:minimumSize="50 40" 
-    oryx:maximumSize="200 160" >
+    wapama:minimumSize="50 40" 
+    wapama:maximumSize="200 160" >
     <rect 
     	id="mainBody" 
-    	oryx:resize="vertical horizontal" 
+    	wapama:resize="vertical horizontal" 
     	x="0" 
     	y="0" 
     	width="100" 
@@ -74,7 +74,7 @@
     	  id="label" 
     	  x="50" 
     	  y="40" 
-    	  oryx:align="middle center" 
+    	  wapama:align="middle center" 
     	  stroke="black"></text>
   </g>
 </svg>

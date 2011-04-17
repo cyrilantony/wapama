@@ -1,6 +1,6 @@
 {
 	"title":"iBPMN Fault Handling Extension",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/ibpmn-FH#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/ibpmn-FH#",
 	"description":"A basic extension of iBPMN containing fault handling capabilities (i.e. silent/no actions, scopes, FCT handling, non-cancellation behavior using non-interrupting events).",
 	"extends":"http://b3mn.org/stencilset/ibpmn#",
 	"stencils":[

@@ -2,19 +2,19 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="600"
    height="250"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="0" oryx:cy="124" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="299" oryx:cy="249" oryx:anchors="bottom" />
-  	<oryx:magnet oryx:cx="599" oryx:cy="124" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="299" oryx:cy="0" oryx:anchors="top" />
-  	<oryx:magnet oryx:cx="299" oryx:cy="124" oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="0" wapama:cy="124" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="299" wapama:cy="249" wapama:anchors="bottom" />
+  	<wapama:magnet wapama:cx="599" wapama:cy="124" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="299" wapama:cy="0" wapama:anchors="top" />
+  	<wapama:magnet wapama:cx="299" wapama:cy="124" wapama:default="yes" />
+  </wapama:magnets>
   <g pointer-events="painted" >
 
     <defs>
@@ -24,12 +24,12 @@
 		</radialGradient>
 	</defs>
 	  	
-  	<rect id="border" class="stripable-element-force" oryx:resize="vertical horizontal" x="0" y="0" width="600" height="250" fill="none" stroke-width="9" stroke="white" visibility="hidden"/>
-    <rect id="c" oryx:resize="vertical horizontal" x="0" y="0" width="600" height="250" stroke="black" fill="none" />
+  	<rect id="border" class="stripable-element-force" wapama:resize="vertical horizontal" x="0" y="0" width="600" height="250" fill="none" stroke-width="9" stroke="white" visibility="hidden"/>
+    <rect id="c" wapama:resize="vertical horizontal" x="0" y="0" width="600" height="250" stroke="black" fill="none" />
     
 	<rect 
 		id="caption"
-		oryx:anchors="left top bottom"
+		wapama:anchors="left top bottom"
 		x="0"
 		y="0"
 		width="30"
@@ -41,7 +41,7 @@
 	
 	<rect 
 		id="captionDisableAntialiasing"
-		oryx:anchors="left top bottom"
+		wapama:anchors="left top bottom"
 		x="0"
 		y="0"
 		width="30"
@@ -51,10 +51,10 @@
 		fill="url(#background) white"
 	/>
 	
-    <text x="10" y="125" font-size="14" id="text_name" oryx:fittoelem="caption" oryx:align="middle center" oryx:anchors="left" oryx:rotate="270" fill="black" stroke="black"></text>
+    <text x="10" y="125" font-size="14" id="text_name" wapama:fittoelem="caption" wapama:align="middle center" wapama:anchors="left" wapama:rotate="270" fill="black" stroke="black"></text>
 	
 	<g id="multiInstance">
-		<path oryx:anchors="bottom" fill="none" stroke="black" d="M296 240 v8 M300 240 v8 M304 240 v8" stroke-width="2" />
+		<path wapama:anchors="bottom" fill="none" stroke="black" d="M296 240 v8 M300 240 v8 M304 240 v8" stroke-width="2" />
 	</g>
   </g>
 </svg>

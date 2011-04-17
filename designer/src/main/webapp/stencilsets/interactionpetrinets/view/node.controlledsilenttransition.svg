@@ -2,23 +2,23 @@
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    version="1.0">
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="25" oryx:cy="25" oryx:default="yes"/>
-  	<oryx:magnet oryx:cx="25" oryx:cy="0"/>
-  	<oryx:magnet oryx:cx="25" oryx:cy="50"/>
-  	<oryx:magnet oryx:cx="0" oryx:cy="25"/>
-  	<oryx:magnet oryx:cx="50" oryx:cy="25"/>
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="25" wapama:cy="25" wapama:default="yes"/>
+  	<wapama:magnet wapama:cx="25" wapama:cy="0"/>
+  	<wapama:magnet wapama:cx="25" wapama:cy="50"/>
+  	<wapama:magnet wapama:cx="0" wapama:cy="25"/>
+  	<wapama:magnet wapama:cx="50" wapama:cy="25"/>
+  </wapama:magnets>
   <g>
     <rect
        id="descriptionline"
-       oryx:anchor="top bottom left right"
-       oryx:resize="vertical horizontal"
+       wapama:anchor="top bottom left right"
+       wapama:resize="vertical horizontal"
        width="50" height="50"
        x="0" y="0"
        stroke="black" fill="white" stroke-width="2"/>
-	<text id="roles" x="25" y="25" oryx:align="middle center"></text>		
+	<text id="roles" x="25" y="25" wapama:align="middle center"></text>		
   </g>
 </svg>

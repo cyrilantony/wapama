@@ -1,6 +1,6 @@
 {
 	"title":"BPMN Cost Extension",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/bpmnwikirefs#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/bpmnwikirefs#",
 	"description":"BPMN 1.1 extension for adding a wikiRef attribute to all nodes",
 	"extends":"http://b3mn.org/stencilset/bpmn1.1#",
 	"stencils":[],

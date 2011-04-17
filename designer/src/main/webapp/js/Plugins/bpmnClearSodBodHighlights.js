@@ -19,10 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.ClearSodBodHighlights = Clazz.extend({
+WAPAMA.Plugins.ClearSodBodHighlights = Clazz.extend({
 
     facade: undefined,
     
@@ -34,11 +34,11 @@ ORYX.Plugins.ClearSodBodHighlights = Clazz.extend({
 		this.raisedEventIds = [];
 		
         this.facade.offer({
-            'name': ORYX.I18N.ClearSodBodHighlights.name,
+            'name': WAPAMA.I18N.ClearSodBodHighlights.name,
             'functionality': this.removeHighlightsAndOverlays.bind(this),
-            'group': ORYX.I18N.ClearSodBodHighlights.group,
-            'icon': ORYX.PATH + "images/sod_bod_view_clear.png",
-            'description': ORYX.I18N.ClearSodBodHighlights.desc,
+            'group': WAPAMA.I18N.ClearSodBodHighlights.group,
+            'icon': WAPAMA.PATH + "images/sod_bod_view_clear.png",
+            'description': WAPAMA.I18N.ClearSodBodHighlights.desc,
             'index': 5,
             'toggle': false,
             'minShape': 0,
@@ -53,9 +53,9 @@ ORYX.Plugins.ClearSodBodHighlights = Clazz.extend({
 		var i = 0;
 		//get all tasks of canvas
 		for (var index = 0; index < allShapes.length; index++) {
-    		if (allShapes[index].properties["oryx-activitytype"] == "Task") {
-				if (allShapes[index].properties["oryx-id"] != "") {
-					allShapeIds[i] = allShapes[index].properties["oryx-id"];
+    		if (allShapes[index].properties["wapama-activitytype"] == "Task") {
+				if (allShapes[index].properties["wapama-id"] != "") {
+					allShapeIds[i] = allShapes[index].properties["wapama-id"];
 					i++;
 				}
 			}
@@ -64,7 +64,7 @@ ORYX.Plugins.ClearSodBodHighlights = Clazz.extend({
 		//remove highlights
 		allShapeIds.each(function(id){
 			this.facade.raiseEvent({
-					type: 	ORYX.CONFIG.EVENT_HIGHLIGHT_HIDE,
+					type: 	WAPAMA.CONFIG.EVENT_HIGHLIGHT_HIDE,
 					highlightId: 	id
 				});
 		}.bind(this))
@@ -72,7 +72,7 @@ ORYX.Plugins.ClearSodBodHighlights = Clazz.extend({
 		//remove overlays 
 		allShapeIds.each(function(id){
 			this.facade.raiseEvent({
-					type: 	ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+					type: 	WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
 					id: 	id
 				});
 		}.bind(this))

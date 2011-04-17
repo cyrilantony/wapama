@@ -2,7 +2,7 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="102"
    height="82"
@@ -10,17 +10,17 @@
 	
   <defs></defs>
   
-  <oryx:magnets>
-  	<oryx:magnet 
-  		oryx:cx="16" 
-  		oryx:cy="16" 
-  		oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet 
+  		wapama:cx="16" 
+  		wapama:cy="16" 
+  		wapama:default="yes" />
+  </wapama:magnets>
   
   <g pointer-events="fill">
   	<rect 
   		id="mainBody" 
-  		oryx:resize="vertical horizontal" 
+  		wapama:resize="vertical horizontal" 
   		x="0" 
   		y="0" 
   		width="100" 
@@ -31,12 +31,12 @@
   		stroke-width="1" 
   		fill="white" />
   	<text
-     	oryx:anchors="top left"
+     	wapama:anchors="top left"
      	x="35" 
     	y="20" 
     	style="font-family:Arial; font-size: 10pt; fill:black;">else</text>
     <path 
-    	oryx:anchors="top left"
+    	wapama:anchors="top left"
     	fill="white" 
     	stroke-width="1" 
     	stroke="black" 

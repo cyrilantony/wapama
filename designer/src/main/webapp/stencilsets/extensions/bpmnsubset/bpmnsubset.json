@@ -1,6 +1,6 @@
 {
 	"title":"BPMN Test Extension",
-	"namespace":"http://oryx-editor.org/stencilsets/extensions/bpmnsubset#",
+	"namespace":"http://www.wapama.net/stencilsets/extensions/bpmnsubset#",
 	"description":"BPMN test extension.",
 	"extends":"http://b3mn.org/stencilset/bpmn#",
 	"stencils":[

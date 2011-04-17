@@ -20,10 +20,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.Save = Clazz.extend({
+WAPAMA.Plugins.Save = Clazz.extend({
 	
     facade: undefined,
 	
@@ -33,11 +33,11 @@ ORYX.Plugins.Save = Clazz.extend({
 		this.facade = facade;
 		
 		this.facade.offer({
-			'name': ORYX.I18N.Save.save,
+			'name': WAPAMA.I18N.Save.save,
 			'functionality': this.save.bind(this,false),
-			'group': ORYX.I18N.Save.group,
-			'icon': ORYX.PATH + "images/disk.png",
-			'description': ORYX.I18N.Save.saveDesc,
+			'group': WAPAMA.I18N.Save.group,
+			'icon': WAPAMA.PATH + "images/disk.png",
+			'description': WAPAMA.I18N.Save.saveDesc,
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0
@@ -45,11 +45,11 @@ ORYX.Plugins.Save = Clazz.extend({
 		
 		
 		this.facade.offer({
-			'name': ORYX.I18N.Save.saveAs,
+			'name': WAPAMA.I18N.Save.saveAs,
 			'functionality': this.save.bind(this,true),
-			'group': ORYX.I18N.Save.group,
-			'icon': ORYX.PATH + "images/disk_multi.png",
-			'description': ORYX.I18N.Save.saveAsDesc,
+			'group': WAPAMA.I18N.Save.group,
+			'icon': WAPAMA.PATH + "images/disk_multi.png",
+			'description': WAPAMA.I18N.Save.saveAsDesc,
 			'index': 2,
 			'minShape': 0,
 			'maxShape': 0
@@ -61,10 +61,10 @@ ORYX.Plugins.Save = Clazz.extend({
 		
 		// Register on event for executing commands --> store all commands in a stack		 
 		// --> Execute
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_UNDO_EXECUTE, function(){ this.changeDifference++ }.bind(this) );
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_EXECUTE_COMMANDS, function(){ this.changeDifference++ }.bind(this) );
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_EXECUTE, function(){ this.changeDifference++ }.bind(this) );
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_EXECUTE_COMMANDS, function(){ this.changeDifference++ }.bind(this) );
 		// --> Rollback
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_UNDO_ROLLBACK, function(){ this.changeDifference-- }.bind(this) );
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_UNDO_ROLLBACK, function(){ this.changeDifference-- }.bind(this) );
 		
 		//TODO very critical for load time performance!!!
 		//this.serializedDOM = DataManager.__persistDOM(this.facade);
@@ -75,7 +75,7 @@ ORYX.Plugins.Save = Clazz.extend({
 		
 		if( this.changeDifference !== 0 ){
 		
-			return ORYX.I18N.Save.unsavedData;
+			return WAPAMA.I18N.Save.unsavedData;
 			
 		}			
 		
@@ -118,7 +118,7 @@ ORYX.Plugins.Save = Clazz.extend({
 			var ss 		= this.facade.getStencilSets();
 			var source 	= ss[ss.keys()[0]].source().split('stencilsets')[1];
 	
-			reqURI = '/backend/poem' + ORYX.CONFIG.ORYX_NEW_URL + "?stencilset=/stencilsets" + source ;		
+			reqURI = '/backend/poem' + WAPAMA.CONFIG.WAPAMA_NEW_URL + "?stencilset=/stencilsets" + source ;		
 		}
 
 
@@ -128,25 +128,25 @@ ORYX.Plugins.Save = Clazz.extend({
 		this.serializedDOM = Ext.encode(this.facade.getJSON());
 		
 		// Check if this is the NEW URL
-		if( reqURI.include( ORYX.CONFIG.ORYX_NEW_URL ) ){
+		if( reqURI.include( WAPAMA.CONFIG.WAPAMA_NEW_URL ) ){
 			
 			// Get the stencilset
 			var ss = this.facade.getStencilSets().values()[0]
 		
 			// Define Default values
-			var defaultData = {title:ORYX.I18N.Save.newProcess, summary:'', type:ss.title(), url: reqURI, namespace: ss.namespace() }
+			var defaultData = {title:WAPAMA.I18N.Save.newProcess, summary:'', type:ss.title(), url: reqURI, namespace: ss.namespace() }
 			
 			// Create a Template
 			var dialog = new Ext.XTemplate(		
 						// TODO find some nice words here -- copy from above ;)
-						'<form class="oryx_repository_edit_model" action="#" id="edit_model" onsubmit="return false;">',
+						'<form class="wapama_repository_edit_model" action="#" id="edit_model" onsubmit="return false;">',
 										
 							'<fieldset>',
-								'<p class="description">' + ORYX.I18N.Save.dialogDesciption + '</p>',
+								'<p class="description">' + WAPAMA.I18N.Save.dialogDesciption + '</p>',
 								'<input type="hidden" name="namespace" value="{namespace}" />',
-								'<p><label for="edit_model_title">' + ORYX.I18N.Save.dialogLabelTitle + '</label><input type="text" class="text" name="title" value="{title}" id="edit_model_title" onfocus="this.className = \'text activated\'" onblur="this.className = \'text\'"/></p>',
-								'<p><label for="edit_model_summary">' + ORYX.I18N.Save.dialogLabelDesc + '</label><textarea rows="5" name="summary" id="edit_model_summary" onfocus="this.className = \'activated\'" onblur="this.className = \'\'">{summary}</textarea></p>',
-								'<p><label for="edit_model_type">' + ORYX.I18N.Save.dialogLabelType + '</label><input type="text" name="type" class="text disabled" value="{type}" disabled="disabled" id="edit_model_type" /></p>',
+								'<p><label for="edit_model_title">' + WAPAMA.I18N.Save.dialogLabelTitle + '</label><input type="text" class="text" name="title" value="{title}" id="edit_model_title" onfocus="this.className = \'text activated\'" onblur="this.className = \'text\'"/></p>',
+								'<p><label for="edit_model_summary">' + WAPAMA.I18N.Save.dialogLabelDesc + '</label><textarea rows="5" name="summary" id="edit_model_summary" onfocus="this.className = \'activated\'" onblur="this.className = \'\'">{summary}</textarea></p>',
+								'<p><label for="edit_model_type">' + WAPAMA.I18N.Save.dialogLabelType + '</label><input type="text" name="type" class="text disabled" value="{type}" disabled="disabled" id="edit_model_type" /></p>',
 								
 							'</fieldset>',
 						
@@ -159,7 +159,7 @@ ORYX.Plugins.Save = Clazz.extend({
 				title 			= title.length == 0 ? defaultData.title : title;
 				
 				//added changing title of page after first save
-				window.document.title = title + " - Oryx";
+				window.document.title = title + " - Wapama";
 				
 				var summary = form.elements["summary"].value.strip();	
 				summary 	= summary.length == 0 ? defaultData.summary : summary;
@@ -179,20 +179,20 @@ ORYX.Plugins.Save = Clazz.extend({
 				id:		'Propertie_Window',
 		        width:	'auto',
 		        height:	'auto',
-		        title:	forceNew ? ORYX.I18N.Save.saveAsTitle : ORYX.I18N.Save.save,
+		        title:	forceNew ? WAPAMA.I18N.Save.saveAsTitle : WAPAMA.I18N.Save.save,
 		        modal:	true,
 				bodyStyle: 'background:#FFFFFF',
 		        html: 	dialog.apply( defaultData ),
 				buttons:[{
-					text: ORYX.I18N.Save.saveBtn,
+					text: WAPAMA.I18N.Save.saveBtn,
 					handler: function(){
 						callback( $('edit_model') )					
 					}
 				},{
-                	text: ORYX.I18N.Save.close,
+                	text: WAPAMA.I18N.Save.close,
                 	handler: function(){
 		               this.facade.raiseEvent({
-		                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+		                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
 		                });						
                     	win.destroy();
                 	}.bind(this)
@@ -230,11 +230,11 @@ ORYX.Plugins.Save = Clazz.extend({
 				
 				if( forceNew ){
 					var newURLWin = new Ext.Window({
-						title:		ORYX.I18N.Save.savedAs, 
+						title:		WAPAMA.I18N.Save.savedAs, 
 						bodyStyle:	"background:white;padding:10px", 
 						width:		'auto', 
 						height:		'auto',
-						html:"<div style='font-weight:bold;margin-bottom:10px'>"+ORYX.I18N.Save.saveAsHint+"</div><span><a href='" + loc +"' target='_blank'>" + loc + "</a></span>",
+						html:"<div style='font-weight:bold;margin-bottom:10px'>"+WAPAMA.I18N.Save.saveAsHint+"</div><span><a href='" + loc +"' target='_blank'>" + loc + "</a></span>",
 						buttons:[{text:'Ok',handler:function(){newURLWin.destroy()}}]
 					});
 					newURLWin.show();
@@ -242,31 +242,31 @@ ORYX.Plugins.Save = Clazz.extend({
 
 				//show saved status
 				this.facade.raiseEvent({
-						type:ORYX.CONFIG.EVENT_LOADING_STATUS,
-						text:ORYX.I18N.Save.saved
+						type:WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+						text:WAPAMA.I18N.Save.saved
 					});
 			}).bind(this),
 			onFailure: (function(transport) {
 				// raise loading disable event.
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
 
 
-				Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.Save.failed);
+				Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Save.failed);
 				
-				ORYX.log.warn("Saving failed: " + transport.responseText);
+				WAPAMA.log.warn("Saving failed: " + transport.responseText);
 			}).bind(this),
 			on403: (function(transport) {
 				// raise loading disable event.
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
 
 
-				Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.Save.noRights);
+				Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Save.noRights);
 				
-				ORYX.log.warn("Saving failed: " + transport.responseText);
+				WAPAMA.log.warn("Saving failed: " + transport.responseText);
 			}).bind(this)
 		});
 				
@@ -279,8 +279,8 @@ ORYX.Plugins.Save = Clazz.extend({
     
         // raise loading enable event
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE,
-			text: ORYX.I18N.Save.saving
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE,
+			text: WAPAMA.I18N.Save.saving
         });
         
         // asynchronously ...
@@ -298,7 +298,7 @@ ORYX.Plugins.Save = Clazz.extend({
 	
 	
 	
-ORYX.Plugins.File = Clazz.extend({
+WAPAMA.Plugins.File = Clazz.extend({
 
     facade: undefined,
 	    
@@ -306,33 +306,33 @@ ORYX.Plugins.File = Clazz.extend({
         this.facade = facade;
         
         this.facade.offer({
-            'name': ORYX.I18N.File.print,
+            'name': WAPAMA.I18N.File.print,
             'functionality': this.print.bind(this),
-            'group': ORYX.I18N.File.group,
-            'icon': ORYX.PATH + "images/printer.png",
-            'description': ORYX.I18N.File.printDesc,
+            'group': WAPAMA.I18N.File.group,
+            'icon': WAPAMA.PATH + "images/printer.png",
+            'description': WAPAMA.I18N.File.printDesc,
             'index': 3,
             'minShape': 0,
             'maxShape': 0
         });
         
         this.facade.offer({
-            'name': ORYX.I18N.File.pdf,
+            'name': WAPAMA.I18N.File.pdf,
             'functionality': this.exportPDF.bind(this),
-            'group': ORYX.I18N.File.group,
-            'icon': ORYX.PATH + "images/page_white_acrobat.png",
-            'description': ORYX.I18N.File.pdfDesc,
+            'group': WAPAMA.I18N.File.group,
+            'icon': WAPAMA.PATH + "images/page_white_acrobat.png",
+            'description': WAPAMA.I18N.File.pdfDesc,
             'index': 4,
             'minShape': 0,
             'maxShape': 0
         });
         
         this.facade.offer({
-            'name': ORYX.I18N.File.info,
+            'name': WAPAMA.I18N.File.info,
             'functionality': this.info.bind(this),
-            'group': ORYX.I18N.File.group,
-            'icon': ORYX.PATH + "images/information.png",
-            'description': ORYX.I18N.File.infoDesc,
+            'group': WAPAMA.I18N.File.group,
+            'icon': WAPAMA.PATH + "images/information.png",
+            'description': WAPAMA.I18N.File.infoDesc,
             'index': 5,
             'minShape': 0,
             'maxShape': 0
@@ -344,14 +344,14 @@ ORYX.Plugins.File = Clazz.extend({
     
     info: function(){
     
-        var info = '<iframe src="' + ORYX.CONFIG.LICENSE_URL + '" type="text/plain" ' + 
+        var info = '<iframe src="' + WAPAMA.CONFIG.LICENSE_URL + '" type="text/plain" ' + 
 				   'style="border:none;display:block;width:575px;height:460px;"/>' +
 				   '\n\n<pre style="display:inline;">Version: </pre>' + 
-				   '<iframe src="' + ORYX.CONFIG.VERSION_URL + '" type="text/plain" ' + 
+				   '<iframe src="' + WAPAMA.CONFIG.VERSION_URL + '" type="text/plain" ' + 
 				   'style="border:none;overflow:hidden;display:inline;width:40px;height:20px;"/>';
 
 		this.infoBox = Ext.Msg.show({
-		   title: ORYX.I18N.Oryx.title,
+		   title: WAPAMA.I18N.Wapama.title,
 		   msg: info,
 		   width: 640,
 		   maxWidth: 640,
@@ -364,7 +364,7 @@ ORYX.Plugins.File = Clazz.extend({
     
     exportPDF: function(){
     	
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_ENABLE, text:ORYX.I18N.File.genPDF});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_ENABLE, text:WAPAMA.I18N.File.genPDF});
 		
         var resource = location.href;
         
@@ -376,7 +376,7 @@ ORYX.Plugins.File = Clazz.extend({
         // Send the svg to the server.
         //TODO make this better by using content negotiation instead of format parameter.
         //TODO make this better by generating svg on the server, too.
-        new Ajax.Request(ORYX.CONFIG.PDF_EXPORT_URL, {
+        new Ajax.Request(WAPAMA.CONFIG.PDF_EXPORT_URL, {
             method: 'POST',
             parameters: {
                 resource: resource,
@@ -384,7 +384,7 @@ ORYX.Plugins.File = Clazz.extend({
                 format: "pdf"
             },
             onSuccess: (function(request){
-            	this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+            	this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 				
                 // Because the pdf may be opened in the same window as the
                 // process, yet the process may not have been saved, we're
@@ -393,9 +393,9 @@ ORYX.Plugins.File = Clazz.extend({
                 window.open(request.responseText);
             }).bind(this),
 			onFailure: (function(){
-				this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+				this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 				
-				Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.File.genPDFFailed);
+				Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.File.genPDFFailed);
 			}).bind(this)
         });
     },
@@ -403,8 +403,8 @@ ORYX.Plugins.File = Clazz.extend({
     print: function(){
 		
 		Ext.Msg.show({
-		   title		: ORYX.I18N.File.printTitle,
-		   msg			: ORYX.I18N.File.printMsg,
+		   title		: WAPAMA.I18N.File.printTitle,
+		   msg			: WAPAMA.I18N.File.printMsg,
 		   buttons		: Ext.Msg.YESNO,
 		   icon			: Ext.MessageBox.QUESTION,
 		   fn			:  function(btn) {
@@ -473,27 +473,27 @@ ORYX.Plugins.File = Clazz.extend({
  * Method to load model or create new one
  * (moved from editor handler)
  */
-window.onOryxResourcesLoaded = function() {
+window.onWapamaResourcesLoaded = function() {
 	
 	if (location.hash.slice(1).length == 0 || location.hash.slice(1).indexOf('new')!=-1) {
-		var stencilset = ORYX.Utils.getParamFromUrl('stencilset') || ORYX.CONFIG.SSET; // || "stencilsets/bpmn2.0/bpmn2.0.json";
+		var stencilset = WAPAMA.Utils.getParamFromUrl('stencilset') || WAPAMA.CONFIG.SSET; // || "stencilsets/bpmn2.0/bpmn2.0.json";
 		
-		new ORYX.Editor({
-			id: 'oryx-canvas123',
+		new WAPAMA.Editor({
+			id: 'wapama-canvas123',
 			stencilset: {
-				url: ORYX.PATH + stencilset
+				url: WAPAMA.PATH + stencilset
 			}
 		});
 	} else {
-		ORYX.Editor.createByUrl(
+		WAPAMA.Editor.createByUrl(
 			"/backend/poem" + location.hash.slice(1).replace(/\/*$/,"/").replace(/^\/*/,"/")+'json',
 			{
-				id: 'oryx-canvas123',
+				id: 'wapama-canvas123',
 				onFailure: function(transport) {
 		    	  if (403 == transport.status) {
 		    		  Ext.Msg.show({
 		                  title:'Authentication Failed',
-		                  msg: 'You may not have access rights for this model, maybe you forgot to <a href="'+ORYX.CONFIG.WEB_URL+'/backend/poem/repository">log in</a>?',
+		                  msg: 'You may not have access rights for this model, maybe you forgot to <a href="'+WAPAMA.CONFIG.WEB_URL+'/backend/poem/repository">log in</a>?',
 		                  icon: Ext.MessageBox.WARNING,
 		                  closeable: false,
 		                  closable: false

@@ -1,6 +1,5 @@
 /**
  * Copyright (c) 2010
- * Christian Ress <bart@oryx-uml.the-bart.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -22,21 +21,21 @@
  **/
 
 /**
- * @namespace Oryx name space for plugins
- * @name ORYX.Plugins
+ * @namespace Wapama name space for plugins
+ * @name WAPAMA.Plugins
 */
- if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+ if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * The UML plugin provides layout methods referring to the UML stencilset. 
  * 
- * @class ORYX.Plugins.UML
+ * @class WAPAMA.Plugins.UML
  * @extends Clazz
  * @param {Object} facade The facade of the editor
  */
-ORYX.Plugins.UML = 
-/** @lends ORYX.Plugins.UML.prototype */
+WAPAMA.Plugins.UML = 
+/** @lends WAPAMA.Plugins.UML.prototype */
 {
 	/**
 	 * Creates a new instance of the UML plugin and registers it on the
@@ -47,12 +46,12 @@ ORYX.Plugins.UML =
 	 */
 	construct: function(facade) {
 		this.facade = facade;
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
 		this.facade.registerOnEvent('layout.uml.class', this.handleLayoutClass.bind(this));
 		this.facade.registerOnEvent('layout.uml.list', this.handleLayoutList.bind(this));
 		this.facade.registerOnEvent('layout.uml.association', this.handleLayoutAssociation.bind(this));
 		this.facade.registerOnEvent('layout.uml.qualified_association', this.handleLayoutQualifiedAssociation.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, this.addReadingDirectionOnLoad.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LOADED, this.addReadingDirectionOnLoad.bind(this));
 
 	},
 	
@@ -67,7 +66,7 @@ ORYX.Plugins.UML =
 	 */
 	addReadingDirectionOnLoad : function(event) {
 		this.facade.getCanvas().edges.each(function(shape){
-			if (shape.properties["oryx-direction"] == "left" || shape.properties["oryx-direction"] == "right") {
+			if (shape.properties["wapama-direction"] == "left" || shape.properties["wapama-direction"] == "right") {
 				this.addReadingDirection(shape);
 			}
 		}.bind(this));
@@ -94,7 +93,7 @@ ORYX.Plugins.UML =
 	 * Add Reading Direction to the name label after it has been changed
 	 */
 	handlePropertyChanged : function(event) {
-		if (event["key"] == "oryx-name") {
+		if (event["key"] == "wapama-name") {
 			this.addReadingDirection(event.elements[0]);
 		}
 	},
@@ -107,21 +106,21 @@ ORYX.Plugins.UML =
 	handleLayoutClass : function(event) {
 		var shape = event.shape;
 		
-		if (shape.propertiesChanged["oryx-abstract"] == true) {
+		if (shape.propertiesChanged["wapama-abstract"] == true) {
 			var className = event.shape.getLabels().find(
 					function(label) { return label.id == (event.shape.id + "className") }
 				);
 			
-			if (shape.properties["oryx-abstract"] == true) {
+			if (shape.properties["wapama-abstract"] == true) {
 				className.node.setAttribute("font-style", "italic");
 			} else {
 				className.node.setAttribute("font-style", "none");
 			}
 		}
 		
-		if (shape.propertiesChanged["oryx-attributes"] == true || shape.propertiesChanged["oryx-methods"]) {
-			var attributesValue = event.shape.properties["oryx-attributes"];
-			var methodsValue = event.shape.properties["oryx-methods"];
+		if (shape.propertiesChanged["wapama-attributes"] == true || shape.propertiesChanged["wapama-methods"]) {
+			var attributesValue = event.shape.properties["wapama-attributes"];
+			var methodsValue = event.shape.properties["wapama-methods"];
 			var attributes = event.shape.getLabels().find(
 					function(label) { return label.id == (event.shape.id + "attributes") }
 				);
@@ -143,7 +142,7 @@ ORYX.Plugins.UML =
 			separator.setAttribute("y1", distanceTilSeparator);
 			separator.setAttribute("y2", distanceTilSeparator);
 			
-			// realign methods label (so that oryx' internal references are correct)
+			// realign methods label (so that wapama' internal references are correct)
 			methods.y = distanceTilSeparator + 3;
 			methods.node.setAttribute("y", distanceTilSeparator + 3);
 			// realign the methods line by line (required for a visual change)
@@ -167,8 +166,8 @@ ORYX.Plugins.UML =
 	handleLayoutList : function(event) {
 		var shape = event.shape;
 		
-		if (shape.propertiesChanged["oryx-items"] == true) {
-			var itemsValue = shape.properties["oryx-items"];
+		if (shape.propertiesChanged["wapama-items"] == true) {
+			var itemsValue = shape.properties["wapama-items"];
 			var items = shape.getLabels().find(
 					function(label) { return label.id == (event.shape.id + "items") }
 				);
@@ -202,14 +201,14 @@ ORYX.Plugins.UML =
 					function(label) { return label.id == (shape.id + "name") }
 				);
 		
-		if (shape.properties["oryx-direction"] == "left") {
-			name.text("◀ " + shape.properties["oryx-name"]);
+		if (shape.properties["wapama-direction"] == "left") {
+			name.text("◀ " + shape.properties["wapama-name"]);
 		}
-		else if (shape.properties["oryx-direction"] == "right") {
-			name.text(shape.properties["oryx-name"] + " ▶");
+		else if (shape.properties["wapama-direction"] == "right") {
+			name.text(shape.properties["wapama-name"] + " ▶");
 		}
 		else {
-			name.text(shape.properties["oryx-name"]);
+			name.text(shape.properties["wapama-name"]);
 		}
 		
 		name.update();
@@ -225,7 +224,7 @@ ORYX.Plugins.UML =
 					function(label) { return label.id == (event.shape.id + "qualifier") }
 				);
 		
-		var size = qualifier._estimateTextWidth(shape.properties["oryx-qualifier"], 12);
+		var size = qualifier._estimateTextWidth(shape.properties["wapama-qualifier"], 12);
 		// enforce minimum size, looks bad otherwise
 		if (size < 40) size = 40;
 		shape._markers.values()[0].element.lastElementChild.setAttribute("width", size+5);
@@ -233,4 +232,4 @@ ORYX.Plugins.UML =
 	},
 };
 
-ORYX.Plugins.UML = Clazz.extend(ORYX.Plugins.UML);
+WAPAMA.Plugins.UML = Clazz.extend(WAPAMA.Plugins.UML);

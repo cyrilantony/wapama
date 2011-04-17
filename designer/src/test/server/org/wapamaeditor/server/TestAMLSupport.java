@@ -1,4 +1,4 @@
-package org.oryxeditor.server;
+package org.wapamaeditor.server;
 
 import static org.junit.Assert.*;
 

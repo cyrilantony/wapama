@@ -2,15 +2,15 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:svg="http://www.w3.org/2000/svg"
-	xmlns:oryx="http://www.b3mn.org/oryx"
+	xmlns:wapama="http://www.wapama.net/diagram"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	width="33.5"
 	height="29"
 	version="1.0">
 	<defs></defs>
-	<oryx:magnets>
-		<oryx:magnet oryx:cx="16.75" oryx:cy="14.5" oryx:default="yes" />
-	</oryx:magnets>
+	<wapama:magnets>
+		<wapama:magnet wapama:cx="16.75" wapama:cy="14.5" wapama:default="yes" />
+	</wapama:magnets>
 	
 	<g pointer-events="fill">
 
@@ -32,21 +32,21 @@
 			id="text_name" 
 			x="16.75" 
 			y="40" 
-			oryx:align="middle center"
+			wapama:align="middle center"
 			stroke="black">
 		</text>	
 		
 		<a id="u">
-			<g id="b" oryx:anchors="bottom">
-				<rect x="11" y="16.834" oryx:anchors="bottom" fill="none" stroke="#000000" width="11.583" height="11.583">
+			<g id="b" wapama:anchors="bottom">
+				<rect x="11" y="16.834" wapama:anchors="bottom" fill="none" stroke="#000000" width="11.583" height="11.583">
 				</rect>
-				<path oryx:anchors="bottom" fill="none" stroke="#000000" d="M16.729,19.582v5.962 M13.749,22.562h5.961"/>
+				<path wapama:anchors="bottom" fill="none" stroke="#000000" d="M16.729,19.582v5.962 M13.749,22.562h5.961"/>
 			</g>
 			
-			<g id="b_call" oryx:anchors="bottom">
-				<rect x="11" y="16.834" oryx:anchors="bottom" fill="none" stroke-width="2" stroke="#000000" width="11.583" height="11.583">
+			<g id="b_call" wapama:anchors="bottom">
+				<rect x="11" y="16.834" wapama:anchors="bottom" fill="none" stroke-width="2" stroke="#000000" width="11.583" height="11.583">
 				</rect>
-				<path oryx:anchors="bottom" fill="none" stroke="#000000" stroke-width="2" d="M16.729,19.582v5.962 M13.749,22.562h5.961"/>
+				<path wapama:anchors="bottom" fill="none" stroke="#000000" stroke-width="2" d="M16.729,19.582v5.962 M13.749,22.562h5.961"/>
 			</g>
 		</a>
 	</g>

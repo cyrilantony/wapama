@@ -1,15 +1,15 @@
 
 /**
- * @namespace Oryx name space for different utility methods
- * @name ORYX.Utils
+ * @namespace Wapama name space for different utility methods
+ * @name WAPAMA.Utils
 */
 
-ORYX.Utils = {
+WAPAMA.Utils = {
     /**
      * General helper method for parsing a param out of current location url
      * @example
-     * // Current url in Browser => "http://oryx.org?param=value"
-     * ORYX.Utils.getParamFromUrl("param") // => "value" 
+     * // Current url in Browser => "http://wapama.org?param=value"
+     * WAPAMA.Utils.getParamFromUrl("param") // => "value" 
      * @param {Object} name
      */
     getParamFromUrl: function(name){
@@ -27,7 +27,7 @@ ORYX.Utils = {
 	
 	adjustGradient: function(gradient, reference){
 		
-		if (ORYX.CONFIG.DISABLE_GRADIENT && gradient){
+		if (WAPAMA.CONFIG.DISABLE_GRADIENT && gradient){
 		
 			var col = reference.getAttributeNS(null, "stop-color") || "#ffffff";
 			

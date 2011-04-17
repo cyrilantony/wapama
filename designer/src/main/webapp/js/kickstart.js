@@ -14,7 +14,7 @@ XMLNS = {
 };
 
 //TODO kann kickstart sich vielleicht auch um die erzeugung von paketen/
-// namespaces k�mmern? z.b. requireNamespace("ORYX.Core.SVG");
+// namespaces k�mmern? z.b. requireNamespace("WAPAMA.Core.SVG");
 var Kickstart = {
  	started: false,
 	callbacks: [],

@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
- if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+ if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.BPMN2_0 = {
+WAPAMA.Plugins.BPMN2_0 = {
 
 	/**
 	 *	Constructor
@@ -33,13 +33,13 @@ ORYX.Plugins.BPMN2_0 = {
 	construct: function(facade){
 		this.facade = facade;
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_DRAGDOCKER_DOCKED, this.handleDockerDocked.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_DRAGDOCKER_DOCKED, this.handleDockerDocked.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_PROPWINDOW_PROP_CHANGED, this.handlePropertyChanged.bind(this));
 		this.facade.registerOnEvent('layout.bpmn2_0.pool', this.handleLayoutPool.bind(this));
 		this.facade.registerOnEvent('layout.bpmn2_0.subprocess', this.handleSubProcess.bind(this));
 		
 		
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LOADED, this.afterLoad.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LOADED, this.afterLoad.bind(this));
 		
 		//this.facade.registerOnEvent('layout.bpmn11.lane', this.handleLayoutLane.bind(this));
 	},
@@ -145,12 +145,12 @@ ORYX.Plugins.BPMN2_0 = {
 					if(group == "Gateways") 
 						return group;
 				});
-			if(!isGateway && (edge.properties["oryx-conditiontype"] == "Expression"))
+			if(!isGateway && (edge.properties["wapama-conditiontype"] == "Expression"))
 				// show diamond on edge source
-				edge.setProperty("oryx-showdiamondmarker", true);
+				edge.setProperty("wapama-showdiamondmarker", true);
 			else 
 				// do not show diamond on edge source
-				edge.setProperty("oryx-showdiamondmarker", false);
+				edge.setProperty("wapama-showdiamondmarker", false);
 			
 			// update edge rendering
 			//edge.update();
@@ -171,16 +171,16 @@ ORYX.Plugins.BPMN2_0 = {
 		var changed = false;
 		shapes.each(function(shape){
 			if((shape.getStencil().id() === "http://b3mn.org/stencilset/bpmn2.0#SequenceFlow") &&
-				(propertyKey === "oryx-conditiontype")) {
+				(propertyKey === "wapama-conditiontype")) {
 				
 				if(propertyValue != "Expression")
 					// Do not show the Diamond
-					shape.setProperty("oryx-showdiamondmarker", false);
+					shape.setProperty("wapama-showdiamondmarker", false);
 				else {
 					var incomingShapes = shape.getIncomingShapes();
 					
 					if(!incomingShapes) {
-						shape.setProperty("oryx-showdiamondmarker", true);
+						shape.setProperty("wapama-showdiamondmarker", true);
 					}
 					
 					var incomingGateway = incomingShapes.find(function(aShape) {
@@ -194,10 +194,10 @@ ORYX.Plugins.BPMN2_0 = {
 					
 					if(!incomingGateway) 
 						// show diamond on edge source
-						shape.setProperty("oryx-showdiamondmarker", true);
+						shape.setProperty("wapama-showdiamondmarker", true);
 					else
 						// do not show diamond
-						shape.setProperty("oryx-showdiamondmarker", false);
+						shape.setProperty("wapama-showdiamondmarker", false);
 				}
 				
 				changed = true;
@@ -245,11 +245,11 @@ ORYX.Plugins.BPMN2_0 = {
 		// Show/hide caption regarding the number of lanes
 		if (lanes.length === 1 && this.getLanes(lanes.first()).length <= 0) {
 			// TRUE if there is a caption
-			lanes.first().setProperty("oryx-showcaption", lanes.first().properties["oryx-name"].trim().length > 0);
+			lanes.first().setProperty("wapama-showcaption", lanes.first().properties["wapama-name"].trim().length > 0);
 			var rect = lanes.first().node.getElementsByTagName("rect");
 			rect[0].setAttributeNS(null, "display", "none");
 		} else {
-			lanes.invoke("setProperty", "oryx-showcaption", true);
+			lanes.invoke("setProperty", "wapama-showcaption", true);
 			lanes.each(function(lane){
 				var rect = lane.node.getElementsByTagName("rect");
 				rect[0].removeAttributeNS(null, "display");
@@ -511,7 +511,7 @@ ORYX.Plugins.BPMN2_0 = {
 	
 	getNextLane: function(shape){
 		while(shape && !shape.getStencil().id().endsWith("Lane")){
-			if (shape instanceof ORYX.Core.Canvas) {
+			if (shape instanceof WAPAMA.Core.Canvas) {
 				return null;
 			}
 			shape = shape.parent;
@@ -521,7 +521,7 @@ ORYX.Plugins.BPMN2_0 = {
 	
 	getParentPool: function(shape){
 		while(shape && !shape.getStencil().id().endsWith("Pool")){
-			if (shape instanceof ORYX.Core.Canvas) {
+			if (shape instanceof WAPAMA.Core.Canvas) {
 				return null;
 			}
 			shape = shape.parent;
@@ -570,7 +570,7 @@ ORYX.Plugins.BPMN2_0 = {
 				var edges = [].concat(children[j].getIncomingShapes())
 					.concat(children[j].getOutgoingShapes())
 					// Remove all edges which are included in the selection from the list
-					.findAll(function(r){ return r instanceof ORYX.Core.Edge })
+					.findAll(function(r){ return r instanceof WAPAMA.Core.Edge })
 
 				k=-1;
 				while (++k < edges.length) {			
@@ -652,7 +652,7 @@ ORYX.Plugins.BPMN2_0 = {
 	/**
 	 * Returns a set on all child lanes for the given Shape. If recursive is TRUE, also indirect children will be returned (default is FALSE)
 	 * The set is sorted with first child the lowest y-coordinate and the last one the highest.
-	 * @param {ORYX.Core.Shape} shape
+	 * @param {WAPAMA.Core.Shape} shape
 	 * @param {boolean} recursive
 	 */
 	getLanes: function(shape, recursive){
@@ -674,4 +674,4 @@ ORYX.Plugins.BPMN2_0 = {
 	
 };
 	
-ORYX.Plugins.BPMN2_0 = ORYX.Plugins.AbstractPlugin.extend(ORYX.Plugins.BPMN2_0);
+WAPAMA.Plugins.BPMN2_0 = WAPAMA.Plugins.AbstractPlugin.extend(WAPAMA.Plugins.BPMN2_0);

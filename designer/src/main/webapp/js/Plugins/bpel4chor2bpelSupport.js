@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 	
-ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.BPEL4Chor2BPELSupport = WAPAMA.Plugins.AbstractPlugin.extend({
 
 	/**
 	 * Offers the plugin functionality:
@@ -33,15 +33,15 @@ ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
         // Call super class constructor
         arguments.callee.$.construct.apply(this, arguments);
 
-        this.dialog2BPELSupport = new ORYX.Plugins.TransformationDownloadDialogForBPEL4Chor();
+        this.dialog2BPELSupport = new WAPAMA.Plugins.TransformationDownloadDialogForBPEL4Chor();
         
 	    this.facade.offer({
-			'name':ORYX.I18N.BPEL4Chor2BPELSupport.exp,
+			'name':WAPAMA.I18N.BPEL4Chor2BPELSupport.exp,
 			'functionality': this.exportProcess.bind(this),
-			'group': ORYX.I18N.JSONSupport.exp.group,
-			dropDownGroupIcon: ORYX.PATH + "images/export2.png",
-			'icon':  ORYX.PATH + "images/bpel4chor2bpel_export_icon.png",
-			'description': ORYX.I18N.BPEL4Chor2BPELSupport.expDesc,
+			'group': WAPAMA.I18N.JSONSupport.exp.group,
+			dropDownGroupIcon: WAPAMA.PATH + "images/export2.png",
+			'icon':  WAPAMA.PATH + "images/bpel4chor2bpel_export_icon.png",
+			'description': WAPAMA.I18N.BPEL4Chor2BPELSupport.expDesc,
 			'index': 0,
 			'minShape': 0,
 			'maxShape': 0
@@ -54,7 +54,7 @@ ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 	
 		// raise loading enable event
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE
         });
             
 		// asynchronously ...
@@ -65,7 +65,7 @@ ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 			
 			// raise loading disable event.
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
             });
 			
         }).bind(this), 10);
@@ -85,7 +85,7 @@ ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 			}
 						
 			// Send the request to the server.
-			new Ajax.Request(ORYX.CONFIG.BPEL4CHOR2BPEL_EXPORT_URL, {
+			new Ajax.Request(WAPAMA.CONFIG.BPEL4CHOR2BPEL_EXPORT_URL, {
 				method: 'POST',
 				asynchronous: false,
 				parameters: {
@@ -99,8 +99,8 @@ ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
                 	
 			
 		} catch (error){
-			this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
-			Ext.Msg.alert(ORYX.I18N.Oryx.title, error);
+			this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
+			Ext.Msg.alert(WAPAMA.I18N.Wapama.title, error);
 	 	}
     
 	},
@@ -148,7 +148,7 @@ ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 	 * @param {Object} result - the result of the transformation servlet (JSON)
 	 */
 	displayResult: function(result) {
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 
 		var resultString = '(' + result + ')';
 		
@@ -163,7 +163,7 @@ ORYX.Plugins.BPEL4Chor2BPELSupport = ORYX.Plugins.AbstractPlugin.extend({
 		}
 		
 		if ((!resultObject.res) || (resultObject.res.length == 0)) {
-			this.dialog2BPELSupport.openMessageDialog(ORYX.I18N.TransformationDownloadDialog.error,ORYX.I18N.TransformationDownloadDialog.noResult);
+			this.dialog2BPELSupport.openMessageDialog(WAPAMA.I18N.TransformationDownloadDialog.error,WAPAMA.I18N.TransformationDownloadDialog.noResult);
 		} else if (resultObject.res[0].contentBPEL.indexOf("Parser Error")>0) {
 			this.dialog2BPELSupport.openErrorDialog(resultObject.res[0].contentBPEL);
 		} else {

@@ -11918,13 +11918,13 @@
 						(args.sourceStencil.id() == args.sourceStencil.namespace() + "sendTask")) {
 						
 						var outgoingShapes = args.sourceShape.getOutgoingShapes();
-						var targetName = args.targetShape.properties["oryx-name"];
+						var targetName = args.targetShape.properties["wapama-name"];
 						var valid = true;
 						outgoingShapes.each(function(shape) { 
 							if (shape.getStencil().id() == shape.getStencil().namespace() + "MessageFlow") {
 								var targets = shape.getOutgoingShapes();
 								for (var i = 0; i < targets.length; i++) {
-									var name = targets[i].properties["oryx-name"];
+									var name = targets[i].properties["wapama-name"];
 									if (name != targetName) {
 										valid = false;
 										return false;
@@ -11960,7 +11960,7 @@
 						} else if (args.targetStencil  && 
 							(args.targetStencil.id() == args.targetStencil.namespace() + "ReceiveTask")) {
 							
-							var loopType = args.targetShape.properties["oryx-looptype"];
+							var loopType = args.targetShape.properties["wapama-looptype"];
 													
 							if (loopType && (loopType != "None")) {
 								return false;
@@ -11991,7 +11991,7 @@
 					if (args.sourceStencil.id() == args.sourceStencil.namespace() + "ParticipantSetDataObject") {
 						// association from set to task/scope only if task is multiple instance or none-typed task
 						if (args.targetShape) {
-							var loopType = args.targetShape.properties["oryx-looptype"];
+							var loopType = args.targetShape.properties["wapama-looptype"];
 													
 							if (loopType && (loopType != "MultiInstance")) {
 								if (args.targetStencil.id() != args.sourceStencil.namespace() + "noneTask") {
@@ -12155,7 +12155,7 @@
 			if (args.containedStencil.id() == args.containedStencil.namespace() + "CounterVariableDataObject") {
 				if (args.containingStencil.id() == args.containingStencil.namespace() + "Scope") {
 					// scope must be multiple instance
-					var loopType = args.containingShape.properties["oryx-looptype"];
+					var loopType = args.containingShape.properties["wapama-looptype"];
 											
 					if (!loopType || (loopType != "MultiInstance")) {
 						return false;

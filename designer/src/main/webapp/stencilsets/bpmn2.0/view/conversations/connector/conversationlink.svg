@@ -1,8 +1,8 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
-	xmlns:oryx="http://www.b3mn.org/oryx"
+	xmlns:wapama="http://www.wapama.net/diagram"
 	version="1.0"
-	oryx:edge="edge" >
+	wapama:edge="edge" >
 	<defs>
 		<marker id="start" refX="0" refY="10" markerUnits="userSpaceOnUse" fill="none" markerWidth="20" stroke-width="2" stroke="#000000" markerHeight="20" orient="auto">
 			<polyline id="forkStart" points="0,0 20,10 0,20 "/>

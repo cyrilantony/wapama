@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <svg
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    version="1.0"
-   oryx:edge="edge" >
+   wapama:edge="edge" >
   <defs id="defs2213">
     <marker id="mid" refX="0" refY="5" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="10" orient="auto">
       <!-- defines the X and // signs in the middle of an arrow -->

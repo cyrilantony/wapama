@@ -1,16 +1,16 @@
 // mocks
-// mocking ORYX.Editor object
-if(!ORYX) {var ORYX = {};}
-if(!ORYX.Editor) {ORYX.Editor = {};}
+// mocking WAPAMA.Editor object
+if(!WAPAMA) {var WAPAMA= {};}
+if(!WAPAMA.Editor) {WAPAMA.Editor = {};}
 
 // mocking MinMaxPathHandler
-if(!ORYX.Core) {ORYX.Core = {};}
-if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
+if(!WAPAMA.Core.SVG) {WAPAMA.Core.SVG = {};}
 
 /**
  * MinMaxPathHandler for SVGPath with the d-Attribute: d="M1 1 L 2 2 L 5 6 Z"
  */
-ORYX.Core.SVG.MinMaxPathHandler = {
+WAPAMA.Core.SVG.MinMaxPathHandler = {
 	
 	construct: function() {
 		arguments.callee.$.construct.apply(this, arguments);
@@ -29,7 +29,7 @@ ORYX.Core.SVG.MinMaxPathHandler = {
 	},
 }
 
-ORYX.Core.SVG.MinMaxPathHandler = Clazz.extend(ORYX.Core.SVG.MinMaxPathHandler)
+WAPAMA.Core.SVG.MinMaxPathHandler = Clazz.extend(WAPAMA.Core.SVG.MinMaxPathHandler)
 
 // mocking PathParser
 
@@ -48,21 +48,21 @@ PathParser = {
 
 PathParser = Clazz.extend(PathParser)
 
-// mocking ORYX.Core.SVG.EditPathHandler
+// mocking WAPAMA.Core.SVG.EditPathHandler
 
-ORYX.Core.SVG.EditPathHandler = {
+WAPAMA.Core.SVG.EditPathHandler = {
 	construct: function() {
 		arguments.callee.$.construct.apply(this, arguments);
 	},
 }
 
-ORYX.Core.SVG.EditPathHandler = Clazz.extend(ORYX.Core.SVG.EditPathHandler);
+WAPAMA.Core.SVG.EditPathHandler = Clazz.extend(WAPAMA.Core.SVG.EditPathHandler);
 
 // stubs
 
-// stubbing ORYX.Editor.checkClassType
+// stubbing WAPAMA.Editor.checkClassType
 
-ORYX.Editor.checkClassType = function( classInst, classType ) {
+WAPAMA.Editor.checkClassType = function( classInst, classType ) {
 		return classInst instanceof classType
 }
 
@@ -90,9 +90,9 @@ ORYX.Editor.checkClassType = function( classInst, classType ) {
 
 function setUp(){
 	
-	// set Oryx-Namespace
+	// set wapama-namespace
 	
-	NAMESPACE_ORYX_TEST = "http://www.b3mn.org/oryx";
+	NAMESPACE_WAPAMA_TEST = "http://www.wapama.net/diagram";
 	
 	// attribute definitions
 	x = 1
@@ -121,7 +121,7 @@ function setUp(){
 	testSVGRectWithAnchors.setAttributeNS(null, "y", y);
 	testSVGRectWithAnchors.setAttributeNS(null, "height", height);
 	testSVGRectWithAnchors.setAttributeNS(null, "width", width);
-	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_ORYX_TEST, "anchors", "left right bottom top");
+	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_WAPAMA_TEST, "anchors", "left right bottom top");
 	
 	// valid resizable SVG-Rect
 	
@@ -130,7 +130,7 @@ function setUp(){
 	testSVGRectResizable.setAttributeNS(null, "y", y);
 	testSVGRectResizable.setAttributeNS(null, "height", height);
 	testSVGRectResizable.setAttributeNS(null, "width", width);
-	testSVGRectResizable.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "horizontal");
+	testSVGRectResizable.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "horizontal");
 	
 	// valid SVG-Rect-Element
 	
@@ -232,7 +232,7 @@ function tearDown() {
 function testNewSVGPathGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -247,7 +247,7 @@ function testNewSVGPathGood() {
  */
 function testNewSVGPathGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement); 
 	assertEquals('type check', testSVGShape.type, 'Path' )
 }
 
@@ -256,7 +256,7 @@ function testNewSVGPathGoodType() {
  */
 
 function testNewSVGPathGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, 1)
 	assertEquals('yAttr value check', testSVGShape.oldY, 1)
 	assertEquals('heightAttr value check', testSVGShape.height, 5)
@@ -271,7 +271,7 @@ function testNewSVGPathGoodParsedValues() {
 function testNewSVGRectGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -286,7 +286,7 @@ function testNewSVGRectGood() {
  */
 function testNewSVGRectGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement); 
 	assertEquals('type check', testSVGShape.type, 'Rect' )
 }
 
@@ -295,7 +295,7 @@ function testNewSVGRectGoodType() {
  */
 
 function testNewSVGRectGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, x)
 	assertEquals('yAttr value check', testSVGShape.oldY, y)
 	assertEquals('heightAttr value check', testSVGShape.height, height)
@@ -307,7 +307,7 @@ function testNewSVGRectGoodParsedValues() {
  */
 
 function testNewSVGRectGoodOldXXXValuesEqualXXXValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement);
 	assertEquals('xAttr value equal check', testSVGShape.oldX, testSVGShape.x)
 	assertEquals('yAttr value equal check', testSVGShape.oldY, testSVGShape.y)
 	assertEquals('heightAttr value equal check', testSVGShape.oldHeight, testSVGShape.height)
@@ -323,7 +323,7 @@ function testNewSVGRectGoodOldXXXValuesEqualXXXValues() {
 function testNewSVGEllipseGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -338,7 +338,7 @@ function testNewSVGEllipseGood() {
  */
 function testNewSVGEllipseGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 	assertEquals('type check', testSVGShape.type, 'Ellipse' )
 }
 
@@ -347,7 +347,7 @@ function testNewSVGEllipseGoodType() {
  */
 
 function testNewSVGEllipseGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement);
 	assertEquals('rxAttr value check', testSVGShape.radiusX, rx)
 	assertEquals('rxAttr value check', testSVGShape.radiusY, ry)
 	assertEquals('xAttr value check', testSVGShape.oldX, cx-rx)
@@ -361,7 +361,7 @@ function testNewSVGEllipseGoodParsedValues() {
  */
 
 function testNewSVGEllipseGoodOldXXXValuesEqualXXXValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement);
 	assertEquals('xAttr value equal check', testSVGShape.oldX, testSVGShape.x)
 	assertEquals('yAttr value equal check', testSVGShape.oldY, testSVGShape.y)
 	assertEquals('heightAttr value equal check', testSVGShape.oldHeight, testSVGShape.height)
@@ -377,7 +377,7 @@ function testNewSVGEllipseGoodOldXXXValuesEqualXXXValues() {
 function testNewSVGImageGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGImageElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGImageElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -391,7 +391,7 @@ function testNewSVGImageGood() {
  */
 
 function testNewSVGImageGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGImageElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGImageElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, x)
 	assertEquals('yAttr value check', testSVGShape.oldY, y)
 	assertEquals('heightAttr value check', testSVGShape.oldHeight, height)
@@ -403,7 +403,7 @@ function testNewSVGImageGoodParsedValues() {
  */
 
 function testNewSVGImageGoodOldXXXValuesEqualXXXValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGImageElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGImageElement);
 	assertEquals('xAttr value equal check', testSVGShape.oldX, testSVGShape.x)
 	assertEquals('yAttr value equal check', testSVGShape.oldY, testSVGShape.y)
 	assertEquals('heightAttr value equal check', testSVGShape.oldHeight, testSVGShape.height)
@@ -416,7 +416,7 @@ function testNewSVGImageGoodOldXXXValuesEqualXXXValues() {
  */
 function testNewSVGImageGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGImageElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGImageElement); 
 	assertEquals('type check', testSVGShape.type, 'Rect' )
 }
 
@@ -429,7 +429,7 @@ function testNewSVGImageGoodType() {
 function testNewSVGCircleGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -444,7 +444,7 @@ function testNewSVGCircleGood() {
  */
 function testNewSVGCircleGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 	assertEquals('type check', testSVGShape.type, 'Circle' )
 }
 
@@ -454,7 +454,7 @@ function testNewSVGCircleGoodType() {
  */
 
 function testNewSVGCircleGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement);
 	assertEquals('rAttr value check', testSVGShape.radiusX, r)
 	assertEquals('xAttr value check', testSVGShape.oldX, cx-r)
 	assertEquals('yAttr value check', testSVGShape.oldY, cy-r)
@@ -467,7 +467,7 @@ function testNewSVGCircleGoodParsedValues() {
  */
 
 function testNewSVGCircleGoodOldXXXValuesEqualXXXValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement);
 	assertEquals('xAttr value equal check', testSVGShape.oldX, testSVGShape.x)
 	assertEquals('yAttr value equal check', testSVGShape.oldY, testSVGShape.y)
 	assertEquals('heightAttr value equal check', testSVGShape.oldHeight, testSVGShape.height)
@@ -483,7 +483,7 @@ function testNewSVGCircleGoodOldXXXValuesEqualXXXValues() {
 function testNewSVGLineGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -498,7 +498,7 @@ function testNewSVGLineGood() {
  */
 function testNewSVGLineGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 	assertEquals('type check', testSVGShape.type, 'Line' )
 }
 
@@ -507,7 +507,7 @@ function testNewSVGLineGoodType() {
  */
 
 function testNewSVGLineGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, x1)
 	assertEquals('yAttr value check', testSVGShape.oldY, y1)
 	assertEquals('heightAttr value check', testSVGShape.height, y2-y1 )
@@ -519,7 +519,7 @@ function testNewSVGLineGoodParsedValues() {
  */
 
 function testNewSVGNullLineGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGNullLineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGNullLineElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, 0)
 	assertEquals('yAttr value check', testSVGShape.oldY, 0)
 	assertEquals('heightAttr value check', testSVGShape.height, 0 )
@@ -531,7 +531,7 @@ function testNewSVGNullLineGoodParsedValues() {
  */
 
 function testNewSVGLineGoodOldXXXValuesEqualXXXValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement);
 	assertEquals('xAttr value equal check', testSVGShape.oldX, testSVGShape.x)
 	assertEquals('yAttr value equal check', testSVGShape.oldY, testSVGShape.y)
 	assertEquals('heightAttr value equal check', testSVGShape.oldHeight, testSVGShape.height)
@@ -544,7 +544,7 @@ function testNewSVGLineGoodOldXXXValuesEqualXXXValues() {
 function testNewNullSVGLineGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGNullLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGNullLineElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -559,7 +559,7 @@ function testNewNullSVGLineGood() {
  */
 function testNewNullSVGLineGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGNullLineElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGNullLineElement); 
 	assertEquals('type check', testSVGShape.type, 'Line' )
 }
 
@@ -572,7 +572,7 @@ function testNewNullSVGLineGoodType() {
 function testNewSVGPolylineGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -587,7 +587,7 @@ function testNewSVGPolylineGood() {
  */
 function testNewSVGPolylineGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement); 
 	assertEquals('type check', testSVGShape.type, 'Polyline' )
 }
 
@@ -596,7 +596,7 @@ function testNewSVGPolylineGoodType() {
  */
 
 function testNewSVGPolylineGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, pointsX[0])
 	assertEquals('yAttr value check', testSVGShape.oldY, pointsY[0])
 	assertEquals('heightAttr value check', testSVGShape.height, pointsY[2]-pointsY[0] )
@@ -608,7 +608,7 @@ function testNewSVGPolylineGoodParsedValues() {
  */
 
 function testNewSVGPolylineGoodOldXXXValuesEqualXXXValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement);
 	assertEquals('xAttr value equal check', testSVGShape.oldX, testSVGShape.x)
 	assertEquals('yAttr value equal check', testSVGShape.oldY, testSVGShape.y)
 	assertEquals('heightAttr value equal check', testSVGShape.oldHeight, testSVGShape.height)
@@ -621,7 +621,7 @@ function testNewSVGPolylineGoodOldXXXValuesEqualXXXValues() {
 function testNewNullSVGPolylineGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGNullPolylineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGNullPolylineElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -635,7 +635,7 @@ function testNewNullSVGPolylineGood() {
  */
 
 function testNewSVGNullPolylineGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGNullPolylineElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGNullPolylineElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, 0)
 	assertEquals('yAttr value check', testSVGShape.oldY, 0)
 	assertEquals('heightAttr value check', testSVGShape.height, 0 )
@@ -648,7 +648,7 @@ function testNewSVGNullPolylineGoodParsedValues() {
 function testNewSVGPolygonGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolygonElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolygonElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -663,7 +663,7 @@ function testNewSVGPolygonGood() {
 function testNewNullSVGPolygonGood() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGNullPolygonElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGNullPolygonElement); 
 		fail("Generate a new SVGShape object should fail here.")
 	} catch(e) {
 		if(!(e instanceof JsUnitException)){
@@ -677,7 +677,7 @@ function testNewNullSVGPolygonGood() {
  */
 
 function testNewSVGPolygonGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolygonElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolygonElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, pointsX[0])
 	assertEquals('yAttr value check', testSVGShape.oldY, pointsY[0])
 	assertEquals('heightAttr value check', testSVGShape.height, pointsY[2]-pointsY[0] )
@@ -689,7 +689,7 @@ function testNewSVGPolygonGoodParsedValues() {
  */
 
 function testNewSVGNullPolygonGoodParsedValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGNullPolygonElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGNullPolygonElement);
 	assertEquals('xAttr value check', testSVGShape.oldX, 0)
 	assertEquals('yAttr value check', testSVGShape.oldY, 0)
 	assertEquals('heightAttr value check', testSVGShape.height, 0 )
@@ -701,7 +701,7 @@ function testNewSVGNullPolygonGoodParsedValues() {
  */
 
 function testNewSVGPolygonGoodOldXXXValuesEqualXXXValues() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolygonElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolygonElement);
 	assertEquals('xAttr value equal check', testSVGShape.oldX, testSVGShape.x)
 	assertEquals('yAttr value equal check', testSVGShape.oldY, testSVGShape.y)
 	assertEquals('heightAttr value equal check', testSVGShape.oldHeight, testSVGShape.height)
@@ -715,7 +715,7 @@ function testNewSVGPolygonGoodOldXXXValuesEqualXXXValues() {
  */
 function testNewSVGPolygonGoodType() {
 	
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolygonElement); 
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolygonElement); 
 	assertEquals('type check', testSVGShape.type, 'Polyline' )
 }
 
@@ -730,7 +730,7 @@ function testNewSVGRectBadMissingXAttribute() {
 
 	try {
 		testSVGRectElement.removeAttributeNS(null, "x")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -746,7 +746,7 @@ function testNewSVGRectBadMissingYAttribute() {
 
 	try {
 		testSVGRectElement.removeAttributeNS(null, "y")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -762,7 +762,7 @@ function testNewSVGRectBadMissingHeightAttribute() {
 
 	try {
 		testSVGRectElement.removeAttributeNS(null, "height")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -778,7 +778,7 @@ function testNewSVGRectBadMissingWidthAttribute() {
 
 	try {
 		testSVGRectElement.removeAttributeNS(null, "width")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -794,7 +794,7 @@ function testNewSVGRectBadMissingWidthAttribute() {
 function testNewSVGRectBadNoSVGElement() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testNoSVGElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testNoSVGElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -810,7 +810,7 @@ function testNewSVGRectBadNoSVGElement() {
 function testNewSVGRectBadNonsenseElement() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testNonsenseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testNonsenseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -826,7 +826,7 @@ function testNewSVGRectBadNonsenseElement() {
 function testNewSVGRectBadNonsenseElement() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testNonsenseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testNonsenseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -842,7 +842,7 @@ function testNewSVGRectBadNonsenseElement() {
 function testNewSVGRectBadNoConstructorParameter() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -858,7 +858,7 @@ function testNewSVGRectBadNoConstructorParameter() {
 function testNewSVGRectBadToManyConstructorParameters() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement, "tooMuch"); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement, "tooMuch"); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -874,7 +874,7 @@ function testNewSVGRectBadToManyConstructorParameters() {
 function testNewSVGRectBadToManyAndBadConstructorParameters() {
 
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(34, "tooMuch"); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(34, "tooMuch"); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -891,7 +891,7 @@ function testNewSVGRectBadWrongSVGElementAttributeTypes() {
 
 	try {
 		testSVGRectElement.setAttributeNS(null, "height", "%$u(")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectElement, "tooMuch"); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectElement, "tooMuch"); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -910,7 +910,7 @@ function testNewSVGCircleBadMissingCXAttribute() {
 
 	try {
 		testSVGCircleElement.removeAttributeNS(null, "cx")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -926,7 +926,7 @@ function testNewSVGCircleBadMissingCYAttribute() {
 
 	try {
 		testSVGCircleElement.removeAttributeNS(null, "cy")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -942,7 +942,7 @@ function testNewSVGCircleBadMissingRAttribute() {
 
 	try {
 		testSVGCircleElement.removeAttributeNS(null, "r")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -958,7 +958,7 @@ function testNewSVGCircleBadCXAttributeValueType() {
 
 	try {
 		testSVGCircleElement.setAttributeNS(null, "cx", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -974,7 +974,7 @@ function testNewSVGCircleBadCYAttributeValueType() {
 
 	try {
 		testSVGCircleElement.setAttributeNS(null, "cy", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -990,7 +990,7 @@ function testNewSVGCircleBadRAttributeValueType() {
 
 	try {
 		testSVGCircleElement.setAttributeNS(null, "r", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGCircleElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGCircleElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1009,7 +1009,7 @@ function testNewSVGEllipseBadMissingCXAttribute() {
 
 	try {
 		testSVGEllipseElement.removeAttributeNS(null, "cx")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1025,7 +1025,7 @@ function testNewSVGEllipseBadMissingCYAttribute() {
 
 	try {
 		testSVGEllipseElement.removeAttributeNS(null, "cy")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1041,7 +1041,7 @@ function testNewSVGEllipseBadMissingRYAttribute() {
 
 	try {
 		testSVGEllipseElement.removeAttributeNS(null, "ry")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1057,7 +1057,7 @@ function testNewSVGEllipseBadMissingRXAttribute() {
 
 	try {
 		testSVGEllipseElement.removeAttributeNS(null, "rx")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1075,7 +1075,7 @@ function testNewSVGEllipseBadCXAttributeValueType() {
 
 	try {
 		testSVGEllipseElement.setAttributeNS(null, "cx", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1091,7 +1091,7 @@ function testNewSVGEllipseBadCYAttributeValueType() {
 
 	try {
 		testSVGEllipseElement.setAttributeNS(null, "cy", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1107,7 +1107,7 @@ function testNewSVGEllipseBadRYAttributeValueType() {
 
 	try {
 		testSVGEllipseElement.setAttributeNS(null, "ry", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1123,7 +1123,7 @@ function testNewSVGEllipseBadRYAttributeValueType() {
 
 	try {
 		testSVGEllipseElement.setAttributeNS(null, "rx", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGEllipseElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGEllipseElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1142,7 +1142,7 @@ function testNewSVGLineBadMissingX1Attribute() {
 
 	try {
 		testSVGLineElement.removeAttributeNS(null, "x1")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1158,7 +1158,7 @@ function testNewSVGLineBadMissingY1Attribute() {
 
 	try {
 		testSVGLineElement.removeAttributeNS(null, "y1")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1174,7 +1174,7 @@ function testNewSVGLineBadMissingX2Attribute() {
 
 	try {
 		testSVGLineElement.removeAttributeNS(null, "x2")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1190,7 +1190,7 @@ function testNewSVGLineBadMissingY2Attribute() {
 
 	try {
 		testSVGLineElement.removeAttributeNS(null, "y2")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1207,7 +1207,7 @@ function testNewSVGLineBadX1AttributeValueType() {
 
 	try {
 		testSVGLineElement.setAttributeNS(null, "x1", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1223,7 +1223,7 @@ function testNewSVGLineBadY1AttributeValueType() {
 
 	try {
 		testSVGLineElement.setAttributeNS(null, "y1", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1239,7 +1239,7 @@ function testNewSVGLineBadX1AttributeValueType() {
 
 	try {
 		testSVGLineElement.setAttributeNS(null, "x2", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1255,7 +1255,7 @@ function testNewSVGLineBadY2AttributeValueType() {
 
 	try {
 		testSVGLineElement.setAttributeNS(null, "y2", "a?")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGLineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGLineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1274,7 +1274,7 @@ function testNewSVGPolylineBadMissingPointsAttribute() {
 
 	try {
 		testSVGPolyline.removeAttributeNS(null, "points")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1290,7 +1290,7 @@ function testNewSVGPolygonBadMissingPointsAttribute() {
 
 	try {
 		testSVGPolylgon.removeAttributeNS(null, "points")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolygonElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolygonElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1306,7 +1306,7 @@ function testNewSVGPolylineBadPointsAttributeValueType() {
 
 	try {
 		testSVGPolylineElement.setAttributeNS(null, "points", "a?,4 uz,?= 78,9r")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1322,7 +1322,7 @@ function testNewSVGPolygonBadTooLessPoints() {
 
 	try {
 		testSVGPolygonElement.setAttributeNS(null, "points", "1,1 45,56")
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPolylineElement); 
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPolylineElement); 
 		fail("Generate a new SVGShape object should fail yet.")
 	} catch(e) {
 		if((e instanceof JsUnitException)){
@@ -1337,8 +1337,8 @@ function testNewSVGPolygonBadTooLessPoints() {
  * Tests, if the resize attribute is parsed correctly, if value equals "horizontal"
  */
 function testGoodParseResizableHorizontal() {
-	testSVGRectResizable.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "horizontal");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectResizable);
+	testSVGRectResizable.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "horizontal");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectResizable);
 	assertTrue('resize value check horizontal', testSVGShape.isHorizontallyResizable)
 	assertFalse('resize value check vertical', testSVGShape.isVerticallyResizable) 
 }
@@ -1348,8 +1348,8 @@ function testGoodParseResizableHorizontal() {
  * Tests, if the resize attribute is parsed correctly, if value equals "vertical"
  */
 function testGoodParseResizableVertical() {
-	testSVGRectResizable.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "vertical");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectResizable);
+	testSVGRectResizable.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "vertical");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectResizable);
 	assertFalse('resize value check horizontal', testSVGShape.isHorizontallyResizable)
 	assertTrue('resize value check vertical', testSVGShape.isVerticallyResizable)
 }
@@ -1358,8 +1358,8 @@ function testGoodParseResizableVertical() {
  * Tests, if the resize attribute is parsed correctly, if value equals "vertical horizontal"
  */
 function testGoodParseResizableVerticalAndHorizontal() {
-	testSVGRectResizable.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "vertical horizontal");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectResizable);
+	testSVGRectResizable.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "vertical horizontal");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectResizable);
 	assertTrue('resize value check horizontal', testSVGShape.isHorizontallyResizable)
 	assertTrue('resize value check vertical', testSVGShape.isVerticallyResizable)
 }
@@ -1368,8 +1368,8 @@ function testGoodParseResizableVerticalAndHorizontal() {
  * Tests, if the resize attribute is parsed correctly, if value equals "horizontal vertical"
  */
 function testGoodParseResizableVerticalAndHorizontalChangedOrder() {
-	testSVGRectResizable.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "horizontal vertical");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectResizable);
+	testSVGRectResizable.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "horizontal vertical");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectResizable);
 	assertTrue('resize value check horizontal', testSVGShape.isHorizontallyResizable)
 	assertTrue('resize value check vertical', testSVGShape.isVerticallyResizable)
 }
@@ -1379,8 +1379,8 @@ function testGoodParseResizableVerticalAndHorizontalChangedOrder() {
  * If no resize attribute is set, both isHorizontallyRezisable and isVerticallyresizable should be false.
  */
 function testGoodParseResizableNoResizeAttribute() {
-	testSVGRectResizable.removeAttributeNS(NAMESPACE_ORYX_TEST, "resize");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectResizable);
+	testSVGRectResizable.removeAttributeNS(NAMESPACE_WAPAMA_TEST, "resize");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectResizable);
 	assertFalse('resize value check horizontal', testSVGShape.isHorizontallyResizable)
 	assertFalse('resize value check vertical', testSVGShape.isVerticallyResizable)
 }
@@ -1389,8 +1389,8 @@ function testGoodParseResizableNoResizeAttribute() {
  * If the resize attribute contains of nonsense values, both isHorizontallyRezisable and isVerticallyresizable should be false.
  */
 function testBadParseResizableNoResizeAttribute() {
-	testSVGRectResizable.setAttributeNS(NAMESPACE_ORYX_TEST, "resize", "horizontalxx verticalzz");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectResizable);
+	testSVGRectResizable.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resize", "horizontalxx verticalzz");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectResizable);
 	assertFalse('resize value check horizontal', testSVGShape.isHorizontallyResizable)
 	assertFalse('resize value check vertical', testSVGShape.isVerticallyResizable)
 }
@@ -1401,7 +1401,7 @@ function testBadParseResizableNoResizeAttribute() {
  * In testSVGRectWithAnchors all anchors are set. So all possible four anchors should signal a true value.
  */
 function testParseAnchorsFromAnchorAttribute() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectWithAnchors);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectWithAnchors);
 	assertTrue('value check for left anchor', testSVGShape.anchorLeft)
 	assertTrue('value check for right anchor', testSVGShape.anchorRight)
 	assertTrue('value check for top anchor', testSVGShape.anchorTop)
@@ -1412,8 +1412,8 @@ function testParseAnchorsFromAnchorAttribute() {
  * Tests if also comma-seperation is parsed correctly. (no spaces)
  */
 function testAnchorCommaSeparationWithoutSpaces() {
-	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_ORYX_TEST, "anchors", "left,right,top,bottom,,,");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectWithAnchors);
+	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_WAPAMA_TEST, "anchors", "left,right,top,bottom,,,");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectWithAnchors);
 	assertTrue('value check for left anchor', testSVGShape.anchorLeft)
 	assertTrue('value check for right anchor', testSVGShape.anchorRight)
 	assertTrue('value check for top anchor', testSVGShape.anchorTop)
@@ -1424,8 +1424,8 @@ function testAnchorCommaSeparationWithoutSpaces() {
  * Tests if also comma-seperation is parsed correctly. (with spaces)
  */
 function testAnchorCommaSeparationWithSpaces() {
-	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_ORYX_TEST, "anchors", "left, right ,top   ,   bottom  ,,,");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectWithAnchors);
+	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_WAPAMA_TEST, "anchors", "left, right ,top   ,   bottom  ,,,");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectWithAnchors);
 	assertTrue('value check for left anchor', testSVGShape.anchorLeft)
 	assertTrue('value check for right anchor', testSVGShape.anchorRight)
 	assertTrue('value check for top anchor', testSVGShape.anchorTop)
@@ -1436,8 +1436,8 @@ function testAnchorCommaSeparationWithSpaces() {
  * Only left and top are set.
  */
 function testAnchorCommaSeparationWithSpaces() {
-	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_ORYX_TEST, "anchors", "top LeFt");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectWithAnchors);
+	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_WAPAMA_TEST, "anchors", "top LeFt");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectWithAnchors);
 	assertTrue('value check for left anchor', testSVGShape.anchorLeft)
 	assertFalse('value check for right anchor', testSVGShape.anchorRight)
 	assertTrue('value check for top anchor', testSVGShape.anchorTop)
@@ -1448,8 +1448,8 @@ function testAnchorCommaSeparationWithSpaces() {
  * The anchors attribute is not available. So all anchors should be false.
  */
 function testAnchorCommaSeparationWithSpaces() {
-	testSVGRectWithAnchors.removeAttributeNS(NAMESPACE_ORYX_TEST, "anchors");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectWithAnchors);
+	testSVGRectWithAnchors.removeAttributeNS(NAMESPACE_WAPAMA_TEST, "anchors");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectWithAnchors);
 	assertFalse('value check for left anchor', testSVGShape.anchorLeft)
 	assertFalse('value check for right anchor', testSVGShape.anchorRight)
 	assertFalse('value check for top anchor', testSVGShape.anchorTop)
@@ -1461,9 +1461,9 @@ function testAnchorCommaSeparationWithSpaces() {
  * An anchor attribute only should consists of values left, right, top, bottom comma oder space separated.
  */
 function testAnchorCommaSeparationWithSpaces() {
-	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_ORYX_TEST, "anchors", "left,..,top,,fail");
+	testSVGRectWithAnchors.setAttributeNS(NAMESPACE_WAPAMA_TEST, "anchors", "left,..,top,,fail");
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGRectWithAnchors);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGRectWithAnchors);
 	} 
 	catch (e) {
 		if (!(e instanceof JsUnitException)) {
@@ -1479,7 +1479,7 @@ function testAnchorCommaSeparationWithSpaces() {
  * If no allowDockers is set, it should be disabled
  */
 function testNoAllowDockersSet() {
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	assertTrue('value check of allowDockers', testSVGShape.allowDockers)
 }
 
@@ -1487,8 +1487,8 @@ function testNoAllowDockersSet() {
  * If allowDockers equals "yes", it should be true
  */
 function testAllowDockersWithValueYes() {
-	testSVGPathElement.setAttributeNS(NAMESPACE_ORYX_TEST, "allowDockers", "yes");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+	testSVGPathElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "allowDockers", "yes");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	assertTrue('value check of allowDockers', testSVGShape.allowDockers)
 }
 
@@ -1496,8 +1496,8 @@ function testAllowDockersWithValueYes() {
  * If allowDockers equals "no", it should be false
  */
 function testAllowDockersWithValueNo() {
-	testSVGPathElement.setAttributeNS(NAMESPACE_ORYX_TEST, "allowDockers", "no");
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+	testSVGPathElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "allowDockers", "no");
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	assertFalse('value check of allowDockers', testSVGShape.allowDockers)
 }
 
@@ -1505,9 +1505,9 @@ function testAllowDockersWithValueNo() {
  * If allowDockers contains a wrong value, a InvalidParameterException should be thrown.
  */
 function testFailsForInvalidAllowDockersValue() {
-	testSVGPathElement.setAttributeNS(NAMESPACE_ORYX_TEST, "allowDockers", "yesno");
+	testSVGPathElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "allowDockers", "yesno");
 	try {
-		var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+		var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	} 
 	catch (e) {
 		if (!(e instanceof JsUnitException)) {
@@ -1517,34 +1517,34 @@ function testFailsForInvalidAllowDockersValue() {
 }
 
 
-// test parsing of oryx:ResizeMarkerMid attribute
+// test parsing of wapama:ResizeMarkerMid attribute
 
 /**
- * If no oryx:ResizeMarker-mid is specified, it should be disabled by default.
+ * If no wapama:ResizeMarker-mid is specified, it should be disabled by default.
  */
 function testResizeMarkerMidIsDisabledByDefault() {
 	
-	testSVGPathElement.removeAttributeNS(NAMESPACE_ORYX_TEST, "resizeMarker-mid")
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+	testSVGPathElement.removeAttributeNS(NAMESPACE_WAPAMA_TEST, "resizeMarker-mid")
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	assertFalse('value check of resizeMarker-mid', testSVGShape.resizeMarkerMid)
 }
 
 /**
- * Tests if oryx:ResizeMarker-mid is parsed correctly.
+ * Tests if wapama:ResizeMarker-mid is parsed correctly.
  */
 function testParseResizeMarkerMid() {
 	
-	testSVGPathElement.setAttributeNS(NAMESPACE_ORYX_TEST, "resizeMarker-mid", "yes")
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+	testSVGPathElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resizeMarker-mid", "yes")
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	assertTrue('value check of resizeMarker-mid', testSVGShape.resizeMarkerMid)
 }
 
 /**
- * Tests if oryx:ResizeMarker-mid is parsed correctly.
+ * Tests if wapama:ResizeMarker-mid is parsed correctly.
  */
 function testParseResizeMarkerMid2() {
 	
-	testSVGPathElement.setAttributeNS(NAMESPACE_ORYX_TEST, "resizeMarker-mid", "no")
-	var testSVGShape = new ORYX.Core.SVG.SVGShape(testSVGPathElement);
+	testSVGPathElement.setAttributeNS(NAMESPACE_WAPAMA_TEST, "resizeMarker-mid", "no")
+	var testSVGShape = new WAPAMA.Core.SVG.SVGShape(testSVGPathElement);
 	assertFalse('value check of resizeMarker-mid', testSVGShape.resizeMarkerMid)
 }

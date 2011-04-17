@@ -22,22 +22,22 @@
  **/
 
 /**
- * @namespace Oryx name space for plugins
- * @name ORYX.Plugins
+ * @namespace Wapama name space for plugins
+ * @name WAPAMA.Plugins
 */
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 /**
  * The view plugin offers all of zooming functionality accessible over the 
  * tool bar. This are zoom in, zoom out, zoom to standard, zoom fit to model.
  * 
- * @class ORYX.Plugins.View
+ * @class WAPAMA.Plugins.View
  * @extends Clazz
  * @param {Object} facade The editor facade for plugins.
 */
-ORYX.Plugins.View = {
-	/** @lends ORYX.Plugins.View.prototype */
+WAPAMA.Plugins.View = {
+	/** @lends WAPAMA.Plugins.View.prototype */
 	facade: undefined,
 
 	construct: function(facade, ownPluginData) {
@@ -62,11 +62,11 @@ ORYX.Plugins.View = {
 		
 		/* Register zoom in */
 		this.facade.offer({
-			'name':ORYX.I18N.View.zoomIn,
-			'functionality': this.zoom.bind(this, [1.0 + ORYX.CONFIG.ZOOM_OFFSET]),
-			'group': ORYX.I18N.View.group,
-			'icon': ORYX.PATH + "images/magnifier_zoom_in.png",
-			'description': ORYX.I18N.View.zoomInDesc,
+			'name':WAPAMA.I18N.View.zoomIn,
+			'functionality': this.zoom.bind(this, [1.0 + WAPAMA.CONFIG.ZOOM_OFFSET]),
+			'group': WAPAMA.I18N.View.group,
+			'icon': WAPAMA.PATH + "images/magnifier_zoom_in.png",
+			'description': WAPAMA.I18N.View.zoomInDesc,
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0,
@@ -74,11 +74,11 @@ ORYX.Plugins.View = {
 		
 		/* Register zoom out */
 		this.facade.offer({
-			'name':ORYX.I18N.View.zoomOut,
-			'functionality': this.zoom.bind(this, [1.0 - ORYX.CONFIG.ZOOM_OFFSET]),
-			'group': ORYX.I18N.View.group,
-			'icon': ORYX.PATH + "images/magnifier_zoom_out.png",
-			'description': ORYX.I18N.View.zoomOutDesc,
+			'name':WAPAMA.I18N.View.zoomOut,
+			'functionality': this.zoom.bind(this, [1.0 - WAPAMA.CONFIG.ZOOM_OFFSET]),
+			'group': WAPAMA.I18N.View.group,
+			'icon': WAPAMA.PATH + "images/magnifier_zoom_out.png",
+			'description': WAPAMA.I18N.View.zoomOutDesc,
 			'index': 2,
 			'minShape': 0,
 			'maxShape': 0,
@@ -86,12 +86,12 @@ ORYX.Plugins.View = {
 		
 		/* Register zoom standard */
 		this.facade.offer({
-			'name':ORYX.I18N.View.zoomStandard,
+			'name':WAPAMA.I18N.View.zoomStandard,
 			'functionality': this.setAFixZoomLevel.bind(this, 1),
-			'group': ORYX.I18N.View.group,
-			'icon': ORYX.PATH + "images/zoom_standard.png",
+			'group': WAPAMA.I18N.View.group,
+			'icon': WAPAMA.PATH + "images/zoom_standard.png",
 			'cls' : 'icon-large',
-			'description': ORYX.I18N.View.zoomStandardDesc,
+			'description': WAPAMA.I18N.View.zoomStandardDesc,
 			'index': 3,
 			'minShape': 0,
 			'maxShape': 0,
@@ -100,11 +100,11 @@ ORYX.Plugins.View = {
 		
 		/* Register zoom fit to model */
 		this.facade.offer({
-			'name':ORYX.I18N.View.zoomFitToModel,
+			'name':WAPAMA.I18N.View.zoomFitToModel,
 			'functionality': this.zoomFitToModel.bind(this),
-			'group': ORYX.I18N.View.group,
-			'icon': ORYX.PATH + "images/image.png",
-			'description': ORYX.I18N.View.zoomFitToModelDesc,
+			'group': WAPAMA.I18N.View.group,
+			'icon': WAPAMA.PATH + "images/image.png",
+			'description': WAPAMA.I18N.View.zoomFitToModelDesc,
 			'index': 4,
 			'minShape': 0,
 			'maxShape': 0
@@ -244,4 +244,4 @@ ORYX.Plugins.View = {
 	}
 };
 
-ORYX.Plugins.View = Clazz.extend(ORYX.Plugins.View);
+WAPAMA.Plugins.View = Clazz.extend(WAPAMA.Plugins.View);

@@ -2,24 +2,24 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="102"
    height="82"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="0" oryx:cy="50" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="150" oryx:cy="100" oryx:anchors="bottom" />
-  	<oryx:magnet oryx:cx="300" oryx:cy="50" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="150" oryx:cy="0" oryx:anchors="top" />
-  	<oryx:magnet oryx:cx="150" oryx:cy="50" oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="0" wapama:cy="50" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="150" wapama:cy="100" wapama:anchors="bottom" />
+  	<wapama:magnet wapama:cx="300" wapama:cy="50" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="150" wapama:cy="0" wapama:anchors="top" />
+  	<wapama:magnet wapama:cx="150" wapama:cy="50" wapama:default="yes" />
+  </wapama:magnets>
   <g pointer-events="fill">
-    <rect id="handlerrect" oryx:resize="vertical horizontal" x="0" y="0" width="300" height="100" rx="8" ry="8" stroke="black" stroke-width="1" fill="white" />    
+    <rect id="handlerrect" wapama:resize="vertical horizontal" x="0" y="0" width="300" height="100" rx="8" ry="8" stroke="black" stroke-width="1" fill="white" />    
 	
-	<circle oryx:anchors="right" cx="284" cy="50" r="10" stroke="black" fill="none" stroke-width="1" />
-    <path oryx:anchors="right" d="	M 284 40 L 284 43.5
+	<circle wapama:anchors="right" cx="284" cy="50" r="10" stroke="black" fill="none" stroke-width="1" />
+    <path wapama:anchors="right" d="	M 284 40 L 284 43.5
     		M 289 41 L 287.5 44
     		M 293 45 L 290 46.5
     		M 294 50 L 291 50

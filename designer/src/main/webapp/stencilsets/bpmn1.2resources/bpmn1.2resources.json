@@ -3631,18 +3631,18 @@
 							return (node.getStencil().id() === "http://b3mn.org/stencilset/bpmn1.1#Lane");
 						});
 						if(childLanes.length > 0) {
-							lanes.first().setProperty("oryx-showcaption", true);
+							lanes.first().setProperty("wapama-showcaption", true);
 						} else {
-							if(lanes.first().properties["oryx-name"].trim().length > 0) {
-								lanes.first().setProperty("oryx-showcaption", true);
+							if(lanes.first().properties["wapama-name"].trim().length > 0) {
+								lanes.first().setProperty("wapama-showcaption", true);
 							} else {
-								lanes.first().setProperty("oryx-showcaption", false);
+								lanes.first().setProperty("wapama-showcaption", false);
 							}
 						}
 						
 					} else {
 						lanes.each(function(lane) {
-							lane.setProperty("oryx-showcaption", true);
+							lane.setProperty("wapama-showcaption", true);
 						});
 					}
 					

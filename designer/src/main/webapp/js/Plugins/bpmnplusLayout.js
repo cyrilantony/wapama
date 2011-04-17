@@ -22,22 +22,22 @@
  **/
 
 /**
- * @namespace Oryx name space for plugins
- * @name ORYX.Plugins
+ * @namespace Wapama name space for plugins
+ * @name WAPAMA.Plugins
  */
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
 	
 /**
  * This plugin offers the layout callbacks used in the BPMNplus stencil set.
  * 
- * @class ORYX.Plugins.BPMNPlus
+ * @class WAPAMA.Plugins.BPMNPlus
  * @extends Clazz
  * @param {Object} facade The editor facade for plugins.
  */
-ORYX.Plugins.BPMNPlusLayout = {
-	/** @lends ORYX.Plugins.BPMNPlusLayout.prototype */
+WAPAMA.Plugins.BPMNPlusLayout = {
+	/** @lends WAPAMA.Plugins.BPMNPlusLayout.prototype */
 	
 	/**
 	 *	Constructor
@@ -150,4 +150,4 @@ ORYX.Plugins.BPMNPlusLayout = {
 	
 };
 
-ORYX.Plugins.BPMNPlusLayout = Clazz.extend(ORYX.Plugins.BPMNPlusLayout);
+WAPAMA.Plugins.BPMNPlusLayout = Clazz.extend(WAPAMA.Plugins.BPMNPlusLayout);

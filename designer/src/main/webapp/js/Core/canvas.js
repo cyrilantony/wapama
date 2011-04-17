@@ -24,21 +24,21 @@
 /**
  * Init namespaces
  */
-if(!ORYX) {var ORYX = {};}
+if(!WAPAMA) {var WAPAMA= {};}
 
 /**
-   @namespace Namespace for the Oryx core elements.
-   @name ORYX.Core
+   @namespace Namespace for the Wapama core elements.
+   @name WAPAMA.Core
 */
-if(!ORYX.Core) {ORYX.Core = {};}
+if(!WAPAMA.Core) {WAPAMA.Core = {};}
 
 /**
- * @class Oryx canvas.
- * @extends ORYX.Core.AbstractShape
+ * @class Wapama canvas.
+ * @extends WAPAMA.Core.AbstractShape
  *
  */
-ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
-    /** @lends ORYX.Core.Canvas.prototype */
+WAPAMA.Core.Canvas = WAPAMA.Core.AbstractShape.extend({
+    /** @lends WAPAMA.Core.Canvas.prototype */
 
 	/**
 	 * Defines the current zoom level
@@ -53,7 +53,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 
 		if(!(options && options.width && options.height)) {
 		
-			ORYX.Log.fatal("Canvas is missing mandatory parameters options.width and options.height.");
+			WAPAMA.Log.fatal("Canvas is missing mandatory parameters options.width and options.height.");
 			return;
 		}
 			
@@ -65,7 +65,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 		this.edges = [];
 		
 		//init svg document
-		this.rootNode = ORYX.Editor.graft("http://www.w3.org/2000/svg", options.parentNode,
+		this.rootNode = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", options.parentNode,
 			['svg', {id: this.id, width: options.width, height: options.height},
 				['defs', {}]
 			]);
@@ -74,13 +74,13 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 		this.rootNode.setAttribute("xmlns:svg", "http://www.w3.org/2000/svg");
 
 		// a div in editor for "drop down/timed" to render to.
-		ORYX.Editor.graft("http://www.w3.org/1999/xhtml", options.parentNode,
+		WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", options.parentNode,
 			['div', {id: "msg_div", style:"position:absolute; width:250px"}]);
 
-		this._htmlContainer = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", options.parentNode,
-			['div', {id: "oryx_canvas_htmlContainer", style:"position:absolute; top:5px"}]);
+		this._htmlContainer = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", options.parentNode,
+			['div', {id: "wapama_canvas_htmlContainer", style:"position:absolute; top:5px"}]);
 		
-		this.node = ORYX.Editor.graft("http://www.w3.org/2000/svg", this.rootNode,
+		this.node = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", this.rootNode,
 			['g', {},
 				['g', {"class": "stencils"},
 					['g', {"class": "me"}],
@@ -91,14 +91,14 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 			]);
 		
 		/*
-		var off = 2 * ORYX.CONFIG.GRID_DISTANCE;
+		var off = 2 * WAPAMA.CONFIG.GRID_DISTANCE;
 		var size = 3;
 		var d = "";
 		for(var i = 0; i <= options.width; i += off)
 			for(var j = 0; j <= options.height; j += off)
 				d = d + "M" + (i - size) + " " + j + " l" + (2*size) + " 0 m" + (-size) + " " + (-size) + " l0 " + (2*size) + " m0" + (-size) + " ";
 							
-		ORYX.Editor.graft("http://www.w3.org/2000/svg", this.node.firstChild.firstChild,
+		WAPAMA.Editor.graft("http://www.w3.org/2000/svg", this.node.firstChild.firstChild,
 			['path', {d:d , stroke:'#000000', 'stroke-width':'0.15px'},]);
 		*/
 		
@@ -110,11 +110,11 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 			this.node.setAttributeNS(null, 'stroke-width', '0.5px');
 			this.node.setAttributeNS(null, 'font-family', 'Skia');
 			//this.node.setAttributeNS(null, 'letter-spacing', '2px');
-			this.node.setAttributeNS(null, 'font-size', ORYX.CONFIG.LABEL_DEFAULT_LINE_HEIGHT);
+			this.node.setAttributeNS(null, 'font-size', WAPAMA.CONFIG.LABEL_DEFAULT_LINE_HEIGHT);
 		} else {
 			this.node.setAttributeNS(null, 'stroke', 'none');
 			this.node.setAttributeNS(null, 'font-family', 'Verdana');
-			this.node.setAttributeNS(null, 'font-size', ORYX.CONFIG.LABEL_DEFAULT_LINE_HEIGHT);
+			this.node.setAttributeNS(null, 'font-size', WAPAMA.CONFIG.LABEL_DEFAULT_LINE_HEIGHT);
 		}*/
 		
 		this.node.setAttributeNS(null, 'stroke', 'none');
@@ -125,7 +125,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 		this.node.setAttributeNS(null, 'font-weight', 'normal');
 		this.node.setAttributeNS(null, 'line-heigth', 'normal');
 		
-		this.node.setAttributeNS(null, 'font-size', ORYX.CONFIG.LABEL_DEFAULT_LINE_HEIGHT);
+		this.node.setAttributeNS(null, 'font-size', WAPAMA.CONFIG.LABEL_DEFAULT_LINE_HEIGHT);
 			
 		this.bounds.set(0,0,options.width, options.height);
 		
@@ -227,7 +227,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 				}
 				result.push(uiObject);
 				
-				if(deep && uiObject instanceof ORYX.Core.Shape) {
+				if(deep && uiObject instanceof WAPAMA.Core.Shape) {
 					result = result.concat(uiObject.getChildNodes(deep, iterator));
 				}
 			});
@@ -256,7 +256,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 	 */
 	add: function(uiObject) {
 		//if uiObject is child of another UIObject, remove it.
-		if(uiObject instanceof ORYX.Core.UIObject) {
+		if(uiObject instanceof WAPAMA.Core.UIObject) {
 			if (!(this.children.member(uiObject))) {
 				//if uiObject is child of another parent, remove it from that parent.
 				if(uiObject.parent) {
@@ -270,8 +270,8 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 				uiObject.parent = this;
 
 				//add uiObject.node to this.node depending on the type of uiObject
-				if(uiObject instanceof ORYX.Core.Shape) {
-					if(uiObject instanceof ORYX.Core.Edge) {
+				if(uiObject instanceof WAPAMA.Core.Shape) {
+					if(uiObject instanceof WAPAMA.Core.Edge) {
 						uiObject.addMarkers(this.rootNode.getElementsByTagNameNS(NAMESPACE_SVG, "defs")[0]);
 						uiObject.node = this.node.childNodes[0].childNodes[2].appendChild(uiObject.node);
 						this.edges.push(uiObject);
@@ -286,14 +286,14 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 				uiObject.bounds.registerCallback(this._changedCallback);
 					
 				if(this.eventHandlerCallback)
-					this.eventHandlerCallback({type:ORYX.CONFIG.EVENT_SHAPEADDED,shape:uiObject})
+					this.eventHandlerCallback({type:WAPAMA.CONFIG.EVENT_SHAPEADDED,shape:uiObject})
 			} else {
 				
-				ORYX.Log.warn("add: ORYX.Core.UIObject is already a child of this object.");
+				WAPAMA.Log.warn("add: WAPAMA.Core.UIObject is already a child of this object.");
 			}
 		} else {
 
-			ORYX.Log.fatal("add: Parameter is not of type ORYX.Core.UIObject.");
+			WAPAMA.Log.fatal("add: Parameter is not of type WAPAMA.Core.UIObject.");
 		}
 	},
 
@@ -311,8 +311,8 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 			uiObject.parent = undefined;
 
 			//delete uiObject.node from this.node
-			if(uiObject instanceof ORYX.Core.Shape) {
-				if(uiObject instanceof ORYX.Core.Edge) {
+			if(uiObject instanceof WAPAMA.Core.Shape) {
+				if(uiObject instanceof WAPAMA.Core.Edge) {
 					uiObject.removeMarkers();
 					uiObject.node = this.node.childNodes[0].childNodes[2].removeChild(uiObject.node);
 					this.edges = this.edges.without(uiObject);
@@ -327,7 +327,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 			uiObject.bounds.unregisterCallback(this._changedCallback);
 		} else {
 
-			ORYX.Log.warn("remove: ORYX.Core.UIObject is not a child of this object.");
+			WAPAMA.Log.warn("remove: WAPAMA.Core.UIObject is not a child of this object.");
 		}
 	},
     
@@ -336,7 +336,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
      * @example 
      * canvas.addShapeObjects({
          bounds:{ lowerRight:{ y:510, x:633 }, upperLeft:{ y:146, x:210 } },
-         resourceId:"oryx_F0715955-50F2-403D-9851-C08CFE70F8BD",
+         resourceId:"wapama_F0715955-50F2-403D-9851-C08CFE70F8BD",
          childShapes:[],
          properties:{},
          stencil:{
@@ -347,8 +347,8 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
        });
      * @param {Object} shapeObjects 
      * @param {Function} [eventHandler] An event handler passed to each newly created shape (as eventHandlerCallback)
-     * @return {Array} A collection of ORYX.Core.Shape
-     * @methodOf ORYX.Core.Canvas.prototype
+     * @return {Array} A collection of WAPAMA.Core.Shape
+     * @methodOf WAPAMA.Core.Canvas.prototype
      */
     addShapeObjects: function(shapeObjects, eventHandler){
         if(!shapeObjects) return;
@@ -363,10 +363,10 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
             // Try to create a new Shape
             try {
                 // Create a new Stencil
-                var stencil = ORYX.Core.StencilSet.stencil(this.getStencil().namespace() + shape.stencil.id );
+                var stencil = WAPAMA.Core.StencilSet.stencil(this.getStencil().namespace() + shape.stencil.id );
     
                 // Create a new Shape
-                var ShapeClass = (stencil.type() == "node") ? ORYX.Core.Node : ORYX.Core.Edge;
+                var ShapeClass = (stencil.type() == "node") ? WAPAMA.Core.Node : WAPAMA.Core.Edge;
                 var newShape = new ShapeClass(
                   {'eventHandlerCallback': eventHandler},
                   stencil, shape.resourceId);
@@ -384,8 +384,8 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
                   object: newShape
                 };
             } catch(e) {
-                ORYX.Log.warn("LoadingContent: Stencil could not be created.");
-                ORYX.Log.warn(e);
+                WAPAMA.Log.warn("LoadingContent: Stencil could not be created.");
+                WAPAMA.Log.warn(e);
             }
         }.bind(this);
         
@@ -421,7 +421,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
             	var properties = [];
                 for(field in shape.json.properties){
                     properties.push({
-                      prefix: 'oryx',
+                      prefix: 'wapama',
                       name: field,
                       value: shape.json.properties[field]
                     });
@@ -439,7 +439,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
                   // Target 
                   // (because of a bug, the first outgoing is taken when there is no target,
                   // can be removed after some time)
-                  if(shape.object instanceof ORYX.Core.Edge) {
+                  if(shape.object instanceof WAPAMA.Core.Edge) {
 	                  var target = shape.json.target || shape.json.outgoing[0];
 	                  if(target){
 	                    properties.push({
@@ -453,7 +453,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
                   // Bounds
                   if (shape.json.bounds) {
                       properties.push({
-                          prefix: 'oryx',
+                          prefix: 'wapama',
                           name: 'bounds',
                           value: shape.json.bounds.upperLeft.x + "," + shape.json.bounds.upperLeft.y + "," + shape.json.bounds.lowerRight.x + "," + shape.json.bounds.lowerRight.y
                       });
@@ -462,7 +462,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
                   //Dockers [{x:40, y:50}, {x:30, y:60}] => "40 50 30 60  #"
                   if(shape.json.dockers){
                     properties.push({
-                      prefix: 'oryx',
+                      prefix: 'wapama',
                       name: 'dockers',
                       value: shape.json.dockers.inject("", function(dockersStr, docker){
                         return dockersStr + docker.x + " " + docker.y + " ";
@@ -486,14 +486,14 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
         
         // first, deserialize all nodes
         shapes.each(function(shape) {
-        	if(shape.object instanceof ORYX.Core.Node) {
+        	if(shape.object instanceof WAPAMA.Core.Node) {
         		shape.object.deserialize(shape.__properties);
         	}
         });
         
         // second, deserialize all edges
         shapes.each(function(shape) {
-        	if(shape.object instanceof ORYX.Core.Edge) {
+        	if(shape.object instanceof WAPAMA.Core.Edge) {
         		shape.object.deserialize(shape.__properties);
         	}
         });
@@ -502,7 +502,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
     },
     
     absoluteBounds: function() {
-    	return new ORYX.Core.Bounds(0, 0,
+    	return new WAPAMA.Core.Bounds(0, 0,
     			this.getHTMLContainer().parentNode.offsetWidth,
     			this.getHTMLContainer().parentNode.offsetHeight);
     },
@@ -637,18 +637,18 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 		} catch(e) {}
 
 		if(escapeText) {
-			$A(svgClone.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'tspan')).each(function(elem) {
+			$A(svgClone.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'tspan')).each(function(elem) {
 				elem.textContent = elem.textContent.escapeHTML();
 			});
 			
-			$A(svgClone.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'text')).each(function(elem) {
+			$A(svgClone.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'text')).each(function(elem) {
 				if(elem.childNodes.length == 0)
 					elem.textContent = elem.textContent.escapeHTML();
 			});
 		}
 		
 		// generating absolute urls for the pdf-exporter
-		$A(svgClone.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'image')).each(function(elem) {
+		$A(svgClone.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'image')).each(function(elem) {
 			var href = elem.getAttributeNS("http://www.w3.org/1999/xlink","href");
 			
 			if(!href.match("^(http|https)://")) {
@@ -659,7 +659,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 		
 		
 		// escape all links
-		$A(svgClone.getElementsByTagNameNS(ORYX.CONFIG.NAMESPACE_SVG, 'a')).each(function(elem) {
+		$A(svgClone.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'a')).each(function(elem) {
 			elem.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", (elem.getAttributeNS("http://www.w3.org/1999/xlink","href")||"").escapeHTML());
 		});
 		
@@ -732,12 +732,12 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 	toString: function() { return "Canvas " + this.id },
     
     /**
-     * Calls {@link ORYX.Core.AbstractShape#toJSON} and adds some stencil set information.
+     * Calls {@link WAPAMA.Core.AbstractShape#toJSON} and adds some stencil set information.
      */
     toJSON: function() {
         var json = arguments.callee.$.toJSON.apply(this, arguments);
         
-//		if(ORYX.CONFIG.STENCILSET_HANDLER.length > 0) {
+//		if(WAPAMA.CONFIG.STENCILSET_HANDLER.length > 0) {
 //			json.stencilset = {
 //				url: this.getStencil().stencilSet().namespace()
 //	        };

@@ -20,25 +20,25 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  **/
-if (!ORYX.Plugins) 
-    ORYX.Plugins = new Object();
+if (!WAPAMA.Plugins) 
+    WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
+WAPAMA.Plugins.Validator = WAPAMA.Plugins.AbstractPlugin.extend({
     construct: function(facade){
         this.facade = facade;
         
         this.active = false;
         this.raisedEventIds = [];
         
-        this.buttonId = ORYX.Editor.provideId();
+        this.buttonId = WAPAMA.Editor.provideId();
         
         this.facade.offer({
-            'name': ORYX.I18N.Validator.name,
+            'name': WAPAMA.I18N.Validator.name,
             'id': this.buttonId,
             'functionality': this.load.bind(this),
             'group': "Verification",
-            'icon': ORYX.PATH + "images/checker_validation.png",
-            'description': ORYX.I18N.Validator.description,
+            'icon': WAPAMA.PATH + "images/checker_validation.png",
+            'description': WAPAMA.I18N.Validator.description,
             'index': 1,
             'toggle': true,
             'minShape': 0,
@@ -59,7 +59,7 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
     setActive: function(active){
         this.active = active;
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_BUTTON_UPDATE,
+            type: WAPAMA.CONFIG.EVENT_BUTTON_UPDATE,
             id: this.buttonId,
             pressed: active
         });
@@ -68,7 +68,7 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
     hideOverlays: function(){
         this.raisedEventIds.each(function(id){
             this.facade.raiseEvent({
-                type: ORYX.CONFIG.EVENT_OVERLAY_HIDE,
+                type: WAPAMA.CONFIG.EVENT_OVERLAY_HIDE,
                 id: id
             });
         }
@@ -78,12 +78,12 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
     },
     validate: function(button){
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_LOADING_ENABLE,
-            text: ORYX.I18N.Validator.checking
+            type: WAPAMA.CONFIG.EVENT_LOADING_ENABLE,
+            text: WAPAMA.I18N.Validator.checking
         });
       
         // Send the request to the server.
-        new Ajax.Request(ORYX.CONFIG.VALIDATOR_URL, {
+        new Ajax.Request(WAPAMA.CONFIG.VALIDATOR_URL, {
             method: 'POST',
             asynchronous: false,
             parameters: {
@@ -94,7 +94,7 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
                 var result = Ext.decode(request.responseText);
                 
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
                 
                 // This should be implemented by child instances of validator 
@@ -103,9 +103,9 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
 .bind(this),
             onFailure: function(){
                 this.facade.raiseEvent({
-                    type: ORYX.CONFIG.EVENT_LOADING_DISABLE
+                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
                 });
-                Ext.Msg.alert(ORYX.I18N.Validator.error, ORYX.I18N.Validator.errorDesc);
+                Ext.Msg.alert(WAPAMA.I18N.Validator.error, WAPAMA.I18N.Validator.errorDesc);
             }.bind(this)
         });
     },
@@ -114,9 +114,9 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
     
         var id = "syntaxchecker." + this.raisedEventIds.length;
         
-        var crossId = ORYX.Editor.provideId();
+        var crossId = WAPAMA.Editor.provideId();
         
-        var cross = ORYX.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
+        var cross = WAPAMA.Editor.graft("http://www.w3.org/2000/svg", null, ['path', {
         	"id":crossId,
         	"title":"",
             "stroke-width": 5.0,
@@ -126,11 +126,11 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
         }]);
         
         this.facade.raiseEvent({
-            type: ORYX.CONFIG.EVENT_OVERLAY_SHOW,
+            type: WAPAMA.CONFIG.EVENT_OVERLAY_SHOW,
             id: id,
             shapes: [shape],
             node: cross,
-            nodePosition: shape instanceof ORYX.Core.Edge ? "START" : "NW"
+            nodePosition: shape instanceof WAPAMA.Core.Edge ? "START" : "NW"
         });
         
         this.raisedEventIds.push(id);
@@ -152,14 +152,14 @@ ORYX.Plugins.Validator = ORYX.Plugins.AbstractPlugin.extend({
     enableDeactivationHandler: function(button){
         var deactivate = function(){
             this.setActive(false);
-            this.facade.unregisterOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, deactivate);
+            this.facade.unregisterOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, deactivate);
         };
         
-        this.facade.registerOnEvent(ORYX.CONFIG.EVENT_MOUSEDOWN, deactivate.bind(this));
+        this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_MOUSEDOWN, deactivate.bind(this));
     }
 });
 
-ORYX.Plugins.BPMNValidator = Ext.extend(ORYX.Plugins.Validator, {
+WAPAMA.Plugins.BPMNValidator = Ext.extend(WAPAMA.Plugins.Validator, {
     handleValidationResponse: function(result, button){
         var conflictingNodes = result.conflictingNodes;
         var leadsToEnd = result.leadsToEnd;
@@ -174,43 +174,43 @@ ORYX.Plugins.BPMNValidator = Ext.extend(ORYX.Plugins.Validator, {
             conflictingNodes.each(function(node){
                 sh = this.facade.getCanvas().getChildShapeByResourceId(node.id);
                 if (sh) {
-                    this.showOverlay(sh, ORYX.I18N.Validator.bpmnDeadlock,  ORYX.I18N.Validator.bpmnDeadlockTitle);
+                    this.showOverlay(sh, WAPAMA.I18N.Validator.bpmnDeadlock,  WAPAMA.I18N.Validator.bpmnDeadlockTitle);
                 }
             }.bind(this));
         }
         if(unsafeNode) {
         	var shape = this.facade.getCanvas().getChildShapeByResourceId(unsafeNode);
         	if (shape) {
-                this.showOverlay(shape, ORYX.I18N.Validator.bpmnUnsafe, ORYX.I18N.Validator.bpmnUnsafeTitle);
+                this.showOverlay(shape, WAPAMA.I18N.Validator.bpmnUnsafe, WAPAMA.I18N.Validator.bpmnUnsafeTitle);
             }
         }
         if(leadsToEnd && conflictingNodes.size() === 0 && !unsafeNode) {
         	this.facade.raiseEvent({
-    			type:ORYX.CONFIG.EVENT_LOADING_STATUS,
-    			text:ORYX.I18N.Validator.noErrors,
+    			type:WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+    			text:WAPAMA.I18N.Validator.noErrors,
     			timeout:10000
     		});
-        	//Ext.Msg.alert(ORYX.I18N.Validator.result, ORYX.I18N.Validator.noErrors);
+        	//Ext.Msg.alert(WAPAMA.I18N.Validator.result, WAPAMA.I18N.Validator.noErrors);
         } else if(!leadsToEnd && conflictingNodes.size() === 0 && !unsafeNode){
-        	Ext.Msg.alert(ORYX.I18N.Validator.bpmnLeadsToNoEndTitle, ORYX.I18N.Validator.bpmnLeadsToNoEnd);
+        	Ext.Msg.alert(WAPAMA.I18N.Validator.bpmnLeadsToNoEndTitle, WAPAMA.I18N.Validator.bpmnLeadsToNoEnd);
         } else {
         	this.enableDeactivationHandler(button);
         	//show a status message with a hint to the error messages in the tooltip
             this.facade.raiseEvent({
-    			type:ORYX.CONFIG.EVENT_LOADING_STATUS,
-    			text:ORYX.I18N.SyntaxChecker.notice,
+    			type:WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+    			text:WAPAMA.I18N.SyntaxChecker.notice,
     			timeout:10000
     		});
         }
     }
 });
 
-ORYX.Plugins.EPCValidator = Ext.extend(ORYX.Plugins.Validator, {
+WAPAMA.Plugins.EPCValidator = Ext.extend(WAPAMA.Plugins.Validator, {
   getLabelOfShape: function(node){
-    if(node.properties["oryx-title"] === ""){
+    if(node.properties["wapama-title"] === ""){
       return node.id;
     } else {
-      return node.properties["oryx-title"];
+      return node.properties["wapama-title"];
     }
   },
   findShapeById: function(id){
@@ -228,9 +228,9 @@ ORYX.Plugins.EPCValidator = Ext.extend(ORYX.Plugins.Validator, {
         var message = "";
         
         if (isSound) {
-          message += ORYX.I18N.Validator.epcIsSound;
+          message += WAPAMA.I18N.Validator.epcIsSound;
         } else {
-          message += ORYX.I18N.Validator.epcNotSound;
+          message += WAPAMA.I18N.Validator.epcNotSound;
         }
         
         message += "<hr />";

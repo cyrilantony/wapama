@@ -163,7 +163,7 @@ var DataManager = {
 				'div', {
                     'id': shape.resourceId,
                     //This should be done in a more dynamic way!!!!!
-                    'class': (shape instanceof ORYX.Core.Canvas) ? "-oryx-canvas" : undefined
+                    'class': (shape instanceof WAPAMA.Core.Canvas) ? "-wapama-canvas" : undefined
                 }
 			]);
 			
@@ -256,33 +256,33 @@ var DataManager = {
 
 		DataManager.addTriple( new ERDF.Triple(
 			shapeResource,
-			{prefix: "oryx", name: "mode"},
+			{prefix: "wapama", name: "mode"},
 			new ERDF.Literal("writable")
 		));
 
 		DataManager.addTriple( new ERDF.Triple(
 			shapeResource,
-			{prefix: "oryx", name: "mode"},
+			{prefix: "wapama", name: "mode"},
 			new ERDF.Literal("fullscreen")
 		));
 
 		stencilSets.values().each(function(stencilset) {
 			DataManager.addTriple( new ERDF.Triple(
 				shapeResource,
-				{prefix: "oryx", name: "stencilset"},
+				{prefix: "wapama", name: "stencilset"},
 				new ERDF.Resource(stencilset.source().replace(/&/g, "%26"))
 			));
 			
 			DataManager.addTriple( new ERDF.Triple(
 				shapeResource,
-				{prefix: "oryx", name: "ssnamespace"},
+				{prefix: "wapama", name: "ssnamespace"},
 				new ERDF.Resource(stencilset.namespace())
 			));
 			
 			stencilset.extensions().keys().each(function(extension) {
 				DataManager.addTriple( new ERDF.Triple(
 					shapeResource,
-					{prefix: "oryx", name: "ssextension"},
+					{prefix: "wapama", name: "ssextension"},
 					new ERDF.Literal(extension)
 				));
 			});
@@ -291,7 +291,7 @@ var DataManager = {
 		shapes.each(function(shape) {
 			DataManager.addTriple( new ERDF.Triple(
 				shapeResource,
-				{prefix: "oryx", name: "render"},
+				{prefix: "wapama", name: "render"},
 				new ERDF.Resource("#" + shape.resourceId)
 			));
 		});
@@ -417,7 +417,7 @@ var DataManager = {
 			
 			// preserve namespace?
 			if(!preserveNamespace) 
-				result += ' xmlns="' + (node.namespaceURI ? node.namespaceURI : XMLNS.XHTML) + '" xmlns:oryx="http://oryx-editor.org"';
+				result += ' xmlns="' + (node.namespaceURI ? node.namespaceURI : XMLNS.XHTML) + '" xmlns:wapama="http://www.wapama.net/diagram"';
 			
 			// add all attributes.
 			

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -13,28 +13,28 @@
   <defs >
   </defs>
   
-  <oryx:magnets>
-    <oryx:magnet
-       oryx:cx="300"
-       oryx:cy="250"
-       oryx:default="yes" />
-    <oryx:magnet
-       oryx:cx="0"
-       oryx:cy="250"
-       oryx:anchors="left" />
-    <oryx:magnet
-       oryx:cx="300"
-       oryx:cy="500"
-       oryx:anchors="bottom" />
-    <oryx:magnet
-       oryx:cx="600"
-       oryx:cy="250"
-       oryx:anchors="right" />
-    <oryx:magnet
-       oryx:cx="300"
-       oryx:cy="0"
-       oryx:anchors="top" />
-  </oryx:magnets>
+  <wapama:magnets>
+    <wapama:magnet
+       wapama:cx="300"
+       wapama:cy="250"
+       wapama:default="yes" />
+    <wapama:magnet
+       wapama:cx="0"
+       wapama:cy="250"
+       wapama:anchors="left" />
+    <wapama:magnet
+       wapama:cx="300"
+       wapama:cy="500"
+       wapama:anchors="bottom" />
+    <wapama:magnet
+       wapama:cx="600"
+       wapama:cy="250"
+       wapama:anchors="right" />
+    <wapama:magnet
+       wapama:cx="300"
+       wapama:cy="0"
+       wapama:anchors="top" />
+  </wapama:magnets>
 
   <g pointer-events="fill">
     <rect
@@ -45,7 +45,7 @@
        height="500"
        width="600"
        id="mainBody"
-	   oryx:resize="vertical horizontal"
+	   wapama:resize="vertical horizontal"
 	   fill="white"
        stroke="black" 
        stroke-width="1"/>
@@ -61,7 +61,7 @@
     		stroke="black" 
     		stroke-width="1" 
     		fill="none" 
-    		oryx:anchors="bottom right"/>
+    		wapama:anchors="bottom right"/>
     	<path 
     		d="	M 578 478 L 590 478
     			M 578 482 L 590 482
@@ -69,16 +69,16 @@
     			M 578 490 L 590 490" 
     		fill="none" 
     		stroke="black"
-    		oryx:anchors="bottom right"/>
+    		wapama:anchors="bottom right"/>
   	</g>
   	
     <text
-       oryx:rotate="270"
+       wapama:rotate="270"
        id="label"
 	   x="16" 
 	   y="250" 
-	   oryx:align="middle center"
-	   oryx:anchors="left"
+	   wapama:align="middle center"
+	   wapama:anchors="left"
 	   style="font-family:Arial; font-size: 15pt; fill:black;"></text> 
   </g>
 </svg>

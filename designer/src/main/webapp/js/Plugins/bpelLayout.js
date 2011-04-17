@@ -21,10 +21,10 @@
  * DEALINGS IN THE SOFTWARE.
  **/
 
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 
-ORYX.Plugins.BPELLayouting = Clazz.extend({
+WAPAMA.Plugins.BPELLayouting = Clazz.extend({
 
 	facade: undefined,
 	
@@ -40,11 +40,11 @@ ORYX.Plugins.BPELLayouting = Clazz.extend({
 		this.isEnabled = true;
 		
 		this.facade.offer({
-			'name':ORYX.I18N.BPELSupport.enable,
+			'name':WAPAMA.I18N.BPELSupport.enable,
 			'functionality': this.enableBpelLayout.bind(this),
-			'group': ORYX.I18N.BPELLayout.group,
-			'icon': ORYX.PATH + "images/bpel_layout_enable.png",
-			'description': ORYX.I18N.BPELLayout.enDesc,
+			'group': WAPAMA.I18N.BPELLayout.group,
+			'icon': WAPAMA.PATH + "images/bpel_layout_enable.png",
+			'description': WAPAMA.I18N.BPELLayout.enDesc,
 			'index': 0,
 			'minShape': 0,
 			'maxShape': 0,
@@ -52,22 +52,22 @@ ORYX.Plugins.BPELLayouting = Clazz.extend({
 		});
 		
 		this.facade.offer({
-			'name':ORYX.I18N.BPELSupport.disable,
+			'name':WAPAMA.I18N.BPELSupport.disable,
 			'functionality': this.disableBpelLayout.bind(this),
-			'group': ORYX.I18N.BPELLayout.group,
-			'icon': ORYX.PATH + "images/bpel_layout_disable.png",
-			'description': ORYX.I18N.BPELLayout.disDesc,
+			'group': WAPAMA.I18N.BPELLayout.group,
+			'icon': WAPAMA.PATH + "images/bpel_layout_disable.png",
+			'description': WAPAMA.I18N.BPELLayout.disDesc,
 			'index': 1,
 			'minShape': 0,
 			'maxShape': 0,
 			'isEnabled': function(){ return this.isEnabled}.bind(this)
 		});
 	
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LAYOUT_BPEL, this.handleLayoutEvent.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LAYOUT_BPEL_VERTICAL, this.handleLayoutVerticalEvent.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LAYOUT_BPEL_HORIZONTAL, this.handleLayoutHorizontalEvent.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LAYOUT_BPEL_SINGLECHILD, this.handleSingleChildLayoutEvent.bind(this));
-		this.facade.registerOnEvent(ORYX.CONFIG.EVENT_LAYOUT_BPEL_AUTORESIZE, this.handleAutoResizeLayoutEvent.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LAYOUT_BPEL, this.handleLayoutEvent.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LAYOUT_BPEL_VERTICAL, this.handleLayoutVerticalEvent.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LAYOUT_BPEL_HORIZONTAL, this.handleLayoutHorizontalEvent.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LAYOUT_BPEL_SINGLECHILD, this.handleSingleChildLayoutEvent.bind(this));
+		this.facade.registerOnEvent(WAPAMA.CONFIG.EVENT_LAYOUT_BPEL_AUTORESIZE, this.handleAutoResizeLayoutEvent.bind(this));
 	},
 	
 	/**************************** plug-in control ****************************/
@@ -81,7 +81,7 @@ ORYX.Plugins.BPELLayouting = Clazz.extend({
 		
 		this.isEnabled = true;
 		
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_ENABLE,text: 'Auto Layouting...'});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_ENABLE,text: 'Auto Layouting...'});
 		
 		//adjust all immediate child nodes(grand-children are adjusted recursively)
 		nodes = this.facade.getCanvas().getChildNodes();
@@ -92,7 +92,7 @@ ORYX.Plugins.BPELLayouting = Clazz.extend({
 			}
 		}
 		
-		this.facade.raiseEvent({type:ORYX.CONFIG.EVENT_LOADING_DISABLE});
+		this.facade.raiseEvent({type:WAPAMA.CONFIG.EVENT_LOADING_DISABLE});
 	},
 	
 	_adjust_node : function (node){
@@ -672,7 +672,7 @@ ORYX.Plugins.BPELLayouting = Clazz.extend({
 	
 	_requiredAutoLayout: function(shape) {
 		
-		var key = "oryx-autolayout";
+		var key = "wapama-autolayout";
 		var autolayout = shape.properties[key];
 		
 		if (autolayout == null){

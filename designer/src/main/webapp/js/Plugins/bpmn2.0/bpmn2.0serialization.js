@@ -22,24 +22,24 @@
  */
 
 /**
-   @namespace Oryx name space for plugins
-   @name ORYX.Plugins
+   @namespace Wapama name space for plugins
+   @name WAPAMA.Plugins
 */
-if(!ORYX.Plugins)
-	ORYX.Plugins = new Object();
+if(!WAPAMA.Plugins)
+	WAPAMA.Plugins = new Object();
 	
 /**
  * This plugin provides methodes to serialize and deserialize a BPMN 2.0 diagram.
  * 
- * @class ORYX.Plugins.Bpmn2_0Serialization
- * @extends ORYX.Plugins.AbstractPlugin
+ * @class WAPAMA.Plugins.Bpmn2_0Serialization
+ * @extends WAPAMA.Plugins.AbstractPlugin
  * @param {Object} facade
  * 		The facade of the Editor
  */
-ORYX.Plugins.BPMN2_0Serialization = {
-	bpmnSerializationHandlerUrl: ORYX.CONFIG.ROOT_PATH + "bpmn2_0serialization",
-	bpmnDeserializationHandlerUrl : ORYX.CONFIG.ROOT_PATH + "bpmn2_0deserialization",
-	bpmn2XpdlSerializationHandlerUrl : ORYX.CONFIG.ROOT_PATH + "bpmn2xpdlserialization",
+WAPAMA.Plugins.BPMN2_0Serialization = {
+	bpmnSerializationHandlerUrl: WAPAMA.CONFIG.ROOT_PATH + "bpmn2_0serialization",
+	bpmnDeserializationHandlerUrl : WAPAMA.CONFIG.ROOT_PATH + "bpmn2_0deserialization",
+	bpmn2XpdlSerializationHandlerUrl : WAPAMA.CONFIG.ROOT_PATH + "bpmn2xpdlserialization",
 	
 	construct: function(facade) {
 	
@@ -48,24 +48,24 @@ ORYX.Plugins.BPMN2_0Serialization = {
 		/* BPMN 2.0 XML */
 		
 		this.facade.offer({
-			'name'				: ORYX.I18N.Bpmn2_0Serialization.show,
+			'name'				: WAPAMA.I18N.Bpmn2_0Serialization.show,
 			'functionality'		: this.showBpmnXml.bind(this),
 			'group'				: 'Export',
-            dropDownGroupIcon : ORYX.PATH + "images/export2.png",
-			'icon' 				: ORYX.PATH + "images/source.png",
-			'description'		: ORYX.I18N.Bpmn2_0Serialization.showDesc,
+            dropDownGroupIcon : WAPAMA.PATH + "images/export2.png",
+			'icon' 				: WAPAMA.PATH + "images/source.png",
+			'description'		: WAPAMA.I18N.Bpmn2_0Serialization.showDesc,
 			'index'				: 0,
 			'minShape'			: 0,
 			'maxShape'			: 0
 		});
 		
 		this.facade.offer({
-			'name'				: ORYX.I18N.Bpmn2_0Serialization.download,
+			'name'				: WAPAMA.I18N.Bpmn2_0Serialization.download,
 			'functionality'		: this.downloadBpmnXml.bind(this),
 			'group'				: 'Export',
-            dropDownGroupIcon : ORYX.PATH + "images/export2.png",
-			'icon' 				: ORYX.PATH + "images/source.png",
-			'description'		: ORYX.I18N.Bpmn2_0Serialization.downloadDesc,
+            dropDownGroupIcon : WAPAMA.PATH + "images/export2.png",
+			'icon' 				: WAPAMA.PATH + "images/source.png",
+			'description'		: WAPAMA.I18N.Bpmn2_0Serialization.downloadDesc,
 			'index'				: 0,
 			'minShape'			: 0,
 			'maxShape'			: 0
@@ -74,24 +74,24 @@ ORYX.Plugins.BPMN2_0Serialization = {
 		/* XPDL 2.2 */
 		
 		this.facade.offer({
-			'name'				: ORYX.I18N.Bpmn2_0Serialization.xpdlShow,
+			'name'				: WAPAMA.I18N.Bpmn2_0Serialization.xpdlShow,
 			'functionality'		: this.showXpdl.bind(this),
 			'group'				: 'Export',
-            dropDownGroupIcon : ORYX.PATH + "images/export2.png",
-			'icon' 				: ORYX.PATH + "images/source.png",
-			'description'		: ORYX.I18N.Bpmn2_0Serialization.xpdlShowDesc,
+            dropDownGroupIcon : WAPAMA.PATH + "images/export2.png",
+			'icon' 				: WAPAMA.PATH + "images/source.png",
+			'description'		: WAPAMA.I18N.Bpmn2_0Serialization.xpdlShowDesc,
 			'index'				: 0,
 			'minShape'			: 0,
 			'maxShape'			: 0
 		});
 		
 		this.facade.offer({
-			'name'				: ORYX.I18N.Bpmn2_0Serialization.xpdlDownload,
+			'name'				: WAPAMA.I18N.Bpmn2_0Serialization.xpdlDownload,
 			'functionality'		: this.downloadXpdl.bind(this),
 			'group'				: 'Export',
-            dropDownGroupIcon : ORYX.PATH + "images/export2.png",
-			'icon' 				: ORYX.PATH + "images/source.png",
-			'description'		: ORYX.I18N.Bpmn2_0Serialization.xpdlDownloadDesc,
+            dropDownGroupIcon : WAPAMA.PATH + "images/export2.png",
+			'icon' 				: WAPAMA.PATH + "images/source.png",
+			'description'		: WAPAMA.I18N.Bpmn2_0Serialization.xpdlDownloadDesc,
 			'index'				: 0,
 			'minShape'			: 0,
 			'maxShape'			: 0
@@ -100,12 +100,12 @@ ORYX.Plugins.BPMN2_0Serialization = {
 		/* Import BPMN 2.0 XML */
 		
 		this.facade.offer({
-			'name'				: ORYX.I18N.Bpmn2_0Serialization['import'],
+			'name'				: WAPAMA.I18N.Bpmn2_0Serialization['import'],
 			'functionality'		: this.showImportDialog.bind(this),
 			'group'				: 'Export',
-            dropDownGroupIcon : ORYX.PATH + "images/import.png",
-			'icon' 				: ORYX.PATH + "images/source.png",
-			'description'		: ORYX.I18N.Bpmn2_0Serialization.importDesc,
+            dropDownGroupIcon : WAPAMA.PATH + "images/import.png",
+			'icon' 				: WAPAMA.PATH + "images/source.png",
+			'description'		: WAPAMA.I18N.Bpmn2_0Serialization.importDesc,
 			'index'				: 0,
 			'minShape'			: 0,
 			'maxShape'			: 0
@@ -139,7 +139,7 @@ ORYX.Plugins.BPMN2_0Serialization = {
 	 * enabled in the configuration.
 	 */
 	showSchemaValidationEvent : function(validationEvents) {
-		if(validationEvents && ORYX.CONFIG.BPMN20_SCHEMA_VALIDATION_ON) {
+		if(validationEvents && WAPAMA.CONFIG.BPMN20_SCHEMA_VALIDATION_ON) {
 			this._showErrorMessageBox("Validation", validationEvents);
 		}
 	},
@@ -181,8 +181,8 @@ ORYX.Plugins.BPMN2_0Serialization = {
 				}.bind(this),
 				function(transport) { 
 					loadMask.hide();
-					this._showErrorMessageBox(ORYX.I18N.Oryx.title, ORYX.I18N.Bpmn2_0Serialization.serialFailed);
-					ORYX.log.warn("Serialization of BPMN 2.0 model failed: " + transport.responseText);
+					this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Bpmn2_0Serialization.serialFailed);
+					WAPAMA.log.warn("Serialization of BPMN 2.0 model failed: " + transport.responseText);
 				}.bind(this)
 			);
 	},
@@ -198,12 +198,12 @@ ORYX.Plugins.BPMN2_0Serialization = {
             labelWidth: 50,
             defaultType: 'textfield',
             items: [{
-                text: ORYX.I18N.Bpmn2_0Serialization.selectFile,
+                text: WAPAMA.I18N.Bpmn2_0Serialization.selectFile,
                 style: 'font-size:12px;margin-bottom:10px;display:block;',
                 anchor: '100%',
                 xtype: 'label'
             }, {
-                fieldLabel: ORYX.I18N.Bpmn2_0Serialization.file,
+                fieldLabel: WAPAMA.I18N.Bpmn2_0Serialization.file,
                 name: 'subject',
                 inputType: 'file',
                 style: 'margin-bottom:10px;display:block;',
@@ -222,7 +222,7 @@ ORYX.Plugins.BPMN2_0Serialization = {
             layout: 'fit',
             plain: true,
             bodyStyle: 'padding:5px;',
-            title: ORYX.I18N.Bpmn2_0Serialization.name,
+            title: WAPAMA.I18N.Bpmn2_0Serialization.name,
             height: 350,
             width: 500,
             modal: true,
@@ -232,11 +232,11 @@ ORYX.Plugins.BPMN2_0Serialization = {
             resizable: true,
             items: [form],
             buttons: [{
-                text: ORYX.I18N.Bpmn2_0Serialization.btnImp,
+                text: WAPAMA.I18N.Bpmn2_0Serialization.btnImp,
                 handler: function(){
                 
                     var loadMask = new Ext.LoadMask(Ext.getBody(), {
-                        msg: ORYX.I18N.Bpmn2_0Serialization.progress
+                        msg: WAPAMA.I18N.Bpmn2_0Serialization.progress
                     });
                     loadMask.show();
                     
@@ -253,13 +253,13 @@ ORYX.Plugins.BPMN2_0Serialization = {
 								}.bind(this),
 								function(transport) { 
 									loadMask.hide();
-									this._showErrorMessageBox(ORYX.I18N.Oryx.title, ORYX.I18N.Bpmn2_0Serialization.serialFailed);
-									ORYX.log.warn("Serialization of BPMN 2.0 model failed: " + transport.responseText);
+									this._showErrorMessageBox(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Bpmn2_0Serialization.serialFailed);
+									WAPAMA.log.warn("Serialization of BPMN 2.0 model failed: " + transport.responseText);
 								}.bind(this)
 							); 
 						} 
                         catch (error) {
-                            Ext.Msg.alert(ORYX.I18N.Bpmn2_0Serialization.error, error.message);
+                            Ext.Msg.alert(WAPAMA.I18N.Bpmn2_0Serialization.error, error.message);
                         }
                         finally {
                             loadMask.hide();
@@ -268,7 +268,7 @@ ORYX.Plugins.BPMN2_0Serialization = {
                     
                 }.bind(this)
             }, {
-                text: ORYX.I18N.Bpmn2_0Serialization.btnClose,
+                text: WAPAMA.I18N.Bpmn2_0Serialization.btnClose,
                 handler: function(){
                     dialog.close();
                 }.bind(this)
@@ -310,8 +310,8 @@ ORYX.Plugins.BPMN2_0Serialization = {
 					failedcallback(transport);
 					
 				} else {
-					Ext.Msg.alert(ORYX.I18N.Oryx.title, ORYX.I18N.Bpmn2Bpel.transfFailed);
-					ORYX.log.warn("Serialization of BPMN 2.0 model failed: " + transport.responseText);	
+					Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Bpmn2Bpel.transfFailed);
+					WAPAMA.log.warn("Serialization of BPMN 2.0 model failed: " + transport.responseText);	
 				}
 				
 			}.bind(this)		
@@ -330,4 +330,4 @@ ORYX.Plugins.BPMN2_0Serialization = {
 	}
 };
 
-ORYX.Plugins.BPMN2_0Serialization = ORYX.Plugins.AbstractPlugin.extend(ORYX.Plugins.BPMN2_0Serialization);
+WAPAMA.Plugins.BPMN2_0Serialization = WAPAMA.Plugins.AbstractPlugin.extend(WAPAMA.Plugins.BPMN2_0Serialization);

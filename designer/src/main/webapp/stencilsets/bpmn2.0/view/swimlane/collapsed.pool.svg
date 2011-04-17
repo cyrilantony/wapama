@@ -2,19 +2,19 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="600"
    height="250"
    version="1.0">
   <defs></defs>
-  <oryx:magnets>
-  	<oryx:magnet oryx:cx="0" oryx:cy="29" oryx:anchors="left" />
-  	<oryx:magnet oryx:cx="249" oryx:cy="59" oryx:anchors="bottom" />
-  	<oryx:magnet oryx:cx="499" oryx:cy="29" oryx:anchors="right" />
-  	<oryx:magnet oryx:cx="249" oryx:cy="0" oryx:anchors="top" />
-  	<oryx:magnet oryx:cx="249" oryx:cy="29" oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+  	<wapama:magnet wapama:cx="0" wapama:cy="29" wapama:anchors="left" />
+  	<wapama:magnet wapama:cx="249" wapama:cy="59" wapama:anchors="bottom" />
+  	<wapama:magnet wapama:cx="499" wapama:cy="29" wapama:anchors="right" />
+  	<wapama:magnet wapama:cx="249" wapama:cy="0" wapama:anchors="top" />
+  	<wapama:magnet wapama:cx="249" wapama:cy="29" wapama:default="yes" />
+  </wapama:magnets>
   <g pointer-events="fill" >
   
     <defs>
@@ -24,23 +24,23 @@
 		</radialGradient>
 	</defs>
 	
-    <rect id="c" oryx:resize="vertical horizontal" x="0" y="0" width="500" height="60" stroke="black" fill="url(#background) white" />
-    <rect id="border" oryx:resize="vertical horizontal" x="0" y="0" width="500" height="60" stroke="black" stroke-width="1" fill="none" />
+    <rect id="c" wapama:resize="vertical horizontal" x="0" y="0" width="500" height="60" stroke="black" fill="url(#background) white" />
+    <rect id="border" wapama:resize="vertical horizontal" x="0" y="0" width="500" height="60" stroke="black" stroke-width="1" fill="none" />
 	
     <text 
 		x="250" 
 		y="30" 
 		font-size="20" 
 		id="text_name" 
-		oryx:align="middle center" 
-		oryx:fittoelem="border"
-		oryx:anchors="" 
+		wapama:align="middle center" 
+		wapama:fittoelem="border"
+		wapama:anchors="" 
 		fill="black" 
 		stroke="black">
 	</text>
 	
 	<g id="multiInstance">
-		<path oryx:anchors="bottom" fill="none" stroke="black" d="M246 50 v8 M250 50 v8 M254 50 v8" stroke-width="2" />
+		<path wapama:anchors="bottom" fill="none" stroke="black" d="M246 50 v8 M250 50 v8 M254 50 v8" stroke-width="2" />
 	</g>
 	
   </g>

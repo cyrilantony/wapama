@@ -2,18 +2,18 @@
 <svg
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:oryx="http://www.b3mn.org/oryx"
+   xmlns:wapama="http://www.wapama.net/diagram"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    width="90"
    height="60"
    version="1.0">
-  <oryx:magnets>
-    <oryx:magnet oryx:cx="0" oryx:cy="30" oryx:anchors="left" />
-    <oryx:magnet oryx:cx="45" oryx:cy="60" oryx:anchors="bottom" />
-    <oryx:magnet oryx:cx="90" oryx:cy="30" oryx:anchors="right" />
-    <oryx:magnet oryx:cx="45" oryx:cy="0" oryx:anchors="top" />
-    <oryx:magnet oryx:cx="45" oryx:cy="30" oryx:anchors="center" oryx:default="yes" />
-  </oryx:magnets>
+  <wapama:magnets>
+    <wapama:magnet wapama:cx="0" wapama:cy="30" wapama:anchors="left" />
+    <wapama:magnet wapama:cx="45" wapama:cy="60" wapama:anchors="bottom" />
+    <wapama:magnet wapama:cx="90" wapama:cy="30" wapama:anchors="right" />
+    <wapama:magnet wapama:cx="45" wapama:cy="0" wapama:anchors="top" />
+    <wapama:magnet wapama:cx="45" wapama:cy="30" wapama:anchors="center" wapama:default="yes" />
+  </wapama:magnets>
   <g>
     <rect
        x="0"
@@ -24,8 +24,8 @@
        ry="30"
        style="stroke:#000000;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round"
        id="structurevariance"
-       oryx:resize="vertical horizontal"
+       wapama:resize="vertical horizontal"
        stroke-dasharray="8, 6" />
-    <text font-size="12" id="text" x="40" y="22" oryx:align="middle center" stroke="black"></text>
+    <text font-size="12" id="text" x="40" y="22" wapama:align="middle center" stroke="black"></text>
   </g>
 </svg>

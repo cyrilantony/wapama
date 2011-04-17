@@ -19,7 +19,7 @@
         "id": "BPMNDiagram"
     },
     "childShapes": [{
-        "resourceId": "oryx_F5BE2FF2-0F35-423B-83D7-C5D242775396",
+        "resourceId": "wapama_F5BE2FF2-0F35-423B-83D7-C5D242775396",
         "properties": {
             "name": "event-based gateway",
             "documentation": "",
@@ -71,5 +71,5 @@
         "url": "/designer/stencilsets/bpmn2.0/bpmn2.0.json",
         "namespace": "http://b3mn.org/stencilset/bpmn2.0#"
     },
-    "ssextensions": ["http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#"]
+    "ssextensions": ["http://www.wapama.net/stencilsets/extensions/bpmncosts-2.0#"]
 }
