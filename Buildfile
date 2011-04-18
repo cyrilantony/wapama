@@ -78,11 +78,27 @@ define "wapama" do
   
   desc "Wapama distribution"
   define "distrib" do
+    
     file(_("target/doc")).enhance do
-      system("git co gh-pages ; jekyll #{File.join(File.dirname(__FILE__), "distrib/target/doc")}; rm -Rf #{File.join(File.dirname(__FILE__), "distrib/target/doc/designer")} ; rm -Rf #{File.join(File.dirname(__FILE__), "distrib/target/doc/distrib")} ; git co master")
+
+      # Generate the website by switching to the gh-pages branch.
+      # Since jekyll replicates blindly the file system, and there's no easy way to control it,
+      # We generate the website, then delete whatever it copied over that wasn't necessary.
+      # Since we switch branches, the ignored target folders were copied over for each subproject.
+      # We remove them all.
+      # Now, we should make sure we never have folders with the same name in the website...
+      system <<-BASH
+git co gh-pages ; jekyll #{File.join(File.dirname(__FILE__), "distrib/target/doc")}
+#{ project.parent.projects.collect { |proj| "rm -Rf #{File.join(File.dirname(__FILE__), "distrib/target/doc/", proj.name.split(":").last)}"}.join("\n") }
+git co master"
+BASH
     end
     package(:zip).include _("target/doc"), :as => "doc"
+    # Done with the doc.
+    
+    # Include the license
     package(:zip).include _("../LICENSE")
+    # Place all artifacts under distrib, because it's fun
     package(:zip).include project("api").package(:jar), :path => "distrib"
     package(:zip).include project("designer").package(:jar), :path => "distrib"
     package(:zip).include project("file").package(:jar), :path => "distrib"
@@ -94,6 +110,8 @@ define "wapama" do
     package(:zip).include project("designer").package(:sources), :path => "src"
     package(:zip).include project("file").package(:sources), :path => "src"
     package(:zip).include project("drools").package(:sources), :path => "src"
+    
+    # Just because ? Some people seem to appreciate putting the libs too. Not sure that's worth the trouble.
   end
   
 end
