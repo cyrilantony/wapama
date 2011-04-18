@@ -90,7 +90,7 @@ define "wapama" do
       system <<-BASH
 git co gh-pages ; jekyll #{File.join(File.dirname(__FILE__), "distrib/target/doc")}
 #{ project.parent.projects.collect { |proj| "rm -Rf #{File.join(File.dirname(__FILE__), "distrib/target/doc/", proj.name.split(":").last)}"}.join("\n") }
-git co master"
+git co master
 BASH
     end
     package(:zip).include _("target/doc"), :as => "doc"
