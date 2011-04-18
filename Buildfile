@@ -21,7 +21,8 @@ define "wapama" do
   desc "Wapama Editor"
   define "api" do
     compile.with SERVLET_API
-    package(:jar)
+    package(:bundle)
+    package(:sources)
   end
   
   desc "Wapama BPMN2 framework"
