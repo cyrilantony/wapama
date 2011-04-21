@@ -237,20 +237,6 @@ WAPAMA.Plugins.PropertyWindow = {
 
 			if(record.data.gridProperties.type == WAPAMA.CONFIG.TYPE_COLOR) {
 				value = "<div class='prop-background-color' style='background-color:" + value + "' />";
-			} else if (record.data.gridProperties.type == WAPAMA.CONFIG.TYPE_PASSWORD) {
-				var afterReplaced = "";
-				for (var i=0; i<value.length; i++) {
-					afterReplaced += "*";
-				}
-				return afterReplaced;
-			} else if (record.data.gridProperties.type == WAPAMA.CONFIG.TYPE_MAPPINGEDITOR) {
-				// TODO to be implemented as a Labelprovider.
-				if (value != "") {
-					mappintObj = value.evalJSON();
-					return mappintObj.totalCount + " associations";
-				} else {
-					return value;
-				}
 			}
 
 			record.data.icons.each(function(each) {
@@ -805,11 +791,13 @@ WAPAMA.Plugins.PropertyWindow = {
 	 * according to the id of the label provider registered on the stencil.
 	 */
     getLabelProvider: function(stencil) {
-       lp = WAPAMA.LabelProviders[stencil.labelProvider()];
-       if (lp) {
-           return lp(stencil);
-       }
-       return null;
+        var labelProviderStr = stencil._jsonProp.labelprovider;
+        var labelProviderFunction = undefined;
+        if (labelProviderStr != undefined && labelProviderStr != "") {
+            // eval the labelprovider to a function().
+            eval("labelProviderFunction=" + labelProviderStr);
+        }
+        return labelProviderFunction;
     },
 	
 	hideMoreAttrs: function(panel) {
