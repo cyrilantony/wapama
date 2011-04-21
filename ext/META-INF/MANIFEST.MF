@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wapama ExtJS UI
+Bundle-SymbolicName: org.wapama.web.ext
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Intalio, Inc.
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Fragment-Host: org.wapama.web.designer
+Bundle-ClassPath: .
+Eclipse-BundleShape: dir

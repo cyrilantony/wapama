@@ -32,6 +32,12 @@ define "wapama" do
     package(:sources)
   end
   
+  desc "Wapama ExtJS UI"
+  define "ext" do
+    package(:bundle).include(_("src/main/webapp"), :as => "WebContent/")
+    package(:sources)
+  end
+  
   desc "Wapama Editor"
   define "designer" do
 
@@ -68,11 +74,13 @@ define "wapama" do
   desc "WAR packaging"
   define "war" do
     package(:war, :id => "wapama").include(project("designer").path_to("src/main/webapp"), :as => '.')
+    package(:war, :id => "wapama").include(project("ext").path_to("src/main/webapp"), :as => '.')
     package(:war, :id => "wapama").include(project("file").path_to("src/main/webapp"), :as => '.')
     package(:war, :id => "wapama").libs = WAR_LIBS | jars("api", "file", "bpmn2", "designer")
     
     package(:war, :id => "wapama",:classifier => "jboss").include(project("drools").path_to("src/main/webapp"), :as => '.')
     package(:war, :id => "wapama", :classifier => "jboss").include(project("designer").path_to("src/main/webapp"), :as => '.')
+    package(:war, :id => "wapama").include(project("ext").path_to("src/main/webapp"), :as => '.')
     package(:war, :id => "wapama", :classifier => "jboss").libs = WAR_LIBS_JBOSS | jars("api", "drools", "bpmn2", "designer")
   end
   
@@ -99,8 +107,9 @@ BASH
     # Include the license
     package(:zip).include _("../LICENSE")
     # Place all artifacts under distrib, because it's fun
-    package(:zip).include project("api").package(:jar), :path => "distrib"
-    package(:zip).include project("designer").package(:jar), :path => "distrib"
+    package(:zip).include project("api").package(:bundle), :path => "distrib"
+    package(:zip).include project("designer").package(:bundle), :path => "distrib"
+    package(:zip).include project("ext").package(:bundle), :path => "distrib"
     package(:zip).include project("file").package(:jar), :path => "distrib"
     package(:zip).include project("war").package(:war, :id => "wapama"), :path => "distrib"
     package(:zip).include project("war").package(:war, :id => "wapama", :classifier => "jboss"), :path => "distrib"
@@ -108,6 +117,7 @@ BASH
     # Add the sources too
     package(:zip).include project("api").package(:sources), :path => "src"
     package(:zip).include project("designer").package(:sources), :path => "src"
+    package(:zip).include project("ext").package(:sources), :path => "src"
     package(:zip).include project("file").package(:sources), :path => "src"
     package(:zip).include project("drools").package(:sources), :path => "src"
     
