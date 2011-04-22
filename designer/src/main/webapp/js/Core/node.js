@@ -788,7 +788,7 @@ WAPAMA.Core.Node = {
         
         // we give a chance for plugins or additions to extend the default behavior.
         if (WAPAMA.NODE_CALLBACK) {
-            WAPAMA.NODE_CALLBACK(this, svgNode);
+            WAPAMA.NODE_CALLBACK(this, svgNode, offsetX, offsetY);
         }
         
         var textElems = svgNode.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'text');
