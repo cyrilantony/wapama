@@ -1,67 +1,66 @@
 /**
- * Copyright (c) 2010
- * Intalio, Inc
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
+ * Copyright (c) 2010 Intalio, Inc
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
-*/
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 if (!WAPAMA.Plugins) {
 	WAPAMA.Plugins = {};
-}  
+}
 
 if (!WAPAMA.Config) {
 	WAPAMA.Config = {};
-} 
+}
 
 // needed to change icons dynamically:
 Ext.override(Ext.Button, {
-	setIcon: function(url){
-		if (this.rendered){
+	setIcon : function(url) {
+		if (this.rendered) {
 			var btnEl = this.getEl().child(this.buttonSelector);
-			btnEl.setStyle('background-image', 'url(' +url+')');
+			btnEl.setStyle('background-image', 'url(' + url + ')');
 		}
- 	}
+	}
 });
 
 // needed to change tooltips dynamically
 Ext.Button.override({
-    setTooltip: function(qtipText) {
-        var btnEl = this.getEl().child(this.buttonSelector)
-        Ext.QuickTips.register({
-            target: btnEl.id,
-            text: qtipText
-        });             
-    }
+	setTooltip : function(qtipText) {
+		var btnEl = this.getEl().child(this.buttonSelector)
+		Ext.QuickTips.register({
+			target : btnEl.id,
+			text : qtipText
+		});
+	}
 });
 
 WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
-	
-    facade: undefined,
-    // true to enable the "Autosave" button, disable while autosaving
-    autosaveEnabled : true,
-    // true to enable the "Autosave" button, disable while autosaving
-    saveModal : undefined,
-	
-    construct: function(facade){
+
+	facade : undefined,
+	// true to enable the "Autosave" button, disable while autosaving
+	autosaveEnabled : true,
+	// true to enable the "Autosave" button, disable while autosaving
+	saveModal : undefined,
+
+	construct : function(facade) {
 		this.facade = facade;
-		
-		//capability to set autosave on or off
+
+		// capability to set autosave on or off
 		if (WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT === undefined) {
 			WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT = true;
 		}
@@ -72,251 +71,292 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 			autosaveicon = WAPAMA.PATH + "images/disk_multiple.png";
 			autosavetip = WAPAMA.I18N.Save.autosaveDesc_on;
 		}
-					
+
 		autosavecfg = {
-			'name': WAPAMA.I18N.Save.autosave,
-			'group': WAPAMA.I18N.Save.group,
-			'functionality': function(context) {
-			   this.setautosave(WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL);
-			   if (this.autosaving) {
-				   context.setIcon(WAPAMA.PATH + "images/disk_multiple.png"); 
-				   context.setTooltip(WAPAMA.I18N.Save.autosaveDesc_on);
-			   } else {
-				   context.setIcon(WAPAMA.PATH + "images/disk_multiple_disabled.png");
-				   context.setTooltip(WAPAMA.I18N.Save.autosaveDesc_off);
-			   }
-			   context.hide();
-			   context.show();
-		    }.bind(this),
-			'icon': autosaveicon,
-			'description': autosavetip,
-			'isEnabled': function(){ return this.autosaveEnabled }.bind(this),
-			'index': 2,
-			'minShape': 0,
-			'maxShape': 0
+			'name' : WAPAMA.I18N.Save.autosave,
+			'group' : WAPAMA.I18N.Save.group,
+			'functionality' : function(context) {
+				this.setautosave(WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL);
+				if (this.autosaving) {
+					context.setIcon(WAPAMA.PATH + "images/disk_multiple.png");
+					context.setTooltip(WAPAMA.I18N.Save.autosaveDesc_on);
+				} else {
+					context.setIcon(WAPAMA.PATH
+							+ "images/disk_multiple_disabled.png");
+					context.setTooltip(WAPAMA.I18N.Save.autosaveDesc_off);
+				}
+				context.hide();
+				context.show();
+			}.bind(this),
+			'icon' : autosaveicon,
+			'description' : autosavetip,
+			'isEnabled' : function() {
+				return this.autosaveEnabled
+			}.bind(this),
+			'index' : 2,
+			'minShape' : 0,
+			'maxShape' : 0
 		};
 		this.facade.offer(autosavecfg);
-		
+
 		// let's set autosave on.
-		this.autosaveFunction = function() { if (/*savePlugin.changeDifference != 0*/true) { this._save(this, true); }}.bind(this, autosavecfg);
+		this.autosaveFunction = function() {
+			if (/* savePlugin.changeDifference != 0 */true) {
+				this._save(this, true);
+			}
+		}.bind(this, autosavecfg);
 		this.setautosave(WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL);
-		
-		this.facade.registerOnEvent(WAPAMA.CONFIG.SAVE_EVENT, function(event){ this._save(false, event.onClose); }.bind(this));
+
+		this.facade.registerOnEvent(WAPAMA.CONFIG.SAVE_EVENT, function(event) {
+			this._save(false, event.onClose);
+		}.bind(this));
 	},
-	
+
 	/**
 	 * Switches autosave on or off.
-	 * @param savePlugin the button.
+	 * 
+	 * @param savePlugin
+	 *            the button.
 	 */
-	setautosave: function(interval) {
+	setautosave : function(interval) {
 		if (this.autosaving === undefined) {
 			this.autosaving = !WAPAMA.CONFIG.UUID_AUTOSAVE_DEFAULT;
 		}
-		
+
 		value = !this.autosaving;
 		if (value) {
-			this.autosaveInternalId = self.setInterval(this.autosaveFunction, interval);
+			this.autosaveInternalId = self.setInterval(this.autosaveFunction,
+					interval);
 		} else {
 			self.clearInterval(this.autosaveInternalId);
 		}
-		
+
 		this.autosaving = value;
 	},
-	
+
 	/**
 	 * Saves data by calling the backend.
-	 * @param asave determine whether the function is invoked by autosave
-	 *              True: by autosave | False: by save
-	 * @param onClose true if it needs to close the window after save success
+	 * 
+	 * @param asave
+	 *            determine whether the function is invoked by autosave True: by
+	 *            autosave | False: by save
+	 * @param onClose
+	 *            true if it needs to close the window after save success
 	 */
-	_save: function(asave, onClose) {
+	_save : function(asave, onClose) {
 		// show saving status, display a "loading" icon in "Autosave" button.
 		this.showSaveStatus(asave);
-		var svgDOM = DataManager.serialize(this.facade.getCanvas().getSVGRepresentation(true));
+		var svgDOM = DataManager.serialize(this.facade.getCanvas()
+				.getSVGRepresentation(true));
 		// get the json and add properties label into
-		var json=this.facade.getJSON();
-		if(json.childShapes.length>0 && json.stencil && json.stencil.id == "PipeDiagram"){
-			var namespace=json.stencilset.namespace;
-			var stencils=this.facade.getStencilSets()[namespace]._stencils;
-			//json.stencil.name=stencils[json.stencilset.namespace+json.stencil.id]._jsonStencil.title
-			json.childShapes.each(function(shape){
-				var stencil=stencils[namespace+shape.stencil.id];
-				if(shape.stencil)
-					shape.stencil.name= stencil._jsonStencil.title;
-				shape.propertyNames=new Object();
-				stencil._properties.each(function(property){
-					property=property[1];
-					shape.propertyNames[property._jsonProp.id]=property._jsonProp.title
+		var json = this.facade.getJSON();
+		if (json.childShapes.length > 0 && json.stencil) {
+			var namespace = json.stencilset.namespace;
+			var stencils = this.facade.getStencilSets()[namespace]._stencils;
+			// json.stencil.name=stencils[json.stencilset.namespace+json.stencil.id]._jsonStencil.title
+			json.childShapes.each(function(shape) {
+				var stencil = stencils[namespace + shape.stencil.id];
+				if (shape.stencil)
+					shape.stencil.name = stencil._jsonStencil.title;
+				shape.propertyNames = new Object();
+				stencil._properties.each(function(property) {
+					property = property[1];
+					shape.propertyNames[property._jsonProp.id] = property._jsonProp.title
 				});
-				
+
 			});
 		}
-		//var serializedDOM = Ext.encode(this.facade.getJSON());
+		// var serializedDOM = Ext.encode(this.facade.getJSON());
 		var serializedDOM = Ext.encode(json);
-		//var rdf = this.getRDFFromDOM();
+		// var rdf = this.getRDFFromDOM();
 
 		// Send the request to the server.
 		new Ajax.Request(WAPAMA.CONFIG.UUID_URL(), {
-                method: 'POST',
-                asynchronous: true,
-                contentType: "text/json; charset=UTF-8",
-                postBody: Ext.encode({data: serializedDOM, svg : svgDOM, uuid: WAPAMA.UUID, //rdf: rdf, 
-                    profile: WAPAMA.PROFILE, savetype: asave}),
-				onSuccess : (function(transport) {
-					// end saving, the "loading" icon return to normal
-					this.hideSaveStatus(asave);
-					response = transport.responseText;
-					if (response.length != 0) {
-						try {
-							var jsonObj = response.evalJSON();
-							var errorMsgs = jsonObj.errorMsgs;
-							if (errorMsgs != undefined) {
-								// raise loading disable event.
-								this.facade.raiseEvent({
-									type : WAPAMA.CONFIG.EVENT_LOADING_DISABLE
-								});
-								this.showMessages(jsonObj);
-								return;
-							}
-						} catch (err) {
-							WAPAMA.Log.error(err);
+			method : 'POST',
+			asynchronous : true,
+			contentType : "text/json; charset=UTF-8",
+			postBody : Ext.encode({
+				data : serializedDOM,
+				svg : svgDOM,
+				uuid : WAPAMA.UUID, // rdf: rdf,
+				profile : WAPAMA.PROFILE,
+				savetype : asave
+			}),
+			onSuccess : (function(transport) {
+				// end saving, the "loading" icon return to normal
+				this.hideSaveStatus(asave);
+				response = transport.responseText;
+				if (response.length != 0) {
+					try {
+						var jsonObj = response.evalJSON();
+						var errorMsgs = jsonObj.errorMsgs;
+						if (errorMsgs != undefined) {
+							// raise loading disable event.
+							this.facade.raiseEvent({
+								type : WAPAMA.CONFIG.EVENT_LOADING_DISABLE
+							});
+							this.showMessages(jsonObj);
+							return;
 						}
-					} else {
-						// show saved status
-						this.facade.raiseEvent({
-							type : WAPAMA.CONFIG.EVENT_LOADING_STATUS,
-							text : WAPAMA.I18N.Save.saved
-						});
+					} catch (err) {
+						WAPAMA.Log.error(err);
 					}
-					if (!asave) {
-						Ext.example.msg(WAPAMA.I18N.Save.successTitle, WAPAMA.I18N.Save.successMsg);
-					}
-					// if the save function is invoked by "Save_n_Close" or "Window Close"
-					if (onClose) {
-						// close the window after saving succeed
-						var instanceWindow = top.Ext.getCmp(WAPAMA.UUID + "_win");
-						instanceWindow.initialConfig.tools[5].handler.call(null, instanceWindow.tools.close, instanceWindow);
-					}
-				}).bind(this),
-			onFailure: (function(transport) {
+				} else {
+					// show saved status
+					this.facade.raiseEvent({
+						type : WAPAMA.CONFIG.EVENT_LOADING_STATUS,
+						text : WAPAMA.I18N.Save.saved
+					});
+				}
+				if (!asave) {
+					Ext.example.msg(WAPAMA.I18N.Save.successTitle,
+							WAPAMA.I18N.Save.successMsg);
+				}
+				// if the save function is invoked by "Save_n_Close" or "Window
+				// Close"
+				if (onClose) {
+					// close the window after saving succeed
+					var instanceWindow = top.Ext.getCmp(WAPAMA.UUID + "_win");
+					instanceWindow.initialConfig.tools[5].handler.call(null,
+							instanceWindow.tools.close, instanceWindow);
+				}
+			}).bind(this),
+			onFailure : (function(transport) {
 				// end saving, the "loading" icon return to normal
 				this.hideSaveStatus(asave);
 				// raise loading disable event.
-                this.facade.raiseEvent({
-                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
-                });
-                // if it's autosaving, ignore errors
-                if (asave) {
-                    return;
-                }
-                // show the error message box while "save" erro not "autosave" error.
-                // create a new Panel
-                var panel = new Ext.Panel({
-                    frame: true,
-                    autoHeight: true,
-                    html : '<table><tr><td class="x-table-layout-cell"><img src="/designer/images/error.png"/></td><td class="x-table-layout-cell">' + 
-                           WAPAMA.I18N.Save.failedMsg + '</td></tr></table>',
-                    buttons : [ {
-                        text : WAPAMA.I18N.Save.failedOKBtn,
-                        handler : function() {
-                            faildWin.hide();
-                        }
-                        },
-                        {
-                        text : WAPAMA.I18N.Save.failedDetailsBtn,
-                        handler : function() {
-                            var errWin=window.open('about:blank','_blank','menubar=no,toolbar=no,location=no,scrollbars=yes,resizable=yes,top=0,left=0,width='+
-                                       (screen.availWidth-10)+',height='+(screen.availHeight-100));
-                            errWin.document.write('<h3>' + WAPAMA.I18N.Save.failedThereWas + '</h3>'+ transport.responseText);
-                            errWin.document.close();				
-                            faildWin.hide();
-                        }
-                        }
-                    ]
-                })
-                // create save failed window
-                var faildWin = new Ext.Window({
-                    title : WAPAMA.I18N.Save.failedTitle,
-                    layout : 'fit',
-                    frame: true,
-                    width : 334,
-                    modal : true,
-                    closeAction : 'close',
-                    plain : false,
-                    autoHeight: true,
-                    items: [panel]
-                });
-                faildWin.show(this);
-                WAPAMA.Log.warn("Saving failed: " + transport.responseText);
-            }).bind(this),
-			on403: (function(transport) {
+				this.facade.raiseEvent({
+					type : WAPAMA.CONFIG.EVENT_LOADING_DISABLE
+				});
+				// if it's autosaving, ignore errors
+				if (asave) {
+					return;
+				}
+				// show the error message box while "save" erro not "autosave"
+				// error.
+				// create a new Panel
+				var panel = new Ext.Panel({
+					frame : true,
+					autoHeight : true,
+					html : '<table><tr><td class="x-table-layout-cell"><img src="/designer/images/error.png"/></td><td class="x-table-layout-cell">'
+							+ WAPAMA.I18N.Save.failedMsg + '</td></tr></table>',
+					buttons : [{
+						text : WAPAMA.I18N.Save.failedOKBtn,
+						handler : function() {
+							faildWin.hide();
+						}
+					}, {
+						text : WAPAMA.I18N.Save.failedDetailsBtn,
+						handler : function() {
+							var errWin = window
+									.open(
+											'about:blank',
+											'_blank',
+											'menubar=no,toolbar=no,location=no,scrollbars=yes,resizable=yes,top=0,left=0,width='
+													+ (screen.availWidth - 10)
+													+ ',height='
+													+ (screen.availHeight - 100));
+							errWin.document.write('<h3>'
+									+ WAPAMA.I18N.Save.failedThereWas + '</h3>'
+									+ transport.responseText);
+							errWin.document.close();
+							faildWin.hide();
+						}
+					}]
+				})
+				// create save failed window
+				var faildWin = new Ext.Window({
+					title : WAPAMA.I18N.Save.failedTitle,
+					layout : 'fit',
+					frame : true,
+					width : 334,
+					modal : true,
+					closeAction : 'close',
+					plain : false,
+					autoHeight : true,
+					items : [panel]
+				});
+				faildWin.show(this);
+				WAPAMA.Log.warn("Saving failed: " + transport.responseText);
+			}).bind(this),
+			on403 : (function(transport) {
 				// end saving, the "loading" icon return to normal
 				this.hideSaveStatus(asave);
 				// raise loading disable event.
-                this.facade.raiseEvent({
-                    type: WAPAMA.CONFIG.EVENT_LOADING_DISABLE
-                });
+				this.facade.raiseEvent({
+					type : WAPAMA.CONFIG.EVENT_LOADING_DISABLE
+				});
 
-				Ext.Msg.alert(WAPAMA.I18N.Wapama.title, WAPAMA.I18N.Save.noRights);
-				
-				WAPAMA.log.warn("Saving failed (403): " + transport.responseText);
+				Ext.Msg.alert(WAPAMA.I18N.Wapama.title,
+						WAPAMA.I18N.Save.noRights);
+
+				WAPAMA.log.warn("Saving failed (403): "
+						+ transport.responseText);
 			}).bind(this)
 		});
 		return true;
 	},
-	
-    /**
-     * Shows the saving status
-     * @param asave True: autosave | False: save
-     */
-    showSaveStatus: function(asave) {
-        if (asave) {
-            // disable the "Autoave" button.
-            this.autosaveEnabled = false;
-            //show an icon and a message in the toolbar
-            autosavecfg.buttonInstance.setIcon(WAPAMA.PATH + "images/ajax-loader.gif");
-            // raise event, make toolbar refresh.
-            this.facade.raiseEvent({type : WAPAMA.CONFIG.EVENT_TOOLBAR_REFRESH});
-        } else {
-            this.saveModal = top.Ext.MessageBox.show({
-                msg      : '<div style="color:#15428B"><br><b>' + WAPAMA.I18N.Save.savingMsg + '<b></div>',
-                closable : false,
-                width    : 275,
-                icon     : 'ext-mb-saving'
-            });
-        }
-    },
-	
+
 	/**
 	 * Shows the saving status
-	 * @param asave True: autosave | False: save
+	 * 
+	 * @param asave
+	 *            True: autosave | False: save
 	 */
-    hideSaveStatus: function(asave) {
-        if (asave) {
-            if (this.autosaving) {
-                // disable the "Autoave" button.
-                this.autosaveEnabled = true;
-                // show an icon and a message in the toolbar
-                autosavecfg.buttonInstance.setIcon(WAPAMA.PATH 
-                    + "images/disk_multiple.png");
-            } else {
-                // disable the "Autoave" button.
-                this.autosaveEnabled = true;
-                // show an icon and a message in the toolbar
-                autosavecfg.buttonInstance.setIcon(WAPAMA.PATH 
-                    + "images/disk_multiple_disabled.png");
-            }
-            // raise event, make toolbar refresh.
-            this.facade.raiseEvent({
-                type : WAPAMA.CONFIG.EVENT_TOOLBAR_REFRESH
-            });
-        } else {
-            // remove the saving mask
-            if (this.saveModal) {
-                this.saveModal.hide();
-            }
-        }
-    },
+	showSaveStatus : function(asave) {
+		if (asave) {
+			// disable the "Autoave" button.
+			this.autosaveEnabled = false;
+			// show an icon and a message in the toolbar
+			autosavecfg.buttonInstance.setIcon(WAPAMA.PATH
+					+ "images/ajax-loader.gif");
+			// raise event, make toolbar refresh.
+			this.facade.raiseEvent({
+				type : WAPAMA.CONFIG.EVENT_TOOLBAR_REFRESH
+			});
+		} else {
+			this.saveModal = top.Ext.MessageBox.show({
+				msg : '<div style="color:#15428B"><br><b>'
+						+ WAPAMA.I18N.Save.savingMsg + '<b></div>',
+				closable : false,
+				width : 275,
+				icon : 'ext-mb-saving'
+			});
+		}
+	},
+
+	/**
+	 * Shows the saving status
+	 * 
+	 * @param asave
+	 *            True: autosave | False: save
+	 */
+	hideSaveStatus : function(asave) {
+		if (asave) {
+			if (this.autosaving) {
+				// disable the "Autoave" button.
+				this.autosaveEnabled = true;
+				// show an icon and a message in the toolbar
+				autosavecfg.buttonInstance.setIcon(WAPAMA.PATH
+						+ "images/disk_multiple.png");
+			} else {
+				// disable the "Autoave" button.
+				this.autosaveEnabled = true;
+				// show an icon and a message in the toolbar
+				autosavecfg.buttonInstance.setIcon(WAPAMA.PATH
+						+ "images/disk_multiple_disabled.png");
+			}
+			// raise event, make toolbar refresh.
+			this.facade.raiseEvent({
+				type : WAPAMA.CONFIG.EVENT_TOOLBAR_REFRESH
+			});
+		} else {
+			// remove the saving mask
+			if (this.saveModal) {
+				this.saveModal.hide();
+			}
+		}
+	},
 
 	/**
 	 * Shows the check error messages.
@@ -330,13 +370,13 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 		var reader = new Ext.data.JsonReader({
 			root : "errorMsgs",
 			id : "index"
-		}, [ {
+		}, [{
 			name : 'index'
 		}, {
 			name : 'nodename'
 		}, {
 			name : 'msg'
-		} ]);
+		}]);
 		var store = new Ext.data.Store({
 			proxy : new Ext.data.MemoryProxy(jsonObj),
 			reader : reader
@@ -355,7 +395,7 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 			items : new Ext.grid.GridPanel({
 				store : store,
 				height : 300,
-				columns : [ {
+				columns : [{
 					header : "<b>Index</b>",
 					sortable : true,
 					width : 50,
@@ -370,39 +410,40 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 					sortable : true,
 					width : 300,
 					dataIndex : 'msg'
-				} ]
+				}]
 			}),
 
-			buttons : [ {
+			buttons : [{
 				text : 'Close',
 				handler : function() {
 					win.hide();
 				}
-			} ]
+			}]
 		});
 		win.show(this);
 	}
 });
 
 /**
- * Method to load model or create new one
- * (moved from editor handler)
+ * Method to load model or create new one (moved from editor handler)
  */
 window.onWapamaResourcesLoaded = function() {
-	var stencilset = WAPAMA.Utils.getParamFromUrl('stencilset') || WAPAMA.CONFIG.SSET;
+	var stencilset = WAPAMA.Utils.getParamFromUrl('stencilset')
+			|| WAPAMA.CONFIG.SSET;
 	var editor_parameters = {
-		id: WAPAMA.UUID,
-		stencilset: {
-			url: stencilset
+		id : WAPAMA.UUID,
+		stencilset : {
+			url : stencilset
 		}
 	};
-	if(!(WAPAMA.UUID === undefined)) {
+	if (!(WAPAMA.UUID === undefined)) {
 		editor_parameters.contentLoadedCallback = function(editorCallback) {
-	 		//load the model from the repository from its uuid
-			new Ajax.Request(WAPAMA.CONFIG.UUID_URL() + "&time=" +(new Date()).getTime(), {
-				asynchronous: true,
-				method: 'get',
-				onSuccess: function(transport) {
+			// load the model from the repository from its uuid
+			new Ajax.Request(WAPAMA.CONFIG.UUID_URL() + "&time="
+					+ (new Date()).getTime(), {
+				asynchronous : true,
+				method : 'get',
+				onSuccess : function(transport) {
 					response = transport.responseText;
 
 					var model = null;
@@ -410,7 +451,7 @@ window.onWapamaResourcesLoaded = function() {
 						try {
 							model = response.evalJSON();
 							editor_parameters.model = model;
-						} catch(err) {
+						} catch (err) {
 							WAPAMA.Log.error(err);
 						}
 					}
@@ -418,13 +459,14 @@ window.onWapamaResourcesLoaded = function() {
 					// make the save button enabled after load finished
 					enableSaveButton();
 				},
-				onFailure: function(transport) {
-					WAPAMA.Log.error("Could not load the model for uuid " + WAPAMA.UUID);
+				onFailure : function(transport) {
+					WAPAMA.Log.error("Could not load the model for uuid "
+							+ WAPAMA.UUID);
 					editorCallback(null);
 					// make the save button enabled after load finished
 					enableSaveButton();
 				}
-	        });
+			});
 		};
 	}
 	// finally open the editor:
@@ -435,62 +477,70 @@ window.onWapamaResourcesLoaded = function() {
  * enable the Save button after editor finished loading
  */
 function enableSaveButton() {
-    // get Ext.Component of Save button
-    var saveButton = top.Ext.getCmp(WAPAMA.UUID + 'sv');
-    // make it enabled if it's disabled
-    if (saveButton.disabled) {
-        saveButton.enable();
-    }
+	// get Ext.Component of Save button
+	var saveButton = top.Ext.getCmp(WAPAMA.UUID + 'sv');
+	// make it enabled if it's disabled
+	if (saveButton.disabled) {
+		saveButton.enable();
+	}
 }
 
 /**
  * a popup dialog which fades out 1 second later after shows.
  */
-Ext.example = function(){
-    var msgDiv;
+Ext.example = function() {
+	var msgDiv;
 
-    function createBox(t, s){
-        var innerhtm;
-        if (t == undefined || t == '') {
-            innerhtm = ['<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">',
-            s, '</div></div></div>'].join('');
-        } else if (s == undefined || s == '') {
-            innerhtm = ['<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3>',
-            t, '</h3></div></div></div>'].join('');
-        } else {
-            innerhtm = ['<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3>',
-            t, '</h3>', s, '</div></div></div>'].join('');
-        }
-        return ['<div class="msg" style="position: relative">',
-            '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>',
-            innerhtm,
-            '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>',
-            '</div>'].join('');
-    }
-    return {
-        msg : function(title, message){
-            // status msg showing DIV, 
-            msgDiv = Ext.get('msg_div');
-            // calc the position of Msg Div.
-            var scrollNode = msgDiv.parent().parent().parent().first();
-            var canvasScrollLeft = scrollNode.getScroll().left;
-            var canvasScrollTop = scrollNode.getScroll().top;
-            var canvasWidth = scrollNode.getWidth();
-            var msgPositionLeft = canvasWidth / 2 + canvasScrollLeft - 125;
-            var msgPostionTop = canvasScrollTop;
+	function createBox(t, s) {
+		var innerhtm;
+		if (t == undefined || t == '') {
+			innerhtm = [
+					'<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">',
+					s, '</div></div></div>'].join('');
+		} else if (s == undefined || s == '') {
+			innerhtm = [
+					'<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3>',
+					t, '</h3></div></div></div>'].join('');
+		} else {
+			innerhtm = [
+					'<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3>',
+					t, '</h3>', s, '</div></div></div>'].join('');
+		}
+		return [
+				'<div class="msg" style="position: relative">',
+				'<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>',
+				innerhtm,
+				'<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>',
+				'</div>'].join('');
+	}
+	return {
+		msg : function(title, message) {
+			// status msg showing DIV,
+			msgDiv = Ext.get('msg_div');
+			// calc the position of Msg Div.
+			var scrollNode = msgDiv.parent().parent().parent().first();
+			var canvasScrollLeft = scrollNode.getScroll().left;
+			var canvasScrollTop = scrollNode.getScroll().top;
+			var canvasWidth = scrollNode.getWidth();
+			var msgPositionLeft = canvasWidth / 2 + canvasScrollLeft - 125;
+			var msgPostionTop = canvasScrollTop;
 
-            msgDiv.setStyle('top', msgPostionTop + 'px');
-            msgDiv.setStyle('left', msgPositionLeft + 'px');
+			msgDiv.setStyle('top', msgPostionTop + 'px');
+			msgDiv.setStyle('left', msgPositionLeft + 'px');
 
-            var divHtml = createBox(title, message);
-            var m = Ext.DomHelper.append(msgDiv, {html: divHtml}, true);
-            m.slideIn('t').pause(1).ghost("t", {remove:true});
-        },
-        init : function(){
-            var lb = Ext.get('lib-bar');
-            if(lb){
-                lb.show();
-            }
-        }
-    };
+			var divHtml = createBox(title, message);
+			var m = Ext.DomHelper.append(msgDiv, {
+				html : divHtml
+			}, true);
+			m.slideIn('t').pause(1).ghost("t", {
+				remove : true
+			});
+		},
+		init : function() {
+			var lb = Ext.get('lib-bar');
+			if (lb) {
+				lb.show();
+			}
+		}
+	};
 }();
