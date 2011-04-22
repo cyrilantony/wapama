@@ -153,6 +153,7 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 		if (json.childShapes.length > 0 && json.stencil) {
 			var namespace = json.stencilset.namespace;
 			var stencils = this.facade.getStencilSets()[namespace]._stencils;
+			 //json.stencil.name=stencils[json.stencilset.namespace+json.stencil.id]._jsonStencil.title
 			json.childShapes.each(function(shape) {
 				var stencil = stencils[namespace + shape.stencil.id];
 				if (shape.stencil)
