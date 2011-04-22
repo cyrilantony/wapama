@@ -238,9 +238,6 @@ public class UUIDBasedRepositoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
         throws ServletException, IOException {
-        if (resp.isCommitted()) {
-        	return;//called twice... need to clean-up the FilterChainImpl that is quite wrong.
-        }
         
         BufferedReader reader = req.getReader();
         StringWriter reqWriter = new StringWriter();
