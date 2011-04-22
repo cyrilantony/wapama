@@ -98,7 +98,7 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 		this.facade.offer(autosavecfg);
 		
 		// let's set autosave on.
-		this.autosaveFunction = function() { if (/*savePlugin.changeDifference != 0*/true) { this._save(this, true); }}.bind(this, autosavecfg);
+		this.autosaveFunction = function() { if (/*savePlugin.changeDifference != 0*/true) { this._save(true, false); }}.bind(this, autosavecfg);
 		this.setautosave(WAPAMA.CONFIG.UUID_AUTOSAVE_INTERVAL);
 		
 		this.facade.registerOnEvent(WAPAMA.CONFIG.SAVE_EVENT, function(event){ this._save(false, event.onClose); }.bind(this));
