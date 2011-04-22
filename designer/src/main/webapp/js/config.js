@@ -110,7 +110,6 @@ WAPAMA.CONFIG.TBPMIMPORT =				WAPAMA.CONFIG.ROOT_PATH + "tbpmimport";
 	/* Namespaces */
 WAPAMA.CONFIG.NAMESPACE_WAPAMA =			"http://www.wapama.net/diagram";
 WAPAMA.CONFIG.NAMESPACE_SVG =				"http://www.w3.org/2000/svg";
-WAPAMA.CONFIG.NAMESPACE_INTALIO_PIPES =	"http://www.intalio.com/pipes#";
 
 	/* UI */
 WAPAMA.CONFIG.CANVAS_WIDTH =				1485; 

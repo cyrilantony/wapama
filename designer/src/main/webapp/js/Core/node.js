@@ -786,19 +786,11 @@ WAPAMA.Core.Node = {
             }
         }
         
-        /**initialize labels*/
-        // Add a text node in each SVG of Pipe shape.
-        if (this.getStencil().namespace() == WAPAMA.CONFIG.NAMESPACE_INTALIO_PIPES) {
-            var pipeLabelTextNode = document.createElementNS(WAPAMA.CONFIG.NAMESPACE_SVG, "text");
-            pipeLabelTextNode.setAttribute("id", svgNode.id + 'text_label');
-            pipeLabelTextNode.setAttribute("font-size", "11");
-            pipeLabelTextNode.setAttribute("x", this.bounds.width() / 2 + offsetX);
-            pipeLabelTextNode.setAttribute("y", this.bounds.height() + 8 + offsetY);
-            pipeLabelTextNode.setAttributeNS("http://www.wapama.net/diagram", "wapama:align", "middle center");
-            pipeLabelTextNode.setAttributeNS("http://www.wapama.net/diagram", "wapama:fittoelem", "unvisibleBorder");
-            pipeLabelTextNode.setAttribute("stroke", "black");
-            svgNode.appendChild(pipeLabelTextNode);
+        // we give a chance for plugins or additions to extend the default behavior.
+        if (WAPAMA.NODE_CALLBACK) {
+            WAPAMA.NODE_CALLBACK(this, svgNode);
         }
+        
         var textElems = svgNode.getElementsByTagNameNS(WAPAMA.CONFIG.NAMESPACE_SVG, 'text');
         $A(textElems).each((function(textElem){
             var label = new WAPAMA.Core.SVG.Label({
