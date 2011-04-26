@@ -75,6 +75,51 @@ WAPAMA.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
 			} else {
 				throw "WAPAMA.Core.StencilSet.Property(construct): No property items defined."
 			}
+		} else if (jsonItem.type === WAPAMA.CONFIG.TYPE_DYNAMIC_CHOICE) {
+			// initiate the DynamicChoice datastore using asynchronous ajax
+			var item = jsonItem.items[0]
+			var source = "http://" + window.location.host + "/designer/integration"
+			if (item.module !== undefined && item.columns !== undefined){
+				var id = item.columns.id != undefined ? item.columns.id : "xid";
+				var name = item.columns.name != undefined ? item.columns.name : "name";
+				source += "/crmData/" + item.module + "/" + id + "," + name;
+			} else {
+				WAPAMA.Log.error("Configuration missing");
+				WAPAMA.Log.error(pair);
+				return;
+			}
+			new Ajax.Request(source, {
+				asynchronous: true,
+				method: 'get',
+				contentType: 'application/json',
+				onSuccess: function(result) {
+					var data = result.responseText.evalJSON();
+					var counter = 0;
+					var innerJsonString = "[";
+					data.each(function(elt) {
+						innerJsonString += "{'id':'"+ counter +"','title':'"+ elt.name +"','value':'" + elt.id +"'},";
+						counter++;
+					});
+					innerJsonString = innerJsonString.substring(0,innerJsonString.length-1) + "]";
+					// after get the dynamic choice data by asynchronous ajax,
+					// change the dynamic choice type to choice type.
+					jsonItem.type = WAPAMA.CONFIG.TYPE_CHOICE;
+					jsonItem.items = innerJsonString.evalJSON();
+					jsonItem.items.each(function(item) {
+						this._items[item.value] = new WAPAMA.Core.StencilSet.PropertyItem(item, namespace, this);
+					}.bind(this));
+					// if jsonItem's value is null, set a default value.
+					if(jsonItem.value == undefined || jsonItem.value == '') {
+						if (jsonItem.items.length >0) {
+							jsonItem.value = jsonItem.items[0].value;
+						}
+					}
+				}.bind(this),
+				onFailure: function(result) {
+					WAPAMA.Log.error("Servlet invoking failed in %0", source);
+					return null;
+				}
+			});
 		}
 	},
 
