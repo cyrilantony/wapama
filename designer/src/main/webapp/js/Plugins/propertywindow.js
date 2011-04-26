@@ -1032,9 +1032,9 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
 			} else if (type == WAPAMA.CONFIG.TYPE_CHOICE) {				
 				var items = this.items[i].items();
 				var select = WAPAMA.Editor.graft("http://www.w3.org/1999/xhtml", parent, ['select', {style:'display:none'}]);
-				var optionTmpl = new Ext.Template('<option value="{value}">{value}</option>');
+				var optionTmpl = new Ext.Template('<option value="{value}">{key}</option>');
 				items.each(function(value){ 
-					optionTmpl.append(select, {value:value.value()}); 
+					optionTmpl.append(select, {key:value.title(),value:value.value()}); 
 				});				
 				
 				editor = new Ext.form.ComboBox(
