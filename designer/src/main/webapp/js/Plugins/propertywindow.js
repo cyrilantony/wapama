@@ -167,15 +167,17 @@ WAPAMA.Plugins.PropertyWindow = {
 			
 		});
 
-		region = this.facade.addToRegion('east', new Ext.Panel({
-			width: 220,
-			layout: "fit",
-			border: false,
-			//title: 'Properties',
-			items: [
-				this.grid 
-			]
-		}), WAPAMA.I18N.PropertyWindow.title)
+		if (WAPAMA.UI.main.addToRegion) {
+            region = this.facade.addToRegion(null, 'east', new Ext.Panel({
+                width: 220,
+                layout: "fit",
+                border: false,
+                //title: 'Properties',
+                items: [
+                    this.grid 
+                ]
+            }), WAPAMA.I18N.PropertyWindow.title);
+		}
 
 		// Register on Events
 		this.grid.on('beforeedit', this.beforeEdit, this, true);

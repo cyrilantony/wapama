@@ -307,7 +307,7 @@ WAPAMA.Plugins.AbstractPlugin = Clazz.extend({
 			 var rdf = xsltProcessor.transformToDocument(parsedDOM);
 			 return (new XMLSerializer()).serializeToString(rdf);
 			 } catch (error) {
-			 Ext.Msg.alert("Wapama", error);
+			 WAPAMA.UI.alert("Wapama", error);
 			 return null;
 			 }*/
 			var domParser = new DOMParser();
@@ -321,7 +321,7 @@ WAPAMA.Plugins.AbstractPlugin = Clazz.extend({
 			
 			return serializer.serializeToString(result);
 		}catch(e){
-			Ext.Msg.alert("Wapama", error);
+			WAPAMA.UI.alert("Wapama", error);
 			return "";
 		}
 

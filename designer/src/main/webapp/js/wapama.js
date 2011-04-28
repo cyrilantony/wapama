@@ -102,8 +102,9 @@ WAPAMA = Object.extend(WAPAMA, {
 	 * preliminary condition is not met has to fail with an error.
 	 */
 	load: function() {
-		var waitingpanel = new Ext.Window({renderTo:Ext.getBody(),id:'wapama-loading-panel',bodyStyle:'padding: 8px;background:white',title:WAPAMA.I18N.Wapama.title,width:'auto',height:'auto',modal:true,resizable:false,closable:false,html:'<span style="font-size:11px;">' + WAPAMA.I18N.Wapama.pleaseWait + '</span>'})
-		waitingpanel.show()
+		
+		// show loading window
+		WAPAMA.UI.showLoadingWindow(WAPAMA.I18N.Wapama.pleaseWait);
 				
 		WAPAMA.Log.debug("Wapama begins loading procedure.");
 		

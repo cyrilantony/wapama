@@ -91,9 +91,9 @@ WAPAMA.Plugins.Toolbar = Clazz.extend({
 		WAPAMA.Log.trace("Creating a toolbar.")
 		if(!this.toolbar){
 			this.toolbar = new Ext.ux.SlicedToolbar({
-			height: 24
-		});
-				var region = this.facade.addToRegion("north", this.toolbar, "Toolbar");
+				height: 24
+			});
+			this.facade.addToRegion(null, "north", this.toolbar, "Toolbar");
 		}
 		
 		

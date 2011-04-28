@@ -49,7 +49,7 @@ WAPAMA.Plugins.ShapeRepository = {
 			lines: false,
 			anchors: '0, -30'
 		})
-		var region = this.facade.addToRegion("west", panel, WAPAMA.I18N.ShapeRepository.title);
+		this.facade.addToRegion(null, "west", panel, WAPAMA.I18N.ShapeRepository.title);
 	
 		
 		// Create a Drag-Zone for Drag'n'Drop

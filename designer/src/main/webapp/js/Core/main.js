@@ -29,12 +29,10 @@ var ID_PREFIX = "resource";
  * of the document, including all scripts, is completed.
  */
 function init() {
-
-	/* When the blank image url is not set programatically to a local
-	 * representation, a spacer gif on the site of ext is loaded from the
-	 * internet. This causes problems when internet or the ext site are not
-	 * available. */
-	Ext.BLANK_IMAGE_URL = WAPAMA.PATH + 'lib/ext-2.0.2/resources/images/default/s.gif';	
+	
+	if (WAPAMA.UI.main.setBlankImgUrl) {
+		WAPAMA.UI.main.setBlankImgUrl();
+	}
 	
 	WAPAMA.Log.debug("Querying editor instances");
 
@@ -125,31 +123,7 @@ WAPAMA.Editor = {
 		this.registerOnEvent(WAPAMA.CONFIG.EVENT_SS_LOADED_ON_STARTUP, this._stencilSetLoadFinished.bind(this));
 
 		// disable key events when Ext modal window is active
-		WAPAMA.Editor.makeExtModalWindowKeysave(this._getPluginFacade());
-	},
-	
-	_finishedLoading: function() {
-		if(Ext.getCmp('wapama-loading-panel')){
-			Ext.getCmp('wapama-loading-panel').hide()
-		}
-		
-		// Do Layout for viewport
-		this.layout.doLayout();
-		// Generate a drop target
-		new Ext.dd.DropTarget(this.getCanvas().rootNode.parentNode);
-		
-		// Fixed the problem that the viewport can not 
-		// start with collapsed panels correctly
-		if (WAPAMA.CONFIG.PANEL_RIGHT_COLLAPSED === true){
-			this.layout_regions.east.collapse();
-		}
-		if (WAPAMA.CONFIG.PANEL_LEFT_COLLAPSED === true){
-			this.layout_regions.west.collapse();
-		}
-		
-		// Raise Loaded Event
-		this.handleEvents( {type:WAPAMA.CONFIG.EVENT_LOADED} )
-		
+		WAPAMA.UI.makeExtModalWindowKeysave(this._getPluginFacade());
 	},
 	
 	_initEventListener: function(){
@@ -172,212 +146,6 @@ WAPAMA.Editor = {
 				
 	},
 	
-	/**
-	 * Generate the whole viewport of the
-	 * Editor and initialized the Ext-Framework
-	 * 
-	 */
-	_generateGUI: function() {
-
-		//TODO make the height be read from eRDF data from the canvas.
-		// default, a non-fullscreen editor shall define its height by layout.setHeight(int) 
-		
-		// Defines the layout hight if it's NOT fullscreen
-		var layoutHeight 	= 400;
-	
-		var canvasParent	= this.getCanvas().rootNode.parentNode;
-
-		// DEFINITION OF THE VIEWPORT AREAS
-		this.layout_regions = {
-				
-				// DEFINES TOP-AREA
-				north	: new Ext.Panel({ //TOOO make a composite of the wapama header and addable elements (for toolbar), second one should contain margins
-					region	: 'north',
-					cls		: 'x-panel-editor-north',
-					autoEl	: 'div',
-					border	: false
-				}),	
-				
-				// DEFINES RIGHT-AREA
-				east	: new Ext.Panel({
-					region	: 'east',
-					layout	: 'fit',
-					cls		: 'x-panel-editor-east',
-					/*layout: 'accordion',
-					layoutConfig: {
-		               // layout-specific configs go here
-						titleCollapse: true,
-						animate: true,
-						activeOnTop: true
-	                },*/
-					autoEl	: 'div',
-					border	:false,
-					width	: WAPAMA.CONFIG.PANEL_RIGHT_WIDTH || 200,
-					split	: true,
-					animate: true,
-					collapsible : true,
-					titleCollapse: true,
-					title: "Properties"
-				}),
-				
-				
-				// DEFINES BOTTOM-AREA
-				south	: new Ext.Panel({
-					region	: 'south',
-					cls		: 'x-panel-editor-south',
-					autoEl	: 'div',
-					border	: false
-				}),
-				
-				
-				// DEFINES LEFT-AREA
-				west	: new Ext.Panel({
-					region	: 'west',
-					layout	: 'anchor',
-					autoEl	: 'div',
-					cls		: 'x-panel-editor-west',
-					width	: WAPAMA.CONFIG.PANEL_LEFT_WIDTH || 200,
-					autoScroll:true,
-					split	: true,
-					animate: true,
-					collapsible : true,
-					titleCollapse: true,
-					title: "Shape Repository"
-				}),
-				
-				
-				// DEFINES CENTER-AREA (FOR THE EDITOR)
-				center	: new Ext.Panel({
-					region	: 'center',
-					cls		: 'x-panel-editor-center',
-					autoScroll: true,
-					cmargins: {left:0, right:0},
-					border: false,
-					width: "auto",
-					height : "auto",
-					items	: {
-						layout	: "fit",
-						autoHeight: true,
-						el		: canvasParent
-					}
-				})
-		}
-		
-		// Hide every region except the center
-		for (region in this.layout_regions) {
-			if ( region != "center" ) {
-				//this.layout_regions[ region ].hide();
-			}
-		}
-		
-		// Config for the Ext.Viewport 
-		var layout_config = {
-			layout: 'border',
-			items: [
-				this.layout_regions.north,
-				this.layout_regions.east,
-				this.layout_regions.south,
-				this.layout_regions.west,
-				this.layout_regions.center
-			]
-		}
-
-		// IF Fullscreen, use a viewport
-		if (this.fullscreen) {
-			this.layout = new Ext.Viewport( layout_config )
-		
-		// IF NOT, use a panel and render it to the given id
-		} else {
-			layout_config.renderTo 	= this.id;
-			layout_config.height 	= layoutHeight;
-			this.layout = new Ext.Panel( layout_config )
-		}
-		
-		//Generates the WAPAMA-Header
-		this._generateHeader();
-		
-		
-		// Set the editor to the center, and refresh the size
-	 	canvasParent.parentNode.setAttributeNS(null, 'align', 'center');
-	 	canvasParent.setAttributeNS(null, 'align', 'left');
-		this.getCanvas().setSize({
-			width	: "100%",
-			height	: "100%"
-		});		
-						
-	},
-	
-	_generateHeader: function(){
-		
-		var headerPanel = new Ext.Panel({
-			height		: 0,
-			autoHeight	: false,
-			border		: false,
-			html		: "" 
-		});
-
-		
-		// The empty default header
-		this.addToRegion("north", headerPanel );
-	},
-	
-	/**
-	 * adds a component to the specified region
-	 * 
-	 * @param {String} region
-	 * @param {Ext.Component} component
-	 * @param {String} title, optional
-	 * @return {Ext.Component} dom reference to the current region or null if specified region is unknown
-	 */
-	addToRegion: function(region, component, title) {
-		
-		if (region.toLowerCase && this.layout_regions[region.toLowerCase()]) {
-			var current_region = this.layout_regions[region.toLowerCase()];
-
-			current_region.add(component);
-
-			/*if( (region.toLowerCase() == 'east' || region.toLowerCase() == 'west') && current_region.items.length == 2){ //!current_region.getLayout() instanceof Ext.layout.Accordion ){
-				var layout = new Ext.layout.Accordion( current_region.layoutConfig );
-            	current_region.setLayout( layout );
-				
-				var items = current_region.items.clone();
-				
-				current_region.items.each(function(item){ current_region.remove( item )})
-				items.each(function(item){ current_region.add( item )})
-				
-			}	*/		
-
-			WAPAMA.Log.debug("original dimensions of region %0: %1 x %2", current_region.region, current_region.width, current_region.height)
-
-			// update dimensions of region if required.
-			if  (!current_region.width && component.initialConfig && component.initialConfig.width) {
-				WAPAMA.Log.debug("resizing width of region %0: %1", current_region.region, component.initialConfig.width)	
-				current_region.setWidth(component.initialConfig.width)
-			}
-			if  (component.initialConfig && component.initialConfig.height) {
-				WAPAMA.Log.debug("resizing height of region %0: %1", current_region.region, component.initialConfig.height)
-				var current_height = current_region.height || 0;
-				current_region.height = component.initialConfig.height + current_height;
-				current_region.setHeight(component.initialConfig.height + current_height)
-			}
-			
-			// set title if provided as parameter.
-			if (typeof title == "string") {
-				current_region.setTitle(title);	
-			}
-						
-			// trigger doLayout() and show the pane
-			current_region.ownerCt.doLayout();
-			current_region.show();
-
-			if(Ext.isMac)
-				WAPAMA.Editor.resizeFix();
-			
-			return current_region;
-		}
-		
-		return null;
-	},
 	getAvailablePlugins: function(){
 		var curAvailablePlugins=WAPAMA.availablePlugins.clone();
 		curAvailablePlugins.each(function(plugin){
@@ -551,7 +319,7 @@ WAPAMA.Editor = {
 		this.loadedPlugins = newPlugins;
 		
 		// Hack for the Scrollbars
-		if(Ext.isMac) {
+		if(WAPAMA.UI.isMac()) {
 			WAPAMA.Editor.resizeFix();
 		}
 		
@@ -569,7 +337,7 @@ WAPAMA.Editor = {
 		this._createCanvas(uiObj.canvasConfig, uiObj.stencilType);
 
 		// GENERATES the whole EXT.VIEWPORT
-		this._generateGUI();
+		WAPAMA.UI.main.generateGUI(this);
 
 		// LOAD the plugins
 		this.loadPlugins();
@@ -580,7 +348,7 @@ WAPAMA.Editor = {
 				this.loadSerialized(model);
 				this.getCanvas().update();
 			}
-			this._finishedLoading();
+			WAPAMA.UI.main.finishedLoading(this);
 		}.bind(this));
 	},
 	/**
@@ -678,7 +446,7 @@ WAPAMA.Editor = {
 				disableEvent:			this.disableEvent.bind(this),
 				
 				eventCoordinates:		this.eventCoordinates.bind(this),
-				addToRegion:			this.addToRegion.bind(this),
+				addToRegion:			WAPAMA.UI.main.addToRegion.bind(this),
 				
 				getModelMetaData:		this.getModelMetaData.bind(this)
 			};
@@ -730,7 +498,7 @@ WAPAMA.Editor = {
      * @return {String} Returns JSON representation as string.
      */
     getSerializedJSON: function(){
-        return Ext.encode(this.getJSON());
+        return WAPAMA.UI.encode(this.getJSON());
     },
 	
     /**
@@ -781,11 +549,11 @@ WAPAMA.Editor = {
 		//check, if the imported json model can be loaded in this editor
 		// (stencil set has to fit)
         if (!jsonObject.stencilset) {
-        	Ext.Msg.alert(WAPAMA.I18N.JSONImport.title, WAPAMA.I18N.JSONImport.invalidJSON);
+        	WAPAMA.UI.alert(WAPAMA.I18N.JSONImport.title, WAPAMA.I18N.JSONImport.invalidJSON);
         	return null;
         }
 		if(jsonObject.stencilset.namespace && jsonObject.stencilset.namespace !== this.getCanvas().getStencil().stencilSet().namespace()) {
-			Ext.Msg.alert(WAPAMA.I18N.JSONImport.title, String.format(WAPAMA.I18N.JSONImport.wrongSS, jsonObject.stencilset.namespace, this.getCanvas().getStencil().stencilSet().namespace()));
+			WAPAMA.UI.alert(WAPAMA.I18N.JSONImport.title, String.format(WAPAMA.I18N.JSONImport.wrongSS, jsonObject.stencilset.namespace, this.getCanvas().getStencil().stencilSet().namespace()));
 			return null;
 		} else {
 			var commandClass = WAPAMA.Core.Command.extend({
@@ -885,15 +653,15 @@ WAPAMA.Editor = {
      */
     renewResourceIds: function(jsonObject){
         // For renewing resource ids, a serialized and object version is needed
-        if(Ext.type(jsonObject) === "string"){
+        if(typeof jsonObject == "string"){
             try {
                 var serJsonObject = jsonObject;
-                jsonObject = Ext.decode(jsonObject);
+                jsonObject = WAPAMA.UI.decode(jsonObject);
             } catch(error){
                 throw new SyntaxError(error.message);
             }
         } else {
-            var serJsonObject = Ext.encode(jsonObject);
+            var serJsonObject = WAPAMA.UI.encode(jsonObject);
         }        
         
         // collect all resourceIds recursively
@@ -912,7 +680,7 @@ WAPAMA.Editor = {
             serJsonObject = serJsonObject.gsub('"'+oldResourceId+'"', '"'+newResourceId+'"')
         });
         
-        return Ext.decode(serJsonObject);
+        return WAPAMA.UI.decode(serJsonObject);
     },
 	
 	/**
@@ -961,7 +729,7 @@ WAPAMA.Editor = {
             var new_rdf = xsltProcessor.transformToFragment(xmlObject, document);
             var serialized_rdf = (new XMLSerializer()).serializeToString(new_rdf);
 			}catch(e){
-			Ext.Msg.alert("Wapama", error);
+			WAPAMA.UI.alert("Wapama", error);
 			var serialized_rdf = "";
 		}
             
@@ -972,14 +740,14 @@ WAPAMA.Editor = {
           method: 'POST',
           asynchronous: false,
           onSuccess: function(transport) {
-              Ext.decode(transport.responseText);
+              WAPAMA.UI.decode(transport.responseText);
           },
           parameters: {
               rdf: serialized_rdf
           }
         });
         
-        return Ext.decode(req.transport.responseText);
+        return WAPAMA.UI.decode(req.transport.responseText);
 	},
 
     /**
@@ -1031,7 +799,7 @@ WAPAMA.Editor = {
         	for(key in model.properties) {
         		var prop = model.properties[key];
         		if (!(typeof prop === "string")) {
-        			prop = Ext.encode(prop);
+        			prop = WAPAMA.UI.encode(prop);
         		}
             	this.getCanvas().setProperty("wapama-" + key, prop);
             }
@@ -1753,8 +1521,8 @@ WAPAMA.Editor.createByUrl = function(modelUrl, config){
     new Ajax.Request(modelUrl, {
       method: 'GET',
       onSuccess: function(transport) {
-        var editorConfig = Ext.decode(transport.responseText);
-        editorConfig = Ext.applyIf(editorConfig, config);
+        var editorConfig = WAPAMA.UI.decode(transport.responseText);
+        editorConfig = WAPAMA.UI.applyIf(editorConfig, config);
         new WAPAMA.Editor(editorConfig);
       
         if ("function" == typeof(config.onSuccess)) {
@@ -1956,56 +1724,4 @@ WAPAMA.Editor.checkClassType = function( classInst, classType ) {
 	} else {
 		return classInst == classType
 	}
-};
-WAPAMA.Editor.makeExtModalWindowKeysave = function(facade) {
-	Ext.override(Ext.Window,{
-		beforeShow : function(){
-			delete this.el.lastXY;
-			delete this.el.lastLT;
-			if(this.x === undefined || this.y === undefined){
-				var xy = this.el.getAlignToXY(this.container, 'c-c');
-				var pos = this.el.translatePoints(xy[0], xy[1]);
-				this.x = this.x === undefined? pos.left : this.x;
-				this.y = this.y === undefined? pos.top : this.y;
-			}
-			this.el.setLeftTop(this.x, this.y);
-	
-			if(this.expandOnShow){
-				this.expand(false);
-			}
-	
-			if(this.modal){
-				facade.disableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
-				Ext.getBody().addClass("x-body-masked");
-				this.mask.setSize(Ext.lib.Dom.getViewWidth(true), Ext.lib.Dom.getViewHeight(true));
-				this.mask.show();
-			}
-		},
-		afterHide : function(){
-	        this.proxy.hide();
-	        if(this.monitorResize || this.modal || this.constrain || this.constrainHeader){
-	            Ext.EventManager.removeResizeListener(this.onWindowResize, this);
-	        }
-	        if(this.modal){
-	            this.mask.hide();
-	            facade.enableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
-	            Ext.getBody().removeClass("x-body-masked");
-	        }
-	        if(this.keyMap){
-	            this.keyMap.disable();
-	        }
-	        this.fireEvent("hide", this);
-	    },
-	    beforeDestroy : function(){
-	    	if(this.modal)
-	    		facade.enableEvent(WAPAMA.CONFIG.EVENT_KEYDOWN);
-	        Ext.destroy(
-	            this.resizer,
-	            this.dd,
-	            this.proxy,
-	            this.mask
-	        );
-	        Ext.Window.superclass.beforeDestroy.call(this);
-	    }
-	});
 }
