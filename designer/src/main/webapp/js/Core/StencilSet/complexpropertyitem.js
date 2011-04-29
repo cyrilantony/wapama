@@ -88,7 +88,7 @@ WAPAMA.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
 				WAPAMA.Log.error(pair);
 				return;
 			}
-			new Ajax.Request(source, {
+			new Ajax.Request(source + "?time=" +(new Date()).getTime(), {
 				asynchronous: true,
 				method: 'get',
 				contentType: 'application/json',
