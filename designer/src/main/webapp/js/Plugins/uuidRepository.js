@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2010
- * Intalio, Inc
+ * Copyright (c) 2010-2011
+ * Intalio, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -174,7 +174,7 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 					// if the save function is invoked by "Save_n_Close" or "Window Close"
 					if (onClose) {
 						// close the window after saving succeed
-						WAPAMA.UI.closeInstanceWidow(WAPAMA.UUID + "_win");
+						WAPAMA.UI.closeInstanceWindow(WAPAMA.UUID + "_win");
 					}
 				}).bind(this),
 			onFailure: (function(transport) {

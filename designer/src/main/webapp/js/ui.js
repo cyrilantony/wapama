@@ -8,29 +8,6 @@
  */
 if(!WAPAMA) var WAPAMA = {};
 WAPAMA.UI = {
-    // Ext.form.TextField
-    createTextField : function(config) {
-        var field = new Ext.form.TextField(config);
-        return field;
-    },
-    
-    // Ext.form.ComboBox
-    createComboBox : function(config) {
-        var field = new Ext.form.ComboBox(config);
-        return field;
-    },
-    
-    // Ext.form.Checkbox
-    createCheckbox : function(config) {
-        var field = new Ext.form.Checkbox(config);
-        return field;
-    },
-    
-    // Ext.form.TextArea
-    createTextArea : function(config) {
-        var field = new Ext.form.TextArea(config);
-        return field;
-    },
     
     /**
      * Create a text for shape name
@@ -140,7 +117,7 @@ WAPAMA.UI = {
      * 
      * @param {window} instanceWindowId
      */
-    closeInstanceWidow : function(instanceWindowId) {
+    closeInstanceWindow : function(instanceWindowId) {
         var instanceWindow = top.Ext.getCmp(instanceWindowId);
         instanceWindow.initialConfig.tools[5].handler.call(null, instanceWindow.tools.close, instanceWindow);
     },
