@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009-2010
+ * Copyright (c) 2009-2011
  * Sven Wagner-Boysen
  * Antoine Toulme, Intalio, Inc.
  *

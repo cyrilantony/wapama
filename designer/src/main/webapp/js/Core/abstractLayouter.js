@@ -1,6 +1,7 @@
 /**
  * Copyright (c) 2009
  * Willi Tscheschner
+ * Copyright (c) 2010-2011 Intalio, Inc.
  * 
  **/
 

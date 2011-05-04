@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005-2009 Wapama Project
- * Copyright (c) 2010 Intalio, Inc
+ * Copyright (c) 2010-2011 Intalio, Inc.
  * 
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -23,7 +23,7 @@
  *
  *
  * @author martin.czuchra
- * @author Intalio, Inc
+ * @author Intalio, Inc.
  */
  
 if(!WAPAMA) var WAPAMA = {};

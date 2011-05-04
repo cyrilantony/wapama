@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010
+ * Copyright (c) 2010-2011
  * Antoine Toulme, Intalio Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

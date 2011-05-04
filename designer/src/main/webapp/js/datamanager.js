@@ -1,4 +1,5 @@
 /**
+ * Copyright (c) 2009-2011 Intalio, Inc.
  * @author martin.czuchra
  */
 

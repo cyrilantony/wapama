@@ -1,6 +1,7 @@
 /**
  * Copyright (c) 2006
  * Martin Czuchra, Nicolas Peters, Daniel Polak, Willi Tscheschner
+ * Copyright (c) 2009-2011 Intalio, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),

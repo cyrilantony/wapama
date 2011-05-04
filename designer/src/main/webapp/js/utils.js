@@ -1,5 +1,5 @@
-
 /**
+ * Copyright (c) 2009-2011 Intalio, Inc.
  * @namespace Wapama name space for different utility methods
  * @name WAPAMA.Utils
 */
