@@ -79,7 +79,7 @@ WAPAMA.Core.StencilSet.ComplexPropertyItem = Clazz.extend({
 		} else if (jsonItem.type === WAPAMA.CONFIG.TYPE_DYNAMIC_CHOICE) {
 			// initiate the DynamicChoice datastore using asynchronous ajax
 			var item = jsonItem.items[0]
-			var source = "http://" + window.location.host + "/designer/integration"
+			var source = window.location.protocol + "//" + window.location.host + "/designer/integration"
 			if (item.module !== undefined && item.columns !== undefined){
 				var id = item.columns.id != undefined ? item.columns.id : "xid";
 				var name = item.columns.name != undefined ? item.columns.name : "name";
