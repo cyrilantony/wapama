@@ -8,4 +8,5 @@ Export-Package: org.wapama.web.plugin;version="1.0.0",
  org.wapama.web.profile;version="1.0.0",
  org.wapama.web.repository;version="1.0.0",
  org.wapama.web.stencilset;version="1.0.0"
-Require-Bundle: javax.servlet;bundle-version="2.5.0"
+Import-Package: javax.servlet;version="2.5.0",
+ javax.servlet.http;version="2.5.0"
