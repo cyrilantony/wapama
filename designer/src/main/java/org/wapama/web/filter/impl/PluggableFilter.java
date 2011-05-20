@@ -32,6 +32,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wapama.web.filter.ConfigurableFilterConfig;
 import org.wapama.web.filter.IFilterFactory;
 
@@ -44,32 +46,39 @@ import org.wapama.web.filter.IFilterFactory;
  */
 public class PluggableFilter implements Filter {
     
+    private static final Logger _logger = LoggerFactory.getLogger(PluggableFilter.class);
+    
     private static List<IFilterFactory> _registeredFilters = new ArrayList<IFilterFactory>();
     private List<Filter> _filters = new ArrayList<Filter>();
     private FilterConfig _filterConfig;
     
     
     public static void registerFilter(IFilterFactory filter) {
+        _logger.debug("Registering new filter factory {}", filter);
         _registeredFilters.add(filter);
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
+        _logger.debug("Initialized the Pluggable filter");
         _filterConfig = filterConfig;
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (_filters.size() != _registeredFilters.size()) {
+            _logger.debug("Initializing loggers from logger factories");
             for (Filter f : _filters) {
                 f.destroy();
             }
             _filters.clear();
             for (IFilterFactory f : _registeredFilters) {
+                _logger.debug("Initializing filter {}", f);
                 Filter filter = f.createFilter();
                 ConfigurableFilterConfig config = new ConfigurableFilterConfig(_filterConfig);
                 f.configureFilterConfig(config);
                 filter.init(config);
                 _filters.add(filter);
             }
+            _logger.debug("Done initializing loggers from logger factories");
         }
         new FilterChainImpl(_filters, chain).doFilter(request, response);
         if (!response.isCommitted()) {
@@ -78,6 +87,7 @@ public class PluggableFilter implements Filter {
     }
 
     public void destroy() {
+        _logger.debug("Destroying pluggable filter");
         for (Filter filter : _filters) {
             filter.destroy();
         }

@@ -51,71 +51,62 @@ public class Activator implements BundleActivator {
         {
             ServiceReference sRef =
                 context.getServiceReference(IDiagramPreferenceService.class.getName());
-            if (sRef != null) {
-            	IDiagramPreferenceService service = (IDiagramPreferenceService) context.getService(sRef);
-                EditorHandler.PREFERENCE_FACTORY = service;
-            } else {
-                //use a service tracker to be called back when the IUUIDBasedRepositoryFactory is ready:
-                ServiceTrackerCustomizer cust = new ServiceTrackerCustomizer() {
+            IDiagramPreferenceService service = (IDiagramPreferenceService) context.getService(sRef);
+            EditorHandler.PREFERENCE_FACTORY = service;
+            //use a service tracker to be called back when the IUUIDBasedRepositoryFactory is ready:
+            ServiceTrackerCustomizer cust = new ServiceTrackerCustomizer() {
 
-                    public void removedService(ServiceReference reference, Object service) {
-                        //special servlet shutdown
-                    }
+                public void removedService(ServiceReference reference, Object service) {
+                    //special servlet shutdown
+                }
 
-                    public void modifiedService(ServiceReference reference, Object service) {
-                        //reload?
-                    }
+                public void modifiedService(ServiceReference reference, Object service) {
+                    //reload?
+                }
 
-                    public Object addingService(ServiceReference reference) {
-                    	IDiagramPreferenceService service = (IDiagramPreferenceService) context.getService(reference);
-                        EditorHandler.PREFERENCE_FACTORY = service;
-                        return service;
-                    }
-                };
-                ServiceTracker tracker = new ServiceTracker(context,
-                		IDiagramPreferenceService.class.getName(), cust);
-                tracker.open();
-
-            }
+                public Object addingService(ServiceReference reference) {
+                    IDiagramPreferenceService service = (IDiagramPreferenceService) context.getService(reference);
+                    EditorHandler.PREFERENCE_FACTORY = service;
+                    return service;
+                }
+            };
+            ServiceTracker tracker = new ServiceTracker(context,
+                    IDiagramPreferenceService.class.getName(), cust);
+            tracker.open();
         }
 
         {
-            ServiceReference sRef =
-                context.getServiceReference(IFilterFactory.class.getName());
-            if (sRef != null) {
-                IFilterFactory service = (IFilterFactory) context.getService(sRef);
-                PluggableFilter.registerFilter(service);
-            } else {
-                //use a service tracker to be called back when the IFilterFactory is ready:
-                ServiceTrackerCustomizer cust = new ServiceTrackerCustomizer() {
-
-                    public void removedService(ServiceReference reference, Object service) {
-                        //special servlet shutdown
-                    }
-
-                    public void modifiedService(ServiceReference reference, Object service) {
-                        //reload?
-                    }
-
-                    public Object addingService(ServiceReference reference) {
-                        IFilterFactory service = (IFilterFactory) context.getService(reference);
-                        PluggableFilter.registerFilter(service);
-                        return service;
-                    }
-                };
-                ServiceTracker tracker = new ServiceTracker(context,
-                        IFilterFactory.class.getName(), cust);
-                tracker.open();
-
+            ServiceReference[] sRefs = context.getServiceReferences(IFilterFactory.class.getName(), null);
+            if (sRefs != null) {
+                for (ServiceReference sRef : sRefs) {
+                    IFilterFactory service = (IFilterFactory) context.getService(sRef);
+                    PluggableFilter.registerFilter(service);
+                }
             }
+            //use a service tracker to be called back when the IFilterFactory is ready:
+            ServiceTrackerCustomizer cust = new ServiceTrackerCustomizer() {
+
+                public void removedService(ServiceReference reference, Object service) {
+                    //special servlet shutdown
+                }
+
+                public void modifiedService(ServiceReference reference, Object service) {
+                    //reload?
+                }
+
+                public Object addingService(ServiceReference reference) {
+                    IFilterFactory service = (IFilterFactory) context.getService(reference);
+                    PluggableFilter.registerFilter(service);
+                    return service;
+                }
+            };
+            ServiceTracker tracker = new ServiceTracker(context,
+                    IFilterFactory.class.getName(), cust);
+            tracker.open();
         }
         
         {
-        	ServiceReference[] sRefs = null;
-	        try {
-	            sRefs = context.getServiceReferences(IDiagramProfileFactory.class.getName(), null);
-	        } catch (InvalidSyntaxException e) {
-	        }
+        	ServiceReference[] sRefs = context.getServiceReferences(IDiagramProfileFactory.class.getName(), null);
 	        if (sRefs != null) {
 	            for (ServiceReference sRef : sRefs) {
 	                IDiagramProfileFactory service = (IDiagramProfileFactory) context.getService(sRef);
