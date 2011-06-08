@@ -395,6 +395,8 @@ WAPAMA.I18N.PropertyWindow.dateFormat = "m/d/y";
 WAPAMA.I18N.PropertyWindow.mappingeditor = "マッピングエディター";
 WAPAMA.I18N.PropertyWindow.expression = "式エディター";
 WAPAMA.I18N.PropertyWindow.xpathTextarea = "xpath 式の挿入";
+WAPAMA.I18N.PropertyWindow.True = "真";
+WAPAMA.I18N.PropertyWindow.False = "偽";
 
 if(!WAPAMA.I18N.ShapeMenuPlugin) WAPAMA.I18N.ShapeMenuPlugin = {};
 

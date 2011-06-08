@@ -231,6 +231,12 @@ WAPAMA.Plugins.PropertyWindow = {
 		if(value instanceof Date) {
 			// TODO: Date-Schema is not generic
 			value = value.dateFormat(WAPAMA.I18N.PropertyWindow.dateFormat);
+		} else if (typeof value == "boolean") {
+			if (value == true){
+				value = WAPAMA.I18N.PropertyWindow.True;
+			} else if (value == false){
+				value = WAPAMA.I18N.PropertyWindow.False;
+			}
 		} else if(String(value).search("<a href='") < 0) {
 			// Shows the Value in the Grid in each Line
 			value = String(value).gsub("<", "&lt;");

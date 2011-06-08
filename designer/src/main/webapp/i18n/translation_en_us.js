@@ -395,6 +395,8 @@ WAPAMA.I18N.PropertyWindow.dateFormat = "m/d/y";
 WAPAMA.I18N.PropertyWindow.mappingeditor = "Mapping Editor";
 WAPAMA.I18N.PropertyWindow.expression = "Expression Editor";
 WAPAMA.I18N.PropertyWindow.xpathTextarea = "Insert xpath expression";
+WAPAMA.I18N.PropertyWindow.True = "true";
+WAPAMA.I18N.PropertyWindow.False = "false";
 
 if(!WAPAMA.I18N.ShapeMenuPlugin) WAPAMA.I18N.ShapeMenuPlugin = {};
 
