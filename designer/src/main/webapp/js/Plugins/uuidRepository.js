@@ -130,6 +130,12 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 					shape.propertyNames[property._jsonProp.id]=property._jsonProp.title
 				});
 				
+				for (var property in shape.properties) {
+					shape.properties[property] = String(shape.properties[property]).gsub("<", "&lt;");
+					shape.properties[property] = String(shape.properties[property]).gsub(">", "&gt;");
+					shape.properties[property] = String(shape.properties[property]).gsub("\"", "&quot;");
+					shape.properties[property] = String(shape.properties[property]).gsub("%", "&#37;");
+				}
 			});
 		}
 		var serializedDOM = WAPAMA.UI.encode(json);

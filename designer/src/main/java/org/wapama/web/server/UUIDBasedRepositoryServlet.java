@@ -256,8 +256,6 @@ public class UUIDBasedRepositoryServlet extends HttpServlet {
             String uuid = (String) jsonObject.get("uuid");
             String profileName = (String) jsonObject.get("profile");
             boolean autosave = jsonObject.getBoolean("savetype");
-            
-            json = json.replaceAll("<", "&lt;");
 
             if (_logger.isDebugEnabled()) {
                 _logger.debug("Calling UUIDBasedRepositoryServlet doPost()...");

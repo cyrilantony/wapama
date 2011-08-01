@@ -241,6 +241,7 @@ WAPAMA.Plugins.PropertyWindow = {
 			// Shows the Value in the Grid in each Line
 			value = String(value).gsub("<", "&lt;");
 			value = String(value).gsub(">", "&gt;");
+			value = String(value).gsub("\"", "&quot;");
 			value = String(value).gsub("%", "&#37;");
 			value = String(value).gsub("&", "&amp;");
 
