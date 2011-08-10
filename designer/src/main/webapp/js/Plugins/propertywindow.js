@@ -242,6 +242,7 @@ WAPAMA.Plugins.PropertyWindow = {
 			value = String(value).gsub("<", "&lt;");
 			value = String(value).gsub(">", "&gt;");
 			value = String(value).gsub("\"", "&quot;");
+			value = String(value).gsub("'", "&apos;");
 			value = String(value).gsub("%", "&#37;");
 			value = String(value).gsub("&", "&amp;");
 

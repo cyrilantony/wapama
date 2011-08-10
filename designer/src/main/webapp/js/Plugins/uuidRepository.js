@@ -134,6 +134,7 @@ WAPAMA.Plugins.UUIDRepositorySave = WAPAMA.Plugins.AbstractPlugin.extend({
 					shape.properties[property] = String(shape.properties[property]).gsub("<", "&lt;");
 					shape.properties[property] = String(shape.properties[property]).gsub(">", "&gt;");
 					shape.properties[property] = String(shape.properties[property]).gsub("\"", "&quot;");
+					shape.properties[property] = String(shape.properties[property]).gsub("'", "&apos;");
 					shape.properties[property] = String(shape.properties[property]).gsub("%", "&#37;");
 				}
 			});
