@@ -7,3 +7,4 @@ designer/src/main/webapp/repository
 .externalToolBuilders
 designer/src/main/webapp/jsc/*.js
 _site
+.directory

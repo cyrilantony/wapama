@@ -92,20 +92,40 @@ public class UUIDBasedFileRepository implements IUUIDBasedRepository {
         return output.toByteArray();
     }
 
-    public void save(HttpServletRequest req, String uuid, String json, String svg, IDiagramProfile profile, Boolean autosave) {
-        String ext = profile.getSerializedModelExtension();
+    public void save(HttpServletRequest req, final String uuid, final String json, String svg, IDiagramProfile profile, Boolean autosave) {
+        final String ext = profile.getSerializedModelExtension();
         String model = "";
         try {
-            IDiagramMarshaller marshaller = profile.createMarshaller();
+//            profile.createMarshaller();
+            IDiagramMarshaller marshaller = new IDiagramMarshaller() {
+
+                @Override
+                public String parseModel(String jsonModel) {
+                    try {
+                        System.out.println("YES , trying to write bpmn file");
+                        java.lang.reflect.Method method;
+                        Class<?> class1 = Class
+                                .forName("org.wapama.bpmn2.impl.Bpmn2JsonUnmarshaller");
+                        Object obj = class1.newInstance();
+                        method = class1.getMethod("unmarshallAndWriteToFile",
+                                String.class, String.class);
+                        method.invoke(obj, json, _repositoryPath + "/" + uuid
+                                + "." + ext);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return "done";
+                }
+            };
             model = marshaller.parseModel(json);
-        } catch(Exception e) {
+        } catch (Exception e) {
             _logger.error(e.getMessage(), e);
         }
-        writeFile(model, _repositoryPath + "/" + uuid + "." + ext);
+//        writeFile(model, _repositoryPath + "/" + uuid + "." + ext);
         writeFile(json, _repositoryPath + "/" + uuid + ".json");
-        if (!autosave) {
+//        if (!autosave) {
         	writeFile(svg, _repositoryPath + "/" + uuid + ".svg");
-        }
+//        }
     }
     
     private static void writeFile(String contents, String filename) {

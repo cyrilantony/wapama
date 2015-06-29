@@ -240,6 +240,9 @@ public class EditorHandler extends HttpServlet {
             throws ServletException, IOException {
         Document doc = (Document) _doc.clone();
         String profileName = request.getParameter("profile");
+        if(null==profileName|| profileName.isEmpty()){
+            profileName = "default";
+        }
         IDiagramProfile profile = _profileService.findProfile(
                 request, profileName);
         if (profile == null) {

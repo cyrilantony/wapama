@@ -23,8 +23,10 @@
 package org.wapama.bpmn2.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -128,6 +130,11 @@ public class Bpmn2JsonUnmarshaller {
         return unmarshall(new JsonFactory().createJsonParser(json));
     }
 
+    public void unmarshallAndWriteToFile(String json, String pathname)
+            throws JsonParseException, IOException {
+        Definitions definitions = unmarshall(json);
+        definitions.eResource().save(new FileOutputStream(new File(pathname)), Collections.emptyMap());
+    }
     public Definitions unmarshall(File file) throws JsonParseException, IOException {
         return unmarshall(new JsonFactory().createJsonParser(file));
     }

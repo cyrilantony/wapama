@@ -101,7 +101,7 @@ git co gh-pages ; jekyll #{File.join(File.dirname(__FILE__), "distrib/target/doc
 git co master
 BASH
     end
-    package(:zip).include _("target/doc"), :as => "doc"
+    #package(:zip).include _("target/doc"), :as => "doc"
     # Done with the doc.
     
     # Include the license

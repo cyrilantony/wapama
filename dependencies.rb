@@ -13,10 +13,12 @@ JACKSON = ["org.codehaus.jackson:jackson-core-asl:jar:1.5.6", "org.codehaus.jack
 JSON_LIB = "org.json:json:jar:20090211"
 XML_LIBS = "org.jdom:jdom:jar:1.1"
 SLF4J = "org.slf4j:slf4j-api:jar:1.5.8"
+SLF4J_LOG4J_12 = "org.slf4j:slf4j-log4j12:jar:1.7.6"
+LOG4J="log4j:log4j:jar:1.2.17"
 SERVLET_API = ["javax.servlet:servlet-api:jar:2.5"]
 JS = "rhino:js:jar:1.7R2"
 
-WAR_LIBS = [JS, SERVLET_API, SLF4J, XML_LIBS, JSON_LIB, OSGI, YUICOMPRESSOR] | BPMN2_LIBS | JACKSON
+WAR_LIBS = [JS, SERVLET_API, SLF4J, XML_LIBS, JSON_LIB, OSGI, YUICOMPRESSOR, SLF4J_LOG4J_12, LOG4J] | BPMN2_LIBS | JACKSON
 
 WAR_LIBS_JBOSS = WAR_LIBS | ["org.slf4j:slf4j-jdk14:jar:1.5.6"]
 
